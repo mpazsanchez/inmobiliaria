@@ -1,15 +1,15 @@
-// public-navbar.component.scss
+@import '../../../../../assets/styles/_variables.scss';
 
 // Variables de diseño - Estilo Vercel/Xafran
 $navbar-height: 110px;
-$primary-color: #000000;
-$secondary-color: #0070f3;
+$primary-color: $blue-three;
+$secondary-color: $blue-two;
 $accent-color: #ff0080;
-$text-dark: #000000;
-$text-light: #666666;
-$text-muted: #999999;
+$text-dark: $black-one;
+$text-light: $gray-two;
+$text-muted: $gray-three;
 $background-white: rgba(255, 255, 255, 0.527);
-$background-blur: rgba(255, 255, 255, 0.534);
+$background-blur: rgba(255, 255, 255, 0.767);
 $shadow-subtle: 0 0 0 1px rgba(0, 0, 0, 0.05);
 $shadow-elevated: 0 8px 30px rgba(0, 0, 0, 0.12);
 $border-radius: 8px;

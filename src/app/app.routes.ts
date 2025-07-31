@@ -8,6 +8,9 @@ import { Routes } from "@angular/router";
 import { PublicLayoutComponent } from "./layout/public-layout/public-layout.component";
 import { HomeComponent } from "./features/public-site/pages/home/home.component";
 
+
+
+
 // // Importar componentes principales
 // import { PublicLayoutComponent } from './layout/public-layout/public-layout.component';
 // import { MemberLayoutComponent } from './layout/member-layout/member-layout.component';
@@ -56,6 +59,8 @@ export const routes: Routes = [
     component: PublicLayoutComponent,
     children: [
       { path: '', component: HomeComponent, data: { title: 'Inicio - Glazing™' } },
+      // { path: 'home2', component: HomeTwoComponent, data: { title: 'Inicio - Glazing™' } }
+
     //   { path: 'services', component: ServicesComponent, data: { title: 'Servicios' } },
     //   { path: 'about', component: AboutComponent, data: { title: 'Nosotros' } },
     //   { path: 'contact', component: ContactComponent, data: { title: 'Contacto' } },
