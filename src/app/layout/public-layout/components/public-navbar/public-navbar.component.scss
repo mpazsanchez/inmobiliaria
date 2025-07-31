@@ -8,8 +8,8 @@ $accent-color: #ff0080;
 $text-dark: #000000;
 $text-light: #666666;
 $text-muted: #999999;
-$background-white: rgba(255, 255, 255, 0.8);
-$background-blur: rgba(255, 255, 255, 0.95);
+$background-white: rgba(255, 255, 255, 0.527);
+$background-blur: rgba(255, 255, 255, 0.534);
 $shadow-subtle: 0 0 0 1px rgba(0, 0, 0, 0.05);
 $shadow-elevated: 0 8px 30px rgba(0, 0, 0, 0.12);
 $border-radius: 8px;
@@ -26,7 +26,8 @@ $transition-fast: all 0.1s ease;
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   z-index: 1030;
   transition: $transition-smooth;
-  position: relative;
+  // position: relative;
+    position: absolute;
 
   &.scrolled {
     background: $background-blur;
@@ -89,7 +90,7 @@ $transition-fast: all 0.1s ease;
     }
   }
 
-  // Menú principal - Estilo Vercel con hover background
+  // Menú principal
   .main-nav {
     gap: 0;
     position: relative;
@@ -234,9 +235,9 @@ $transition-fast: all 0.1s ease;
 }
 
 // Spacer para navbar fixed
-.navbar-spacer {
-  height: $navbar-height;
-}
+// .navbar-spacer {
+//   height: $navbar-height;
+// }
 
 // Responsive design - Estilo Vercel
 @media (max-width: 991.98px) {
@@ -318,7 +319,7 @@ $transition-fast: all 0.1s ease;
   outline-offset: 2px;
 }
 
-// Efecto de hover del cursor siguiendo (opcional - estilo Vercel avanzado)
+// Efecto de hover del cursor siguiendo
 @supports (backdrop-filter: blur(1px)) {
   .modern-navbar {
     .main-nav {
