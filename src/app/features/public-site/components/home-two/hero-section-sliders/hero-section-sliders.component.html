@@ -1,0 +1,60 @@
+<div class="carousel slide carousel-fade" 
+     id="heroCarousel" 
+     data-bs-ride="carousel"
+     data-bs-interval="5000">
+  
+  <!-- Indicators -->
+  <div class="carousel-indicators">
+    <button 
+      *ngFor="let item of sliderItems; let i = index; trackBy: trackBySlideId"
+      type="button" 
+      [attr.data-bs-target]="'#heroCarousel'"
+      [attr.data-bs-slide-to]="i"
+      [class.active]="i === 0"
+      [attr.aria-current]="i === 0 ? 'true' : null"
+      [attr.aria-label]="'Slide ' + (i + 1)">
+    </button>
+  </div>
+
+  <!-- Slides -->
+  <div class="carousel-inner">
+    <div 
+      *ngFor="let slide of sliderItems; let i = index; trackBy: trackBySlideId"
+      class="carousel-item"
+      [class.active]="i === 0">
+      
+      <img 
+        class="d-block w-100 carousel-image" 
+        [src]="slide.imageUrl" 
+        [alt]="slide.altText"
+        loading="lazy">
+      
+      <!-- Optional overlay content -->
+      <div class="carousel-caption d-none d-md-block" *ngIf="slide.title || slide.description">
+        <h2 class="display-4 fw-bold mb-3" *ngIf="slide.title">{{ slide.title }}</h2>
+        <p class="lead" *ngIf="slide.description">{{ slide.description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <button 
+    class="carousel-control-prev" 
+    type="button" 
+    data-bs-target="#heroCarousel" 
+    data-bs-slide="prev"
+    aria-label="Previous slide">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  
+  <button 
+    class="carousel-control-next" 
+    type="button" 
+    data-bs-target="#heroCarousel" 
+    data-bs-slide="next"
+    aria-label="Next slide">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
