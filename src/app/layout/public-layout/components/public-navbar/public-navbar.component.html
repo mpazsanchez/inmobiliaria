@@ -1,11 +1,81 @@
-<ul ngbNav #nav="ngbNav" class="nav-tabs">
-  <li ngbNavItem>
-    <button ngbNavLink>First</button>
-    <ng-template ngbNavContent>First content</ng-template>
-  </li>
-  <li ngbNavItem>
-    <button ngbNavLink>Second</button>
-    <ng-template ngbNavContent>Second content</ng-template>
-  </li>
-</ul>
-<div [ngbNavOutlet]="nav"></div>
+<nav class="modern-navbar navbar navbar-expand-lg navbar-light fixed-top">
+  <div class="container-fluid px-4">
+    
+    <!-- Logo y nombre de empresa -->
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img [src]="'../../../../../assets/images/logos/logotipo.png'" [alt]="config.companyName" class="navbar-logo me-2">
+      <!-- <span class="brand-name">{{ config.companyName }}</span> -->
+    </a>
+
+    <!-- Toggle button para móvil -->
+    <button 
+      class="navbar-toggler border-0" 
+      type="button" 
+      (click)="toggleMobileMenu()"
+      [attr.aria-expanded]="!isMenuCollapsed"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Menú principal -->
+    <div class="collapse navbar-collapse justify-content-center" 
+         [class.show]="!isMenuCollapsed" 
+         id="navbarNav">
+      
+      <ul class="navbar-nav main-nav">
+        <li class="nav-item" 
+            *ngFor="let item of mainMenuItems" 
+            [class.dropdown]="hasChildren(item)">
+          
+          <!-- Elemento sin hijos -->
+          <a *ngIf="!hasChildren(item)" 
+             class="nav-link" 
+             [href]="item.link"
+             (click)="onMenuItemClick(item, $event)">
+            {{ item.titleShow }}
+          </a>
+
+          <!-- Elemento con dropdown -->
+          <div *ngIf="hasChildren(item)" ngbDropdown class="d-inline-block">
+            <a class="nav-link dropdown-toggle" 
+               href="#" 
+               role="button" 
+               ngbDropdownToggle
+               id="dropdown-{{ item.id }}"
+               [attr.aria-expanded]="false">
+              {{ item.titleShow }}
+            </a>
+            
+            <div ngbDropdownMenu 
+                 class="dropdown-menu-modern"
+                 [attr.aria-labelledby]="'dropdown-' + item.id">
+              <a *ngFor="let child of item.children" 
+                 class="dropdown-item" 
+                 [href]="child.link"
+                 (click)="onMenuItemClick(child, $event)">
+                {{ child.titleShow }}
+              </a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Carrito de compras -->
+    <div class="navbar-cart" *ngIf="config.cartEnabled">
+      <button class="btn cart-btn position-relative" 
+              type="button"
+              (click)="onCartClick()">
+        <i class="fas fa-shopping-cart"></i>
+        <span *ngIf="cartItemCount > 0" 
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          {{ cartItemCount }}
+        </span>
+      </button>
+    </div>
+
+  </div>
+</nav>
+
+<!-- Spacer para compensar la navbar fixed -->
+<div class="navbar-spacer"></div>
