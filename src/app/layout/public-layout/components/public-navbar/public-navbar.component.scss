@@ -44,11 +44,12 @@ $transition-fast: all 0.1s ease;
 
   // Logo y marca - Estilo Vercel
   .navbar-brand {
-    font-weight: 600;
+    // font-weight: bold;
     color: $primary-color !important;
     text-decoration: none;
     transition: $transition-fast;
-    font-size: 1.125rem;
+    // font-size: 1.125rem;
+    font-size: 16px;
     letter-spacing: -0.025em;
     
     &:hover {
@@ -56,16 +57,10 @@ $transition-fast: all 0.1s ease;
     }
 
     .navbar-logo {
-      height: 32px;
+      height: 64px;
       width: auto;
       object-fit: contain;
       transition: $transition-fast;
-    }
-
-    .brand-name {
-      font-size: 1.125rem;
-      font-weight: 600;
-      letter-spacing: -0.025em;
     }
   }
 
@@ -104,8 +99,8 @@ $transition-fast: all 0.1s ease;
 
       .nav-link {
         color: $text-dark;
-        font-weight: 400;
-        font-size: 0.875rem;
+        // font-weight: bold;
+        font-size: 16px;
         padding: 8px 16px;
         margin: 0 4px;
         border-radius: 6px;
@@ -194,8 +189,8 @@ $transition-fast: all 0.1s ease;
   .navbar-cart {
     .cart-btn {
       background: transparent;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      border-radius: 6px;
+      // border: 1px solid rgba(0, 0, 0, 0.1);
+      // border-radius: 6px;
       width: 40px;
       height: 40px;
       display: flex;
