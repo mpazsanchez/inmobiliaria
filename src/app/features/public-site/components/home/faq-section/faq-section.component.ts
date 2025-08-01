@@ -34,20 +34,20 @@ export class FaqSectionComponent {
     },
     {
       id: 'faq2',
-      question: '¿Qué tipos de láminas solares ofrecen y cuál es mejor para mi vehículo?',
-      answer: 'Ofrecemos láminas cerámicas, metalizadas y nanotecnológicas. Para vehículos recomendamos láminas cerámicas que no interfieren con señales electrónicas y ofrecen excelente rechazo de calor y protección UV.',
+      question: '¿Cómo encuentro un instalador certificado Glazing cerca de mi ubicación?',
+      answer: 'Nuestra plataforma conecta automáticamente con el instalador certificado más cercano a tu zona. Solo necesitas solicitar un presupuesto y te derivaremos al profesional disponible con garantía oficial.',
       isOpen: false
     },
     {
       id: 'faq3',
-      question: '¿Cuál es el propósito de la formación profesional en Glazing?',
-      answer: 'Nuestro programa de formación certifica instaladores profesionales con técnicas avanzadas, acceso a materiales premium y soporte técnico continuo. Los certificados obtienen clientes referidos y forman parte de nuestra red oficial.',
+      question: '¿Qué garantía tienen las instalaciones de láminas solares?',
+      answer: 'Todos nuestros instaladores certificados emiten garantías oficiales Glazing verificables con código QR. Incluye respaldo técnico, registro en base de datos y soporte postventa prioritario.',
       isOpen: false
     },
     {
       id: 'faq4',
-      question: '¿Puedo tener éxito en esta plataforma con mi experiencia actual?',
-      answer: 'Sí, Glazing está diseñado para profesionales de todos los niveles. Desde principiantes que buscan formación hasta expertos que quieren acceder a materiales premium y ampliar su red de clientes.',
+      question: '¿Cuánto puedo ahorrar en mi factura energética con láminas solares?',
+      answer: 'Dependiendo del tipo de ventanas y exposición solar, los clientes reportan ahorros del 30-50% en costos de climatización. El retorno de inversión típico es de 2-3 años.',
       isOpen: false
     }
   ];

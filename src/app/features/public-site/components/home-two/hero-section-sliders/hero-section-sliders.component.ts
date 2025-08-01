@@ -33,47 +33,47 @@ export class HeroSectionSlidersComponent {
       id: 'slide-1',
       imageUrl: './assets/images/backgrounds/solarcheck/slide-1.jpg',
       altText: 'Instalación profesional de láminas solares Glazing',
-      title: 'PROFESIONALES EN',
-      subtitle: 'LÁMINAS SOLARES',
-      description: 'Transforma tus ventanas con tecnología premium de protección solar',
+      title: 'AHORRA ENERGÍA',
+      subtitle: 'CON LÁMINAS SOLARES',
+      description: 'Reduce hasta un 80% del calor solar y mejora el confort de tu hogar o negocio con instalación profesional garantizada',
       primaryButton: {
-        text: 'DESCUBRE MÁS',
+        text: 'SOLICITAR PRESUPUESTO',
         action: 'discover'
       },
       secondaryButton: {
-        text: 'Ver Nuestro Proceso',
+        text: 'Ver Instalaciones',
         action: 'video'
       }
     },
     {
       id: 'slide-2', 
       imageUrl: './assets/images/backgrounds/solarcheck/slide-2.jpg',
-      altText: 'Servicios expertos de instalación y capacitación',
-      title: 'INSTALACIÓN',
-      subtitle: 'EXPERTA',
-      description: 'Instaladores certificados con calidad garantizada y capacitación profesional',
+      altText: 'Red de instaladores certificados Glazing',
+      title: 'INSTALADORES',
+      subtitle: 'CERTIFICADOS',
+      description: 'Conectamos con el profesional más cercano a tu ubicación. Calidad garantizada y respaldo técnico oficial',
       primaryButton: {
-        text: 'CERTIFÍCATE',
+        text: 'ENCONTRAR INSTALADOR',
         action: 'training'
       },
       secondaryButton: {
-        text: 'Ver Galería',
+        text: 'Ver Garantías',
         action: 'gallery'
       }
     },
     {
       id: 'slide-3',
       imageUrl: './assets/images/backgrounds/solarcheck/slide-3.png',
-      altText: 'Materiales premium y herramientas para profesionales',
-      title: 'MATERIALES',
-      subtitle: 'PREMIUM',
-      description: 'Láminas de alta calidad y herramientas profesionales para resultados excepcionales',
+      altText: 'Beneficios de las láminas solares residenciales y comerciales',
+      title: 'PROTECCIÓN',
+      subtitle: 'Y CONFORT',
+      description: 'Mejora la estética, seguridad y eficiencia energética de tus espacios con la mejor tecnología del mercado',
       primaryButton: {
-        text: 'COMPRAR AHORA',
+        text: 'VER BENEFICIOS',
         action: 'shop'
       },
       secondaryButton: {
-        text: 'Especificaciones',
+        text: 'Casos de Éxito',
         action: 'specs'
       }
     }

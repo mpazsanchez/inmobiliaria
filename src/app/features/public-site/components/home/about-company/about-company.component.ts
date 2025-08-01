@@ -33,15 +33,15 @@ export class AboutCompanyComponent {
   // Habilidades/servicios con porcentajes
   skills: SkillProgress[] = [
     {
-      name: 'Solar Films Installation',
+      name: 'Instalación de Láminas Solares',
       percentage: 95
     },
     {
-      name: 'Professional Training',
+      name: 'Formación Profesional',
       percentage: 90
     },
     {
-      name: 'Quality Materials',
+      name: 'Materiales de Calidad',
       percentage: 98
     }
   ];
@@ -54,10 +54,10 @@ export class AboutCompanyComponent {
 
   // Información de la empresa
   companyInfo = {
-    title: 'Transforma Ventanas con Láminas Solares Profesionales',
-    subtitle: 'ACERCA DE LA EMPRESA',
-    description: 'Glazing ofrece láminas solares premium y servicios de instalación profesional. Nuestra plataforma conecta instaladores certificados con materiales de calidad y capacitación integral. Con Glazing, hacemos tus ventanas más eficientes, protectoras y atractivas.',
-    ctaText: 'DESCUBRE MÁS'
+    title: 'Conectamos Tu Proyecto con Instaladores Certificados',
+    subtitle: 'ACERCA DE GLAZING',
+    description: 'Glazing es la plataforma líder que conecta clientes con instaladores certificados de láminas solares. Garantizamos calidad, respaldo técnico y los mejores materiales para transformar tus espacios con máximo ahorro energético.',
+    ctaText: 'SOLICITAR PRESUPUESTO'
   };
 
   // CEO/Fundador info

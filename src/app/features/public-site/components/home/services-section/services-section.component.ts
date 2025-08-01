@@ -19,33 +19,33 @@ export class ServicesSectionComponent {
 
   sectionInfo = {
     subtitle: 'NUESTROS SERVICIOS',
-    title: 'Servicios Profesionales de Láminas Solares'
+    title: 'Soluciones de Láminas Solares para Tu Hogar y Negocio'
   };
 
   services: ServiceItem[] = [
     {
-      icon: 'fas fa-car',
-      title: 'Polarizado Automotriz',
-      description: 'Instalación profesional de láminas solares para vehículos con garantía extendida y materiales premium de alta calidad.',
-      link: 'automotive'
+      icon: 'fas fa-home',
+      title: 'Láminas Residenciales',
+      description: 'Reduce hasta un 80% del calor solar en tu hogar. Ahorra en climatización y mejora el confort de tu familia con instalación profesional garantizada.',
+      link: 'residential'
     },
     {
       icon: 'fas fa-building',
-      title: 'Láminas Arquitectónicas',
-      description: 'Soluciones de control solar para edificios residenciales y comerciales que mejoran eficiencia energética y confort.',
-      link: 'architectural'
+      title: 'Soluciones Comerciales',
+      description: 'Mejora la eficiencia energética de tu oficina o local comercial. Instaladores certificados en toda España para proyectos corporativos.',
+      link: 'commercial'
     },
     {
-      icon: 'fas fa-graduation-cap',
-      title: 'Formación Profesional',
-      description: 'Cursos de capacitación técnica para instaladores con certificación oficial y acceso a grupo exclusivo de profesionales.',
-      link: 'training'
+      icon: 'fas fa-car',
+      title: 'Polarizado Vehicular',
+      description: 'Protege tu vehículo del calor y rayos UV. Instalación profesional con garantía oficial y materiales premium de última generación.',
+      link: 'automotive'
     },
     {
-      icon: 'fas fa-tools',
-      title: 'Herramientas Especializadas',
-      description: 'Venta de herramientas profesionales y materiales de primera calidad para instaladores certificados y distribuidores.',
-      link: 'tools'
+      icon: 'fas fa-shield-alt',
+      title: 'Garantía y Soporte',
+      description: 'Respaldo técnico completo con instaladores certificados Glazing. Garantía oficial verificable y soporte postventa especializado.',
+      link: 'warranty'
     }
   ];
 
