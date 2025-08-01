@@ -1,25 +1,110 @@
-<ngb-carousel 
-  [interval]="5000" 
-  [pauseOnHover]="true" 
-  [pauseOnFocus]="true"
-  [showNavigationArrows]="true"
-  [showNavigationIndicators]="true"
-  class="carousel-fade">
+<div class="hero-container">
+  <ngb-carousel 
+    [interval]="5000" 
+    [pauseOnHover]="true" 
+    [pauseOnFocus]="true"
+    [showNavigationArrows]="true"
+    [showNavigationIndicators]="false"
+    class="carousel-fade">
+    
+    <ng-template ngbSlide *ngFor="let slide of sliderItems; trackBy: trackBySlideId" [id]="slide.id">
+      <div class="carousel-item-wrapper">
+        <!-- Background Image -->
+        <img 
+          class="d-block w-100 carousel-image" 
+          [src]="slide.imageUrl" 
+          [alt]="slide.altText"
+          loading="lazy">
+        
+        <!-- Dark Overlay -->
+        <div class="hero-overlay"></div>
+        
+        <!-- Main Content -->
+        <div class="hero-content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-6 col-md-8 col-12">
+                <!-- Title Section -->
+                <div class="hero-text-section">
+                  <h1 class="hero-title" *ngIf="slide.title">
+                    {{ slide.title }}
+                  </h1>
+                  <h2 class="hero-subtitle" *ngIf="slide.subtitle">
+                    {{ slide.subtitle }}
+                  </h2>
+                  <p class="hero-description" *ngIf="slide.description">
+                    {{ slide.description }}
+                  </p>
+                  
+                  <!-- Action Buttons -->
+                  <div class="hero-buttons" *ngIf="slide.primaryButton || slide.secondaryButton">
+                    <button 
+                      *ngIf="slide.primaryButton"
+                      class="btn btn-primary hero-btn-primary"
+                      (click)="onButtonClick(slide.primaryButton.action)">
+                      {{ slide.primaryButton.text }}
+                    </button>
+                    
+                    <button 
+                      *ngIf="slide.secondaryButton"
+                      class="btn btn-outline-light hero-btn-secondary"
+                      (click)="onButtonClick(slide.secondaryButton.action)">
+                      <i class="fas fa-play-circle me-2"></i>
+                      {{ slide.secondaryButton.text }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-carousel>
   
-  <ng-template ngbSlide *ngFor="let slide of sliderItems; trackBy: trackBySlideId" [id]="slide.id">
-    <div class="carousel-item-wrapper">
-      <img 
-        class="d-block w-100 carousel-image" 
-        [src]="slide.imageUrl" 
-        [alt]="slide.altText"
-        loading="lazy">
-      
-      <!-- Caption overlay -->
-      <div class="carousel-caption d-none d-md-block" *ngIf="slide.title || slide.description">
-        <h2 class="display-4 fw-bold mb-3" *ngIf="slide.title">{{ slide.title }}</h2>
-        <p class="lead" *ngIf="slide.description">{{ slide.description }}</p>
+  <!-- Custom Navigation Indicators -->
+  <div class="hero-indicators">
+    <button 
+      *ngFor="let item of sliderItems; let i = index"
+      class="indicator-btn"
+      [class.active]="i === 0"
+      type="button">
+    </button>
+  </div>
+  
+  <!-- Contact Information Footer -->
+  <div class="hero-footer">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt me-2"></i>
+            {{ contactInfo.address }}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="contact-item">
+            <i class="fas fa-envelope me-2"></i>
+            {{ contactInfo.email }}
+          </div>
+        </div>
       </div>
     </div>
-  </ng-template>
+  </div>
   
-</ngb-carousel>
+  <!-- Social Media Icons -->
+  <div class="hero-social">
+    <a href="#" class="social-link" aria-label="Facebook">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="#" class="social-link" aria-label="Instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="#" class="social-link" aria-label="TikTok">
+      <i class="fab fa-tiktok"></i>
+    </a>
+    <a href="#" class="social-link" aria-label="YouTube">
+      <i class="fab fa-youtube"></i>
+    </a>
+  </div>
+</div>
