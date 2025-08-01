@@ -1,0 +1,90 @@
+<section class="faq-section">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-md-11 col-12">
+        
+        <div class="row">
+          
+          <!-- Left Side - FAQ -->
+          <div class="col-lg-7 col-md-12">
+            <div class="faq-content">
+              
+              <!-- FAQ Header -->
+              <div class="faq-header">
+                <div class="question-number">01</div>
+                <h2 class="faq-title">¿Cómo podemos mejorar el proceso de instalación de láminas solares?</h2>
+                <p class="faq-intro">
+                  Los elementos principales de nuestra estrategia de servicio son la calidad de materiales, 
+                  formación profesional y el soporte técnico continuo que empleamos para brindar 
+                  resultados excepcionales. Con Glazing, conseguimos la excelencia en cada instalación.
+                </p>
+              </div>
+              
+              <!-- FAQ Accordion -->
+              <div class="faq-accordion">
+                <div 
+                  class="faq-item" 
+                  *ngFor="let faq of faqItems; trackBy: trackByFaqId"
+                  [class.active]="faq.isOpen">
+                  
+                  <button 
+                    class="faq-question"
+                    (click)="toggleFAQ(faq.id)"
+                    [attr.aria-expanded]="faq.isOpen"
+                    [attr.aria-controls]="'answer-' + faq.id">
+                    
+                    <span class="question-text">{{ faq.question }}</span>
+                    <span class="toggle-icon">
+                      <i class="fas" [class.fa-plus]="!faq.isOpen" [class.fa-minus]="faq.isOpen"></i>
+                    </span>
+                  </button>
+                  
+                  <div 
+                    class="faq-answer"
+                    [id]="'answer-' + faq.id"
+                    [class.show]="faq.isOpen">
+                    <div class="answer-content">
+                      <p>{{ faq.answer }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          
+          <!-- Right Side - Value Propositions -->
+          <div class="col-lg-5 col-md-12">
+            <div class="value-props-content">
+              
+              <div 
+                class="value-prop-item" 
+                *ngFor="let prop of valuePropositions; trackBy: trackByTitle">
+                
+                <div class="prop-card" [style.background-image]="'url(' + prop.image + ')'">
+                  <div class="prop-overlay"></div>
+                  <div class="prop-content">
+                    
+                    <div class="prop-icon">
+                      <i [class]="prop.icon"></i>
+                    </div>
+                    
+                    <div class="prop-text">
+                      <h3 class="prop-title">{{ prop.title }}</h3>
+                      <h4 class="prop-subtitle">{{ prop.subtitle }}</h4>
+                    </div>
+                    
+                  </div>
+                </div>
+                
+              </div>
+              
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>

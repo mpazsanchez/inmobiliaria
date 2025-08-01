@@ -1,33 +1,35 @@
 @import '../../../../../assets/styles/_variables.scss';
 
-// Variables de diseño - Estilo Vercel/Xafran
-$navbar-height: 110px;
+// Variables de diseño - Estilo moderno transparente
+$navbar-height: 80px; // Reducido para ser más moderno
 $primary-color: $blue-three;
 $secondary-color: $blue-two;
 $accent-color: #ff0080;
 $text-dark: $black-one;
-$text-light: $gray-two;
-$text-muted: $gray-three;
-$background-white: rgba(255, 255, 255, 0.527);
-$background-blur: rgba(255, 255, 255, 0.767);
-$shadow-subtle: 0 0 0 1px rgba(0, 0, 0, 0.05);
-$shadow-elevated: 0 8px 30px rgba(0, 0, 0, 0.12);
+$text-light: rgba(255, 255, 255, 0.9); // Texto blanco para navbar transparente
+$text-muted: rgba(255, 255, 255, 0.7);
+$background-transparent: rgba(0, 0, 0, 0.1); // Fondo más transparente
+$background-blur: rgba(0, 0, 0, 0.2); // Fondo con blur más sutil
+$shadow-subtle: 0 0 0 1px rgba(255, 255, 255, 0.1);
+$shadow-elevated: 0 8px 30px rgba(0, 0, 0, 0.15);
 $border-radius: 8px;
-$transition-smooth: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-$transition-fast: all 0.1s ease;
+$transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-fast: all 0.2s ease;
 
 .modern-navbar {
   font-size: 16px;
-  background: $background-white;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: $background-transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   height: $navbar-height;
   padding: 0;
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  z-index: 1030;
+  z-index: 1050; // Aumentado para estar sobre todo
   transition: $transition-smooth;
-  // position: relative;
-    position: absolute;
+  position: fixed; // Fijo en la parte superior
+  top: 0;
+  left: 0;
+  right: 0;
 
   &.scrolled {
     background: $background-blur;
@@ -43,10 +45,10 @@ $transition-fast: all 0.1s ease;
     margin: 0 auto;
   }
 
-  // Logo y marca - Estilo Vercel
+  // Logo y marca - Estilo moderno transparente
   .navbar-brand {
     // font-weight: bold;
-    color: $primary-color !important;
+    color: rgba(255, 255, 255, 0.95) !important; // Logo en blanco
     text-decoration: none;
     transition: $transition-fast;
     // font-size: 1.125rem;
@@ -54,7 +56,8 @@ $transition-fast: all 0.1s ease;
     letter-spacing: -0.025em;
     
     &:hover {
-      opacity: 0.8;
+      color: rgba(255, 255, 255, 1) !important;
+      opacity: 0.9;
     }
 
     .navbar-logo {
@@ -99,7 +102,7 @@ $transition-fast: all 0.1s ease;
       position: relative;
 
       .nav-link {
-        color: $text-dark;
+        color: $text-light; // Cambio a texto claro para navbar transparente
         // font-weight: bold;
         font-size: 16px;
         padding: 8px 16px;
@@ -111,12 +114,12 @@ $transition-fast: all 0.1s ease;
         white-space: nowrap;
 
         &:hover {
-          color: $primary-color;
-          background: rgba(0, 0, 0, 0.05);
+          color: rgba(255, 255, 255, 1); // Blanco completo al hover
+          background: rgba(255, 255, 255, 0.1); // Fondo sutil blanco
         }
 
         &:focus {
-          outline: 2px solid rgba($secondary-color, 0.3);
+          outline: 2px solid rgba(255, 255, 255, 0.3);
           outline-offset: 2px;
         }
 
@@ -156,7 +159,7 @@ $transition-fast: all 0.1s ease;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
     padding: 8px;
     margin-top: 4px;
-    background: $background-white;
+    background: white;
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     min-width: 200px;
@@ -243,7 +246,7 @@ $transition-fast: all 0.1s ease;
 @media (max-width: 991.98px) {
   .modern-navbar {
     .navbar-collapse {
-      background: $background-white;
+      background: white;
       border: 1px solid rgba(0, 0, 0, 0.1);
       border-radius: 8px;
       margin-top: 8px;

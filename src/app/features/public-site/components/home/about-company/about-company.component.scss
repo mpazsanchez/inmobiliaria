@@ -1,0 +1,344 @@
+@import '../../../../../../assets/styles/_variables.scss';
+
+/* About Company Section - Modern Architecture Style */
+
+// Variables usando colores de marca Glazing
+$primary-blue: $blue-three; // #034EA2
+$secondary-blue: $blue-two; // #047BC1  
+$accent-blue: $blue-one; // #009ADE
+$dark-gray: $gray-three; // #333333
+$medium-gray: $gray-two; // #595959
+$light-gray: $gray-one; // #808080
+
+.about-company-section {
+  padding: 100px 0;
+  background: #ffffff;
+  
+  @media (max-width: 768px) {
+    padding: 60px 0;
+  }
+}
+
+/* Left Side - Visual Content */
+.about-visual-content {
+  position: relative;
+  height: 600px;
+  
+  @media (max-width: 768px) {
+    height: 400px;
+    margin-bottom: 3rem;
+  }
+}
+
+/* Large Number Display */
+.stats-display {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background: white;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  
+  @media (max-width: 768px) {
+    position: relative;
+    transform: none;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+  }
+}
+
+.big-number {
+  text-align: center;
+}
+
+.number {
+  font-size: 8rem;
+  font-weight: 900;
+  color: $dark-gray;
+  line-height: 0.8;
+  display: block;
+  
+  @media (max-width: 768px) {
+    font-size: 6rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 4rem;
+  }
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $medium-gray;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  margin-top: 1rem;
+  white-space: pre-line;
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
+}
+
+/* Image Container */
+.about-image-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 70%;
+  height: 100%;
+  
+  @media (max-width: 768px) {
+    position: relative;
+    width: 100%;
+    height: 300px;
+  }
+}
+
+.image-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 6px solid $primary-blue;
+  z-index: 1;
+  
+  @media (max-width: 768px) {
+    border-width: 4px;
+  }
+}
+
+.about-main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  position: relative;
+  z-index: 0;
+}
+
+/* Right Side - Content */
+.about-content {
+  padding-left: 3rem;
+  
+  @media (max-width: 1200px) {
+    padding-left: 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    padding-left: 0;
+  }
+}
+
+/* Section Header */
+.section-header {
+  margin-bottom: 2rem;
+}
+
+.section-subtitle {
+  color: $primary-blue;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: $dark-gray;
+  line-height: 1.2;
+  margin-bottom: 0;
+  
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.75rem;
+  }
+}
+
+/* Description */
+.section-description {
+  font-size: 1.1rem;
+  color: $medium-gray;
+  line-height: 1.7;
+  margin-bottom: 3rem;
+  
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+}
+
+/* Skills Section */
+.skills-section {
+  margin-bottom: 3rem;
+}
+
+.skill-item {
+  margin-bottom: 2rem;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.skill-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $dark-gray;
+}
+
+.skill-percentage {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $primary-blue;
+}
+
+.skill-bar {
+  height: 4px;
+  background-color: #f0f0f0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.skill-progress {
+  height: 100%;
+  background: linear-gradient(90deg, $primary-blue 0%, $accent-blue 100%);
+  border-radius: 2px;
+  transition: width 1.5s ease-in-out;
+  animation: skillLoad 2s ease-in-out;
+}
+
+@keyframes skillLoad {
+  from {
+    width: 0% !important;
+  }
+}
+
+/* CTA Section */
+.cta-section {
+  margin-bottom: 2rem;
+  padding: 2rem 0;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cta-button {
+  background-color: $primary-blue;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: $secondary-blue;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba($primary-blue, 0.3);
+  }
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Founder Info */
+.founder-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+}
+
+.founder-photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.founder-signature {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: $medium-gray;
+  font-style: italic;
+}
+
+/* Contact CTA */
+.contact-cta {
+  text-align: left;
+}
+
+.contact-description {
+  font-size: 1rem;
+  color: $medium-gray;
+  margin-bottom: 0.5rem;
+}
+
+.contact-phone {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $primary-blue;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: $accent-blue;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .about-content {
+    margin-top: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-company-section {
+    text-align: center;
+  }
+  
+  .contact-cta {
+    text-align: center;
+  }
+}
+
+/* Loading animations */
+.about-company-section {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,7 +1,9 @@
 /* Modern Hero Section - Architecture Style Design */
 
-// Variables
-$hero-red: #e31e24;
+// Variables - Usando colores de marca Glazing
+$hero-primary: #034EA2; // blue-three
+$hero-secondary: #047BC1; // blue-two  
+$hero-accent: #009ADE; // blue-one
 $hero-dark: #1a1a1a;
 $hero-light: rgba(255, 255, 255, 0.9);
 $hero-overlay: rgba(0, 0, 0, 0.6);
@@ -140,7 +142,7 @@ ngb-carousel,
 }
 
 .hero-btn-primary {
-  background-color: $hero-red;
+  background-color: $hero-primary;
   border: none;
   padding: 1rem 2rem;
   font-weight: 600;
@@ -150,9 +152,9 @@ ngb-carousel,
   transition: all 0.3s ease;
   
   &:hover {
-    background-color: darken($hero-red, 10%);
+    background-color: $hero-secondary;
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba($hero-red, 0.3);
+    box-shadow: 0 8px 25px rgba($hero-primary, 0.3);
   }
   
   @media (max-width: 480px) {
@@ -348,7 +350,7 @@ ngb-carousel,
   margin-bottom: 0.5rem;
   
   i {
-    color: $hero-red;
+    color: $hero-accent;
     width: 20px;
   }
   
