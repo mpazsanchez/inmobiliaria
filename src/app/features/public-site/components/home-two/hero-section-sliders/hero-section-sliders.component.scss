@@ -1,12 +1,22 @@
-/* Hero Carousel Styles */
-.carousel {
-  height: 60vh;
-  min-height: 400px;
-  max-height: 800px;
-
+/* Hero Carousel Styles - Full screen con navbar fijo */
+ngb-carousel,
+::ng-deep ngb-carousel .carousel {
+  height: 100vh; // Pantalla completa
+  min-height: 100vh; // Asegurar altura mínima completa
+  
   @media (max-width: 768px) {
-    height: 50vh;
-    min-height: 300px;
+    height: 100vh;
+    min-height: 100vh;
+  }
+}
+
+.carousel-item-wrapper {
+  height: 100vh;
+  min-height: 100vh;
+  
+  @media (max-width: 768px) {
+    height: 100vh;
+    min-height: 100vh;
   }
 }
 
@@ -16,30 +26,55 @@
   object-position: center;
 }
 
-.carousel-item {
+/* ng-bootstrap carousel item styling */
+::ng-deep .carousel-item {
   height: 100%;
 }
 
-/* Enhanced caption styling */
+/* Enhanced caption styling - Centro de pantalla */
 .carousel-caption {
-  bottom: 20%;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  bottom: 50%; // Centrado verticalmente
+  left: 50%;
+  right: auto;
+  transform: translate(-50%, 50%); // Centrado perfecto
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  max-width: 800px; // Ancho máximo para mejor legibilidad
+  padding: 2rem;
 
   h2 {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 3.5rem;
+    font-weight: 700;
     animation: slideInUp 0.8s ease-out;
+    
+    @media (max-width: 768px) {
+      font-size: 2.5rem;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 2rem;
+    }
   }
 
   p {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+    line-height: 1.6;
     animation: slideInUp 0.8s ease-out 0.2s both;
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
+    
+    @media (max-width: 768px) {
+      font-size: 1.25rem;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 1.1rem;
+    }
   }
 }
 
-/* Smooth transitions */
-.carousel-fade .carousel-item {
+/* ng-bootstrap fade effect */
+::ng-deep ngb-carousel.carousel-fade .carousel-item {
   opacity: 0;
   transition: opacity 0.6s ease-in-out;
 
@@ -48,8 +83,8 @@
   }
 }
 
-/* Custom indicator styling */
-.carousel-indicators {
+/* Custom indicator styling for ng-bootstrap */
+::ng-deep .carousel-indicators {
   [data-bs-target] {
     width: 12px;
     height: 12px;
@@ -66,9 +101,9 @@
   }
 }
 
-/* Control button enhancements */
-.carousel-control-prev,
-.carousel-control-next {
+/* Control button enhancements for ng-bootstrap */
+::ng-deep .carousel-control-prev,
+::ng-deep .carousel-control-next {
   width: 5%;
   opacity: 0.8;
   transition: opacity 0.3s ease;
@@ -99,13 +134,14 @@
 }
 
 /* Performance optimizations */
-.carousel-item {
+::ng-deep .carousel-item,
+.carousel-item-wrapper {
   will-change: transform;
 }
 
 /* Accessibility improvements */
 @media (prefers-reduced-motion: reduce) {
-  .carousel-fade .carousel-item {
+  ::ng-deep ngb-carousel.carousel-fade .carousel-item {
     transition: none;
   }
 

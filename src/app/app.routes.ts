@@ -59,8 +59,8 @@ export const routes: Routes = [
     path: '',
     component: PublicLayoutComponent,
     children: [
-      { path: '', component: HomeComponent, data: { title: 'Inicio - Glazing™' } },
-      { path: 'hometwo', component: HomeTwoComponent, data: { title: 'Inicio - Glazing™' } }
+      { path: '', component: HomeTwoComponent, data: { title: 'Inicio - Glazing™' } },
+      { path: 'homevideo', component: HomeComponent, data: { title: 'Inicio - Glazing™' } }
 
     //   { path: 'services', component: ServicesComponent, data: { title: 'Servicios' } },
     //   { path: 'about', component: AboutComponent, data: { title: 'Nosotros' } },

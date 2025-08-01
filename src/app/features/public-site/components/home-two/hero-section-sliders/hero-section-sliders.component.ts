@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 
 export interface SliderItem {
   id: string;
@@ -12,7 +13,7 @@ export interface SliderItem {
 @Component({
   selector: 'app-hero-section-sliders',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgbCarouselModule],
   templateUrl: './hero-section-sliders.component.html',
   styleUrl: './hero-section-sliders.component.scss'
 })
