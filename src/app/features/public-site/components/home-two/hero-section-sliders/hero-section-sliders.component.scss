@@ -13,6 +13,8 @@ $hero-overlay: rgba(0, 0, 0, 0.6);
   height: 100vh;
   width: 100%;
   overflow: hidden;
+  opacity: 0;
+  animation: fadeInSection 1s ease-out 0.1s forwards;
 }
 
 /* Carousel Full Screen */
@@ -94,6 +96,9 @@ ngb-carousel,
   margin-bottom: 0.5rem;
   letter-spacing: -0.02em;
   text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideInUp 0.8s ease-out 0.3s forwards;
   
   @media (max-width: 1200px) {
     font-size: 3.5rem;
@@ -116,6 +121,9 @@ ngb-carousel,
   margin-bottom: 2rem;
   letter-spacing: -0.02em;
   text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideInUp 0.8s ease-out 0.5s forwards;
   
   @media (max-width: 1200px) {
     font-size: 3.5rem;
@@ -138,6 +146,9 @@ ngb-carousel,
   margin-bottom: 3rem;
   max-width: 600px;
   letter-spacing: 0.01em;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideInUp 0.6s ease-out 0.7s forwards;
   
   @media (max-width: 768px) {
     font-size: 1.1rem;
@@ -151,6 +162,9 @@ ngb-carousel,
   gap: 1.5rem;
   align-items: center;
   flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideInUp 0.6s ease-out 0.9s forwards;
   
   @media (max-width: 480px) {
     gap: 1rem;
@@ -314,7 +328,7 @@ ngb-carousel,
 /* Custom Navigation Indicators */
 .hero-indicators {
   position: absolute;
-  left: 2rem;
+  right: 2rem; // Movido a la derecha
   top: 50%;
   transform: translateY(-50%);
   z-index: 3;
@@ -323,7 +337,7 @@ ngb-carousel,
   gap: 1rem;
   
   @media (max-width: 768px) {
-    left: 1rem;
+    right: 1rem; // Movido a la derecha en responsive
     gap: 0.75rem;
   }
 }
@@ -438,5 +452,15 @@ ngb-carousel,
   .carousel-caption h2,
   .carousel-caption p {
     animation: none;
+  }
+}
+
+// Animación para la entrada del hero completo
+@keyframes fadeInSection {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

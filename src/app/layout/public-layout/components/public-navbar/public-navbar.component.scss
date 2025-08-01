@@ -39,10 +39,12 @@ $transition-fast: all 0.2s ease;
 
   .container-fluid {
     height: 100%;
-    display: flex;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 0;
+  }
+
+  .navbar-content {
+    width: 100%;
+    height: $navbar-height;
   }
 
   // Logo y marca - Estilo moderno transparente
