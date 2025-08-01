@@ -32,48 +32,48 @@ export class HeroSectionSlidersComponent {
     {
       id: 'slide-1',
       imageUrl: './assets/images/backgrounds/solarcheck/slide-1.jpg',
-      altText: 'Glazing professional solar films installation',
-      title: 'PROFESSIONAL',
-      subtitle: 'SOLAR FILMS',
-      description: 'Transform your windows with premium solar protection technology',
+      altText: 'Instalación profesional de láminas solares Glazing',
+      title: 'PROFESIONALES EN',
+      subtitle: 'LÁMINAS SOLARES',
+      description: 'Transforma tus ventanas con tecnología premium de protección solar',
       primaryButton: {
-        text: 'DISCOVER MORE',
+        text: 'DESCUBRE MÁS',
         action: 'discover'
       },
       secondaryButton: {
-        text: 'Watch Our Process',
+        text: 'Ver Nuestro Proceso',
         action: 'video'
       }
     },
     {
       id: 'slide-2', 
       imageUrl: './assets/images/backgrounds/solarcheck/slide-2.jpg',
-      altText: 'Expert installation and training services',
-      title: 'EXPERT',
-      subtitle: 'INSTALLATION',
-      description: 'Certified installers with guaranteed quality and professional training',
+      altText: 'Servicios expertos de instalación y capacitación',
+      title: 'INSTALACIÓN',
+      subtitle: 'EXPERTA',
+      description: 'Instaladores certificados con calidad garantizada y capacitación profesional',
       primaryButton: {
-        text: 'GET CERTIFIED',
+        text: 'CERTIFÍCATE',
         action: 'training'
       },
       secondaryButton: {
-        text: 'View Gallery',
+        text: 'Ver Galería',
         action: 'gallery'
       }
     },
     {
       id: 'slide-3',
       imageUrl: './assets/images/backgrounds/solarcheck/slide-3.png',
-      altText: 'Premium materials and tools for professionals',
-      title: 'PREMIUM',
-      subtitle: 'MATERIALS',
-      description: 'High-quality films and professional tools for exceptional results',
+      altText: 'Materiales premium y herramientas para profesionales',
+      title: 'MATERIALES',
+      subtitle: 'PREMIUM',
+      description: 'Láminas de alta calidad y herramientas profesionales para resultados excepcionales',
       primaryButton: {
-        text: 'SHOP NOW',
+        text: 'COMPRAR AHORA',
         action: 'shop'
       },
       secondaryButton: {
-        text: 'Technical Specs',
+        text: 'Especificaciones',
         action: 'specs'
       }
     }

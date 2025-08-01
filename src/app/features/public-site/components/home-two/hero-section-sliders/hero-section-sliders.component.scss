@@ -75,7 +75,7 @@ ngb-carousel,
   color: $hero-light;
   line-height: 0.9;
   margin-bottom: 0.5rem;
-  letter-spacing: 0.05em;
+  letter-spacing: -0.02em; // Mejorado para mayor legibilidad
   text-transform: uppercase;
   
   @media (max-width: 1200px) {
@@ -97,7 +97,7 @@ ngb-carousel,
   color: $hero-light;
   line-height: 0.9;
   margin-bottom: 2rem;
-  letter-spacing: 0.05em;
+  letter-spacing: -0.02em; // Mejorado para mayor legibilidad
   text-transform: uppercase;
   
   @media (max-width: 1200px) {
@@ -116,10 +116,11 @@ ngb-carousel,
 
 .hero-description {
   font-size: 1.25rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.9); // Mejorado contraste
   line-height: 1.6;
   margin-bottom: 3rem;
   max-width: 600px;
+  letter-spacing: 0.01em; // Añadido espaciado sutil
   
   @media (max-width: 768px) {
     font-size: 1.1rem;

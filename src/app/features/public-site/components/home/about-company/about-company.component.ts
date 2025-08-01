@@ -49,15 +49,15 @@ export class AboutCompanyComponent {
   // Información de contacto
   contactInfo = {
     phone: '+34 123 456 789',
-    description: 'Do you have any project on your mind? Call Us:'
+    description: '¿Tienes algún proyecto en mente? Llámanos:'
   };
 
   // Información de la empresa
   companyInfo = {
-    title: 'Transform Windows with Professional Solar Films',
-    subtitle: 'ABOUT COMPANY',
-    description: 'Glazing features premium solar films and professional installation services. Our platform connects certified installers with quality materials and comprehensive training. With Glazing, we make your windows more efficient, protective, and attractive.',
-    ctaText: 'DISCOVER MORE'
+    title: 'Transforma Ventanas con Láminas Solares Profesionales',
+    subtitle: 'ACERCA DE LA EMPRESA',
+    description: 'Glazing ofrece láminas solares premium y servicios de instalación profesional. Nuestra plataforma conecta instaladores certificados con materiales de calidad y capacitación integral. Con Glazing, hacemos tus ventanas más eficientes, protectoras y atractivas.',
+    ctaText: 'DESCUBRE MÁS'
   };
 
   // CEO/Fundador info
