@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarouselModule, NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
+import { ViewChild } from '@angular/core';
 
 export interface SliderItem {
   id: string;
@@ -27,6 +28,10 @@ export interface SliderItem {
   styleUrl: './hero-section-sliders.component.scss'
 })
 export class HeroSectionSlidersComponent {
+  
+  @ViewChild(NgbCarousel) carousel!: NgbCarousel;
+  
+  currentSlideIndex = 0;
   
   sliderItems: SliderItem[] = [
     {
@@ -87,6 +92,20 @@ export class HeroSectionSlidersComponent {
 
   trackBySlideId(index: number, item: SliderItem): string {
     return item.id;
+  }
+
+  // Método para cambiar slide desde los indicadores
+  goToSlide(slideIndex: number): void {
+    this.currentSlideIndex = slideIndex;
+    this.carousel.select(`slide-${slideIndex + 1}`);
+  }
+
+  // Método para actualizar el índice actual cuando cambia el slide
+  onSlideChange(event: any): void {
+    // Extraer el número del ID del slide (slide-1, slide-2, etc.)
+    const slideId = event.current;
+    const slideNumber = parseInt(slideId.split('-')[1]) - 1;
+    this.currentSlideIndex = slideNumber;
   }
 
   // Button actions

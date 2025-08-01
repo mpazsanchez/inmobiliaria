@@ -1,10 +1,12 @@
 <div class="hero-container">
   <ngb-carousel 
+    #carousel
     [interval]="5000" 
     [pauseOnHover]="true" 
     [pauseOnFocus]="true"
     [showNavigationArrows]="false"
     [showNavigationIndicators]="false"
+    (slid)="onSlideChange($event)"
     class="carousel-fade">
     
     <ng-template ngbSlide *ngFor="let slide of sliderItems; trackBy: trackBySlideId" [id]="slide.id">
@@ -67,8 +69,10 @@
     <button 
       *ngFor="let item of sliderItems; let i = index"
       class="indicator-btn"
-      [class.active]="i === 0"
-      type="button">
+      [class.active]="i === currentSlideIndex"
+      (click)="goToSlide(i)"
+      type="button"
+      [attr.aria-label]="'Ir a slide ' + (i + 1)">
     </button>
   </div>
   
