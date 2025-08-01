@@ -32,9 +32,39 @@ $transition-fast: all 0.2s ease;
   right: 0;
 
   &.scrolled {
-    background: $background-blur;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     box-shadow: $shadow-elevated;
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    
+    .navbar-brand {
+      color: $text-dark !important;
+      
+      &:hover {
+        color: $primary-color !important;
+      }
+    }
+    
+    .nav-link {
+      color: $text-dark !important;
+      
+      &::after {
+        background: linear-gradient(90deg, transparent, $primary-color, transparent);
+      }
+      
+      &:hover {
+        color: $primary-color !important;
+      }
+      
+      &:focus {
+        outline: 2px solid rgba(3, 78, 162, 0.3);
+      }
+    }
+    
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cline x1='3' y1='6' x2='21' y2='6'%3e%3c/line%3e%3cline x1='3' y1='12' x2='21' y2='12'%3e%3c/line%3e%3cline x1='3' y1='18' x2='21' y2='18'%3e%3c/line%3e%3c/svg%3e");
+    }
   }
 
   .container-fluid {
@@ -89,7 +119,8 @@ $transition-fast: all 0.2s ease;
     .navbar-toggler-icon {
       width: 20px;
       height: 20px;
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cline x1='3' y1='6' x2='21' y2='6'%3e%3c/line%3e%3cline x1='3' y1='12' x2='21' y2='12'%3e%3c/line%3e%3cline x1='3' y1='18' x2='21' y2='18'%3e%3c/line%3e%3c/svg%3e");
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cline x1='3' y1='6' x2='21' y2='6'%3e%3c/line%3e%3cline x1='3' y1='12' x2='21' y2='12'%3e%3c/line%3e%3cline x1='3' y1='18' x2='21' y2='18'%3e%3c/line%3e%3c/svg%3e");
+      transition: $transition-fast;
     }
   }
 
@@ -214,7 +245,7 @@ $transition-fast: all 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: $text-dark;
+      color: $text-light;
       font-size: 1rem;
       transition: $transition-fast;
       position: relative;
