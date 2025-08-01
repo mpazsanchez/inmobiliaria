@@ -25,7 +25,7 @@ export class AboutCompanyComponent {
   companyStats: CompanyStats[] = [
     {
       value: 8,
-      label: 'YEARS\nWORKING\nEXPERIENCE',
+      label: 'AÑOS DE\nTRAYECTORIA',
       unit: ''
     }
   ];
