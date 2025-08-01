@@ -57,25 +57,42 @@ ngb-carousel,
   z-index: 2;
   display: flex;
   align-items: center;
-  padding: 0 2rem;
+  padding: 0 4rem;
+  
+  @media (max-width: 1200px) {
+    padding: 0 3rem;
+  }
   
   @media (max-width: 768px) {
-    padding: 0 1rem;
+    padding: 0 2rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0 1.5rem;
   }
 }
 
 .hero-text-section {
   max-width: 800px;
+  padding-left: 2rem;
+  
+  @media (max-width: 768px) {
+    padding-left: 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding-left: 0.5rem;
+  }
 }
 
-/* Typography - Architecture Style */
+
 .hero-title {
   font-size: 4rem;
   font-weight: 700;
   color: $hero-light;
   line-height: 0.9;
   margin-bottom: 0.5rem;
-  letter-spacing: -0.02em; // Mejorado para mayor legibilidad
+  letter-spacing: -0.02em;
   text-transform: uppercase;
   
   @media (max-width: 1200px) {
@@ -97,7 +114,7 @@ ngb-carousel,
   color: $hero-light;
   line-height: 0.9;
   margin-bottom: 2rem;
-  letter-spacing: -0.02em; // Mejorado para mayor legibilidad
+  letter-spacing: -0.02em;
   text-transform: uppercase;
   
   @media (max-width: 1200px) {
@@ -116,11 +133,11 @@ ngb-carousel,
 
 .hero-description {
   font-size: 1.25rem;
-  color: rgba(255, 255, 255, 0.9); // Mejorado contraste
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.6;
   margin-bottom: 3rem;
   max-width: 600px;
-  letter-spacing: 0.01em; // Añadido espaciado sutil
+  letter-spacing: 0.01em;
   
   @media (max-width: 768px) {
     font-size: 1.1rem;
@@ -188,12 +205,12 @@ ngb-carousel,
 
 /* Enhanced caption styling - Centro de pantalla */
 .carousel-caption {
-  bottom: 50%; // Centrado verticalmente
+  bottom: 50%;
   left: 50%;
   right: auto;
-  transform: translate(-50%, 50%); // Centrado perfecto
+  transform: translate(-50%, 50%);
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
-  max-width: 800px; // Ancho máximo para mejor legibilidad
+  max-width: 800px;
   padding: 2rem;
 
   h2 {

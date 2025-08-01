@@ -47,11 +47,9 @@ $transition-fast: all 0.2s ease;
 
   // Logo y marca - Estilo moderno transparente
   .navbar-brand {
-    // font-weight: bold;
-    color: rgba(255, 255, 255, 0.95) !important; // Logo en blanco
+    color: rgba(255, 255, 255, 0.95) !important; 
     text-decoration: none;
     transition: $transition-fast;
-    // font-size: 1.125rem;
     font-size: 16px;
     letter-spacing: -0.025em;
     
@@ -68,7 +66,7 @@ $transition-fast: all 0.2s ease;
     }
   }
 
-  // Toggle button móvil - Minimalista
+  // Toggle button móvi
   .navbar-toggler {
     padding: 4px;
     border: none;
@@ -102,8 +100,7 @@ $transition-fast: all 0.2s ease;
       position: relative;
 
       .nav-link {
-        color: $text-light; // Cambio a texto claro para navbar transparente
-        // font-weight: bold;
+        color: $text-light;
         font-size: 16px;
         padding: 8px 16px;
         margin: 0 4px;
@@ -113,9 +110,27 @@ $transition-fast: all 0.2s ease;
         text-decoration: none;
         white-space: nowrap;
 
+        // Línea 
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 50%;
+          width: 0;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transform: translateX(-50%);
+        }
+
         &:hover {
-          color: rgba(255, 255, 255, 1); // Blanco completo al hover
-          background: rgba(255, 255, 255, 0.1); // Fondo sutil blanco
+          color: rgba(255, 255, 255, 1); 
+          background: transparent;
+          
+          // Activar la línea al hover
+          &::after {
+            width: 80%;
+          }
         }
 
         &:focus {
@@ -137,6 +152,9 @@ $transition-fast: all 0.2s ease;
             border-top: 3px solid currentColor;
             transition: $transition-fast;
             margin-left: 4px;
+            position: static;
+            transform: none;
+            background: none;
           }
 
           &[aria-expanded="true"]::after {
@@ -145,14 +163,10 @@ $transition-fast: all 0.2s ease;
         }
       }
 
-      // Hover effect específico para el menú principal
-      &:hover .nav-link {
-        background: rgba(0, 0, 0, 0.05);
-      }
     }
   }
 
-  // Dropdown menu - Estilo Vercel minimalista
+  // Dropdown menu
   .dropdown-menu-modern {
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -189,12 +203,10 @@ $transition-fast: all 0.2s ease;
     }
   }
 
-  // Carrito - Minimalista como Vercel
+  // Carrito
   .navbar-cart {
     .cart-btn {
       background: transparent;
-      // border: 1px solid rgba(0, 0, 0, 0.1);
-      // border-radius: 6px;
       width: 40px;
       height: 40px;
       display: flex;
@@ -237,12 +249,7 @@ $transition-fast: all 0.2s ease;
   }
 }
 
-// Spacer para navbar fixed
-// .navbar-spacer {
-//   height: $navbar-height;
-// }
-
-// Responsive design - Estilo Vercel
+// Responsive design
 @media (max-width: 991.98px) {
   .modern-navbar {
     .navbar-collapse {
@@ -314,7 +321,7 @@ $transition-fast: all 0.2s ease;
   }
 }
 
-// Estados de foco para accesibilidad - Estilo Vercel
+// Estados de foco para accesibilidad
 .nav-link:focus,
 .dropdown-item:focus,
 .cart-btn:focus {
