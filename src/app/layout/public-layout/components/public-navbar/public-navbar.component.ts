@@ -517,18 +517,10 @@ export class PublicNavbarComponent implements OnInit, OnDestroy {
         name: 'contactar',
         titleShow: 'Contactar',
         icon: 'faEnvelope',
-        link: '/contactar',
+        link: '/contact',
         orderby: 6,
         status: 1,
-        menuArguments: [
-          {
-            id: 601,
-            idmenu: 6,
-            name: 'is_primary_cta',
-            value: 'true',
-            dbtype: 16,
-          },
-        ],
+        menuArguments: [],
         usersMenu: true,
       },
       {
