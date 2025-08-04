@@ -1,0 +1,244 @@
+@import '../../../../../../assets/styles/_variables.scss';
+
+.benefits-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, $blue-one 0%, $blue-two 50%, $blue-three 100%);
+  }
+}
+
+.problems-section {
+  .row {
+    align-items: center;
+  }
+}
+
+.problems-content {
+  padding-right: 2rem;
+  
+  @media (max-width: 991px) {
+    padding-right: 0;
+    margin-bottom: 3rem;
+  }
+}
+
+.problems-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: $gray-three;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+  
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+}
+
+.problems-list {
+  margin-bottom: 2rem;
+}
+
+.problem-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.problem-icon {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  flex-shrink: 0;
+  
+  i {
+    font-size: 1.25rem;
+  }
+}
+
+.problem-text {
+  flex: 1;
+  
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $gray-three;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    font-size: 0.9rem;
+    color: $gray-two;
+    margin: 0;
+    line-height: 1.4;
+  }
+}
+
+.problems-conclusion {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: $blue-three;
+  text-align: center;
+  font-style: italic;
+  margin: 0;
+}
+
+.solution-content {
+  padding-left: 2rem;
+  
+  @media (max-width: 991px) {
+    padding-left: 0;
+  }
+}
+
+.solution-header {
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.solution-subtitle {
+  display: block;
+  font-size: 1rem;
+  color: $blue-two;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.solution-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: $gray-three;
+  line-height: 1.2;
+  margin: 0;
+  
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+  }
+}
+
+.benefits-grid {
+  margin-bottom: 3rem;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  background: white;
+  border-radius: 10px;
+  border-left: 4px solid $blue-one;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateX(5px);
+    box-shadow: 0 6px 20px rgba(0, 154, 222, 0.15);
+  }
+}
+
+.benefit-icon {
+  background: linear-gradient(135deg, $blue-one, $blue-two);
+  color: white;
+  width: 45px;
+  height: 45px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  flex-shrink: 0;
+  
+  i {
+    font-size: 1.1rem;
+  }
+}
+
+.benefit-text {
+  flex: 1;
+  
+  .benefit-highlight {
+    display: block;
+    font-weight: 700;
+    color: $blue-three;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  p {
+    font-size: 0.9rem;
+    color: $gray-two;
+    margin: 0;
+    line-height: 1.4;
+  }
+}
+
+.benefits-cta {
+  text-align: center;
+  
+  .btn {
+    margin: 0.5rem;
+    padding: 12px 30px;
+    font-weight: 600;
+    border-radius: 25px;
+    text-transform: none;
+    transition: all 0.3s ease;
+    
+    @media (max-width: 576px) {
+      display: block;
+      width: 100%;
+      margin: 0.5rem 0;
+    }
+  }
+}
+
+.benefits-btn-primary {
+  background: linear-gradient(135deg, $blue-one, $blue-two);
+  border: none;
+  color: white;
+  
+  &:hover {
+    background: linear-gradient(135deg, $blue-two, $blue-three);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 154, 222, 0.3);
+  }
+}
+
+.benefits-btn-secondary {
+  border: 2px solid $blue-one;
+  color: $blue-one;
+  background: transparent;
+  
+  &:hover {
+    background: $blue-one;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 154, 222, 0.2);
+  }
+}
