@@ -63,7 +63,7 @@ export class ExperienceSectionComponent {
     ],
     cta: {
       text: "Pedí tu cotización sin cargo hoy y obtené un asesoramiento técnico gratuito.",
-      button: "Quiero saber cuánto cuesta instalarlo en mi casa"
+      button: "Solicitar un presupuesto"
     }
   };
 
