@@ -1,0 +1,373 @@
+@import '../../../../../assets/styles/_variables.scss';
+
+/* Public Footer - Dark Style similar to Glazing services */
+.public-footer {
+  background: #000000;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 80px 0 0 0;
+  position: relative;
+  
+  @media (max-width: 768px) {
+    padding: 60px 0 0 0;
+  }
+}
+
+/* Main Footer Content */
+.footer-main {
+  padding-bottom: 50px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  
+  @media (max-width: 768px) {
+    padding-bottom: 40px;
+  }
+}
+
+.footer-section {
+  height: 100%;
+}
+
+/* Company Brand Section */
+.footer-brand {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.brand-logo {
+  margin-right: 1rem;
+  
+  @media (max-width: 768px) {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.footer-logo {
+  height: 40px;
+  width: auto;
+}
+
+.brand-name {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: $blue-one;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.footer-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 2rem;
+  max-width: 350px;
+}
+
+/* Contact Info */
+.contact-info {
+  margin-bottom: 2rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  
+  i {
+    color: $blue-one;
+    width: 20px;
+    margin-right: 12px;
+    font-size: 0.9rem;
+  }
+  
+  span, a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+    
+    &:hover {
+      color: $blue-one;
+    }
+  }
+}
+
+/* Social Links */
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-link {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: $blue-one;
+    border-color: $blue-one;
+    color: white;
+    transform: translateY(-2px);
+  }
+  
+  i {
+    font-size: 1rem;
+  }
+}
+
+/* Footer Titles */
+.footer-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 1.5rem;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background: $blue-one;
+  }
+}
+
+/* Footer Links */
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  
+  li {
+    margin-bottom: 0.75rem;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  display: inline-block;
+  
+  &:hover {
+    color: $blue-one;
+    transform: translateX(3px);
+  }
+}
+
+/* Newsletter Section */
+.newsletter-description {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.newsletter-form {
+  .input-group {
+    position: relative;
+    display: flex;
+  }
+}
+
+.newsletter-input {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0;
+  color: white;
+  padding: 12px 15px;
+  font-size: 0.95rem;
+  flex: 1;
+  
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  &:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: $blue-one;
+    box-shadow: none;
+    outline: none;
+    color: white;
+  }
+}
+
+.newsletter-btn {
+  background: $blue-one;
+  border: 1px solid $blue-one;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 0;
+  transition: all 0.3s ease;
+  
+  &:hover:not(:disabled) {
+    background: $blue-two;
+    border-color: $blue-two;
+    transform: translateY(-1px);
+  }
+  
+  &:disabled {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+    cursor: not-allowed;
+  }
+  
+  i {
+    font-size: 0.9rem;
+  }
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  padding: 25px 0;
+  
+  @media (max-width: 768px) {
+    text-align: center;
+  }
+}
+
+.copyright {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  
+  .brand-highlight {
+    color: $blue-one;
+    font-weight: 600;
+  }
+}
+
+.footer-bottom-links {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+  
+  @media (max-width: 768px) {
+    justify-content: center;
+    margin-top: 1rem;
+    gap: 1.5rem;
+  }
+}
+
+.bottom-link {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: $blue-one;
+  }
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: $blue-one;
+  color: white;
+  border: none;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  box-shadow: 0 4px 15px rgba(0, 154, 222, 0.3);
+  
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  &:hover {
+    background: $blue-two;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 154, 222, 0.4);
+  }
+  
+  i {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  @media (max-width: 768px) {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    
+    i {
+      font-size: 1rem;
+    }
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .footer-section {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-brand {
+    text-align: center;
+    align-items: center;
+  }
+  
+  .footer-description {
+    text-align: center;
+    max-width: 100%;
+  }
+  
+  .contact-info {
+    text-align: center;
+  }
+  
+  .social-links {
+    justify-content: center;
+  }
+  
+  .footer-title {
+    text-align: center;
+    
+    &::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  
+  .footer-links {
+    text-align: center;
+  }
+}
