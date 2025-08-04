@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, OnDestroy, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -13,14 +13,15 @@ export class PublicFooterComponent implements OnInit, OnDestroy {
   
   // Scroll to top button visibility
   showScrollButton = false;
+  private isBrowser: boolean;
 
   // Company Info
   companyInfo = {
     name: 'Glazing',
     description: 'Especialistas en láminas solares de alta calidad. Protección, confort y eficiencia energética para tu hogar y oficina.',
-    address: 'Ciudad de México, México',
-    phone: '+52 55 1234 5678',
-    email: 'info@glazing.mx'
+    address: 'Madrid, España & Buenos Aires, Argentina',
+    phone: '3515941464',
+    email: 'venta@glazing.me'
   };
 
   // Navigation Links
@@ -52,10 +53,14 @@ export class PublicFooterComponent implements OnInit, OnDestroy {
   // Newsletter
   newsletterEmail = '';
 
-  constructor() {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   ngOnInit(): void {
-    this.checkScrollPosition();
+    if (this.isBrowser) {
+      this.checkScrollPosition();
+    }
   }
 
   ngOnDestroy(): void {
@@ -64,15 +69,21 @@ export class PublicFooterComponent implements OnInit, OnDestroy {
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
-    this.checkScrollPosition();
+    if (this.isBrowser) {
+      this.checkScrollPosition();
+    }
   }
 
   private checkScrollPosition(): void {
+    if (!this.isBrowser) return;
+    
     const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     this.showScrollButton = scrollPosition > 300;
   }
 
   scrollToTop(): void {
+    if (!this.isBrowser) return;
+    
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
@@ -85,11 +96,13 @@ export class PublicFooterComponent implements OnInit, OnDestroy {
   }
 
   onSubscribeNewsletter(): void {
-    if (this.newsletterEmail && this.newsletterEmail.trim()) {
+    if (this.newsletterEmail?.trim()) {
       console.log('Subscribe email:', this.newsletterEmail);
       // Implement newsletter subscription logic here
       // For now, just clear the input and show success
-      alert('¡Gracias por suscribirte a nuestro newsletter!');
+      if (this.isBrowser) {
+        alert('¡Gracias por suscribirte a nuestro newsletter!');
+      }
       this.newsletterEmail = '';
     }
   }
