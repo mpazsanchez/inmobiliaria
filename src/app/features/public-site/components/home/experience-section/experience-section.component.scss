@@ -100,7 +100,7 @@
 
 .gallery-item {
   position: relative;
-  border-radius: 12px;
+//   border-radius: 12px;
   overflow: hidden;
   aspect-ratio: 4/3;
   cursor: pointer;
@@ -153,7 +153,7 @@
 
 .certification-section {
   background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-  border-radius: 20px;
+//   border-radius: 20px;
   padding: 3rem 2rem;
   margin: 4rem 0;
   position: relative;
@@ -176,20 +176,21 @@
 }
 
 .certification-badge {
-  display: inline-flex;
-  align-items: center;
-  background: linear-gradient(135deg, $blue-one, $blue-two);
-  color: white;
-  padding: 12px 25px;
-  border-radius: 50px;
-  font-weight: 700;
-  font-size: 1.2rem;
-  margin-bottom: 1.5rem;
-  
-  i {
-    margin-right: 10px;
-    font-size: 1.3rem;
-  }
+    display: inline-flex;
+    align-items: center;
+    //   background: linear-gradient(135deg, $blue-one, $blue-two);
+    //   color: white;
+    color: #034EA2;
+    padding: 12px 25px;
+    border-radius: 50px;
+    //   font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+
+    i {
+        margin-right: 10px;
+        font-size: 1.3rem;
+    }
 }
 
 .certification-description {
@@ -205,8 +206,9 @@
   align-items: flex-start;
   margin-bottom: 2rem;
   padding: 1.5rem;
-  background: white;
-  border-radius: 12px;
+  background: #ffffffa6;
+  //border-radius: 12px;
+  border-radius: 6px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
   
@@ -221,7 +223,8 @@
   color: white;
   width: 50px;
   height: 50px;
-  border-radius: 10px;
+//   border-radius: 10px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
