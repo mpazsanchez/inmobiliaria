@@ -4,9 +4,9 @@
     
     <!-- Form Header -->
     <div class="form-header">
-      <h2 class="form-title">Let's Get In Touch</h2>
+      <h2 class="form-title">Envíenos un mensaje</h2>
       <p class="form-subtitle">
-        Your email address will not be published. Required fields are marked *
+        Su dirección de correo electrónico no será publicada. Los campos obligatorios están marcados con *
       </p>
     </div>
 
@@ -22,10 +22,10 @@
               class="form-control" 
               id="name"
               formControlName="name"
-              placeholder="Your Name*"
+              placeholder="Nombre*"
               [class.is-invalid]="isFieldInvalid('name')">
             <div class="invalid-feedback" *ngIf="isFieldInvalid('name')">
-              Name is required
+              El nombre es obligatorio
             </div>
           </div>
         </div>
@@ -38,11 +38,11 @@
               class="form-control" 
               id="email"
               formControlName="email"
-              placeholder="Your Email*"
+              placeholder="Email*"
               [class.is-invalid]="isFieldInvalid('email')">
             <div class="invalid-feedback" *ngIf="isFieldInvalid('email')">
-              <span *ngIf="contactForm.get('email')?.errors?.['required']">Email is required</span>
-              <span *ngIf="contactForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+              <span *ngIf="contactForm.get('email')?.errors?.['required']">El email es obligatorio</span>
+              <span *ngIf="contactForm.get('email')?.errors?.['email']">Por favor ingrese un email válido</span>
             </div>
           </div>
         </div>
@@ -57,10 +57,10 @@
               class="form-control" 
               id="phone"
               formControlName="phone"
-              placeholder="Phone*"
+              placeholder="Teléfono*"
               [class.is-invalid]="isFieldInvalid('phone')">
             <div class="invalid-feedback" *ngIf="isFieldInvalid('phone')">
-              Phone is required
+              El teléfono es obligatorio
             </div>
           </div>
         </div>
@@ -73,10 +73,10 @@
               class="form-control" 
               id="subject"
               formControlName="subject"
-              placeholder="Subject*"
+              placeholder="Asunto*"
               [class.is-invalid]="isFieldInvalid('subject')">
             <div class="invalid-feedback" *ngIf="isFieldInvalid('subject')">
-              Subject is required
+              El asunto es obligatorio
             </div>
           </div>
         </div>
@@ -91,23 +91,23 @@
               id="message"
               formControlName="message"
               rows="6"
-              placeholder="Write Message*"
+              placeholder="Escriba su mensaje*"
               [class.is-invalid]="isFieldInvalid('message')"></textarea>
             <div class="invalid-feedback" *ngIf="isFieldInvalid('message')">
-              Message is required
+              El mensaje es obligatorio
             </div>
           </div>
         </div>
       </div>
 
       <!-- Submit Button -->
-      <div class="text-left">
+      <div class="text-end">
         <button 
           type="submit" 
           class="btn btn-primary btn-submit"
           [disabled]="contactForm.invalid || isSubmitting">
           <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
-          {{ isSubmitting ? 'SENDING...' : 'SEND MESSAGE' }}
+          {{ isSubmitting ? 'ENVIANDO...' : 'ENVIAR MENSAJE' }}
         </button>
       </div>
 
