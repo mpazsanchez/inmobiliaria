@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { HeroSectionComponent } from "../../components/home/hero-section/hero-section.component";
+import { AboutCompanyComponent } from "../../components/home/about-company/about-company.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeroSectionComponent],
+  imports: [HeroSectionComponent, AboutCompanyComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

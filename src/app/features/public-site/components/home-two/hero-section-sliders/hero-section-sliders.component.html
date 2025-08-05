@@ -1,0 +1,118 @@
+<div class="hero-container">
+  <ngb-carousel 
+    #carousel
+    [interval]="5000" 
+    [pauseOnHover]="true" 
+    [pauseOnFocus]="true"
+    [showNavigationArrows]="false"
+    [showNavigationIndicators]="false"
+    (slid)="onSlideChange($event)"
+    class="carousel-fade">
+    
+    <ng-template ngbSlide *ngFor="let slide of sliderItems; trackBy: trackBySlideId" [id]="slide.id">
+      <div class="carousel-item-wrapper">
+        <!-- Background Image -->
+        <img 
+          class="d-block w-100 carousel-image" 
+          [src]="slide.imageUrl" 
+          [alt]="slide.altText"
+          loading="lazy">
+        
+        <!-- Dark Overlay -->
+        <div class="hero-overlay"></div>
+        
+        <!-- Main Content -->
+        <div class="hero-content col-11 mx-auto">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-6 col-md-8 col-12">
+                <!-- Title Section -->
+                <div class="hero-text-section">
+                  <h1 class="hero-title" *ngIf="slide.title">
+                    {{ slide.title }}
+                  </h1>
+                  <h2 class="hero-subtitle" *ngIf="slide.subtitle">
+                    {{ slide.subtitle }}
+                  </h2>
+                  <p class="hero-description" *ngIf="slide.description">
+                    {{ slide.description }}
+                  </p>
+                  
+                  <!-- Action Buttons -->
+                  <div class="hero-buttons" *ngIf="slide.primaryButton || slide.secondaryButton">
+                    <button 
+                      *ngIf="slide.primaryButton"
+                      class="btn btn-primary hero-btn-primary"
+                      (click)="onButtonClick(slide.primaryButton.action)">
+                      {{ slide.primaryButton.text }}
+                    </button>
+                    
+                    <button 
+                      *ngIf="slide.secondaryButton"
+                      class="btn btn-outline-light hero-btn-secondary"
+                      (click)="onButtonClick(slide.secondaryButton.action)">
+                      <i class="fas fa-play-circle me-2"></i>
+                      {{ slide.secondaryButton.text }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-carousel>
+  
+  <!-- Custom Navigation Indicators -->
+  <!-- <div class="hero-indicators">
+    <button 
+      *ngFor="let item of sliderItems; let i = index"
+      class="indicator-btn"
+      [class.active]="i === currentSlideIndex"
+      (click)="goToSlide(i)"
+      type="button"
+      [attr.aria-label]="'Ir a slide ' + (i + 1)">
+    </button>
+  </div> -->
+  
+  <!-- Contact Information Footer -->
+  <div class="hero-footer">
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-11 col-12">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="contact-item">
+                <i class="fas fa-map-marker-alt me-2"></i>
+                {{ contactInfo.address }}
+              </div>
+            </div>
+            <!-- <div class="col-md-6">
+              <div class="contact-item">
+                <i class="fas fa-envelope me-2"></i>
+                {{ contactInfo.email }}
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Social Media Icons -->
+  <div class="hero-social">
+    <a href="#" class="social-link" aria-label="Facebook">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="#" class="social-link" aria-label="Instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="#" class="social-link" aria-label="TikTok">
+      <i class="fab fa-tiktok"></i>
+    </a>
+    <a href="#" class="social-link" aria-label="YouTube">
+      <i class="fab fa-youtube"></i>
+    </a>
+  </div>
+</div>

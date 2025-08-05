@@ -1,0 +1,117 @@
+<!-- Contact Form Section -->
+<div class="contact-form-wrapper">
+  <div class="form-container">
+    
+    <!-- Form Header -->
+    <div class="form-header">
+      <h2 class="form-title">Envíenos un mensaje</h2>
+      <p class="form-subtitle">
+        Su dirección de correo electrónico no será publicada. Los campos obligatorios están marcados con *
+      </p>
+    </div>
+
+    <!-- Contact Form -->
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+      
+      <div class="row">
+        <!-- Name Field -->
+        <div class="col-md-6 mb-4">
+          <div class="form-group">
+            <input 
+              type="text" 
+              class="form-control" 
+              id="name"
+              formControlName="name"
+              placeholder="Nombre*"
+              [class.is-invalid]="isFieldInvalid('name')">
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('name')">
+              El nombre es obligatorio
+            </div>
+          </div>
+        </div>
+
+        <!-- Email Field -->
+        <div class="col-md-6 mb-4">
+          <div class="form-group">
+            <input 
+              type="email" 
+              class="form-control" 
+              id="email"
+              formControlName="email"
+              placeholder="Email*"
+              [class.is-invalid]="isFieldInvalid('email')">
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('email')">
+              <span *ngIf="contactForm.get('email')?.errors?.['required']">El email es obligatorio</span>
+              <span *ngIf="contactForm.get('email')?.errors?.['email']">Por favor ingrese un email válido</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Phone Field -->
+        <div class="col-md-6 mb-4">
+          <div class="form-group">
+            <input 
+              type="tel" 
+              class="form-control" 
+              id="phone"
+              formControlName="phone"
+              placeholder="Teléfono*"
+              [class.is-invalid]="isFieldInvalid('phone')">
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('phone')">
+              El teléfono es obligatorio
+            </div>
+          </div>
+        </div>
+
+        <!-- Subject Field -->
+        <div class="col-md-6 mb-4">
+          <div class="form-group">
+            <input 
+              type="text" 
+              class="form-control" 
+              id="subject"
+              formControlName="subject"
+              placeholder="Asunto*"
+              [class.is-invalid]="isFieldInvalid('subject')">
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('subject')">
+              El asunto es obligatorio
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Message Field -->
+      <div class="row">
+        <div class="col-12 mb-4">
+          <div class="form-group">
+            <textarea 
+              class="form-control" 
+              id="message"
+              formControlName="message"
+              rows="6"
+              placeholder="Escriba su mensaje*"
+              [class.is-invalid]="isFieldInvalid('message')"></textarea>
+            <div class="invalid-feedback" *ngIf="isFieldInvalid('message')">
+              El mensaje es obligatorio
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="text-end">
+        <button 
+          type="submit" 
+          class="btn btn-primary btn-submit"
+          [disabled]="contactForm.invalid || isSubmitting">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+          {{ isSubmitting ? 'ENVIANDO...' : 'ENVIAR MENSAJE' }}
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

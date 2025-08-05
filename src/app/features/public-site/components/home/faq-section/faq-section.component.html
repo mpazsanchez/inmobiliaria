@@ -1,0 +1,73 @@
+<section class="faq-section">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-md-11 col-12">
+        
+        <!-- FAQ Header -->
+        <div class="faq-header text-center">
+          <span class="section-badge">PREGUNTAS FRECUENTES</span>
+          <h2 class="faq-title">¿Tienes alguna pregunta sobre nuestras láminas solares?</h2>
+          <p class="faq-intro">
+            Encuentra respuestas a las preguntas más comunes sobre nuestros productos y servicios.
+          </p>
+        </div>
+        
+        <div class="row">
+          
+          <!-- Left Side - Large Decorative Letters -->
+          <div class="col-lg-6 col-md-12">
+            <div class="faq-visual">
+              <!-- Large Background Letters -->
+              <div class="background-letters">
+                <span class="letter letter-f">F</span>
+                <span class="letter letter-a">A</span>
+                <span class="letter letter-q">Q</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Right Side - FAQ Content -->
+          <div class="col-lg-6 col-md-12">
+            <div class="faq-content">
+              
+              <!-- FAQ Accordion -->
+              <div class="faq-accordion">
+                <div 
+                  class="faq-item" 
+                  *ngFor="let faq of faqItems; trackBy: trackByFaqId; let i = index"
+                  [class.active]="faq.isOpen">
+                  
+                  <div class="faq-card">
+                    <button 
+                      class="faq-question"
+                      (click)="toggleFAQ(faq.id)"
+                      [attr.aria-expanded]="faq.isOpen"
+                      [attr.aria-controls]="'answer-' + faq.id">
+                      
+                      <span class="question-text">{{ faq.question }}</span>
+                      <span class="toggle-icon">
+                        <i class="fas" [class.fa-plus]="!faq.isOpen" [class.fa-minus]="faq.isOpen"></i>
+                      </span>
+                    </button>
+                    
+                    <div 
+                      class="faq-answer"
+                      [id]="'answer-' + faq.id"
+                      [class.show]="faq.isOpen">
+                      <div class="answer-content">
+                        <p>{{ faq.answer }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>

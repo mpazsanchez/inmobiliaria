@@ -1,0 +1,56 @@
+<section class="services-section">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-md-11 col-12">
+        
+        <!-- Section Header -->
+        <div class="section-header text-center">
+          <span class="section-subtitle">{{ sectionInfo.subtitle }}</span>
+          <h2 class="section-title">{{ sectionInfo.title }}</h2>
+        </div>
+        
+        <!-- Services Grid -->
+        <div class="services-grid">
+          <div class="row">
+            <div 
+              class="col-lg-6 col-md-6 col-12" 
+              *ngFor="let service of services; trackBy: trackByTitle">
+              
+              <div class="service-card">
+                <div class="service-content">
+                  
+                  <!-- Service Icon -->
+                  <div class="service-icon">
+                    <i [class]="service.icon"></i>
+                  </div>
+                  
+                  <!-- Service Info -->
+                  <div class="service-info">
+                    <h3 class="service-title">{{ service.title }}</h3>
+                    <p class="service-description">{{ service.description }}</p>
+                    
+                    <!-- Explore Button -->
+                    <button 
+                      class="explore-btn"
+                      (click)="onExploreService(service.link)">
+                      <span>EXPLORAR SERVICIO</span>
+                      <i class="fas fa-arrow-right"></i>
+                    </button>
+                  </div>
+                  
+                </div>
+                
+                <!-- Decorative Number -->
+                <div class="service-number">
+                  {{ (services.indexOf(service) + 1).toString().padStart(2, '0') }}
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>

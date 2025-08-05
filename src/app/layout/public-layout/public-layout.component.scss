@@ -1,0 +1,16 @@
+/* Layout styles para navbar fijo y hero full-screen */
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+/* Asegurar que no hay margen o padding extra */
+router-outlet + * {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Estilos para el body cuando se usa navbar fijo */
+:host-context(body) {
+  padding-top: 0;
+}

@@ -37,8 +37,10 @@ import {
   HostListener,
   ElementRef,
   inject,
+  Inject,
+  PLATFORM_ID,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 // import { MenuItem, MenuArgument, NavbarConfig } from '../interfaces/menu.interface';
@@ -62,11 +64,14 @@ export class PublicNavbarComponent implements OnInit, OnDestroy {
   cartItemCount: number = 0;
   isMenuCollapsed: boolean = true;
   isScrolled: boolean = false;
+  private isBrowser: boolean;
 
   private readonly destroy$ = new Subject<void>();
   private readonly elementRef = inject(ElementRef);
 
-  constructor() {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   ngOnInit(): void {
     this.loadMenuData();
@@ -82,6 +87,8 @@ export class PublicNavbarComponent implements OnInit, OnDestroy {
    */
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(): void {
+    if (!this.isBrowser) return;
+    
     const scrollTop =
       window.pageYOffset ||
       document.documentElement.scrollTop ||
@@ -106,6 +113,8 @@ export class PublicNavbarComponent implements OnInit, OnDestroy {
    */
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
+    if (!this.isBrowser) return;
+    
     const target = event.target as HTMLElement;
     const navbar = this.elementRef.nativeElement;
 
@@ -205,6 +214,8 @@ export class PublicNavbarComponent implements OnInit, OnDestroy {
    * Implementa smooth scroll para enlaces internos
    */
   private smoothScrollTo(target: string): void {
+    if (!this.isBrowser) return;
+    
     const element = document.querySelector(target);
     if (element) {
       const navbarHeight = 64; // Altura del navbar
@@ -225,6 +236,8 @@ export class PublicNavbarComponent implements OnInit, OnDestroy {
   onCartClick(): void {
     console.log('Carrito clickeado');
 
+    if (!this.isBrowser) return;
+
     // Pequeña animación de feedback
     const cartBtn = this.elementRef.nativeElement.querySelector('.cart-btn');
     if (cartBtn) {
@@ -242,6 +255,8 @@ export class PublicNavbarComponent implements OnInit, OnDestroy {
    */
   toggleMobileMenu(): void {
     this.isMenuCollapsed = !this.isMenuCollapsed;
+
+    if (!this.isBrowser) return;
 
     // Prevenir scroll del body cuando el menú está abierto
     if (!this.isMenuCollapsed) {
@@ -502,18 +517,10 @@ export class PublicNavbarComponent implements OnInit, OnDestroy {
         name: 'contactar',
         titleShow: 'Contactar',
         icon: 'faEnvelope',
-        link: '/contactar',
+        link: '/contact',
         orderby: 6,
         status: 1,
-        menuArguments: [
-          {
-            id: 601,
-            idmenu: 6,
-            name: 'is_primary_cta',
-            value: 'true',
-            dbtype: 16,
-          },
-        ],
+        menuArguments: [],
         usersMenu: true,
       },
       {

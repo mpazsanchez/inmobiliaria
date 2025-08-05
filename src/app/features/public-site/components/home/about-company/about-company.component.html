@@ -1,0 +1,104 @@
+<section class="about-company-section">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-md-11 col-12">
+        
+        <div class="row align-items-center">
+          
+          <!-- Left Side - Statistics and Image -->
+          <div class="col-lg-6 col-md-12">
+            <div class="about-visual-content">
+              
+              <!-- Large Number Display -->
+              <div class="stats-display">
+                <div class="big-number" *ngFor="let stat of companyStats">
+                  <span class="number">{{ stat.value }}</span>
+                  <div class="stat-label">{{ stat.label }}</div>
+                </div>
+              </div>
+              
+              <!-- Main Image with Blue Border -->
+              <div class="about-image-container">
+                <div class="image-border"></div>
+                <img 
+                  src="./assets/images/backgrounds/solarcheck/slide-1.jpg" 
+                  alt="Instalación profesional de láminas solares"
+                  class="about-main-image"
+                  loading="lazy">
+              </div>
+              
+            </div>
+          </div>
+          
+          <!-- Right Side - Content -->
+          <div class="col-lg-6 col-md-12">
+            <div class="about-content">
+              
+              <!-- Section Header -->
+              <div class="section-header">
+                <span class="section-subtitle">{{ companyInfo.subtitle }}</span>
+                <h2 class="section-title">{{ companyInfo.title }}</h2>
+              </div>
+              
+              <!-- Description -->
+              <p class="section-description">{{ companyInfo.description }}</p>
+              
+              <!-- Skills/Progress Bars -->
+              <div class="skills-section">
+                <div class="skill-item" *ngFor="let skill of skills">
+                  <div class="skill-header">
+                    <span class="skill-name">{{ skill.name }}</span>
+                    <span class="skill-percentage">{{ skill.percentage }}%</span>
+                  </div>
+                  <div class="skill-bar">
+                    <div 
+                      class="skill-progress" 
+                      [style.width.%]="skill.percentage">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- CTA Section -->
+              <div class="cta-section">
+                <div class="row align-items-center">
+                  <div class="col-md-6">
+                    <button 
+                      class="btn btn-primary cta-button"
+                      (click)="onDiscoverMore()">
+                      {{ companyInfo.ctaText }}
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="founder-info">
+                      <img 
+                        [src]="founderInfo.photo" 
+                        [alt]="founderInfo.name"
+                        class="founder-photo"
+                        onerror="this.style.display='none';">
+                      <span class="founder-signature">{{ founderInfo.signature }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Contact Call to Action -->
+              <div class="contact-cta">
+                <p class="contact-description">{{ contactInfo.description }}</p>
+                <a 
+                  [href]="'tel:' + contactInfo.phone" 
+                  class="contact-phone"
+                  (click)="onCallPhone()">
+                  {{ contactInfo.phone }}
+                </a>
+              </div>
+              
+            </div>
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>

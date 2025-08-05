@@ -1,0 +1,491 @@
+/* Modern Hero Section - Architecture Style Design */
+
+// Variables - Usando colores de marca Glazing
+$hero-primary: #034EA2; // blue-three
+$hero-secondary: #047BC1; // blue-two  
+$hero-accent: #009ADE; // blue-one
+$hero-dark: #1a1a1a;
+$hero-light: rgba(255, 255, 255, 0.9);
+$hero-overlay: rgba(0, 0, 0, 0.6);
+
+.hero-/* Custom Navigation Indicators */
+.hero-indicators {
+  position: absolute;
+  right: 2rem; // Más cerca del borde para mejor UX
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  
+  @media (max-width: 768px) {
+    right: 1rem; // Mantener padding móvil
+    gap: 0.75rem;
+  }
+}
+
+.hero-container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeInSection 1s ease-out 0.1s forwards;
+}
+
+/* Carousel Full Screen */
+ngb-carousel,
+::ng-deep ngb-carousel .carousel {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+.carousel-item-wrapper {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+.carousel-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Dark Overlay */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $hero-overlay;
+  z-index: 1;
+}
+
+/* Main Content */
+.hero-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  padding: 0 4rem;
+  
+  @media (max-width: 1200px) {
+    padding: 0 3rem;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0 2rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0 1.5rem;
+  }
+}
+
+.hero-text-section {
+  max-width: 800px;
+  padding-left: 2rem;
+  
+  @media (max-width: 768px) {
+    padding-left: 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding-left: 0.5rem;
+  }
+}
+
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 700;
+  color: $hero-light;
+  line-height: 0.9;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideInUp 0.8s ease-out 0.3s forwards;
+  
+  @media (max-width: 1200px) {
+    font-size: 3.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 2rem;
+  }
+}
+
+.hero-subtitle {
+  font-size: 4rem;
+  font-weight: 700;
+  color: $hero-light;
+  line-height: 0.9;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideInUp 0.8s ease-out 0.5s forwards;
+  
+  @media (max-width: 1200px) {
+    font-size: 3.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 2rem;
+  }
+}
+
+.hero-description {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  letter-spacing: 0.01em;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideInUp 0.6s ease-out 0.7s forwards;
+  
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+}
+
+/* Buttons */
+.hero-buttons {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideInUp 0.6s ease-out 0.9s forwards;
+  
+  @media (max-width: 480px) {
+    gap: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.hero-btn-primary {
+  background-color: $hero-primary;
+  border: none;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: $hero-secondary;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba($hero-primary, 0.3);
+  }
+  
+  @media (max-width: 480px) {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.hero-btn-secondary {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: $hero-light;
+  padding: 0.875rem 1.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.6);
+    color: white;
+    transform: translateY(-2px);
+  }
+  
+  @media (max-width: 480px) {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Enhanced caption styling - Centro de pantalla */
+.carousel-caption {
+  bottom: 50%;
+  left: 50%;
+  right: auto;
+  transform: translate(-50%, 50%);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  max-width: 800px;
+  padding: 2rem;
+
+  h2 {
+    margin-bottom: 1.5rem;
+    font-size: 3.5rem;
+    font-weight: 700;
+    animation: slideInUp 0.8s ease-out;
+    
+    @media (max-width: 768px) {
+      font-size: 2.5rem;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 2rem;
+    }
+  }
+
+  p {
+    font-size: 1.5rem;
+    line-height: 1.6;
+    animation: slideInUp 0.8s ease-out 0.2s both;
+    max-width: 700px;
+    margin: 0 auto;
+    
+    @media (max-width: 768px) {
+      font-size: 1.25rem;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+/* ng-bootstrap fade effect */
+::ng-deep ngb-carousel.carousel-fade .carousel-item {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+
+  &.active {
+    opacity: 1;
+  }
+}
+
+/* Custom indicator styling for ng-bootstrap */
+::ng-deep .carousel-indicators {
+  [data-bs-target] {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 0 4px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+
+    &.active {
+      background-color: white;
+      transform: scale(1.2);
+    }
+  }
+}
+
+/* Control button enhancements for ng-bootstrap */
+::ng-deep .carousel-control-prev,
+::ng-deep .carousel-control-next {
+  width: 5%;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    width: 2rem;
+    height: 2rem;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+  }
+}
+
+/* Animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Performance optimizations */
+::ng-deep .carousel-item,
+.carousel-item-wrapper {
+  will-change: transform;
+}
+
+/* Custom Navigation Indicators */
+.hero-indicators {
+  position: absolute;
+  right: 8.33%; // Alineado con col-10 (100-83.33)/2 = 8.33%
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem; // Reducido un poco el espacio
+  
+  @media (max-width: 991px) {
+    right: 4.17%; // Alineado con col-md-11 (100-91.67)/2 = 4.17%
+  }
+  
+  @media (max-width: 768px) {
+    right: 1rem; // Mantener padding móvil
+    gap: 0.6rem; // Aún más compacto en móvil
+  }
+}
+
+.indicator-btn {
+  width: 8px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  flex-shrink: 0; // Evita que se deforme
+  min-width: 8px; // Asegura el tamaño mínimo
+  min-height: 8px;
+  
+  &.active,
+  &:hover {
+    background-color: $hero-light;
+    border-color: $hero-light;
+    transform: scale(1.3);
+  }
+}
+
+/* Contact Information Footer */
+.hero-footer {
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  padding: 0 2rem;
+  
+  @media (max-width: 768px) {
+    bottom: 1rem;
+    padding: 0 1rem;
+  }
+}
+
+.contact-item {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  
+  i {
+    color: $hero-accent;
+    width: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+  }
+}
+
+/* Social Media Icons */
+.hero-social {
+  position: absolute;
+  right: 10rem;
+  bottom: 2rem;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  
+  @media (max-width: 768px) {
+    right: 1rem; // Mantener padding móvil
+    bottom: 1rem;
+    gap: 0.75rem;
+  }
+}
+
+.social-link {
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  color: $hero-light;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: $hero-light;
+    color: white;
+    transform: translateY(-2px);
+  }
+  
+  @media (max-width: 768px) {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  ::ng-deep ngb-carousel.carousel-fade .carousel-item {
+    transition: none;
+  }
+  
+  .hero-btn-primary,
+  .hero-btn-secondary,
+  .social-link,
+  .indicator-btn {
+    transform: none !important;
+  }
+
+  .carousel-caption h2,
+  .carousel-caption p {
+    animation: none;
+  }
+}
+
+// Animación para la entrada del hero completo
+@keyframes fadeInSection {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

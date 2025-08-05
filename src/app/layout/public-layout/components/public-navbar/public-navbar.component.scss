@@ -1,60 +1,101 @@
-// public-navbar.component.scss
+@import '../../../../../assets/styles/_variables.scss';
 
-// Variables de diseño - Estilo Vercel/Xafran
-$navbar-height: 110px;
-$primary-color: #000000;
-$secondary-color: #0070f3;
+// Variables de diseño - Estilo moderno transparente
+$navbar-height: 80px; // Reducido para ser más moderno
+$primary-color: $blue-three;
+$secondary-color: $blue-two;
 $accent-color: #ff0080;
-$text-dark: #000000;
-$text-light: #666666;
-$text-muted: #999999;
-$background-white: rgba(255, 255, 255, 0.527);
-$background-blur: rgba(255, 255, 255, 0.534);
-$shadow-subtle: 0 0 0 1px rgba(0, 0, 0, 0.05);
-$shadow-elevated: 0 8px 30px rgba(0, 0, 0, 0.12);
+$text-dark: $black-one;
+$text-light: rgba(255, 255, 255, 0.9); // Texto blanco para navbar transparente
+$text-muted: rgba(255, 255, 255, 0.7);
+$background-transparent: rgba(0, 0, 0, 0.1); // Fondo más transparente
+$background-blur: rgba(0, 0, 0, 0.2); // Fondo con blur más sutil
+$shadow-subtle: 0 0 0 1px rgba(255, 255, 255, 0.1);
+$shadow-elevated: 0 8px 30px rgba(0, 0, 0, 0.15);
 $border-radius: 8px;
-$transition-smooth: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-$transition-fast: all 0.1s ease;
+$transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-fast: all 0.2s ease;
 
 .modern-navbar {
   font-size: 16px;
-  background: $background-white;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: $background-transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   height: $navbar-height;
   padding: 0;
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  z-index: 1030;
+  z-index: 1050; // Aumentado para estar sobre todo
   transition: $transition-smooth;
-  // position: relative;
-    position: absolute;
+  position: fixed; // Fijo en la parte superior
+  top: 0;
+  left: 0;
+  right: 0;
 
   &.scrolled {
-    background: $background-blur;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     box-shadow: $shadow-elevated;
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    
+    .navbar-brand {
+      color: $text-dark !important;
+      
+      &:hover {
+        color: $primary-color !important;
+      }
+    }
+    
+    .nav-link {
+      color: $text-dark !important;
+      
+      &::after {
+        background: linear-gradient(90deg, transparent, $primary-color, transparent);
+      }
+      
+      &:hover {
+        color: $primary-color !important;
+      }
+      
+      &:focus {
+        outline: 2px solid rgba(3, 78, 162, 0.3);
+      }
+    }
+    
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cline x1='3' y1='6' x2='21' y2='6'%3e%3c/line%3e%3cline x1='3' y1='12' x2='21' y2='12'%3e%3c/line%3e%3cline x1='3' y1='18' x2='21' y2='18'%3e%3c/line%3e%3c/svg%3e");
+    }
+    
+    .cart-btn {
+      color: $text-dark !important;
+      
+      &:hover {
+        color: $primary-color !important;
+      }
+    }
   }
 
   .container-fluid {
     height: 100%;
-    display: flex;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 0;
   }
 
-  // Logo y marca - Estilo Vercel
+  .navbar-content {
+    width: 100%;
+    height: $navbar-height;
+  }
+
+  // Logo y marca - Estilo moderno transparente
   .navbar-brand {
-    // font-weight: bold;
-    color: $primary-color !important;
+    color: rgba(255, 255, 255, 0.95) !important; 
     text-decoration: none;
     transition: $transition-fast;
-    // font-size: 1.125rem;
     font-size: 16px;
     letter-spacing: -0.025em;
     
     &:hover {
-      opacity: 0.8;
+      color: rgba(255, 255, 255, 1) !important;
+      opacity: 0.9;
     }
 
     .navbar-logo {
@@ -65,7 +106,7 @@ $transition-fast: all 0.1s ease;
     }
   }
 
-  // Toggle button móvil - Minimalista
+  // Toggle button móvi
   .navbar-toggler {
     padding: 4px;
     border: none;
@@ -86,7 +127,8 @@ $transition-fast: all 0.1s ease;
     .navbar-toggler-icon {
       width: 20px;
       height: 20px;
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cline x1='3' y1='6' x2='21' y2='6'%3e%3c/line%3e%3cline x1='3' y1='12' x2='21' y2='12'%3e%3c/line%3e%3cline x1='3' y1='18' x2='21' y2='18'%3e%3c/line%3e%3c/svg%3e");
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cline x1='3' y1='6' x2='21' y2='6'%3e%3c/line%3e%3cline x1='3' y1='12' x2='21' y2='12'%3e%3c/line%3e%3cline x1='3' y1='18' x2='21' y2='18'%3e%3c/line%3e%3c/svg%3e");
+      transition: $transition-fast;
     }
   }
 
@@ -99,8 +141,7 @@ $transition-fast: all 0.1s ease;
       position: relative;
 
       .nav-link {
-        color: $text-dark;
-        // font-weight: bold;
+        color: $text-light;
         font-size: 16px;
         padding: 8px 16px;
         margin: 0 4px;
@@ -110,13 +151,31 @@ $transition-fast: all 0.1s ease;
         text-decoration: none;
         white-space: nowrap;
 
+        // Línea 
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 50%;
+          width: 0;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transform: translateX(-50%);
+        }
+
         &:hover {
-          color: $primary-color;
-          background: rgba(0, 0, 0, 0.05);
+          color: rgba(255, 255, 255, 1); 
+          background: transparent;
+          
+          // Activar la línea al hover
+          &::after {
+            width: 80%;
+          }
         }
 
         &:focus {
-          outline: 2px solid rgba($secondary-color, 0.3);
+          outline: 2px solid rgba(255, 255, 255, 0.3);
           outline-offset: 2px;
         }
 
@@ -134,6 +193,9 @@ $transition-fast: all 0.1s ease;
             border-top: 3px solid currentColor;
             transition: $transition-fast;
             margin-left: 4px;
+            position: static;
+            transform: none;
+            background: none;
           }
 
           &[aria-expanded="true"]::after {
@@ -142,21 +204,17 @@ $transition-fast: all 0.1s ease;
         }
       }
 
-      // Hover effect específico para el menú principal
-      &:hover .nav-link {
-        background: rgba(0, 0, 0, 0.05);
-      }
     }
   }
 
-  // Dropdown menu - Estilo Vercel minimalista
+  // Dropdown menu
   .dropdown-menu-modern {
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
     padding: 8px;
     margin-top: 4px;
-    background: $background-white;
+    background: white;
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     min-width: 200px;
@@ -186,18 +244,16 @@ $transition-fast: all 0.1s ease;
     }
   }
 
-  // Carrito - Minimalista como Vercel
+  // Carrito
   .navbar-cart {
     .cart-btn {
       background: transparent;
-      // border: 1px solid rgba(0, 0, 0, 0.1);
-      // border-radius: 6px;
       width: 40px;
       height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: $text-dark;
+      color: $text-light;
       font-size: 1rem;
       transition: $transition-fast;
       position: relative;
@@ -234,16 +290,11 @@ $transition-fast: all 0.1s ease;
   }
 }
 
-// Spacer para navbar fixed
-// .navbar-spacer {
-//   height: $navbar-height;
-// }
-
-// Responsive design - Estilo Vercel
+// Responsive design
 @media (max-width: 991.98px) {
   .modern-navbar {
     .navbar-collapse {
-      background: $background-white;
+      background: white;
       border: 1px solid rgba(0, 0, 0, 0.1);
       border-radius: 8px;
       margin-top: 8px;
@@ -311,7 +362,7 @@ $transition-fast: all 0.1s ease;
   }
 }
 
-// Estados de foco para accesibilidad - Estilo Vercel
+// Estados de foco para accesibilidad
 .nav-link:focus,
 .dropdown-item:focus,
 .cart-btn:focus {

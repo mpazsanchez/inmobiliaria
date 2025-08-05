@@ -1,0 +1,61 @@
+@import '../../../../../../assets/styles/variables';
+
+.contact-info {
+  .info-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #e74c3c;
+    margin-bottom: 2rem;
+  }
+  
+  .contact-items {
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 2.5rem;
+      padding: 0;
+      background: none;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      .contact-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #e74c3c;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1.5rem;
+        flex-shrink: 0;
+        box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        
+        i {
+          color: white;
+          font-size: 1.2rem;
+        }
+      }
+      
+      .contact-details {
+        flex: 1;
+        padding-top: 8px;
+        
+        .contact-label {
+          font-size: 1.2rem;
+          font-weight: 700;
+          color: #2c3e50;
+          margin-bottom: 0.5rem;
+        }
+        
+        .contact-value {
+          font-size: 0.95rem;
+          color: #6c757d;
+          margin: 0;
+          line-height: 1.6;
+        }
+      }
+    }
+  }
+}

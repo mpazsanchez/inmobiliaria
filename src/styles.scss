@@ -12,4 +12,17 @@ body {
     font-family: var(--font-primary);
     font-optical-sizing: auto;
     font-style: normal;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Estilos para navbar fijo y hero full-screen */
+html, body {
+    height: 100%;
+}
+
+/* Remover márgenes por defecto que puedan interferir */
+* {
+    box-sizing: border-box;
 }
