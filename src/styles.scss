@@ -15,11 +15,22 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Estilos para navbar fijo y hero full-screen */
 html, body {
     height: 100%;
+}
+
+/* Root app component para sticky footer */
+app-root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    flex: 1;
 }
 
 /* Remover márgenes por defecto que puedan interferir */

@@ -17,11 +17,11 @@
                 </div>
               </div>
               
-              <!-- Main Image with Blue Border -->
+              <!-- Main Image -->
               <div class="about-image-container">
                 <div class="image-border"></div>
                 <img 
-                  src="./assets/images/backgrounds/solarcheck/slide-1.jpg" 
+                  src="{{ bannerImage }}" 
                   alt="Instalación profesional de láminas solares"
                   class="about-main-image"
                   loading="lazy">
@@ -59,28 +59,6 @@
                 </div>
               </div>
               
-              <!-- CTA Section -->
-              <div class="cta-section">
-                <div class="row align-items-center">
-                  <div class="col-md-6">
-                    <button 
-                      class="btn btn-primary cta-button"
-                      (click)="onDiscoverMore()">
-                      {{ companyInfo.ctaText }}
-                    </button>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="founder-info">
-                      <img 
-                        [src]="founderInfo.photo" 
-                        [alt]="founderInfo.name"
-                        class="founder-photo"
-                        onerror="this.style.display='none';">
-                      <span class="founder-signature">{{ founderInfo.signature }}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
               
               <!-- Contact Call to Action -->
               <div class="contact-cta">
