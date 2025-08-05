@@ -50,7 +50,7 @@ export class ContactFormComponent {
       // Simular delay de envío
       setTimeout(() => {
         this.isSubmitting = false;
-        alert('Message sent successfully!');
+        console.log('Su mensaje ha sido enviado correctamente');
         this.contactForm.reset();
       }, 2000);
     } else {
