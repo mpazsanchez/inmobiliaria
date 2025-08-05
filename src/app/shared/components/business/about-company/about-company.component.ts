@@ -1,4 +1,4 @@
-import { Component, Inject, Input, PLATFORM_ID } from '@angular/core';
+import { Component, inject, Inject, Input, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 interface CompanyStats {
@@ -23,6 +23,7 @@ export class AboutCompanyComponent {
   @Input() bannerImage?: string = '';
   private readonly isBrowser: boolean;
   @Input() showProgressBars?: boolean = true;
+
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
