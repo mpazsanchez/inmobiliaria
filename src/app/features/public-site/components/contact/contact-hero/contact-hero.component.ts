@@ -9,5 +9,4 @@ import { CommonModule } from '@angular/common';
   styleUrl: './contact-hero.component.scss'
 })
 export class ContactHeroComponent {
-  // Componente simple para el hero de contacto
 }
