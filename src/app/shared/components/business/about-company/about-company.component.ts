@@ -22,6 +22,7 @@ interface SkillProgress {
 export class AboutCompanyComponent {
   @Input() bannerImage?: string = '';
   private readonly isBrowser: boolean;
+  @Input() showProgressBars?: boolean = true;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);

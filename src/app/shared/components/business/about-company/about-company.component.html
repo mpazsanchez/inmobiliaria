@@ -44,20 +44,22 @@
               <p class="section-description">{{ companyInfo.description }}</p>
               
               <!-- Skills/Progress Bars -->
-              <div class="skills-section">
-                <div class="skill-item" *ngFor="let skill of skills">
-                  <div class="skill-header">
-                    <span class="skill-name">{{ skill.name }}</span>
-                    <span class="skill-percentage">{{ skill.percentage }}%</span>
-                  </div>
-                  <div class="skill-bar">
-                    <div 
-                      class="skill-progress" 
-                      [style.width.%]="skill.percentage">
-                    </div>
-                  </div>
-                </div>
-              </div>
+               @if (showProgressBars == true) {
+                 <div class="skills-section">
+                   <div class="skill-item" *ngFor="let skill of skills">
+                     <div class="skill-header">
+                       <span class="skill-name">{{ skill.name }}</span>
+                       <span class="skill-percentage">{{ skill.percentage }}%</span>
+                     </div>
+                     <div class="skill-bar">
+                       <div 
+                         class="skill-progress" 
+                         [style.width.%]="skill.percentage">
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+               }
               
               
               <!-- Contact Call to Action -->
