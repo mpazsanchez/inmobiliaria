@@ -32,24 +32,24 @@ export class FaqSectionComponent {
       answer: 'Sí, totalmente. Las láminas solares Glazing están diseñadas para aplicarse directamente sobre cristales existentes, sin necesidad de obras ni reemplazo de ventanas.',
       isOpen: true
     },
-    {
-      id: 'faq2',
-      question: '¿Qué tan efectivas son contra el calor?',
-      answer: 'Nuestras láminas de tecnología nano cerámica y carbono avanzado bloquean hasta el 97% de la radiación infrarroja (IR), reduciendo significativamente la temperatura interior y mejorando el confort térmico.',
-      isOpen: false
-    },
+    // {
+    //   id: 'faq2',
+    //   question: '¿Qué tan efectivas son contra el calor?',
+    //   answer: 'Nuestras láminas de tecnología nano cerámica y carbono avanzado bloquean hasta el 97% de la radiación infrarroja (IR), reduciendo significativamente la temperatura interior y mejorando el confort térmico.',
+    //   isOpen: false
+    // },
     {
       id: 'faq3',
       question: '¿Pierdo visibilidad desde adentro hacia afuera?',
       answer: 'No. Las láminas están diseñadas para mantener la visibilidad desde el interior, incluso en modelos con alto nivel de privacidad. Usted ve hacia afuera, pero desde afuera no ven hacia adentro (en condiciones de luz natural).',
       isOpen: false
     },
-    {
-      id: 'faq4',
-      question: '¿Cuánto ahorro en energía?',
-      answer: 'Según el tipo de vidrio y la exposición solar, se puede lograr un ahorro de hasta el 30% en consumo de aire acondicionado o climatización, al reducir la carga térmica que entra por los vidrios.',
-      isOpen: false
-    },
+    // {
+    //   id: 'faq4',
+    //   question: '¿Cuánto ahorro en energía?',
+    //   answer: 'Según el tipo de vidrio y la exposición solar, se puede lograr un ahorro de hasta el 30% en consumo de aire acondicionado o climatización, al reducir la carga térmica que entra por los vidrios.',
+    //   isOpen: false
+    // },
     {
       id: 'faq5',
       question: '¿Requieren mantenimiento?',
@@ -74,30 +74,24 @@ export class FaqSectionComponent {
       answer: 'Solo personal certificado Glazing Certified™, con toda la documentación legal, seguros, formación técnica y protocolo de seguridad para ingresar a hogares y empresas con total profesionalismo.',
       isOpen: false
     },
-    {
-      id: 'faq9',
-      question: '¿Qué tipos de láminas ofrecen?',
-      answer: 'Ofrecemos 4 tipos principales: Láminas de Protección Solar (control térmico), Láminas de Privacidad (diferentes niveles de opacidad), Láminas de Seguridad (refuerzo de vidrios) y Láminas Decorativas (personalización estética).',
-      isOpen: false
-    },
-    {
-      id: 'faq10',
-      question: '¿Cuál es el nivel de protección UV?',
-      answer: 'Nuestras láminas bloquean hasta el 99% de los rayos UV dañinos, protegiendo tanto a las personas como a los interiores de la decoloración y el deterioro causado por la exposición solar.',
-      isOpen: false
-    },
-    {
-      id: 'faq11',
-      question: '¿Se pueden aplicar en vidrios temperados o laminados?',
-      answer: 'Sí, nuestras láminas son compatibles con todo tipo de vidrios: float, temperado, laminado, doble vidriado hermético (DVH), y vidrios con tratamientos especiales. Cada aplicación se evalúa técnicamente.',
-      isOpen: false
-    },
-    {
-      id: 'faq12',
-      question: '¿Afectan la iluminación natural del ambiente?',
-      answer: 'Nuestras láminas están diseñadas para optimizar la luz natural. Reducen el deslumbramiento manteniendo una iluminación confortable, y ofrecemos diferentes grados de transmisión lumínica según la necesidad.',
-      isOpen: false
-    }
+    // {
+    //   id: 'faq9',
+    //   question: '¿Qué tipos de láminas ofrecen?',
+    //   answer: 'Ofrecemos 4 tipos principales: Láminas de Protección Solar (control térmico), Láminas de Privacidad (diferentes niveles de opacidad), Láminas de Seguridad (refuerzo de vidrios) y Láminas Decorativas (personalización estética).',
+    //   isOpen: false
+    // },
+    // {
+    //   id: 'faq10',
+    //   question: '¿Cuál es el nivel de protección UV?',
+    //   answer: 'Nuestras láminas bloquean hasta el 99% de los rayos UV dañinos, protegiendo tanto a las personas como a los interiores de la decoloración y el deterioro causado por la exposición solar.',
+    //   isOpen: false
+    // },
+    // {
+    //   id: 'faq11',
+    //   question: '¿Se pueden aplicar en vidrios temperados o laminados?',
+    //   answer: 'Sí, nuestras láminas son compatibles con todo tipo de vidrios: float, temperado, laminado, doble vidriado hermético (DVH), y vidrios con tratamientos especiales. Cada aplicación se evalúa técnicamente.',
+    //   isOpen: false
+    // }
   ];
 
   // Value Propositions
