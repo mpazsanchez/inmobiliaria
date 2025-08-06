@@ -415,6 +415,18 @@ export class PublicNavbarComponent implements OnInit, OnDestroy {
         menuArguments: [],
         usersMenu: true,
       },
+            {
+        id: 80,
+        idParent: 2,
+        name: 'Nuestras soluciones',
+        titleShow: 'Nuestras soluciones',
+        icon: 'faLeaf',
+        link: '/products',
+        orderby: 1,
+        status: 1,
+        menuArguments: [],
+        usersMenu: true,
+      },
       {
         id: 21,
         idParent: 2,
@@ -487,18 +499,20 @@ export class PublicNavbarComponent implements OnInit, OnDestroy {
         menuArguments: [],
         usersMenu: true,
       },
-      {
-        id: 3,
-        idParent: null,
-        name: 'productos',
-        titleShow: 'Productos',
-        icon: 'faBox',
-        link: '/products',
-        orderby: 3,
-        status: 1,
-        menuArguments: [],
-        usersMenu: true,
-      },
+
+      // {
+      //   id: 3,
+      //   idParent: null,
+      //   name: 'productos',
+      //   titleShow: 'Productos',
+      //   icon: 'faBox',
+      //   link: '/products',
+      //   orderby: 3,
+      //   status: 1,
+      //   menuArguments: [],
+      //   usersMenu: true,
+      // }
+      
       {
         id: 4,
         idParent: null,
