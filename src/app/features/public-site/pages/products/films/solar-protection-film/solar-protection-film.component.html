@@ -1,8 +1,8 @@
-<!-- Products Page Layout -->
-<div class="products-page">
+<!-- Solar Protection Film Page -->
+<div class="solar-protection-page">
   
-  <!-- Page Hero Section -->
-  <section class="products-hero">
+  <!-- Hero Section -->
+  <section class="product-hero">
     <div class="hero-background">
       <div class="geometric-shapes"></div>
     </div>
@@ -11,21 +11,26 @@
       <div class="row justify-content-center">
         <div class="col-lg-8 text-center">
           
+          <!-- Breadcrumb Navigation -->
           <nav aria-label="breadcrumb" class="hero-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item">
                 <a href="/">HOME</a>
               </li>
+              <li class="breadcrumb-item">
+                <a href="/products">PRODUCTOS</a>
+              </li>
               <li class="breadcrumb-item active" aria-current="page">
-                Productos
+                Láminas de Protección Solar
               </li>
             </ol>
           </nav>
 
+          <!-- Main Content -->
           <div class="hero-content">
-            <h1 class="hero-title">Nuestras Soluciones</h1>
+            <h1 class="hero-title">Láminas de Protección Solar</h1>
             <p class="hero-subtitle">
-              Soluciones innovadoras en láminas de control solar para transformar tus espacios
+              Tecnología avanzada para el control térmico y ahorro energético en tus espacios
             </p>
           </div>
 
@@ -34,5 +39,180 @@
     </div>
   </section>
 
+  <!-- Main Content Section -->
+  <section class="product-content">
+    <div class="container">
+      
+      <!-- Product Introduction -->
+      <div class="row mb-5">
+        <div class="col-lg-6 mb-4">
+          <div class="content-image">
+            <img src="/assets/images/backgrounds/solarcheck/slide-1.jpg" 
+                 alt="Láminas de Protección Solar" 
+                 class="img-fluid rounded">
+          </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+          <div class="content-text">
+            <h2 class="section-title">Protección Solar Avanzada</h2>
+            <p class="section-description">
+              Nuestras láminas de protección solar combinan tecnología avanzada con diferentes opciones estéticas 
+              para brindar soluciones eficaces contra el calor, los rayos UV y el deslumbramiento. 
+              Desde láminas completamente transparentes hasta opciones espejadas que proporcionan privacidad.
+            </p>
+            <p class="section-description">
+              Cada tipo de lámina está diseñado para necesidades específicas: las espejadas plata ofrecen 
+              máxima privacidad, las nano cerámicas negras complementan la arquitectura moderna, y las 
+              selectivas transparentes preservan la estética original manteniendo excelente protección.
+            </p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check-circle"></i> 99% protección UV en todos los tipos</li>
+              <li><i class="fas fa-check-circle"></i> Hasta 95% reducción de rayos infrarrojos</li>
+              <li><i class="fas fa-check-circle"></i> Reducción significativa de costos energéticos</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tipos de Láminas Solares -->
+      <div class="row mb-5">
+        <div class="col-12">
+          <div class="text-center mb-5">
+            <h2 class="section-title">Nuestras Láminas de Protección Solar</h2>
+            <p class="section-description">
+              Ofrecemos tres tipos especializados de láminas solares, cada una diseñada para necesidades específicas de protección, estética y eficiencia energética.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let filmType of filmTypes; trackBy: trackByIndex">
+          <div class="film-type-card h-100">
+            <div class="film-header">
+              <h3 class="film-title">{{ filmType.name }}</h3>
+              <div class="film-finish">{{ filmType.finish }}</div>
+            </div>
+            
+            <div class="film-body">
+              <p class="film-description">{{ filmType.description }}</p>
+              
+              <div class="film-specs">
+                <div class="spec-row">
+                  <span class="spec-label">Protección UV:</span>
+                  <span class="spec-value">{{ filmType.uvProtection }}</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">Reducción IR:</span>
+                  <span class="spec-value">{{ filmType.irReduction }}</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-label">Energía solar rechazada:</span>
+                  <span class="spec-value">{{ filmType.solarEnergyRejection }}</span>
+                </div>
+              </div>
+
+              <div class="film-benefits mt-4">
+                <h5>Beneficios Clave:</h5>
+                <ul class="benefits-list">
+                  <li *ngFor="let benefit of filmType.keyBenefits">
+                    <i class="fas fa-check-circle"></i>
+                    {{ benefit }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Features Grid -->
+      <div class="row mb-5">
+        <div class="col-12">
+          <h2 class="section-title text-center mb-5">Características Principales</h2>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4" *ngFor="let feature of productFeatures; trackBy: trackByIndex">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i [class]="feature.icon"></i>
+            </div>
+            <h4 class="feature-title">{{ feature.title }}</h4>
+            <p class="feature-description">{{ feature.description }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technical Specifications -->
+      <div class="row mb-5">
+        <div class="col-lg-6 mb-4">
+          <div class="specs-content">
+            <h2 class="section-title">Especificaciones Técnicas</h2>
+            <p class="section-description">
+              Nuestras láminas de protección solar cumplen con los más altos estándares de la industria, 
+              ofreciendo diferentes niveles de rendimiento según el tipo seleccionado. Todas garantizan 
+              excelente protección UV y significativo ahorro energético.
+            </p>
+            <div class="specs-grid">
+              <div class="spec-item" *ngFor="let spec of technicalSpecs; trackBy: trackByIndex">
+                <div class="spec-label">{{ spec.property }}</div>
+                <div class="spec-value">
+                  {{ spec.value }}<span class="spec-unit" *ngIf="spec.unit">{{ spec.unit }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+          <div class="content-image">
+            <img src="/assets/images/backgrounds/solarcheck/slide-2.jpg" 
+                 alt="Especificaciones Técnicas" 
+                 class="img-fluid rounded">
+          </div>
+        </div>
+      </div>
+
+      <!-- Challenges / FAQ Section -->
+      <div class="row mb-5">
+        <div class="col-12">
+          <h2 class="section-title text-center mb-5">Preguntas Frecuentes</h2>
+        </div>
+        <div class="col-lg-8 mx-auto">
+          <div class="challenges-section">
+            <div class="challenge-item" *ngFor="let challenge of challenges; let i = index; trackBy: trackByIndex">
+              <button class="challenge-header" (click)="toggleChallenge(i)" type="button">
+                <h5 class="challenge-question">{{ challenge.question }}</h5>
+                <i class="fas" [class.fa-chevron-down]="!challenge.isOpen" [class.fa-chevron-up]="challenge.isOpen"></i>
+              </button>
+              <div class="challenge-answer" [class.show]="challenge.isOpen">
+                <p>{{ challenge.answer }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div class="row">
+        <div class="col-12">
+          <div class="cta-section text-center">
+            <h3 class="cta-title">¿Necesitas más información sobre Láminas de Protección Solar?</h3>
+            <p class="cta-description">
+              Nuestros especialistas técnicos están listos para ayudarte a encontrar la solución perfecta 
+              para tu proyecto específico.
+            </p>
+            <div class="cta-buttons">
+              <a href="/contact" class="btn btn-primary btn-lg me-3">
+                <i class="fas fa-comments me-2"></i>
+                Consultar Especialista
+              </a>
+              <a href="/products" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-arrow-left me-2"></i>
+                Ver Todos los Productos
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
 
 </div>
