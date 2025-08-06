@@ -1,0 +1,47 @@
+<!-- Client Testimonials Section -->
+<section class="testimonials-section">
+  <div class="container">
+    
+    <!-- Section Header -->
+    <div class="row mb-5">
+      <div class="col-12 text-center">
+        <div class="section-header">
+          <p class="section-subtitle">TESTIMONIOS DE NUESTROS CLIENTES</p>
+          <h2 class="section-title">Por qué los clientes nos eligen</h2>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Testimonials Grid -->
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6" *ngFor="let testimonial of testimonials">
+        <div class="testimonial-card">
+          
+          <!-- Quote Icon -->
+          <div class="quote-icon">
+            <i class="fas fa-quote-right"></i>
+          </div>
+          
+          <!-- Testimonial Content -->
+          <div class="testimonial-content">
+            <p>{{ testimonial.content }}</p>
+          </div>
+          
+          <!-- Client Info -->
+          <div class="client-info">
+            <div class="client-avatar">
+              <div class="avatar-initials">{{ testimonial.initials }}</div>
+            </div>
+            <div class="client-details">
+              <h4 class="client-name">{{ testimonial.name }}</h4>
+              <p class="client-position">{{ testimonial.position }}</p>
+              <p class="client-company">{{ testimonial.company }}</p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>

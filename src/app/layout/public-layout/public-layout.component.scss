@@ -1,7 +1,19 @@
-/* Layout styles para navbar fijo y hero full-screen */
+/* Layout styles para sticky footer y estructura completa */
 :host {
   display: block;
   min-height: 100vh;
+}
+
+.public-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  
+  .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 /* Asegurar que no hay margen o padding extra */

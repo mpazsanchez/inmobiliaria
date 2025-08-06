@@ -1,0 +1,171 @@
+@import '../../assets/styles/variables';
+
+.testimonials-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  position: relative;
+  overflow: hidden;
+
+  // Background decoration
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23009ADE" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+
+    .section-subtitle {
+      color: $blue-two;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      color: #2c3e50;
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0;
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  .testimonial-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    height: 100%;
+    box-shadow: 0 10px 30px rgba(0, 154, 222, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    border: 1px solid rgba(0, 154, 222, 0.1);
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 154, 222, 0.15);
+      border-color: rgba(0, 154, 222, 0.2);
+    }
+
+    .quote-icon {
+      position: absolute;
+      top: -15px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, $blue-one 0%, $blue-two 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 5px 15px rgba(0, 154, 222, 0.3);
+
+      i {
+        color: white;
+        font-size: 1.2rem;
+      }
+    }
+
+    .testimonial-content {
+      margin-bottom: 2rem;
+      margin-top: 1rem;
+
+      p {
+        color: #6c757d;
+        font-size: 1rem;
+        line-height: 1.7;
+        margin-bottom: 0;
+        font-style: italic;
+      }
+    }
+
+    .client-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .client-avatar {
+        flex-shrink: 0;
+
+        img {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 3px solid $blue-one;
+          background: #f8f9fa;
+        }
+      }
+
+      .client-details {
+        flex-grow: 1;
+
+        .client-name {
+          color: #2c3e50;
+          font-size: 1.1rem;
+          font-weight: 600;
+          margin-bottom: 0.25rem;
+        }
+
+        .client-position {
+          color: $blue-two;
+          font-size: 0.9rem;
+          font-weight: 500;
+          margin-bottom: 0.125rem;
+        }
+
+        .client-company {
+          color: #6c757d;
+          font-size: 0.8rem;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    padding: 60px 0;
+
+    .testimonial-card {
+      padding: 1.5rem;
+    }
+  }
+}
+
+// Animation for cards
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.testimonial-card {
+  animation: fadeInUp 0.6s ease forwards;
+  
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+}
