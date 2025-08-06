@@ -1,4 +1,4 @@
-@import '../../assets/styles/variables';
+@import '../../../../../../assets/styles/variables';
 
 .testimonials-section {
   padding: 80px 0;
@@ -50,7 +50,7 @@
 
   .testimonial-card {
     background: white;
-    border-radius: 20px;
+    // border-radius: 20px;
     padding: 2rem;
     height: 100%;
     box-shadow: 0 10px 30px rgba(0, 154, 222, 0.1);
@@ -104,13 +104,18 @@
       .client-avatar {
         flex-shrink: 0;
 
-        img {
+        .avatar-initials {
           width: 60px;
           height: 60px;
           border-radius: 50%;
-          object-fit: cover;
-          border: 3px solid $blue-one;
-          background: #f8f9fa;
+          background: linear-gradient(135deg, $blue-one 0%, $blue-two 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-weight: 600;
+          font-size: 1.2rem;
+          border: 3px solid rgba(255, 255, 255, 0.2);
         }
       }
 

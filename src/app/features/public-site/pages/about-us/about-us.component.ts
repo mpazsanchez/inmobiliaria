@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { AboutHeroComponent } from "../../components/about/about-hero/about-hero.component";
 import { AboutCompanyComponent } from "../../../../shared/components/business/about-company/about-company.component";
 import { WhyChooseUsComponent } from "../../components/about/why-choose-us/why-choose-us.component";
+import { ClientsTestimonialsComponent } from "../../components/about/clients-testimonials/clients-testimonials.component";
 
 @Component({
   selector: 'app-about-us',
   standalone: true,
-  imports: [CommonModule, AboutHeroComponent, AboutCompanyComponent, WhyChooseUsComponent],
+  imports: [CommonModule, AboutHeroComponent, AboutCompanyComponent, WhyChooseUsComponent, ClientsTestimonialsComponent],
   templateUrl: './about-us.component.html',
   styleUrl: './about-us.component.scss'
 })
