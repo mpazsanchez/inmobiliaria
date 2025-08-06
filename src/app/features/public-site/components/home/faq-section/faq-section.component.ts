@@ -28,26 +28,50 @@ export class FaqSectionComponent {
   faqItems: FAQItem[] = [
     {
       id: 'faq1',
-      question: '¿Cómo mejoran las láminas solares la eficiencia energética?',
-      answer: 'Las láminas solares bloquean hasta el 97% de los rayos IR y UV, reduciendo significativamente el calor que ingresa por las ventanas. Esto permite un ahorro energético real del 30-50% en climatización, manteniendo ambientes más frescos sin necesidad de tanto aire acondicionado.',
+      question: '¿Se pueden instalar en vidrios ya colocados?',
+      answer: 'Sí, totalmente. Las láminas solares Glazing están diseñadas para aplicarse directamente sobre cristales existentes, sin necesidad de obras ni reemplazo de ventanas.',
       isOpen: true
     },
     {
       id: 'faq2',
-      question: '¿Qué garantía ofrecen los instaladores certificados Glazing?',
-      answer: 'Todos nuestros instaladores certificados Glazing Certified™ emiten garantías oficiales verificables con código QR. Incluye respaldo técnico de la empresa, registro en base de datos interna y soporte postventa prioritario con más de 30 años de experiencia en el rubro.',
+      question: '¿Qué tan efectivas son contra el calor?',
+      answer: 'Nuestras láminas de tecnología nano cerámica y carbono avanzado bloquean hasta el 97% de la radiación infrarroja (IR), reduciendo significativamente la temperatura interior y mejorando el confort térmico.',
       isOpen: false
     },
     {
       id: 'faq3',
-      question: '¿Las láminas afectan la visibilidad o la entrada de luz natural?',
-      answer: 'No. Nuestras láminas arquitectónicas están diseñadas para mantener la privacidad durante el día sin perder luz natural. Reducen deslumbramientos y reflejos molestos, mejorando el confort visual mientras mantienen la claridad de las ventanas.',
+      question: '¿Pierdo visibilidad desde adentro hacia afuera?',
+      answer: 'No. Las láminas están diseñadas para mantener la visibilidad desde el interior, incluso en modelos con alto nivel de privacidad. Usted ve hacia afuera, pero desde afuera no ven hacia adentro (en condiciones de luz natural).',
       isOpen: false
     },
     {
       id: 'faq4',
-      question: '¿Cuánto tiempo toma la instalación y cuál es el proceso?',
-      answer: 'La instalación típica se completa en 1-2 días dependiendo del tamaño del proyecto. Nuestros técnicos certificados realizan una evaluación previa, medición exacta, y aplicación profesional con herramientas especializadas. Incluye capacitación en trabajos en altura y seguro de cobertura.',
+      question: '¿Cuánto ahorro en energía?',
+      answer: 'Según el tipo de vidrio y la exposición solar, se puede lograr un ahorro de hasta el 30% en consumo de aire acondicionado o climatización, al reducir la carga térmica que entra por los vidrios.',
+      isOpen: false
+    },
+    {
+      id: 'faq5',
+      question: '¿Requieren mantenimiento?',
+      answer: 'No. Las láminas Glazing no requieren mantenimiento especial. Solo limpieza normal de vidrios, sin productos abrasivos. Son resistentes al desgaste, al sol y al paso del tiempo.',
+      isOpen: false
+    },
+    {
+      id: 'faq6',
+      question: '¿Tienen garantía?',
+      answer: 'Sí. Ofrecemos garantía escrita de hasta 10 años, dependiendo del modelo instalado. Nuestra garantía cubre decoloración, burbujas, despegue o pérdida de propiedades ópticas.',
+      isOpen: false
+    },
+    {
+      id: 'faq7',
+      question: '¿Cuánto demora la instalación?',
+      answer: 'Depende de la superficie y cantidad de ventanas. En la mayoría de los casos, se realiza en una sola jornada laboral, sin necesidad de vaciar completamente el ambiente ni realizar obras.',
+      isOpen: false
+    },
+    {
+      id: 'faq8',
+      question: '¿Quién realiza la instalación?',
+      answer: 'Solo personal certificado Glazing Certified™, con toda la documentación legal, seguros, formación técnica y protocolo de seguridad para ingresar a hogares y empresas con total profesionalismo.',
       isOpen: false
     }
   ];
