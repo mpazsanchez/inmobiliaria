@@ -104,7 +104,8 @@ export class ProductsTechnologyComponent {
     {
       icon: 'fas fa-clock',
       title: 'Durabilidad',
-      description: 'Garantía de hasta 10 años, resistentes al desgaste, sol y paso del tiempo.'
+      description: 'Garantía de hasta 10 años, resistentes al desgaste, sol y paso del tiempo.',
+      percentage: '10 años'
     }
   ];
 
