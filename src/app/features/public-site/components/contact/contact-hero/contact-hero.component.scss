@@ -2,11 +2,11 @@
 
 .contact-hero {
   position: relative;
-  // background: linear-gradient(135deg, #2C3E50 0%, #34495E 50%, #1a252f 100%);
   min-height: 500px;
   display: flex;
   align-items: center;
   overflow: hidden;
+  // background: linear-gradient(135deg, #2C3E50 0%, #34495E 50%, #1a252f 100%);
   
   // Background image overlay
   &::before {
