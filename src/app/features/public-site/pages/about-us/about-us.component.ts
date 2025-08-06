@@ -4,11 +4,12 @@ import { AboutHeroComponent } from "../../components/about/about-hero/about-hero
 import { AboutCompanyComponent } from "../../../../shared/components/business/about-company/about-company.component";
 import { WhyChooseUsComponent } from "../../components/about/why-choose-us/why-choose-us.component";
 import { ClientsTestimonialsComponent } from "../../components/about/clients-testimonials/clients-testimonials.component";
+import { ExperienceSectionComponent } from "../../components/home/experience-section/experience-section.component";
 
 @Component({
   selector: 'app-about-us',
   standalone: true,
-  imports: [CommonModule, AboutHeroComponent, AboutCompanyComponent, WhyChooseUsComponent, ClientsTestimonialsComponent],
+  imports: [CommonModule, AboutHeroComponent, AboutCompanyComponent, WhyChooseUsComponent, ClientsTestimonialsComponent, ExperienceSectionComponent],
   templateUrl: './about-us.component.html',
   styleUrl: './about-us.component.scss'
 })
