@@ -1,0 +1,333 @@
+@import '../../../../../../assets/styles/variables';
+
+.products-technology-section {
+  padding: 80px 0;
+  background: #fff;
+
+  .section-header {
+    margin-bottom: 3rem;
+
+    .section-subtitle {
+      color: $blue-two;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      color: #2c3e50;
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+
+    .section-description {
+      color: #6c757d;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  }
+
+  // Technical Benefits Cards
+  .benefit-card {
+    background: white;
+    // border-radius: 15px;
+    padding: 2rem 1.5rem;
+    height: 100%;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 154, 222, 0.08);
+    border: 1px solid rgba(0, 154, 222, 0.1);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 154, 222, 0.15);
+      border-color: $blue-one;
+    }
+
+    .benefit-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, $blue-one 0%, $blue-two 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+
+      i {
+        color: white;
+        font-size: 1.8rem;
+      }
+    }
+
+    .benefit-title {
+      color: #2c3e50;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .benefit-percentage {
+      margin-bottom: 1rem;
+
+      .percentage {
+        color: $blue-one;
+        font-size: 2.5rem;
+        font-weight: 700;
+        line-height: 1;
+      }
+    }
+
+    .benefit-description {
+      color: #6c757d;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 0;
+    }
+  }
+
+  // Products Section Title
+  .products-section-title {
+    color: #2c3e50;
+    font-size: 2rem;
+    font-weight: 600;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, $blue-one 0%, $blue-two 100%);
+      border-radius: 2px;
+    }
+  }
+
+  // Product Cards
+  .product-card {
+    background: white;
+    // border-radius: 20px;
+    padding: 2rem;
+    height: 100%;
+    box-shadow: 0 8px 25px rgba(0, 154, 222, 0.1);
+    border: 1px solid rgba(0, 154, 222, 0.08);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(0, 154, 222, 0.15);
+      border-color: rgba(0, 154, 222, 0.2);
+    }
+
+    .product-header {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      align-items: flex-start;
+
+      .product-icon {
+        flex-shrink: 0;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, $blue-one 0%, $blue-two 100%);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        i {
+          color: white;
+          font-size: 1.5rem;
+        }
+      }
+
+      .product-info {
+        flex-grow: 1;
+
+        .product-title {
+          color: #2c3e50;
+          font-size: 1.3rem;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+        }
+
+        .product-description {
+          color: #6c757d;
+          font-size: 0.95rem;
+          line-height: 1.5;
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .product-details {
+      .detail-title {
+        color: $blue-two;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .benefits-section {
+        margin-bottom: 2rem;
+
+        .benefits-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+
+          li {
+            color: #495057;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            i {
+              color: $blue-one;
+              font-size: 0.8rem;
+              flex-shrink: 0;
+            }
+          }
+        }
+      }
+
+      .applications-section {
+        .applications-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+
+          .application-tag {
+            background: rgba(0, 154, 222, 0.1);
+            color: $blue-two;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(0, 154, 222, 0.2);
+          }
+        }
+      }
+    }
+  }
+
+  // Call to Action Section
+  .cta-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="tech-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%23009ADE" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23tech-pattern)"/></svg>');
+      z-index: 0;
+    }
+
+    > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-title {
+      color: #2c3e50;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .cta-description {
+      color: #6c757d;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, $blue-one 0%, $blue-two 100%);
+      border: none;
+      padding: 1rem 2rem;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 154, 222, 0.3);
+      }
+    }
+  }
+
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    padding: 60px 0;
+
+    .benefit-card,
+    .product-card {
+      margin-bottom: 2rem;
+    }
+
+    .product-header {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+
+    .cta-section {
+      padding: 2rem 1rem;
+
+      .cta-title {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+// Animation
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.benefit-card,
+.product-card {
+  animation: fadeInUp 0.6s ease forwards;
+  
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+  &:nth-child(4) { animation-delay: 0.4s; }
+}

@@ -4,6 +4,7 @@ import { HomeComponent } from "./features/public-site/pages/home/home.component"
 import { HomeTwoComponent } from "./features/public-site/pages/home-two/home-two.component";
 import { ContactComponent } from "./features/public-site/pages/contact/contact.component";
 import { AboutUsComponent } from "./features/public-site/pages/about-us/about-us.component";
+import { ProductsComponent } from "./features/public-site/pages/products/products.component";
 
 
 export const routes: Routes = [
@@ -16,6 +17,7 @@ export const routes: Routes = [
       { path: 'homevideo', component: HomeComponent, data: { title: 'Inicio - Glazing™' } },
       { path: 'contact', component: ContactComponent, data: { title: 'Contacto - Glazing™' } },
       { path: 'about', component: AboutUsComponent, data: { title: 'Nosotros - Glazing™' } },
+      { path: 'products', component: ProductsComponent, data: { title: 'Productos y Servicios - Glazing™' } },
 
 
     ]
