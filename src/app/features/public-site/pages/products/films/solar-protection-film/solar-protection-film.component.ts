@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HeroSectionPublicComponent } from "../../../../components/hero-section-public/hero-section-public.component";
 
 interface ProductFeature {
   icon: string;
@@ -43,7 +44,7 @@ interface Banner {
 @Component({
   selector: 'app-solar-protection-film',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HeroSectionPublicComponent],
   templateUrl: './solar-protection-film.component.html',
   styleUrl: './solar-protection-film.component.scss'
 })
