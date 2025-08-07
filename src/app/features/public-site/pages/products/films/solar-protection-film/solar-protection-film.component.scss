@@ -721,14 +721,15 @@
       .challenge-item {
         background: white;
         border: 1px solid #e9ecef;
-        border-radius: 15px;
+        // border-radius: 15px;
         margin-bottom: 1rem;
         overflow: hidden;
         transition: all 0.3s ease;
 
         &:hover {
-          box-shadow: 0 5px 15px rgba(0, 154, 222, 0.1);
+          box-shadow: 0 5px 15px rgba(0, 59, 222, 0.1);
           border-color: rgba(0, 154, 222, 0.2);
+          // border-color: #034da257;
         }
 
         .challenge-header {
@@ -835,9 +836,11 @@
           border-radius: 50px;
           transition: all 0.3s ease;
           margin-bottom: 1rem;
+          border-radius: 8px;
 
           &.btn-primary {
-            background: linear-gradient(135deg, $blue-one 0%, $blue-two 100%);
+            // background: linear-gradient(135deg, $blue-one 0%, $blue-two 100%);
+            background-color: #034EA2;
             border: none;
 
             &:hover {
@@ -847,11 +850,12 @@
           }
 
           &.btn-outline-primary {
-            border: 2px solid $blue-one;
-            color: $blue-one;
+            border: 2px solid #034EA2;
+            color: #034EA2;
 
             &:hover {
-              background: $blue-one;
+              background: #034EA2;
+              color: white;
               transform: translateY(-2px);
               box-shadow: 0 10px 25px rgba(0, 154, 222, 0.2);
             }
