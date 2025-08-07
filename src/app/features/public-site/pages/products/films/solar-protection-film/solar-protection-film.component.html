@@ -44,35 +44,63 @@
     <div class="container">
       
       <!-- Product Introduction -->
-      <div class="row mb-5">
-        <div class="col-lg-6 mb-4">
-          <div class="content-image">
-            <img src="/assets/images/backgrounds/solarcheck/slide-1.jpg" 
-                 alt="Láminas de Protección Solar" 
-                 class="img-fluid rounded">
+       <div class="row product-introduction">
+
+        <!-- Left -->
+          <div class="col-7 container-left">
+            <!-- Image -->
+              <div class="content-image">
+                <img src="/assets/images/backgrounds/solarcheck/slide-1.jpg" 
+                     alt="Láminas de Protección Solar" 
+                     class="img-fluid">
+              </div>
+           
+            <!-- Text -->
+              <div class="content-text">
+                <h2 class="section-title fw-medium">Protección Solar Avanzada</h2>
+                <p class="section-description">
+                  Nuestras láminas de protección solar combinan tecnología avanzada con diferentes opciones estéticas 
+                  para brindar soluciones eficaces contra el calor, los rayos UV y el deslumbramiento. 
+                  Desde láminas completamente transparentes hasta opciones espejadas que proporcionan privacidad.
+                </p>
+                <p class="section-description">
+                  Cada tipo de lámina está diseñado para necesidades específicas: las espejadas plata ofrecen 
+                  máxima privacidad, las nano cerámicas negras complementan la arquitectura moderna, y las 
+                  selectivas transparentes preservan la estética original manteniendo excelente protección.
+                </p>
+                <ul class="feature-list">
+                  <li><i class="fas fa-check-circle"></i> 99% protección UV en todos los tipos</li>
+                  <li><i class="fas fa-check-circle"></i> Hasta 95% reducción de rayos infrarrojos</li>
+                  <li><i class="fas fa-check-circle"></i> Reducción significativa de costos energéticos</li>
+                </ul>
+              </div>
+         </div>
+
+
+        <!-- Right -->
+          <div class="col-4 container-right">
+            
+            <div class="products-list d-flex flex-column gap-3">
+              <h4 class="fw-medium">Productos</h4>
+              <!-- Mapear arreglo de productos -->
+               @for (item of productsItems; track $index) {
+                <div class="product-item d-flex justify-content-between">
+                  <p>{{ item.name }}</p>
+                  <a href="{{ item.link }}" class="product-link">
+                    <i class="fas fa-arrow-right"></i>
+                  </a>
+                </div>
+               }
+            </div>
+
           </div>
-        </div>
-        <div class="col-lg-6 mb-4">
-          <div class="content-text">
-            <h2 class="section-title">Protección Solar Avanzada</h2>
-            <p class="section-description">
-              Nuestras láminas de protección solar combinan tecnología avanzada con diferentes opciones estéticas 
-              para brindar soluciones eficaces contra el calor, los rayos UV y el deslumbramiento. 
-              Desde láminas completamente transparentes hasta opciones espejadas que proporcionan privacidad.
-            </p>
-            <p class="section-description">
-              Cada tipo de lámina está diseñado para necesidades específicas: las espejadas plata ofrecen 
-              máxima privacidad, las nano cerámicas negras complementan la arquitectura moderna, y las 
-              selectivas transparentes preservan la estética original manteniendo excelente protección.
-            </p>
-            <ul class="feature-list">
-              <li><i class="fas fa-check-circle"></i> 99% protección UV en todos los tipos</li>
-              <li><i class="fas fa-check-circle"></i> Hasta 95% reducción de rayos infrarrojos</li>
-              <li><i class="fas fa-check-circle"></i> Reducción significativa de costos energéticos</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+
+       </div>
+
+ 
+
+
+  
 
       <!-- Tipos de Láminas Solares -->
       <div class="row mb-5">
@@ -124,22 +152,6 @@
         </div>
       </div>
 
-      <!-- Features Grid -->
-      <div class="row mb-5">
-        <div class="col-12">
-          <h2 class="section-title text-center mb-5">Características Principales</h2>
-        </div>
-        <div class="col-lg-3 col-md-6 mb-4" *ngFor="let feature of productFeatures; trackBy: trackByIndex">
-          <div class="feature-card">
-            <div class="feature-icon">
-              <i [class]="feature.icon"></i>
-            </div>
-            <h4 class="feature-title">{{ feature.title }}</h4>
-            <p class="feature-description">{{ feature.description }}</p>
-          </div>
-        </div>
-      </div>
-
       <!-- Technical Specifications -->
       <div class="row mb-5">
         <div class="col-lg-6 mb-4">
@@ -164,7 +176,7 @@
           <div class="content-image">
             <img src="/assets/images/backgrounds/solarcheck/slide-2.jpg" 
                  alt="Especificaciones Técnicas" 
-                 class="img-fluid rounded">
+                 class="img-fluid">
           </div>
         </div>
       </div>

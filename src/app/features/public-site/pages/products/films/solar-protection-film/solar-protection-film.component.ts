@@ -144,6 +144,37 @@ export class SolarProtectionFilmComponent {
     }
   ];
 
+  productsItems: any[] = [
+    {
+      name: 'Láminas espejadas de plata',
+      link: '/productos/solar-protection-film'
+    },
+    {
+      name: 'Láminas nano cerámicas negras',
+      link: '/productos/decorative-films'
+    },
+    {
+      name: 'Láminas selectivas',
+      link: '/productos/security-films'
+    },
+    {
+      name: 'Láminas de seguridad transparentes',
+      link: '/productos/security-films-transparent'
+    },
+    {
+      name: 'Láminas de seguridad color 20%',
+      link: '/productos/security-films-color'
+    },
+    {
+      name: 'Láminas esmeriladas',
+      link: '/productos/decorative-films'
+    },
+    {
+      name: 'Vinilos de color',
+      link: '/productos/decorative-films-color'
+    }
+  ];
+
   toggleChallenge(index: number): void {
     this.challenges = this.challenges.map((challenge, i) => ({
       ...challenge,

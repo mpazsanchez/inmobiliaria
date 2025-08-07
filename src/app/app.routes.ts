@@ -5,6 +5,7 @@ import { HomeTwoComponent } from "./features/public-site/pages/home-two/home-two
 import { ContactComponent } from "./features/public-site/pages/contact/contact.component";
 import { AboutUsComponent } from "./features/public-site/pages/about-us/about-us.component";
 import { ProductsComponent } from "./features/public-site/pages/products/products.component";
+import { SolarProtectionFilmComponent } from "./features/public-site/pages/products/films/solar-protection-film/solar-protection-film.component";
 
 
 export const routes: Routes = [
@@ -18,6 +19,7 @@ export const routes: Routes = [
       { path: 'contact', component: ContactComponent, data: { title: 'Contacto - Glazing™' } },
       { path: 'about', component: AboutUsComponent, data: { title: 'Nosotros - Glazing™' } },
       { path: 'products', component: ProductsComponent, data: { title: 'Productos y Servicios - Glazing™' } },
+      { path: 'products/solar-protection-film', component: SolarProtectionFilmComponent, data: { title: 'Láminas de Protección Solar - Glazing™' } },
 
 
     ]

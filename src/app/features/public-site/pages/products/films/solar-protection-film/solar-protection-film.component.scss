@@ -1,4 +1,4 @@
-@import '../../../../../../assets/styles/variables';
+@import '../../../../../../../assets/styles/variables';
 
 .solar-protection-page {
   
@@ -186,12 +186,56 @@
       margin-bottom: 1.5rem;
     }
 
+    // Product Introduction
+    .product-introduction {
+      margin-bottom: 100px;
+      justify-content: space-between;
+    }
+      
+
+    //Left column
+    .container-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    //Right column
+    .container-right {
+      // background: $gray-gradient-one;
+      // padding: 38px;
+      color: $blue-four;
+      border: solid gray 1px;
+    }
+
+    //Products List
+    .products-list {
+      padding: 38px;
+      height: fit-content;
+      background: $gray-gradient-one;
+
+      .product-item {
+        background-color: white;
+        padding: 14px;
+
+        p {
+          margin: 0px;
+        }
+
+        .fa-arrow-right {
+          color: $blue-four;
+        }
+
+      }
+    }
+
+
     // Content Images
     .content-image {
       img {
         width: 100%;
         height: auto;
-        border-radius: 15px;
+        // border-radius: 15px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       }
     }
@@ -220,7 +264,8 @@
     // Film Type Cards
     .film-type-card {
       background: white;
-      border-radius: 15px;
+      // border-radius: 15px;
+      border-radius: 6px;
       border: 1px solid rgba(0, 154, 222, 0.1);
       overflow: hidden;
       transition: all 0.3s ease;
@@ -233,7 +278,8 @@
       }
 
       .film-header {
-        background: linear-gradient(135deg, $blue-one 0%, $blue-two 100%);
+        // background: linear-gradient(135deg, $blue-one 0%, $blue-two 100%);
+        background-color: $blue-four;
         padding: 1.5rem;
         text-align: center;
         color: white;
