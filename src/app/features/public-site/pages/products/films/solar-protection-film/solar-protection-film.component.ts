@@ -29,6 +29,17 @@ interface FilmType {
   keyBenefits: string[];
 }
 
+interface Banner {
+  title: string;
+  subtitle: string;
+  description: string;
+  buttonText: string;
+  buttonAction: string;
+  icon: string;
+  backgroundColor: string;
+  textColor: string;
+}
+
 @Component({
   selector: 'app-solar-protection-film',
   standalone: true,
@@ -144,6 +155,30 @@ export class SolarProtectionFilmComponent {
     }
   ];
 
+  // Banners promocionales
+  banners: Banner[] = [
+    {
+      title: '¿Necesitas Asesoría Personalizada?',
+      subtitle: 'Evaluación Gratuita',
+      description: 'Nuestros expertos analizan tu proyecto y te recomiendan la mejor solución de láminas solares para tus necesidades específicas.',
+      buttonText: 'SOLICITAR ASESORÍA',
+      buttonAction: 'contact',
+      icon: 'fas fa-user-tie',
+      backgroundColor: 'primary',
+      textColor: 'white'
+    },
+    {
+      title: 'Llamanos Ahora',
+      subtitle: 'Atención Inmediata',
+      description: 'Comunícate con nosotros para resolver todas tus dudas sobre láminas de protección solar y recibir una cotización personalizada.',
+      buttonText: '+1 (786) 876-5555',
+      buttonAction: 'phone',
+      icon: 'fas fa-phone',
+      backgroundColor: 'success',
+      textColor: 'white'
+    }
+  ];
+
   productsItems: any[] = [
     {
       name: 'Láminas espejadas de plata',
@@ -184,5 +219,15 @@ export class SolarProtectionFilmComponent {
 
   trackByIndex(index: number): number {
     return index;
+  }
+
+  onBannerAction(action: string): void {
+    if (action === 'contact') {
+      // Navegar a la página de contacto o abrir formulario
+      window.location.href = '/contact';
+    } else if (action === 'phone') {
+      // Realizar llamada telefónica
+      window.location.href = 'tel:+17868765555';
+    }
   }
 }

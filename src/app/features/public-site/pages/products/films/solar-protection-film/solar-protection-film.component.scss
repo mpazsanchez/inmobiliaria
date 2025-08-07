@@ -204,8 +204,25 @@
     .container-right {
       // background: $gray-gradient-one;
       // padding: 38px;
+      // border: solid gray 1px;
       color: $blue-four;
-      border: solid gray 1px;
+    }
+
+    .image-banner {
+      background: $gray-gradient-one;
+      align-items: center;
+      gap: 2rem;
+      margin-top: 2rem;
+      padding: 38px;
+
+      .fa-phone {
+        color: $blue-three;
+        font-size: 2rem;
+      }
+
+      p {
+        margin-bottom: 0px;
+      }
     }
 
     //Products List
@@ -214,8 +231,13 @@
       height: fit-content;
       background: $gray-gradient-one;
 
+      .products-list-title {
+        color: $blue-four;
+      }
+
       .product-item {
-        background-color: white;
+        // background-color: white;
+        border-bottom: solid #80808045 1px;
         padding: 14px;
 
         p {
@@ -246,6 +268,7 @@
       padding: 0;
       margin: 2rem 0;
 
+
       li {
         display: flex;
         align-items: center;
@@ -254,11 +277,18 @@
         font-size: 1rem;
 
         i {
-          color: $blue-one;
+          color: $blue-three;
           margin-right: 0.8rem;
           font-size: 1rem;
+          
         }
       }
+    }
+
+    //Film types section
+    .film-types-section {
+      background: $gray-gradient-one;
+      padding: 38px;
     }
 
     // Film Type Cards
@@ -285,7 +315,7 @@
         color: white;
 
         .film-title {
-          font-size: 1.3rem;
+          font-size: 1.1rem;
           font-weight: 600;
           margin: 0 0 0.5rem 0;
           line-height: 1.2;
@@ -335,7 +365,7 @@
             }
 
             .spec-value {
-              color: $blue-one;
+              color: $blue-three;
               font-weight: 700;
               font-size: 1rem;
             }
@@ -364,13 +394,237 @@
               line-height: 1.4;
 
               i {
-                color: $blue-one;
+                color: $blue-three;
                 margin-right: 0.5rem;
                 margin-top: 0.1rem;
                 font-size: 0.8rem;
                 flex-shrink: 0;
               }
             }
+          }
+        }
+      }
+    }
+
+    // Promotional Banners
+    .promotional-banner {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      height: 100%;
+      position: relative;
+      min-height: 280px;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      &.banner-primary {
+        background: linear-gradient(135deg, 
+          rgba(0, 154, 222, 0.95) 0%, 
+          rgba(4, 123, 193, 0.95) 100%),
+          url('/assets/images/backgrounds/solarcheck/slide-1.jpg') center/cover;
+        color: white;
+        position: relative;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, 
+            rgba(0, 154, 222, 0.8) 0%, 
+            rgba(4, 123, 193, 0.9) 100%);
+          z-index: 1;
+        }
+
+        .banner-content {
+          position: relative;
+          z-index: 2;
+        }
+
+        .banner-icon {
+          background: rgba(255, 255, 255, 0.25);
+          color: white;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .banner-subtitle {
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        .banner-description {
+          color: rgba(255, 255, 255, 0.85);
+        }
+
+        .banner-button {
+          background: white;
+          color: $blue-one;
+          border: none;
+          font-weight: 700;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+          }
+        }
+      }
+
+      &.banner-success {
+        background: linear-gradient(135deg, 
+          rgba(40, 167, 69, 0.95) 0%, 
+          rgba(32, 201, 151, 0.95) 100%),
+          url('/assets/images/backgrounds/solarcheck/slide-2.jpg') center/cover;
+        color: white;
+        position: relative;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, 
+            rgba(40, 167, 69, 0.8) 0%, 
+            rgba(32, 201, 151, 0.9) 100%);
+          z-index: 1;
+        }
+
+        .banner-content {
+          position: relative;
+          z-index: 2;
+        }
+
+        .banner-icon {
+          background: rgba(255, 255, 255, 0.25);
+          color: white;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .banner-subtitle {
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        .banner-description {
+          color: rgba(255, 255, 255, 0.85);
+        }
+
+        .banner-button {
+          background: white;
+          color: #28a745;
+          border: none;
+          font-weight: 700;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+          }
+        }
+      }
+
+      .banner-content {
+        padding: 2.5rem 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        height: 100%;
+        min-height: 280px;
+
+        @media (max-width: 768px) {
+          flex-direction: column;
+          text-align: center;
+          gap: 1.5rem;
+          padding: 2rem 1.5rem;
+          min-height: 250px;
+        }
+      }
+
+      .banner-icon {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        background: rgba(0, 154, 222, 0.1);
+        color: $blue-one;
+        backdrop-filter: blur(10px);
+
+        i {
+          font-size: 2.2rem;
+        }
+
+        @media (max-width: 768px) {
+          width: 70px;
+          height: 70px;
+
+          i {
+            font-size: 1.8rem;
+          }
+        }
+      }
+
+      .banner-text {
+        flex-grow: 1;
+
+        .banner-subtitle {
+          font-size: 0.95rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 1.5px;
+          margin-bottom: 0.8rem;
+          opacity: 0.9;
+        }
+
+        .banner-title {
+          font-size: 1.6rem;
+          font-weight: 800;
+          margin-bottom: 1rem;
+          line-height: 1.2;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+          @media (max-width: 768px) {
+            font-size: 1.3rem;
+          }
+        }
+
+        .banner-description {
+          font-size: 1rem;
+          line-height: 1.6;
+          margin-bottom: 2rem;
+          opacity: 0.95;
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .banner-button {
+          padding: 1rem 2rem;
+          font-weight: 700;
+          border-radius: 30px;
+          transition: all 0.3s ease;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          font-size: 0.95rem;
+          cursor: pointer;
+
+          &:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+          }
+
+          @media (max-width: 768px) {
+            width: 100%;
+            padding: 1.2rem;
+            font-size: 1rem;
           }
         }
       }
@@ -449,7 +703,7 @@
           }
 
           .spec-value {
-            color: $blue-one;
+            color: $blue-three;
             font-weight: 700;
             font-size: 1.1rem;
 
@@ -614,6 +868,24 @@
 
       .feature-card {
         margin-bottom: 2rem;
+      }
+
+      .promotional-banner {
+        margin-bottom: 2rem;
+
+        .banner-content {
+          padding: 1.5rem;
+        }
+
+        .banner-text {
+          .banner-title {
+            font-size: 1.1rem;
+          }
+
+          .banner-description {
+            font-size: 0.9rem;
+          }
+        }
       }
 
       .cta-section {

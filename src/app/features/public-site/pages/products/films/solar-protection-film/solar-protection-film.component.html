@@ -57,7 +57,7 @@
            
             <!-- Text -->
               <div class="content-text">
-                <h2 class="section-title fw-medium">Protección Solar Avanzada</h2>
+                <h2 class="section-title ">Protección Solar Avanzada</h2>
                 <p class="section-description">
                   Nuestras láminas de protección solar combinan tecnología avanzada con diferentes opciones estéticas 
                   para brindar soluciones eficaces contra el calor, los rayos UV y el deslumbramiento. 
@@ -69,9 +69,9 @@
                   selectivas transparentes preservan la estética original manteniendo excelente protección.
                 </p>
                 <ul class="feature-list">
-                  <li><i class="fas fa-check-circle"></i> 99% protección UV en todos los tipos</li>
-                  <li><i class="fas fa-check-circle"></i> Hasta 95% reducción de rayos infrarrojos</li>
-                  <li><i class="fas fa-check-circle"></i> Reducción significativa de costos energéticos</li>
+                  <li><i class="fas fa-check"></i> 99% protección UV en todos los tipos</li>
+                  <li><i class="fas fa-check"></i> Hasta 95% reducción de rayos infrarrojos</li>
+                  <li><i class="fas fa-check"></i> Reducción significativa de costos energéticos</li>
                 </ul>
               </div>
          </div>
@@ -81,18 +81,31 @@
           <div class="col-4 container-right">
             
             <div class="products-list d-flex flex-column gap-3">
-              <h4 class="fw-medium">Productos</h4>
+              <h4 class=" products-list-title">Productos</h4>
               <!-- Mapear arreglo de productos -->
                @for (item of productsItems; track $index) {
                 <div class="product-item d-flex justify-content-between">
                   <p>{{ item.name }}</p>
                   <a href="{{ item.link }}" class="product-link">
-                    <i class="fas fa-arrow-right"></i>
+                    <!-- <i class="fas fa-arrow-right"></i> -->
                   </a>
                 </div>
                }
             </div>
 
+            <div class="image-banner d-flex">
+              <!-- <img src="/assets/images/backgrounds/solarcheck/slide-3.png" 
+                   alt="Banner de Productos" 
+                   class="img-fluid mt-4"> -->
+                   <!-- Icon phone -->
+                    <div class="left">
+                      <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="right d-flex flex-column">
+                      <p>Comunicate con nosotros</p>
+                      <h5 class="fw-bold">+54 9 351 123-4567</h5>
+                    </div>
+              </div>
           </div>
 
        </div>
@@ -103,10 +116,10 @@
   
 
       <!-- Tipos de Láminas Solares -->
-      <div class="row mb-5">
+      <div class="row mb-5 film-types-section">
         <div class="col-12">
           <div class="text-center mb-5">
-            <h2 class="section-title">Nuestras Láminas de Protección Solar</h2>
+            <h2 class="section-title">Láminas de Protección Solar</h2>
             <p class="section-description">
               Ofrecemos tres tipos especializados de láminas solares, cada una diseñada para necesidades específicas de protección, estética y eficiencia energética.
             </p>
@@ -116,8 +129,8 @@
         <div class="col-lg-4 col-md-6 mb-4" *ngFor="let filmType of filmTypes; trackBy: trackByIndex">
           <div class="film-type-card h-100">
             <div class="film-header">
-              <h3 class="film-title">{{ filmType.name }}</h3>
-              <div class="film-finish">{{ filmType.finish }}</div>
+              <h3 class="film-title m-0">{{ filmType.name }}</h3>
+              <!-- <div class="film-finish">{{ filmType.finish }}</div> -->
             </div>
             
             <div class="film-body">
@@ -142,7 +155,7 @@
                 <h5>Beneficios Clave:</h5>
                 <ul class="benefits-list">
                   <li *ngFor="let benefit of filmType.keyBenefits">
-                    <i class="fas fa-check-circle"></i>
+                    <i class="fas fa-check"></i>
                     {{ benefit }}
                   </li>
                 </ul>
@@ -154,7 +167,7 @@
 
       <!-- Technical Specifications -->
       <div class="row mb-5">
-        <div class="col-lg-6 mb-4">
+        <div class="col-12 mb-4">
           <div class="specs-content">
             <h2 class="section-title">Especificaciones Técnicas</h2>
             <p class="section-description">
@@ -172,13 +185,13 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-6 mb-4">
+        <!-- <div class="col-lg-6 mb-4">
           <div class="content-image">
             <img src="/assets/images/backgrounds/solarcheck/slide-2.jpg" 
                  alt="Especificaciones Técnicas" 
                  class="img-fluid">
           </div>
-        </div>
+        </div> -->
       </div>
 
       <!-- Challenges / FAQ Section -->
