@@ -1,5 +1,5 @@
 
-import { Component, computed, signal, effect } from '@angular/core';
+import { Component, computed, signal, OnInit } from '@angular/core';
 import { HeroSectionSlidersComponent } from '../../components/home-two/hero-section-sliders/hero-section-sliders.component';
 import { ServicesSectionComponent } from '../../components/home/services-section/services-section.component';
 import { FaqSectionComponent } from '../../components/home/faq-section/faq-section.component';
@@ -21,7 +21,7 @@ import { HomeTwoPageData } from '../../models/home-two-page.interface';
   templateUrl: './home-two.component.html',
   styleUrl: './home-two.component.scss'
 })
-export class HomeTwoComponent {
+export class HomeTwoComponent implements OnInit {
   public data: any;
   public loading: any;
   public error: any;
@@ -30,11 +30,12 @@ export class HomeTwoComponent {
     this.data = this.homeTwoPageService.data;
     this.loading = this.homeTwoPageService.loading;
     this.error = this.homeTwoPageService.error;
-    effect(() => {
-      if (this.data() === null && !this.loading()) {
-        this.homeTwoPageService.fetchData();
-      }
-    });
+  }
+
+  ngOnInit(): void {
+    if (this.data() === null && !this.loading()) {
+      this.homeTwoPageService.fetchData();
+    }
   }
 
   get sliderItems() {

@@ -1,5 +1,5 @@
 
-import { Component, effect } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AboutHeroComponent } from "../../components/about/about-hero/about-hero.component";
 import { ClientsTestimonialsComponent } from "../../components/about/clients-testimonials/clients-testimonials.component";
@@ -14,7 +14,7 @@ import { AboutUsPageService } from '../../services/about-us-page.service';
   templateUrl: './about-us.component.html',
   styleUrl: './about-us.component.scss'
 })
-export class AboutUsComponent {
+export class AboutUsComponent implements OnInit {
   public data: any;
   public loading: any;
   public error: any;
@@ -23,11 +23,12 @@ export class AboutUsComponent {
     this.data = this.aboutUsPageService.data;
     this.loading = this.aboutUsPageService.loading;
     this.error = this.aboutUsPageService.error;
-    effect(() => {
-      if (this.data() === null && !this.loading()) {
-        this.aboutUsPageService.fetchData();
-      }
-    });
+  }
+
+  ngOnInit(): void {
+    if (this.data() === null && !this.loading()) {
+      this.aboutUsPageService.fetchData();
+    }
   }
 
   get experienceData() {

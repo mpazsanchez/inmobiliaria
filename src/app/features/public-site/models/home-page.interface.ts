@@ -2,6 +2,12 @@ export interface HomePageData {
   hero: HeroSectionData;
   features: FeatureData[];
   testimonials: TestimonialData[];
+  companyStats?: any;
+  companyInfo?: any;
+  showProgressBars: boolean;
+  skills?: any;
+  contactInfo?: any;
+  bannerImage?: string;
 }
 export interface HeroSectionData {
   title: string;
