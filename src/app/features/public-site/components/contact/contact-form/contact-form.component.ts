@@ -10,16 +10,15 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
   styleUrl: './contact-form.component.scss'
 })
 export class ContactFormComponent {
-  private readonly isBrowser: boolean;
   contactForm: FormGroup;
   isSubmitting = false;
+  isBrowser: boolean;
 
   constructor(
     @Inject(PLATFORM_ID) private readonly platformId: Object,
     private readonly fb: FormBuilder
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    
     this.contactForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],

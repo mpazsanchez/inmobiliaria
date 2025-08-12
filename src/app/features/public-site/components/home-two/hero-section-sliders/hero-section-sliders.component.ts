@@ -1,24 +1,8 @@
-import { Component } from '@angular/core';
+
+import { Component, Input, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbCarouselModule, NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
-import { ViewChild } from '@angular/core';
-
-export interface SliderItem {
-  id: string;
-  imageUrl: string;
-  altText: string;
-  title?: string;
-  subtitle?: string;
-  description?: string;
-  primaryButton?: {
-    text: string;
-    action: string;
-  };
-  secondaryButton?: {
-    text: string;
-    action: string;
-  };
-}
+import { SliderItem } from '../../../models/home-two-page.interface';
 
 @Component({
   selector: 'app-hero-section-sliders',
@@ -33,56 +17,7 @@ export class HeroSectionSlidersComponent {
   
   currentSlideIndex = 0;
   
-  sliderItems: SliderItem[] = [
-    {
-      id: 'slide-1',
-      imageUrl: './assets/images/backgrounds/solarcheck/slide-1.jpg',
-      altText: 'Instalación profesional de láminas solares Glazing',
-      title: 'AHORRA ENERGÍA',
-      subtitle: 'CON LÁMINAS SOLARES',
-      description: 'Reduce hasta un 80% del calor solar y mejora el confort de tu hogar o negocio con instalación profesional garantizada',
-      primaryButton: {
-        text: 'SOLICITAR PRESUPUESTO',
-        action: 'discover'
-      },
-      secondaryButton: {
-        text: 'Ver Instalaciones',
-        action: 'video'
-      }
-    },
-    {
-      id: 'slide-2', 
-      imageUrl: './assets/images/backgrounds/solarcheck/slide-2.jpg',
-      altText: 'Red de instaladores certificados Glazing',
-      title: 'INSTALADORES',
-      subtitle: 'CERTIFICADOS',
-      description: 'Conectamos con el profesional más cercano a tu ubicación. Calidad garantizada y respaldo técnico oficial',
-      primaryButton: {
-        text: 'ENCONTRAR INSTALADOR',
-        action: 'training'
-      },
-      secondaryButton: {
-        text: 'Ver Garantías',
-        action: 'gallery'
-      }
-    },
-    {
-      id: 'slide-3',
-      imageUrl: './assets/images/backgrounds/solarcheck/slide-3.png',
-      altText: 'Beneficios de las láminas solares residenciales y comerciales',
-      title: 'PROTECCIÓN',
-      subtitle: 'Y CONFORT',
-      description: 'Mejora la estética, seguridad y eficiencia energética de tus espacios con la mejor tecnología del mercado',
-      primaryButton: {
-        text: 'VER BENEFICIOS',
-        action: 'shop'
-      },
-      secondaryButton: {
-        text: 'Casos de Éxito',
-        action: 'specs'
-      }
-    }
-  ];
+  @Input() sliderItems: SliderItem[] = [];
 
   // Contact information for footer display
   contactInfo = {

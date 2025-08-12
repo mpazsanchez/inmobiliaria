@@ -1,16 +1,23 @@
 <section class="hero-section">
-  <div class="hero-video">
-    <video autoplay muted loop playsinline>
-      <source src="./assets/images/backgrounds/solarcheck/video-hero.mp4" type="video/mp4">
-    </video>
-  </div>
-  
+  @if (data?.image) {
+    <div class="hero-video">
+      @if (isVideo) {
+        <video autoplay muted loop playsinline>
+          <source [src]="data?.image" type="video/mp4">
+        </video>
+      } @else {
+        <img [src]="data?.image" class="img-fluid w-100" alt="Imagen principal" />
+      }
+    </div>
+  }
   <div class="hero-overlay">
     <div class="container">
-      <div class="hero-content">
-        <!-- <h1 class="hero-title">Tu Título Principal</h1>
-        <p class="hero-subtitle">Descripción de tu servicio</p>
-        <button class="btn btn-primary hero-cta">Comenzar</button> -->
+      <div class="hero-content text-center">
+        <h1 class="hero-title">{{ data?.title }}</h1>
+        <p class="hero-subtitle">{{ data?.subtitle }}</p>
+        @if (data?.ctaText && data?.ctaLink) {
+          <a class="btn btn-primary hero-cta" [href]="data?.ctaLink">{{ data?.ctaText }}</a>
+        }
       </div>
     </div>
   </div>

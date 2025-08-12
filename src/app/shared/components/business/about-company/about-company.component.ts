@@ -20,70 +20,21 @@ interface SkillProgress {
   styleUrl: './about-company.component.scss'
 })
 export class AboutCompanyComponent {
+  @Input() companyStats: CompanyStats[] = [];
+  @Input() companyInfo: { title: string; subtitle: string; description: string } = { title: '', subtitle: '', description: '' };
+  @Input() showProgressBars: boolean = false;
+  @Input() skills: SkillProgress[] = [];
+  @Input() contactInfo: { description: string; phone: string } = { description: '', phone: '' };
   @Input() bannerImage?: string = '';
   private readonly isBrowser: boolean;
-  @Input() showProgressBars?: boolean = true;
-
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
-  // Estadísticas de la empresa
-  companyStats: CompanyStats[] = [
-    {
-      value: 8,
-      label: 'AÑOS DE\nTRAYECTORIA',
-      unit: ''
-    }
-  ];
-
-  // Habilidades/servicios con porcentajes
-  skills: SkillProgress[] = [
-    {
-      name: 'Instalación de Láminas Solares',
-      percentage: 95
-    },
-    {
-      name: 'Formación Profesional',
-      percentage: 90
-    },
-    {
-      name: 'Materiales de Calidad',
-      percentage: 98
-    }
-  ];
-
-  // Información de contacto
-  contactInfo = {
-    phone: '+34 123 456 789',
-    description: '¿Tienes algún proyecto en mente? Llámanos:'
-  };
-
-  // Información de la empresa
-  companyInfo = {
-    title: 'Conectamos Tu Proyecto con Instaladores Certificados',
-    subtitle: 'ACERCA DE GLAZING',
-    description: 'Glazing es la plataforma líder que conecta clientes con instaladores certificados de láminas solares. Garantizamos calidad, respaldo técnico y los mejores materiales para transformar tus espacios con máximo ahorro energético.',
-    ctaText: 'SOLICITAR PRESUPUESTO'
-  };
-
-  // CEO/Fundador info
-  founderInfo = {
-    name: 'Glazing Team',
-    signature: 'Glazing™',
-    photo: './assets/images/team/founder.jpg' // Placeholder
-  };
-
-  onDiscoverMore(): void {
-    // Navigate to about page or services
-    console.log('Navigate to company info');
-  }
-
   onCallPhone(): void {
-    if (!this.isBrowser) return;
-    
-    window.open(`tel:${this.contactInfo.phone}`, '_self');
+    if (this.contactInfo && this.contactInfo.phone) {
+      window.location.href = `tel:${this.contactInfo.phone}`;
+    }
   }
-
 }

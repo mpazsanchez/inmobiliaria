@@ -38,55 +38,56 @@
                 </p>
                 <p class="section-description">
                   Cada tipo de lámina está diseñado para necesidades específicas: las espejadas plata ofrecen 
-                  máxima privacidad, las nano cerámicas negras complementan la arquitectura moderna, y las 
-                  selectivas transparentes preservan la estética original manteniendo excelente protección.
-                </p>
-                <ul class="feature-list">
-                  <li><i class="fas fa-check"></i> 99% protección UV en todos los tipos</li>
-                  <li><i class="fas fa-check"></i> Hasta 95% reducción de rayos infrarrojos</li>
-                  <li><i class="fas fa-check"></i> Reducción significativa de costos energéticos</li>
-                </ul>
-              </div>
-         </div>
 
+<div class="solar-protection-page">
+  <!-- Hero Section -->
+  <app-hero-section-public
+    *ngIf="heroData() as hero"
+    [backgroundImage]="hero.bannerImage"
+    [title]="hero.title"
+    [subtitle]="hero.subtitle"
+    [breadcrumbTextOne]="hero.breadcrumbTextOne"
+    [breadcrumbTextTwo]="hero.breadcrumbTextTwo"
+    [breadcrumbTextThree]="hero.breadcrumbTextThree"
+  />
 
-        <!-- Right -->
-          <div class="col-4 container-right">
-            
-            <div class="products-list d-flex flex-column gap-3">
-              <h4 class=" products-list-title">Productos</h4>
-              <!-- Mapear arreglo de productos -->
-               @for (item of productsItems; track $index) {
-                <div class="product-item d-flex justify-content-between">
-                  <p>{{ item.name }}</p>
-                  <a href="{{ item.link }}" class="product-link">
-                    <!-- <i class="fas fa-arrow-right"></i> -->
-                  </a>
-                </div>
-               }
-            </div>
-
-            <div class="image-banner d-flex">
-              <!-- <img src="/assets/images/backgrounds/solarcheck/slide-3.png" 
-                   alt="Banner de Productos" 
-                   class="img-fluid mt-4"> -->
-                   <!-- Icon phone -->
-                    <div class="left">
-                      <i class="fas fa-phone"></i>
-                    </div>
-                    <div class="right d-flex flex-column">
-                      <p>Comunicate con nosotros</p>
-                      <h5 class="fw-bold">+54 9 351 123-4567</h5>
-                    </div>
-              </div>
+  <section class="product-content">
+    <div class="container">
+      <!-- Product Introduction -->
+      <div class="row product-introduction">
+        <!-- Left -->
+        <div class="col-7 container-left" *ngIf="content() as cont">
+          <div class="content-image">
+            <img [src]="cont.mainImage" [alt]="cont.mainImageAlt" class="img-fluid">
           </div>
-
-       </div>
-
- 
-
-
-  
+          <div class="content-text">
+            <h2 class="section-title">{{ cont.title }}</h2>
+            <ng-container *ngFor="let desc of cont.description"> <p class="section-description">{{ desc }}</p> </ng-container>
+            <ul class="feature-list">
+              <li *ngFor="let feat of cont.highlightedFeatures"><i class="fas fa-check"></i> {{ feat }}</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Right -->
+        <div class="col-4 container-right">
+          <div class="products-list d-flex flex-column gap-3">
+            <h4 class="products-list-title">Productos Relacionados</h4>
+            <ng-container *ngFor="let item of relatedProducts(); trackBy: trackByIndex">
+              <div class="product-item d-flex justify-content-between">
+                <p>{{ item.name }}</p>
+                <a [href]="item.link" class="product-link"></a>
+              </div>
+            </ng-container>
+          </div>
+          <div class="image-banner d-flex mt-4">
+            <div class="left"><i class="fas fa-phone"></i></div>
+            <div class="right d-flex flex-column">
+              <p>Comunicate con nosotros</p>
+              <h5 class="fw-bold">+54 9 351 123-4567</h5>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Tipos de Láminas Solares -->
       <div class="row mb-5 film-types-section">
@@ -98,44 +99,29 @@
             </p>
           </div>
         </div>
-
-        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let filmType of filmTypes; trackBy: trackByIndex">
-          <div class="film-type-card h-100">
-            <div class="film-header">
-              <h3 class="film-title m-0">{{ filmType.name }}</h3>
-              <!-- <div class="film-finish">{{ filmType.finish }}</div> -->
-            </div>
-            
-            <div class="film-body">
-              <p class="film-description">{{ filmType.description }}</p>
-              
-              <div class="film-specs">
-                <div class="spec-row">
-                  <span class="spec-label">Protección UV:</span>
-                  <span class="spec-value">{{ filmType.uvProtection }}</span>
-                </div>
-                <div class="spec-row">
-                  <span class="spec-label">Reducción IR:</span>
-                  <span class="spec-value">{{ filmType.irReduction }}</span>
-                </div>
-                <div class="spec-row">
-                  <span class="spec-label">Energía solar rechazada:</span>
-                  <span class="spec-value">{{ filmType.solarEnergyRejection }}</span>
-                </div>
+        <ng-container *ngFor="let filmType of types(); trackBy: trackByIndex">
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="film-type-card h-100">
+              <div class="film-header">
+                <h3 class="film-title m-0">{{ filmType.name }}</h3>
               </div>
-
-              <div class="film-benefits mt-4">
-                <h5>Beneficios Clave:</h5>
-                <ul class="benefits-list">
-                  <li *ngFor="let benefit of filmType.keyBenefits">
-                    <i class="fas fa-check"></i>
-                    {{ benefit }}
-                  </li>
-                </ul>
+              <div class="film-body">
+                <p class="film-description">{{ filmType.description }}</p>
+                <div class="film-specs">
+                  <div class="spec-row"><span class="spec-label">Protección UV:</span> <span class="spec-value">{{ filmType.uvProtection }}</span></div>
+                  <div class="spec-row"><span class="spec-label">Reducción IR:</span> <span class="spec-value">{{ filmType.irReduction }}</span></div>
+                  <div class="spec-row"><span class="spec-label">Energía solar rechazada:</span> <span class="spec-value">{{ filmType.solarEnergyRejection }}</span></div>
+                </div>
+                <div class="film-benefits mt-4">
+                  <h5>Beneficios Clave:</h5>
+                  <ul class="benefits-list">
+                    <li *ngFor="let benefit of filmType.keyBenefits"><i class="fas fa-check"></i> {{ benefit }}</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </ng-container>
       </div>
 
       <!-- Technical Specifications -->
@@ -149,22 +135,15 @@
               excelente protección UV y significativo ahorro energético.
             </p>
             <div class="specs-grid">
-              <div class="spec-item" *ngFor="let spec of technicalSpecs; trackBy: trackByIndex">
-                <div class="spec-label">{{ spec.property }}</div>
-                <div class="spec-value">
-                  {{ spec.value }}<span class="spec-unit" *ngIf="spec.unit">{{ spec.unit }}</span>
+              <ng-container *ngFor="let spec of specifications(); trackBy: trackByIndex">
+                <div class="spec-item">
+                  <div class="spec-label">{{ spec.property }}</div>
+                  <div class="spec-value">{{ spec.value }}<span class="spec-unit" *ngIf="spec.unit">{{ spec.unit }}</span></div>
                 </div>
-              </div>
+              </ng-container>
             </div>
           </div>
         </div>
-        <!-- <div class="col-lg-6 mb-4">
-          <div class="content-image">
-            <img src="/assets/images/backgrounds/solarcheck/slide-2.jpg" 
-                 alt="Especificaciones Técnicas" 
-                 class="img-fluid">
-          </div>
-        </div> -->
       </div>
 
       <!-- Challenges / FAQ Section -->
@@ -174,36 +153,31 @@
         </div>
         <div class="col-lg-8 mx-auto">
           <div class="challenges-section">
-            <div class="challenge-item" *ngFor="let challenge of challenges; let i = index; trackBy: trackByIndex">
-              <button class="challenge-header" (click)="toggleChallenge(i)" type="button">
-                <h5 class="challenge-question">{{ challenge.question }}</h5>
-                <i class="fas" [class.fa-chevron-down]="!challenge.isOpen" [class.fa-chevron-up]="challenge.isOpen"></i>
-              </button>
-              <div class="challenge-answer" [class.show]="challenge.isOpen">
-                <p>{{ challenge.answer }}</p>
+            <ng-container *ngFor="let challenge of challenges(); let i = index; trackBy: trackByIndex">
+              <div class="challenge-item">
+                <button class="challenge-header" (click)="toggleChallenge(i)" type="button">
+                  <h5 class="challenge-question">{{ challenge.question }}</h5>
+                  <i class="fas" [class.fa-chevron-down]="!challenge.isOpen" [class.fa-chevron-up]="challenge.isOpen"></i>
+                </button>
+                <div class="challenge-answer" [class.show]="challenge.isOpen">
+                  <p>{{ challenge.answer }}</p>
+                </div>
               </div>
-            </div>
+            </ng-container>
           </div>
         </div>
       </div>
 
-      <!-- Call to Action -->
+      <!-- Call to Action Banner -->
       <div class="row">
         <div class="col-12">
-          <div class="cta-section text-center">
-            <h3 class="cta-title">¿Necesitas más información sobre nuestros productos?</h3>
-            <p class="cta-description">
-              Nuestros especialistas técnicos están listos para ayudarte a encontrar la solución perfecta 
-              para tu proyecto.
-            </p>
+          <div class="cta-section text-center" *ngIf="banner() as cta">
+            <h3 class="cta-title">{{ cta.title }}</h3>
+            <p class="cta-description">{{ cta.description }}</p>
             <div class="cta-buttons">
-              <a href="/contact" class="btn btn-primary btn-lg me-3">
+              <a [href]="cta.buttonAction" class="btn btn-primary btn-lg me-3" (click)="onBannerAction(cta.buttonAction)">
                 <i class="fas fa-comments me-2"></i>
-                Consultar Especialista
-              </a>
-              <a href="/products" class="btn btn-outline-primary btn-lg">
-                <i class="fas fa-arrow-left me-2"></i>
-                Ver Todos los Productos
+                {{ cta.buttonText }}
               </a>
             </div>
           </div>
@@ -212,5 +186,5 @@
 
     </div>
   </section>
-
 </div>
+      <!-- Call to Action -->

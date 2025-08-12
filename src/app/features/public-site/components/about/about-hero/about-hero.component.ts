@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,5 +10,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './about-hero.component.scss'
 })
 export class AboutHeroComponent {
+  @Input() companyInfo: any;
   // Componente hero para la página About Us
 }

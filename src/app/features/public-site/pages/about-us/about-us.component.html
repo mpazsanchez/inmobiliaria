@@ -2,7 +2,7 @@
 <div class="about-us-page">
 
     <!-- Hero Section -->
-    <app-about-hero />
+    <app-about-hero [companyInfo]="data()?.companyInfo" />
 
     <!-- Main Content Section -->
     <section class="main-content-section">
@@ -26,10 +26,12 @@
     <!-- Products Section -->
     <app-products-technology
         [showCallToAction]="false"
+        [productTypes]="data()?.productTypes"
+        [technicalBenefits]="data()?.technicalBenefits"
     />
 
     <!-- Testimonials Section -->
-    <app-clients-testimonials />
+    <app-clients-testimonials [testimonials]="data()?.team" />
 
 
 </div>

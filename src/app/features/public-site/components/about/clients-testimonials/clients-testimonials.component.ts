@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface Testimonial {
@@ -18,30 +19,5 @@ interface Testimonial {
   styleUrl: './clients-testimonials.component.scss'
 })
 export class ClientsTestimonialsComponent {
-  testimonials: Testimonial[] = [
-    {
-      id: 1,
-      name: 'María González',
-      position: 'Gerente de Operaciones',
-      company: 'Construcciones del Valle',
-      content: 'Glazing superó nuestras expectativas con su servicio profesional y productos de alta calidad. Su equipo demostró un compromiso excepcional en cada fase del proyecto.',
-      initials: 'MG'
-    },
-    {
-      id: 2,
-      name: 'Carlos Rodríguez',
-      position: 'Arquitecto Principal',
-      company: 'Diseños Modernos SA',
-      content: 'La calidad de los vidrios y la atención al detalle de Glazing es incomparable. Han sido nuestro socio estratégico en múltiples proyectos exitosos.',
-      initials: 'CR'
-    },
-    {
-      id: 3,
-      name: 'Ana Patricia López',
-      position: 'Directora de Proyectos',
-      company: 'Inmobiliaria Premier',
-      content: 'Trabajar con Glazing ha sido una experiencia excepcional. Su profesionalismo y innovación en soluciones de vidrio han transformado nuestros espacios.',
-      initials: 'AL'
-    }
-  ];
+  @Input() testimonials: Testimonial[] = [];
 }
