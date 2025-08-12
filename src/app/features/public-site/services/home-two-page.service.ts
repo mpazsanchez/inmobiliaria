@@ -31,7 +31,8 @@ export class HomeTwoPageService {
           }
         ],
         aboutCompany: {
-          bannerImage: './assets/images/backgrounds/solarcheck/slide-2.jpg'
+          bannerImage: './assets/images/backgrounds/solarcheck/slide-1.jpg',
+          
         },
         services: [],
         experience: {},

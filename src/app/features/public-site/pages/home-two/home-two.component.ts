@@ -41,4 +41,8 @@ export class HomeTwoComponent implements OnInit {
   get sliderItems() {
     return this.data()?.heroSliders || [];
   }
+
+  get aboutCompanyBanner() {
+    return this.data()?.aboutCompany?.bannerImage || '';
+  }
 }
