@@ -25,7 +25,22 @@ export interface SliderItem {
 
 export interface AboutCompanyData {
   bannerImage: string;
-  // otros campos relevantes
+  companyStats: CompanyStats[];
+  companyInfo: { title: string; subtitle: string; description: string };
+  showProgressBars: boolean;
+  skills: SkillProgress[];
+  contactInfo: { description: string; phone: string };
+}
+
+export interface CompanyStats {
+  value: number;
+  label: string;
+  unit?: string;
+}
+
+export interface SkillProgress {
+  name: string;
+  percentage: number;
 }
 
 export interface ServiceData {

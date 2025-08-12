@@ -1,5 +1,12 @@
 <app-hero-section-sliders [sliderItems]="sliderItems"/>
-<app-about-company [bannerImage]="aboutCompanyBanner"/>
+<app-about-company
+    [bannerImage]="data()?.aboutCompany?.bannerImage || ''"
+    [companyStats]="data()?.aboutCompany?.companyStats || []"
+    [companyInfo]="data()?.aboutCompany?.companyInfo || { title: '', subtitle: '', description: '' }"
+    [showProgressBars]="data()?.aboutCompany?.showProgressBars ?? false"
+    [skills]="data()?.aboutCompany?.skills || []"
+    [contactInfo]="data()?.aboutCompany?.contactInfo || { description: '', phone: '' }"
+/>
 <app-services-section/>
 <div style="padding: 80px 0;">
     <app-experience-section/>
