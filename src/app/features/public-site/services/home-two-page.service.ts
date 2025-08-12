@@ -147,6 +147,11 @@ export class HomeTwoPageService {
                   icon: 'fas fa-check-circle',
                   title: 'Documentación formal y habilitaciones laborales',
                   description: 'Cumplimiento de todos los requisitos legales y de seguridad',
+                },
+                {
+                  icon: 'fas fa-shield-alt',
+                  title: 'Cobertura de seguros correspondientes',
+                  description: 'Todos los trabajos cuentan con la cobertura de seguros exigida por ley',
                 }
               ]
             },
