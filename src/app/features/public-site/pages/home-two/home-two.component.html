@@ -7,8 +7,16 @@
     [skills]="data()?.aboutCompany?.skills || []"
     [contactInfo]="data()?.aboutCompany?.contactInfo || { description: '', phone: '' }"
 />
-<app-services-section/>
+<app-services-section
+    [sectionInfo]="data()?.services?.sectionInfo || { subtitle: '', title: '' }"
+    [services]="data()?.services?.services || []"
+/>
 <div style="padding: 80px 0;">
-    <app-experience-section/>
+    <app-experience-section
+        [showCertification]="data()?.experience?.showCertification ?? true"
+        [showCta]="data()?.experience?.showCta ?? true"
+        [isAboutComponent]="data()?.experience?.isAboutComponent ?? false"
+        [experienceData]="data()?.experience?.experienceData || {}"
+    />
 </div>
-<app-faq-section/>
+<app-faq-section [faqItems]="data()?.faqs?.faqItems || []"/>

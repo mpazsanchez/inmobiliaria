@@ -1,22 +1,22 @@
 
-import { Component, computed, signal, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeroSectionSlidersComponent } from '../../components/home-two/hero-section-sliders/hero-section-sliders.component';
-import { ServicesSectionComponent } from '../../components/home/services-section/services-section.component';
-import { FaqSectionComponent } from '../../components/home/faq-section/faq-section.component';
 import { AboutCompanyComponent } from "../../../../shared/components/business/about-company/about-company.component";
 import { ExperienceSectionComponent } from "../../components/home/experience-section/experience-section.component";
 import { HomeTwoPageService } from '../../services/home-two-page.service';
 import { HomeTwoPageData } from '../../models/home-two-page.interface';
+import { ServicesSectionComponent } from "../../components/home/services-section/services-section.component";
+import { FaqSectionComponent } from "../../components/home/faq-section/faq-section.component";
 
 @Component({
   selector: 'app-home-two',
   standalone: true,
   imports: [
     HeroSectionSlidersComponent,
-    ServicesSectionComponent,
-    FaqSectionComponent,
     AboutCompanyComponent,
-    ExperienceSectionComponent
+    ExperienceSectionComponent,
+    ServicesSectionComponent,
+    FaqSectionComponent
 ],
   templateUrl: './home-two.component.html',
   styleUrl: './home-two.component.scss'
