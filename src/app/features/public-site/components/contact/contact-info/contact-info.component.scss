@@ -4,54 +4,55 @@
   .info-title {
     font-size: 1.8rem;
     font-weight: 700;
-    color: #e74c3c;
+    color: $blue-three;
     margin-bottom: 2rem;
   }
-  
+
   .contact-items {
     .contact-item {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
+      gap: 1.5rem;
       margin-bottom: 2.5rem;
       padding: 0;
       background: none;
-      
+
       &:last-child {
         margin-bottom: 0;
       }
-      
+
       .contact-icon {
         width: 60px;
         height: 60px;
         border-radius: 50%;
-        background: #e74c3c;
+        background: $blue-three;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-right: 1.5rem;
+        margin-right: 0;
         flex-shrink: 0;
-        box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
-        
+        box-shadow: 0 4px 15px rgba(3, 78, 162, 0.2);
+
         i {
           color: white;
           font-size: 1.2rem;
         }
       }
-      
+
       .contact-details {
         flex: 1;
         padding-top: 8px;
-        
+
         .contact-label {
           font-size: 1.2rem;
           font-weight: 700;
           color: #2c3e50;
           margin-bottom: 0.5rem;
         }
-        
+
         .contact-value {
           font-size: 0.95rem;
-          color: #6c757d;
+          color: #595959;
           margin: 0;
           line-height: 1.6;
         }
