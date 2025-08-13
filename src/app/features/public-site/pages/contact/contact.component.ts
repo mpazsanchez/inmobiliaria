@@ -13,33 +13,33 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
     CommonModule,
     ContactHeroComponent,
     ContactInfoComponent,
-    ContactFormComponent
+    ContactFormComponent,
   ],
   templateUrl: './contact.component.html',
-  styleUrl: './contact.component.scss'
+  styleUrl: './contact.component.scss',
 })
 export class ContactComponent implements OnInit {
   public data: any;
   public loading: any;
   public error: any;
-  private contactPageService = inject(ContactPageService); 
+  private contactPageService = inject(ContactPageService);
   private sanitizer = inject(DomSanitizer);
   public safeMapUrl: SafeResourceUrl = '';
-  
+
   constructor() {
     this.data = this.contactPageService.data;
     this.loading = this.contactPageService.loading;
     this.error = this.contactPageService.error;
   }
 
-ngOnInit(): void {
-  if (this.data() === null && !this.loading()) {
-    this.contactPageService.fetchData();
+  ngOnInit(): void {
+    if (this.data() === null && !this.loading()) {
+      this.contactPageService.fetchData();
+    }
+    this.safeMapUrl = this.getSafeMapUrl(this.data().map.iframeUrl);
   }
-  this.safeMapUrl = this.getSafeMapUrl(this.data().map.iframeUrl);
-}
 
-    getSafeMapUrl(url: string): SafeResourceUrl {
+  getSafeMapUrl(url: string): SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }
