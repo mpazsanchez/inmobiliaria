@@ -24,18 +24,20 @@ export class ContactComponent implements OnInit {
   public error: any;
   private contactPageService = inject(ContactPageService); 
   private sanitizer = inject(DomSanitizer);
-
+  public safeMapUrl: SafeResourceUrl = '';
+  
   constructor() {
     this.data = this.contactPageService.data;
     this.loading = this.contactPageService.loading;
     this.error = this.contactPageService.error;
   }
 
-  ngOnInit(): void {
-    if (this.data() === null && !this.loading()) {
-      this.contactPageService.fetchData();
-    }
+ngOnInit(): void {
+  if (this.data() === null && !this.loading()) {
+    this.contactPageService.fetchData();
   }
+  this.safeMapUrl = this.getSafeMapUrl(this.data().map.iframeUrl);
+}
 
     getSafeMapUrl(url: string): SafeResourceUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
