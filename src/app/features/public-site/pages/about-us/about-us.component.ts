@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AboutHeroComponent } from "../../components/about/about-hero/about-hero.component";
 import { ClientsTestimonialsComponent } from "../../components/about/clients-testimonials/clients-testimonials.component";
@@ -19,7 +19,9 @@ export class AboutUsComponent implements OnInit {
   public loading: any;
   public error: any;
 
-  constructor(private aboutUsPageService: AboutUsPageService) {
+  private readonly aboutUsPageService = inject(AboutUsPageService); 
+
+  constructor() {
     this.data = this.aboutUsPageService.data;
     this.loading = this.aboutUsPageService.loading;
     this.error = this.aboutUsPageService.error;
