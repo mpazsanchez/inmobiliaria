@@ -18,24 +18,306 @@ export class ProductDetailPageService {
     try {
       // MOCK LOCAL PARA DESARROLLO
       const mockDetails: any = {
+        'solar-protection': {
+          product: {
+            id: 'solar-protection',
+            slug: 'solar-protection',
+            category: 'solar-protection',
+            name: 'Láminas de Protección Solar',
+            shortDescription: 'Soluciones para reducir el calor, proteger contra rayos UV y mejorar la eficiencia energética.',
+            longDescription: [
+              'Las láminas solares para vidrios filtran la radiación solar, reducen el calor y mejoran la eficiencia energética.',
+              'Ideales para oficinas, residencias y comercios.'
+            ],
+            heroData: {
+              bannerImage: '/assets/images/backgrounds/solarcheck/slide-1.jpg',
+              title: 'Láminas de Protección Solar',
+              subtitle: 'Control solar y confort térmico',
+              breadcrumbTextOne: 'Inicio',
+              breadcrumbTextTwo: 'Productos',
+              breadcrumbTextThree: 'Protección Solar'
+            },
+            content: {
+              mainImage: '/assets/images/backgrounds/solarcheck/slide-1.jpg',
+              mainImageAlt: 'Láminas de Protección Solar',
+              title: 'Láminas de Protección Solar',
+              description: [
+                'Filtran la radiación solar y reducen el calor.',
+                'Mejoran la eficiencia energética y el confort.'
+              ],
+              highlightedFeatures: [
+                'Reducción de hasta 85% del calor',
+                'Control del deslumbramiento',
+                'Mejora del confort térmico',
+                'Reducción de costos de climatización'
+              ]
+            },
+            features: [
+              { icon: 'fas fa-sun', title: 'Reducción de Calor', description: 'Hasta 85% menos calor.' },
+              { icon: 'fas fa-bolt', title: 'Eficiencia Energética', description: 'Menos consumo de aire acondicionado.' }
+            ],
+            specifications: [
+              { property: 'Protección UV', value: '99%' },
+              { property: 'Protección IR', value: '97%' }
+            ],
+            types: [
+              {
+                name: 'Láminas Espejadas Plata',
+                description: 'Máxima privacidad y rechazo solar.',
+                keyBenefits: ['Privacidad', 'Rechazo solar'],
+                finish: 'Espejado',
+              },
+              {
+                name: 'Láminas Nano Cerámicas',
+                description: 'No reflectivas, tono negro, alta tecnología.',
+                keyBenefits: ['No reflectivas', 'Tecnología cerámica'],
+                finish: 'Negro nano cerámico',
+              },
+              {
+                name: 'Láminas Selectivas',
+                description: 'Filtran selectivamente la radiación solar.',
+                keyBenefits: ['Filtrado selectivo', 'Confort térmico'],
+                finish: 'Selectivo',
+              }
+            ],
+            challenges: [],
+            relatedProducts: [],
+            metaTitle: 'Láminas de Protección Solar - Glazing™',
+            metaDescription: 'Soluciones solares para confort y eficiencia.',
+            keywords: ['solar', 'protección', 'láminas', 'energía'],
+            isActive: true,
+            featured: true,
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          related: []
+        },
+        'security': {
+          product: {
+            id: 'security',
+            slug: 'security',
+            category: 'security',
+            name: 'Láminas de Seguridad',
+            shortDescription: 'Protección en caso de rotura y refuerzo de cristales.',
+            longDescription: [
+              'Las láminas de seguridad mantienen los fragmentos de vidrio unidos en caso de rotura, evitando lesiones.',
+              'Ideales para lugares públicos y zonas de alto tránsito.'
+            ],
+            heroData: {
+              bannerImage: '/assets/images/backgrounds/solarcheck/slide-2.jpg',
+              title: 'Láminas de Seguridad',
+              subtitle: 'Protección y refuerzo para cristales',
+              breadcrumbTextOne: 'Inicio',
+              breadcrumbTextTwo: 'Productos',
+              breadcrumbTextThree: 'Seguridad'
+            },
+            content: {
+              mainImage: '/assets/images/backgrounds/solarcheck/slide-2.jpg',
+              mainImageAlt: 'Láminas de Seguridad',
+              title: 'Láminas de Seguridad',
+              description: [
+                'Refuerzan cristales y evitan lesiones en caso de rotura.',
+                'Protegen contra rayos UV.'
+              ],
+              highlightedFeatures: [
+                'Protección en caso de rotura',
+                'Ideal para lugares públicos',
+                'Protección UV 99%'
+              ]
+            },
+            features: [
+              { icon: 'fas fa-shield-alt', title: 'Protección', description: 'Evita lesiones en caso de rotura.' },
+              { icon: 'fas fa-sun', title: 'Protección UV', description: 'Protección UV 99%.' }
+            ],
+            specifications: [
+              { property: 'Espesor', value: '100-400 micrones' },
+              { property: 'Protección UV', value: '99%' }
+            ],
+            types: [
+              {
+                name: '100 micrones transparente',
+                description: 'Protección básica y transparencia total.',
+                keyBenefits: ['Protección', 'Transparencia']
+              },
+              {
+                name: '200 micrones transparente',
+                description: 'Mayor refuerzo y seguridad.',
+                keyBenefits: ['Mayor refuerzo', 'Transparencia']
+              },
+              {
+                name: '300 micrones transparente',
+                description: 'Protección avanzada para zonas críticas.',
+                keyBenefits: ['Protección avanzada', 'Transparencia']
+              },
+              {
+                name: '400 micrones transparente',
+                description: 'Máxima seguridad y resistencia.',
+                keyBenefits: ['Máxima seguridad', 'Transparencia']
+              },
+              {
+                name: '100 micrones color 20%',
+                description: 'Protección y estética con tono color.',
+                keyBenefits: ['Protección', 'Estética']
+              }
+            ],
+            challenges: [],
+            relatedProducts: [],
+            metaTitle: 'Láminas de Seguridad - Glazing™',
+            metaDescription: 'Protección y refuerzo para cristales.',
+            keywords: ['seguridad', 'protección', 'cristales', 'uv'],
+            isActive: true,
+            featured: false,
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          related: []
+        },
+        'decorative': {
+          product: {
+            id: 'decorative',
+            slug: 'decorative',
+            category: 'decorative',
+            name: 'Láminas Decorativas',
+            shortDescription: 'Transforma el aspecto de los vidrios y brinda privacidad.',
+            longDescription: [
+              'Las láminas decorativas añaden patrones, colores o texturas y brindan privacidad sin sacrificar la entrada de luz natural.',
+              'Ideales para hoteles, restaurantes y oficinas.'
+            ],
+            heroData: {
+              bannerImage: '/assets/images/backgrounds/solarcheck/slide-3.png',
+              title: 'Láminas Decorativas',
+              subtitle: 'Privacidad y diseño elegante',
+              breadcrumbTextOne: 'Inicio',
+              breadcrumbTextTwo: 'Productos',
+              breadcrumbTextThree: 'Decorativas'
+            },
+            content: {
+              mainImage: '/assets/images/backgrounds/solarcheck/slide-3.png',
+              mainImageAlt: 'Láminas Decorativas',
+              title: 'Láminas Decorativas',
+              description: [
+                'Transforma el aspecto de los vidrios y brinda privacidad.',
+                'Variedad de colores y diseños.'
+              ],
+              highlightedFeatures: [
+                'Privacidad sin pérdida de luz',
+                'Variedad de colores',
+                'Diseño elegante y moderno',
+                'Reducción del deslumbramiento',
+                'Fácil mantenimiento y durabilidad',
+                'Aplicación versátil'
+              ]
+            },
+            features: [
+              { icon: 'fas fa-eye-slash', title: 'Privacidad', description: 'Sin pérdida de luz.' },
+              { icon: 'fas fa-palette', title: 'Variedad de colores', description: 'Disponible en blanco y gris.' }
+            ],
+            specifications: [
+              { property: 'Colores disponibles', value: 'Blanco, gris, vinilos de color' },
+              { property: 'Acabado', value: 'Mate esmerilado, vinilo' }
+            ],
+            types: [
+              {
+                name: 'Láminas Esmeriladas',
+                description: 'Privacidad y diseño mate.',
+                keyBenefits: ['Privacidad', 'Diseño elegante']
+              },
+              {
+                name: 'Vinilos de color',
+                description: 'Variedad de colores y acabados.',
+                keyBenefits: ['Color', 'Versatilidad']
+              }
+            ],
+            challenges: [],
+            relatedProducts: [],
+            metaTitle: 'Láminas Decorativas - Glazing™',
+            metaDescription: 'Privacidad y diseño elegante.',
+            keywords: ['decorativa', 'esmerilada', 'privacidad', 'diseño'],
+            isActive: true,
+            featured: false,
+            createdAt: new Date(),
+            updatedAt: new Date()
+          },
+          related: []
+        },
         'solar-plata': {
           product: {
             id: 'solar-plata',
+            slug: 'solar-plata',
+            category: 'solar-protection',
             name: 'Solar Espejada Plata',
-            description: 'Lámina reflectante que reduce el calor, protege contra rayos UV e IR, y brinda privacidad.',
-            images: ['/assets/images/products/solar-plata.jpg'],
-            features: [
-              'Bloquea hasta 74% de energía solar',
-              'Protección UV 99%',
-              'Protección IR 82%',
-              'Privacidad con visión hacia el exterior'
+            shortDescription: 'Lámina reflectante que reduce el calor, protege contra rayos UV e IR, y brinda privacidad.',
+            longDescription: [
+              'La lámina Solar Espejada Plata está diseñada para maximizar la protección solar y la privacidad.',
+              'Su acabado espejado permite una visión clara hacia el exterior mientras bloquea miradas desde fuera.'
             ],
-            specs: [
-              { label: 'Protección UV', value: '99%' },
-              { label: 'Protección IR', value: '82%' },
-              { label: 'Rechazo energía solar', value: '74%' },
-              { label: 'Acabado', value: 'Espejado plata' }
-            ]
+            heroData: {
+              bannerImage: '/assets/images/products/solar-plata.jpg',
+              title: 'Solar Espejada Plata',
+              subtitle: 'Protección solar y privacidad superior',
+              breadcrumbTextOne: 'Inicio',
+              breadcrumbTextTwo: 'Productos',
+              breadcrumbTextThree: 'Solar Espejada Plata'
+            },
+            content: {
+              mainImage: '/assets/images/products/solar-plata.jpg',
+              mainImageAlt: 'Solar Espejada Plata',
+              title: 'Solar Espejada Plata',
+              description: [
+                'Reduce el calor y protege contra rayos UV e IR.',
+                'Ideal para oficinas, residencias y comercios.'
+              ],
+              highlightedFeatures: [
+                'Bloquea hasta 74% de energía solar',
+                'Protección UV 99%',
+                'Protección IR 82%',
+                'Privacidad con visión hacia el exterior'
+              ]
+            },
+            features: [
+              { icon: 'fas fa-sun', title: 'Protección Solar', description: 'Bloquea hasta 74% de energía solar.' },
+              { icon: 'fas fa-shield-alt', title: 'Protección UV', description: 'Protección UV 99%.' },
+              { icon: 'fas fa-thermometer-half', title: 'Protección IR', description: 'Protección IR 82%.' },
+              { icon: 'fas fa-eye-slash', title: 'Privacidad', description: 'Visión hacia el exterior, privacidad desde fuera.' }
+            ],
+            specifications: [
+              { property: 'Protección UV', value: '99%' },
+              { property: 'Protección IR', value: '82%' },
+              { property: 'Rechazo energía solar', value: '74%' },
+              { property: 'Acabado', value: 'Espejado plata' }
+            ],
+            types: [
+              {
+                name: 'Plata 15',
+                description: 'Mayor rechazo solar, acabado espejado intenso.',
+                uvProtection: '99%',
+                irReduction: '82%',
+                solarEnergyRejection: '74%',
+                finish: 'Espejado',
+                keyBenefits: ['Máxima privacidad', 'Alto rechazo solar']
+              },
+              {
+                name: 'Plata 35',
+                description: 'Balance entre protección y luminosidad.',
+                uvProtection: '99%',
+                irReduction: '70%',
+                solarEnergyRejection: '65%',
+                finish: 'Espejado suave',
+                keyBenefits: ['Privacidad', 'Protección solar']
+              }
+            ],
+            challenges: [],
+            relatedProducts: [
+              { name: 'Solar Espejada Bronce', link: '/product/solar-bronce' },
+              { name: 'Seguridad 100 micrones', link: '/product/seguridad-100' }
+            ],
+            metaTitle: 'Solar Espejada Plata - Glazing™',
+            metaDescription: 'Lámina reflectante para máxima protección solar y privacidad.',
+            keywords: ['solar', 'espejada', 'plata', 'protección', 'privacidad'],
+            isActive: true,
+            featured: true,
+            createdAt: new Date(),
+            updatedAt: new Date()
           },
           related: [
             { id: 'solar-bronce', name: 'Solar Espejada Bronce', image: '/assets/images/products/solar-bronce.jpg', shortDescription: 'Bloquea energía solar y rayos UV, acabado bronce para mayor confort.' },
@@ -45,18 +327,63 @@ export class ProductDetailPageService {
         'seguridad-100': {
           product: {
             id: 'seguridad-100',
+            slug: 'seguridad-100',
+            category: 'security',
             name: 'Seguridad 100 micrones',
-            description: 'Lámina transparente que refuerza cristales, mantiene unidos los fragmentos y protege contra rayos UV.',
-            images: ['/assets/images/products/seguridad-100.jpg'],
-            features: [
-              'Protección en caso de rotura',
-              'Ideal para lugares públicos',
-              'Protección UV 99%'
+            shortDescription: 'Lámina transparente que refuerza cristales y protege contra rayos UV.',
+            longDescription: [
+              'La lámina Seguridad 100 micrones está diseñada para reforzar cristales y evitar lesiones en caso de rotura.',
+              'Ideal para lugares públicos y zonas de alto tránsito.'
             ],
-            specs: [
-              { label: 'Espesor', value: '100 micrones' },
-              { label: 'Protección UV', value: '99%' }
-            ]
+            heroData: {
+              bannerImage: '/assets/images/products/seguridad-100.jpg',
+              title: 'Seguridad 100 micrones',
+              subtitle: 'Protección y refuerzo para cristales',
+              breadcrumbTextOne: 'Inicio',
+              breadcrumbTextTwo: 'Productos',
+              breadcrumbTextThree: 'Seguridad 100 micrones'
+            },
+            content: {
+              mainImage: '/assets/images/products/seguridad-100.jpg',
+              mainImageAlt: 'Seguridad 100 micrones',
+              title: 'Seguridad 100 micrones',
+              description: [
+                'Refuerza cristales y mantiene unidos los fragmentos en caso de rotura.',
+                'Protege contra rayos UV.'
+              ],
+              highlightedFeatures: [
+                'Protección en caso de rotura',
+                'Ideal para lugares públicos',
+                'Protección UV 99%'
+              ]
+            },
+            features: [
+              { icon: 'fas fa-shield-alt', title: 'Protección', description: 'Evita lesiones en caso de rotura.' },
+              { icon: 'fas fa-sun', title: 'Protección UV', description: 'Protección UV 99%.' }
+            ],
+            specifications: [
+              { property: 'Espesor', value: '100 micrones' },
+              { property: 'Protección UV', value: '99%' }
+            ],
+            types: [
+              {
+                name: 'Transparente',
+                description: 'Protección sin alterar la estética del vidrio.',
+                uvProtection: '99%',
+                keyBenefits: ['Protección', 'Transparencia']
+              }
+            ],
+            challenges: [],
+            relatedProducts: [
+              { name: 'Solar Espejada Plata', link: '/product/solar-plata' }
+            ],
+            metaTitle: 'Seguridad 100 micrones - Glazing™',
+            metaDescription: 'Lámina transparente para reforzar cristales y proteger contra rayos UV.',
+            keywords: ['seguridad', 'protección', 'cristales', 'uv'],
+            isActive: true,
+            featured: false,
+            createdAt: new Date(),
+            updatedAt: new Date()
           },
           related: [
             { id: 'solar-plata', name: 'Solar Espejada Plata', image: '/assets/images/products/solar-plata.jpg', shortDescription: 'Reduce el calor, protege UV y brinda privacidad con acabado reflectante.' }
@@ -65,21 +392,70 @@ export class ProductDetailPageService {
         'decorativa-esmerilada': {
           product: {
             id: 'decorativa-esmerilada',
+            slug: 'decorativa-esmerilada',
+            category: 'decorative',
             name: 'Decorativa Esmerilada',
-            description: 'Lámina mate que brinda privacidad sin perder luz, disponible en varios colores.',
-            images: ['/assets/images/products/decorativa-esmerilada.jpg'],
-            features: [
-              'Privacidad sin pérdida de luz',
-              'Variedad de colores',
-              'Diseño elegante y moderno',
-              'Reducción del deslumbramiento',
-              'Fácil mantenimiento y durabilidad',
-              'Aplicación versátil'
+            shortDescription: 'Lámina mate que brinda privacidad sin perder luz, disponible en varios colores.',
+            longDescription: [
+              'La lámina Decorativa Esmerilada transforma el aspecto de los vidrios y brinda privacidad.',
+              'Disponible en blanco y gris, con acabado mate esmerilado.'
             ],
-            specs: [
-              { label: 'Colores disponibles', value: 'Blanco, gris' },
-              { label: 'Acabado', value: 'Mate esmerilado' }
-            ]
+            heroData: {
+              bannerImage: '/assets/images/products/decorativa-esmerilada.jpg',
+              title: 'Decorativa Esmerilada',
+              subtitle: 'Privacidad y diseño elegante',
+              breadcrumbTextOne: 'Inicio',
+              breadcrumbTextTwo: 'Productos',
+              breadcrumbTextThree: 'Decorativa Esmerilada'
+            },
+            content: {
+              mainImage: '/assets/images/products/decorativa-esmerilada.jpg',
+              mainImageAlt: 'Decorativa Esmerilada',
+              title: 'Decorativa Esmerilada',
+              description: [
+                'Brinda privacidad sin perder luz.',
+                'Diseño elegante y moderno.'
+              ],
+              highlightedFeatures: [
+                'Privacidad sin pérdida de luz',
+                'Variedad de colores',
+                'Diseño elegante y moderno',
+                'Reducción del deslumbramiento',
+                'Fácil mantenimiento y durabilidad',
+                'Aplicación versátil'
+              ]
+            },
+            features: [
+              { icon: 'fas fa-eye-slash', title: 'Privacidad', description: 'Sin pérdida de luz.' },
+              { icon: 'fas fa-palette', title: 'Variedad de colores', description: 'Disponible en blanco y gris.' }
+            ],
+            specifications: [
+              { property: 'Colores disponibles', value: 'Blanco, gris' },
+              { property: 'Acabado', value: 'Mate esmerilado' }
+            ],
+            types: [
+              {
+                name: 'Blanco',
+                description: 'Acabado mate esmerilado blanco.',
+                keyBenefits: ['Privacidad', 'Diseño elegante']
+              },
+              {
+                name: 'Gris',
+                description: 'Acabado mate esmerilado gris.',
+                keyBenefits: ['Privacidad', 'Diseño moderno']
+              }
+            ],
+            challenges: [],
+            relatedProducts: [
+              { name: 'Solar Espejada Plata', link: '/product/solar-plata' }
+            ],
+            metaTitle: 'Decorativa Esmerilada - Glazing™',
+            metaDescription: 'Lámina mate para privacidad y diseño elegante.',
+            keywords: ['decorativa', 'esmerilada', 'privacidad', 'diseño'],
+            isActive: true,
+            featured: false,
+            createdAt: new Date(),
+            updatedAt: new Date()
           },
           related: [
             { id: 'solar-plata', name: 'Solar Espejada Plata', image: '/assets/images/products/solar-plata.jpg', shortDescription: 'Reduce el calor, protege UV y brinda privacidad con acabado reflectante.' }

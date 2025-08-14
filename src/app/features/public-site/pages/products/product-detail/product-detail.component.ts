@@ -1,5 +1,5 @@
 
-import { Component, effect } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductHeroComponent } from '../../../components/products/product-hero/product-hero.component';
@@ -24,7 +24,7 @@ import { ProductDetailPageService } from '../../../services';
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.scss'
 })
-export class ProductDetailComponent {
+export class ProductDetailComponent implements OnInit {
   public data: any;
   public loading: any;
   public error: any;
@@ -37,12 +37,13 @@ export class ProductDetailComponent {
     this.data = this.productDetailPageService.data;
     this.loading = this.productDetailPageService.loading;
     this.error = this.productDetailPageService.error;
-    effect(() => {
-      const id = this.route.snapshot.paramMap.get('id') || this.route.snapshot.paramMap.get('slug');
-      if (this.data() === null && !this.loading() && id) {
-        this.productDetailPageService.fetchData(id);
-      }
-    });
+  }
+
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id') || this.route.snapshot.paramMap.get('slug');
+    if (this.data() === null && !this.loading() && id) {
+      this.productDetailPageService.fetchData(id);
+    }
   }
 
   goBack(): void {

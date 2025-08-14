@@ -1,3 +1,10 @@
+// Resumen para productos relacionados y listados
+export interface ProductSummary {
+  id: string;
+  name: string;
+  image: string;
+  shortDescription: string;
+}
 /**
  * Interfaces para el sistema de productos de Glazing.me
  * Sigue la arquitectura modular y escalable definida en README.md
