@@ -6,21 +6,8 @@
 
     <!-- Main Content Section -->
     <section class="main-content-section">
-
-        <!-- <h1 class="col-10 mx-auto text-center fw-bold">
-            Garantizamos calidad para transformar tus espacios
-        </h1>
-
-        <p class="col-8 mx-auto text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo accusantium
-            magnam possimus veritatis quae, obcaecati culpa odio delectus autem sunt corporis.
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Necessitatibus, quo explicabo architecto quam quod
-            rem provident eos dolorem porro deleniti voluptatum ipsum earum accusamus iste impedit laborum repellat
-            doloremque aspernatur!
-        </p> -->
-
         <app-experience-section [showCertification]="false" [showCta]="false" [isAboutComponent]="true"
-            [experienceData]="experienceData" />
-
+            [experienceData]="data()?.experienceData" />
     </section>
 
     <!-- Products Section -->
@@ -31,7 +18,7 @@
     />
 
     <!-- Testimonials Section -->
-    <app-clients-testimonials [testimonials]="data()?.team" />
+    <app-clients-testimonials [testimonials]="data()?.testimonials" />
 
 
 </div>
