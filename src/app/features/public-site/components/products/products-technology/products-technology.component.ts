@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 interface ProductType {
   id: string;
@@ -20,7 +21,7 @@ interface TechnicalBenefit {
 @Component({
   selector: 'app-products-technology',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './products-technology.component.html',
   styleUrl: './products-technology.component.scss'
 })
