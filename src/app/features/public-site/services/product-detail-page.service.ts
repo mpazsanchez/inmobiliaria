@@ -63,21 +63,62 @@ export class ProductDetailPageService {
             types: [
               {
                 name: 'Láminas Espejadas Plata',
-                description: 'Máxima privacidad y rechazo solar.',
-                keyBenefits: ['Privacidad', 'Rechazo solar'],
-                finish: 'Espejado',
+                description: 'Las láminas solares espejadas en tono plata son una solución eficaz para reducir el calor que ingresa a través de los cristales, mejorando el confort en los ambientes y disminuyendo significativamente el gasto en refrigeración. Acabado reflectante, bloquea hasta un 74% de la energía solar total, 99% de protección contra rayos UV y 82% contra rayos infrarrojos. Brinda privacidad y protege interiores.',
+                keyBenefits: [
+                  'Bloquea hasta 74% de la energía solar total',
+                  'Protección contra rayos UV 99%',
+                  'Protección contra rayos infrarrojos 82%',
+                  'Privacidad sin sacrificar luz natural',
+                  'Mejora el confort y la eficiencia energética'
+                ],
+                specifications: [
+                  { property: 'Protección contra rayos UV', value: '99%' },
+                  { property: 'Reducción de rayos infrarrojos (IR)', value: '82%' },
+                  { property: 'Energía solar total rechazada', value: '74%' },
+                  { property: 'Acabado', value: 'Espejo plata' }
+                ],
+                finish: 'Espejo plata',
+                image: '/assets/images/products/solar-plata.jpg'
               },
               {
-                name: 'Láminas Nano Cerámicas',
-                description: 'No reflectivas, tono negro, alta tecnología.',
-                keyBenefits: ['No reflectivas', 'Tecnología cerámica'],
+                name: 'Láminas No flexivas tono negras Nano cerámicas',
+                description: 'Las láminas solares nano cerámicas en tono negro son una solución avanzada y estética para mejorar el confort y la eficiencia energética en espacios con cristales. Acabado oscuro, protección contra calor y deslumbramiento solar. Filtran 99% de rayos infrarrojos, rechazan 79% de energía solar total, protección UV 99%.',
+                keyBenefits: [
+                  'Filtrado de rayos infrarrojos 99%',
+                  'Reducción de energía solar 79%',
+                  'Protección contra rayos UV 99%',
+                  'Reducción del deslumbramiento',
+                  'Eficiencia energética',
+                  'Estética moderna (claro/intermedios/oscuros)'
+                ],
+                specifications: [
+                  { property: 'Protección contra rayos UV', value: '99%' },
+                  { property: 'Reducción de rayos infrarrojos (IR)', value: '80%' },
+                  { property: 'Energía solar total rechazada', value: '79%' },
+                  { property: 'Tonalidades disponibles', value: 'claro / intermedios / oscuros' }
+                ],
                 finish: 'Negro nano cerámico',
+                image: '/assets/images/products/nano-ceramica.jpg'
               },
               {
                 name: 'Láminas Selectivas',
-                description: 'Filtran selectivamente la radiación solar.',
-                keyBenefits: ['Filtrado selectivo', 'Confort térmico'],
-                finish: 'Selectivo',
+                description: 'Las láminas solares selectivas completamente transparentes son una solución ideal para quienes buscan mejorar la eficiencia energética sin alterar la estética original de los cristales. Bloquean 95% de rayos infrarrojos, rechazan 45% de energía solar total, protección UV 99%. Mantienen la apariencia natural y la claridad.',
+                keyBenefits: [
+                  'Protección contra rayos UV 99%',
+                  'Reducción de rayos infrarrojos 95%',
+                  'Energía solar total rechazada 45%',
+                  'Acabado transparente',
+                  'Estética inalterada',
+                  'Eficiencia energética'
+                ],
+                specifications: [
+                  { property: 'Protección contra rayos UV', value: '99%' },
+                  { property: 'Reducción de rayos infrarrojos (IR)', value: '95%' },
+                  { property: 'Energía solar total rechazada', value: '45%' },
+                  { property: 'Acabado', value: 'Transparente' }
+                ],
+                finish: 'Transparente',
+                image: '/assets/images/products/selectiva.jpg'
               }
             ],
             challenges: [],
@@ -135,29 +176,45 @@ export class ProductDetailPageService {
             ],
             types: [
               {
-                name: '100 micrones transparente',
-                description: 'Protección básica y transparencia total.',
-                keyBenefits: ['Protección', 'Transparencia']
-              },
-              {
-                name: '200 micrones transparente',
-                description: 'Mayor refuerzo y seguridad.',
-                keyBenefits: ['Mayor refuerzo', 'Transparencia']
-              },
-              {
-                name: '300 micrones transparente',
-                description: 'Protección avanzada para zonas críticas.',
-                keyBenefits: ['Protección avanzada', 'Transparencia']
-              },
-              {
-                name: '400 micrones transparente',
-                description: 'Máxima seguridad y resistencia.',
-                keyBenefits: ['Máxima seguridad', 'Transparencia']
+                name: 'Láminas de Seguridad Transparentes (100-400 micrones)',
+                description: 'Las láminas de seguridad transparentes están diseñadas para reforzar los cristales, haciéndolos más seguros y resistentes en caso de rotura. Actúan como barrera protectora, manteniendo unidos los fragmentos de vidrio y previniendo lesiones o daños. Disponibles en diferentes espesores: 100, 200, 300 y 400 micrones. Ideales para lugares públicos y zonas de alto tránsito. Ofrecen protección UV del 99% y mantienen la estética original del cristal.',
+                keyBenefits: [
+                  'Protección en caso de rotura',
+                  'Ideal para lugares públicos',
+                  'Protección contra rayos UV 99%',
+                  'Diferentes espesores disponibles: 100, 200, 300, 400 micrones',
+                  'Transparente, sin cambio visible',
+                  'Fácil aplicación en ventanas, puertas y superficies acristaladas'
+                ],
+                specifications: [
+                  { property: 'Grosor y disponibilidad', value: '100 / 200 / 300 / 400 micrones' },
+                  { property: 'Protección en caso de rotura', value: 'Mantiene los fragmentos de vidrio adheridos a la lámina' },
+                  { property: 'Protección contra rayos UV', value: '99%' },
+                  { property: 'Impacto en la estética del cristal', value: 'Transparente, sin cambio visible' },
+                  { property: 'Resistencia de presión', value: '45.36 kg/cm² (100 micrones), 77 kg/cm² (200), 106 kg/cm² (300), 127 kg/cm² (400)' }
+                ],
+                finish: 'Transparente',
+                image: '/assets/images/products/seguridad-100.jpg'
               },
               {
                 name: '100 micrones color 20%',
-                description: 'Protección y estética con tono color.',
-                keyBenefits: ['Protección', 'Estética']
+                description: 'Lámina de seguridad de 100 micrones con tonalidad, combina protección física y control solar. Refuerza cristales, reduce temperatura y mejora eficiencia energética. Protección UV 99%, IR 97%, rechaza 78% de energía solar total. Ofrece privacidad y estética moderna.',
+                keyBenefits: [
+                  'Seguridad mejorada',
+                  'Protección contra rayos UV 99%',
+                  'Reducción de rayos infrarrojos 97%',
+                  'Energía solar total rechazada 78%',
+                  'Doble función: seguridad y confort térmico',
+                  'Estética y privacidad'
+                ],
+                specifications: [
+                  { property: 'Protección contra rayos UV', value: '99%' },
+                  { property: 'Reducción de rayos infrarrojos (IR)', value: '97%' },
+                  { property: 'Energía solar total rechazada', value: '78%' },
+                  { property: 'Acabado', value: 'Color 20%' }
+                ],
+                finish: 'Color 20%',
+                image: '/assets/images/products/seguridad-100-color.jpg'
               }
             ],
             challenges: [],
@@ -219,13 +276,47 @@ export class ProductDetailPageService {
             types: [
               {
                 name: 'Láminas Esmeriladas',
-                description: 'Privacidad y diseño mate.',
-                keyBenefits: ['Privacidad', 'Diseño elegante']
+                description: 'Las láminas decorativas esmeriladas son una excelente opción para quienes buscan añadir un toque estético y funcional a sus cristales. Permiten el paso de luz natural, bloquean la visión directa y ofrecen privacidad sin pérdida de luminosidad. Disponibles en blanco, grises y otros tonos neutros. Acabado mate y elegante, fácil de limpiar y duradero.',
+                keyBenefits: [
+                  'Transmisión de luz alta, permite entrada de luz natural',
+                  'Privacidad alta, evita la visión clara desde ambos lados',
+                  'Disponibilidad de colores: blanco, grises, tonos neutros',
+                  'Acabado esmerilado, mate y elegante',
+                  'Fácil de limpiar y duradero',
+                  'Reducción del deslumbramiento',
+                  'Aplicación versátil: hogares y comercios'
+                ],
+                specifications: [
+                  { property: 'Transmisión de luz', value: 'Alta, permite la entrada de luz natural' },
+                  { property: 'Privacidad', value: 'Alta, evita la visión clara desde ambos lados' },
+                  { property: 'Disponibilidad de colores', value: 'Blanco, grises, otros tonos neutros' },
+                  { property: 'Acabado', value: 'Esmerilado, mate y elegante' },
+                  { property: 'Mantenimiento', value: 'Fácil de limpiar y duradero' }
+                ],
+                finish: 'Esmerilado',
+                image: '/assets/images/products/esmerilada.jpg'
               },
               {
                 name: 'Vinilos de color',
-                description: 'Variedad de colores y acabados.',
-                keyBenefits: ['Color', 'Versatilidad']
+                description: 'Vinilos decorativos de colores para cristales, ofrecen privacidad total y control completo de la luz. No permiten el paso de luz, bloquean la visión y están disponibles en una amplia gama de colores y estilos. Ideales para oficinas, salas de reuniones, hogares y comercios. Fácil mantenimiento y aplicación versátil.',
+                keyBenefits: [
+                  'Transmisión de luz nula, no permite el paso de luz',
+                  'Privacidad completa, impide la visión desde ambos lados',
+                  'Amplia gama de colores y estilos',
+                  'Aplicación en superficies de vidrio, ventanas, puertas, divisiones',
+                  'La mayoría de colores disponibles',
+                  'Reducción de la exposición al sol',
+                  'Fácil mantenimiento y durabilidad'
+                ],
+                specifications: [
+                  { property: 'Transmisión de luz', value: 'Nula, no permite el paso de luz' },
+                  { property: 'Privacidad', value: 'Completa, impide la visión desde ambos lados' },
+                  { property: 'Disponibilidad de colores', value: 'Amplia gama de colores y estilos' },
+                  { property: 'Aplicación', value: 'Superficies de vidrio, ventanas, puertas, divisiones' },
+                  { property: 'Colores', value: 'La mayoría de colores disponibles' }
+                ],
+                finish: 'Color',
+                image: '/assets/images/products/vinilo-color.jpg'
               }
             ],
             challenges: [],
