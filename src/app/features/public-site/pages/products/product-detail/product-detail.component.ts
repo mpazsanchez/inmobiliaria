@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductHeroComponent } from '../../../components/products/product-hero/product-hero.component';
 import { ProductContentComponent } from '../../../components/products/product-content/product-content.component';
 import { ProductFeaturesComponent } from '../../../components/products/product-features/product-features.component';
@@ -19,10 +19,11 @@ import { ProductDetailPageService } from '../../../services';
     CommonModule,
     ProductHeroComponent,
     ProductContentComponent,
-    ProductFeaturesComponent
+    ProductFeaturesComponent,
+    RouterLink
   ],
   templateUrl: './product-detail.component.html',
-  styleUrl: './product-detail.component.scss'
+  styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent implements OnInit {
   public data: any;
@@ -48,5 +49,9 @@ export class ProductDetailComponent implements OnInit {
 
   goBack(): void {
     this.router.navigate(['/products']);
+  }
+
+  getTypeSlug(typeName: string): string {
+    return typeName.toLowerCase().replace(/\s+/g, '-');
   }
 }

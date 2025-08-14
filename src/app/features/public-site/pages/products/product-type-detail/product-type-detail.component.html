@@ -1,0 +1,36 @@
+<!-- Detalle de tipo de producto -->
+<div class="product-type-detail-page">
+    @if (loading) {
+        <div class="loading-container d-flex justify-content-center align-items-center">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando tipo de producto...</span>
+          </div>
+        </div>
+    }
+
+  @if (error) {
+      <div class="error-container text-center py-5">
+        <h2>Error</h2>
+        <p>{{ error }}</p>
+        <button class="btn btn-primary" (click)="goBack()">Volver</button>
+      </div>
+  }
+
+  @if (type) {
+      <div>
+        <h1>{{ type.name }}</h1>
+        <p>{{ type.description }}</p>
+        @if (type.image) {
+            <img [src]="type.image" [alt]="type.name" class="img-fluid mb-3" />
+        }
+        <h3>Especificaciones técnicas</h3>
+        <ul>
+          <li *ngFor="let spec of type.specifications">
+            <strong>{{ spec.property }}:</strong> {{ spec.value }}
+          </li>
+        </ul>
+        <button class="btn btn-outline-primary mt-4" (click)="goBack()">Volver a productos</button>
+      </div>
+  }
+
+</div>

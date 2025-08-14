@@ -65,69 +65,12 @@
                     }
                   </div>
                   <p class="type-description">{{ type.description }}</p>
-                  @if (type.uvProtection || type.irReduction || type.solarEnergyRejection) {
-                    <div class="type-specs">
-                      @if (type.uvProtection) {
-                        <div class="spec-item">
-                          <i class="fas fa-shield-alt text-primary"></i>
-                          <span>UV: {{ type.uvProtection }}</span>
-                        </div>
-                      }
-                      @if (type.irReduction) {
-                        <div class="spec-item">
-                          <i class="fas fa-thermometer-half text-danger"></i>
-                          <span>IR: {{ type.irReduction }}</span>
-                        </div>
-                      }
-                      @if (type.solarEnergyRejection) {
-                        <div class="spec-item">
-                          <i class="fas fa-sun text-warning"></i>
-                          <span>Solar: {{ type.solarEnergyRejection }}</span>
-                        </div>
-                      }
-                    </div>
-                  }
-                  @if (type.keyBenefits && type.keyBenefits.length > 0) {
-                    <ul class="type-benefits">
-                      @for (benefit of type.keyBenefits; track $index) {
-                        <li>
-                          <i class="fas fa-check text-success"></i>
-                          {{ benefit }}
-                        </li>
-                      }
-                    </ul>
-                  }
+                  <a [routerLink]="['/product-type-detail', getTypeSlug(type.name)]" class="btn btn-outline-primary btn-sm mt-3">
+                    Ver detalle completo
+                  </a>
                 </div>
               </div>
             }
-          </div>
-        </div>
-      </section>
-    }
-
-    <!-- Specifications Section -->
-    @if (data().product.specifications && data().product.specifications.length > 0) {
-      <section class="product-specifications py-5 bg-light">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 text-center mb-5">
-              <h2 class="section-title">Especificaciones Técnicas</h2>
-            </div>
-            <div class="col-lg-8 mx-auto">
-              <div class="specifications-table">
-                @for (spec of data().product.specifications; track $index) {
-                  <div class="spec-row">
-                    <div class="spec-property">{{ spec.property }}</div>
-                    <div class="spec-value">
-                      {{ spec.value }}
-                      @if (spec.unit) {
-                        {{ spec.unit }}
-                      }
-                    </div>
-                  </div>
-                }
-              </div>
-            </div>
           </div>
         </div>
       </section>
