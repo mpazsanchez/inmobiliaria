@@ -84,65 +84,84 @@ export class AboutUsPageService {
             ],
           }
         },
-        productTypes: [
-          {
-            id: 'solar',
-            title: 'Láminas de control solar',
-            description: 'Reducen el calor y el deslumbramiento, mejorando la eficiencia energética.',
-            icon: 'fas fa-sun',
-            benefits: ['Ahorro energético', 'Protección UV', 'Mayor confort térmico'],
-            applications: ['Edificios', 'Automóviles', 'Industria']
-          },
-          {
-            id: 'seguridad',
-            title: 'Láminas de seguridad',
-            description: 'Aumentan la resistencia del vidrio y protegen contra impactos.',
-            icon: 'fas fa-shield-alt',
-            benefits: ['Protección contra robos', 'Reducción de accidentes', 'Mayor privacidad'],
-            applications: ['Comercios', 'Viviendas', 'Instituciones']
-          },
-          {
-            id: 'decorativas',
-            title: 'Láminas decorativas',
-            description: 'Ofrecen variedad de diseños y colores para personalizar ambientes.',
-            icon: 'fas fa-palette',
-            benefits: ['Estética', 'Privacidad', 'Personalización'],
-            applications: ['Oficinas', 'Hogares', 'Locales comerciales']
-          },
-          {
-            id: 'antivandalicas',
-            title: 'Láminas antivandálicas',
-            description: 'Protegen el vidrio contra actos vandálicos y accidentes.',
-            icon: 'fas fa-user-shield',
-            benefits: ['Resistencia', 'Seguridad', 'Durabilidad'],
-            applications: ['Transporte público', 'Escuelas', 'Instituciones']
-          },
-          // {
-          //   id: 'espejadas',
-          //   title: 'Láminas espejadas',
-          //   description: 'Brindan efecto espejo y mayor privacidad.',
-          //   icon: 'fas fa-mirror',
-          //   benefits: ['Privacidad', 'Estética', 'Control solar'],
-          //   applications: ['Edificios', 'Consultorios', 'Oficinas']
-          // }
-        ],
         technicalBenefits: [
           {
             icon: 'fas fa-thermometer-half',
-            title: 'Ahorro energético',
-            description: 'Reduce el consumo de aire acondicionado y calefacción.',
-            percentage: 'Hasta 30%'
+            title: 'Reducción de Calor',
+            description: 'Nuestras láminas bloquean hasta el 97% de la radiación infrarroja, manteniendo espacios más frescos.',
+            percentage: '97%'
           },
           {
-            icon: 'fas fa-sun',
+            icon: 'fas fa-bolt',
+            title: 'Eficiencia Energética',
+            description: 'Reduce hasta un 30% el consumo de aire acondicionado y sistemas de climatización.',
+            percentage: '30%'
+          },
+          {
+            icon: 'fas fa-shield-virus',
             title: 'Protección UV',
-            description: 'Bloquea más del 99% de los rayos UV.',
+            description: 'Bloquean hasta el 99% de los rayos UV, protegiendo interiores y personas.',
             percentage: '99%'
           },
           {
+            icon: 'fas fa-clock',
+            title: 'Durabilidad',
+            description: 'Garantía de hasta 10 años, resistentes al desgaste, sol y paso del tiempo.',
+            percentage: '10 años'
+          }
+        ],
+        productTypes: [
+          {
+            id: 'solar-protection',
+            title: 'Láminas de Protección Solar',
+            description: 'Diseñadas para reducir el calor y el deslumbramiento, mejorando el confort interior y reduciendo la necesidad de aire acondicionado.',
+            icon: 'fas fa-sun',
+            benefits: [
+              'Reducción de hasta 85% del calor',
+              'Control del deslumbramiento',
+              'Mejora del confort térmico',
+              'Reducción de costos de climatización'
+            ],
+            applications: ['Oficinas', 'Residencias', 'Centros comerciales', 'Vehículos']
+          },
+          {
+            id: 'privacy',
+            title: 'Láminas de Privacidad',
+            description: 'Ofrecen diferentes niveles de opacidad y diseño para aumentar la privacidad sin comprometer la luz natural.',
             icon: 'fas fa-eye-slash',
-            title: 'Privacidad',
-            description: 'Permite ver sin ser visto desde el exterior.'
+            benefits: [
+              'Privacidad durante el día',
+              'Mantenimiento de luz natural',
+              'Visibilidad desde el interior',
+              'Diferentes niveles de opacidad'
+            ],
+            applications: ['Oficinas ejecutivas', 'Consultorios', 'Residencias', 'Salas de juntas']
+          },
+          {
+            id: 'security',
+            title: 'Láminas de Seguridad',
+            description: 'Refuerzan el vidrio para aumentar su resistencia al impacto, ayudando a prevenir roturas y mejorar la seguridad.',
+            icon: 'fas fa-shield-alt',
+            benefits: [
+              'Aumento de resistencia al impacto',
+              'Prevención de roturas peligrosas',
+              'Protección contra intrusiones',
+              'Retención de fragmentos'
+            ],
+            applications: ['Bancos', 'Joyerías', 'Escuelas', 'Edificios gubernamentales']
+          },
+          {
+            id: 'decorative',
+            title: 'Láminas Decorativas',
+            description: 'Disponibles en una variedad de colores y patrones, estas láminas permiten personalizar la apariencia de los vidrios.',
+            icon: 'fas fa-palette',
+            benefits: [
+              'Personalización estética',
+              'Variedad de diseños',
+              'Mejora del ambiente',
+              'Adaptación arquitectónica'
+            ],
+            applications: ['Hoteles', 'Restaurantes', 'Showrooms', 'Oficinas corporativas']
           }
         ],
         testimonials: [

@@ -40,24 +40,24 @@
   // Technical Benefits Cards
   .benefit-card {
     background: white;
-    // border-radius: 15px;
+    border-radius: 12px;
     padding: 2rem 1.5rem;
     height: 100%;
     text-align: center;
-    box-shadow: 0 5px 20px rgba(0, 154, 222, 0.08);
-    border: 1px solid rgba(0, 154, 222, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 154, 222, 0.06);
+    border: 1px solid rgba(0, 154, 222, 0.07);
     transition: all 0.3s ease;
 
     &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0, 154, 222, 0.15);
-      border-color: $blue-one;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 154, 222, 0.12);
+      border-color: #009ADE;
     }
 
     .benefit-icon {
       width: 70px;
       height: 70px;
-      background: linear-gradient(135deg, $blue-one 0%, $blue-two 100%);
+      background: #009ADE;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -81,7 +81,7 @@
       margin-bottom: 1rem;
 
       .percentage {
-        color: $blue-one;
+        color: #009ADE;
         font-size: 2.5rem;
         font-weight: 700;
         line-height: 1;

@@ -26,7 +26,32 @@ interface TechnicalBenefit {
 })
 export class ProductsTechnologyComponent {
   @Input() productTypes: ProductType[] = [];
-  @Input() technicalBenefits: TechnicalBenefit[] = [];
+  @Input() technicalBenefits: TechnicalBenefit[] = [
+    {
+      icon: 'fas fa-thermometer-half',
+      title: 'Reducción de Calor',
+      description: 'Nuestras láminas bloquean hasta el 97% de la radiación infrarroja, manteniendo espacios más frescos.',
+      percentage: '97%'
+    },
+    {
+      icon: 'fas fa-bolt',
+      title: 'Eficiencia Energética',
+      description: 'Reduce hasta un 30% el consumo de aire acondicionado y sistemas de climatización.',
+      percentage: '30%'
+    },
+    {
+      icon: 'fas fa-shield-virus',
+      title: 'Protección UV',
+      description: 'Bloquean hasta el 99% de los rayos UV, protegiendo interiores y personas.',
+      percentage: '99%'
+    },
+    {
+      icon: 'fas fa-clock',
+      title: 'Durabilidad',
+      description: 'Garantía de hasta 10 años, resistentes al desgaste, sol y paso del tiempo.',
+      percentage: '10 años'
+    }
+  ];
   @Input() showCallToAction?: boolean = true;
 
   trackByProductId(index: number, item: ProductType): string {
