@@ -283,6 +283,11 @@
         box-shadow: 0 10px 25px rgba(0, 154, 222, 0.3);
       }
     }
+
+
+
+
+
   }
 
   // Responsive adjustments
@@ -331,3 +336,16 @@
   &:nth-child(3) { animation-delay: 0.3s; }
   &:nth-child(4) { animation-delay: 0.4s; }
 }
+
+
+    .btn-detail {
+      font-weight: 600;
+      background: linear-gradient(
+      135deg,
+      #009ADE 0%,
+      #047BC1 100%);
+
+      color: white;
+      border-radius: 50px;
+      padding: 5px 15px;
+    }

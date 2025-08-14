@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsTechnologyComponent } from "../../components/products/products-technology/products-technology.component";
 import { RouterModule } from '@angular/router';
@@ -15,8 +15,10 @@ export class ProductsComponent implements OnInit {
   public data: any;
   public loading: any;
   public error: any;
-
-  constructor(private readonly productsPageService: ProductsPageService) {
+  
+  private readonly productsPageService = inject(ProductsPageService);
+  
+  constructor() {
     this.data = this.productsPageService.data;
     this.loading = this.productsPageService.loading;
     this.error = this.productsPageService.error;

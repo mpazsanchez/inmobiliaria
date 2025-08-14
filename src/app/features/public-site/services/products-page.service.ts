@@ -21,7 +21,7 @@ export class ProductsPageService {
         categories: [
           {
             id: 'solar-protection',
-            name: 'Láminas de Protección Solar',
+            title: 'Láminas de Protección Solar',
             description: 'Las láminas solares para vidrios filtran la radiación solar, reducen el calor y mejoran la eficiencia energética.',
             icon: 'fas fa-sun',
             benefits: [
@@ -34,7 +34,7 @@ export class ProductsPageService {
           },
           {
             id: 'security',
-            name: 'Láminas de Seguridad',
+            title: 'Láminas de Seguridad',
             description: 'Las láminas de seguridad para cristales mantienen los fragmentos de vidrio unidos en caso de rotura, evitando lesiones.',
             icon: 'fas fa-shield-alt',
             benefits: [
@@ -46,7 +46,7 @@ export class ProductsPageService {
           },
           {
             id: 'decorative',
-            name: 'Láminas Decorativas',
+            title: 'Láminas Decorativas',
             description: 'Transforman el aspecto de los vidrios, añadiendo patrones, colores o texturas, y brindando privacidad sin sacrificar la entrada de luz natural.',
             icon: 'fas fa-palette',
             benefits: [
