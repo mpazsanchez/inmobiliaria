@@ -62,28 +62,28 @@ export class ProductsPageService {
         ],
         featured: [
           {
-            icon: 'fas fa-thermometer-half',
-            title: 'Reducción de Calor',
-            description: 'Nuestras láminas bloquean hasta el 97% de la radiación infrarroja, manteniendo espacios más frescos.',
-            percentage: '97%'
+            icon: 'fas fa-award',
+            title: 'Experiencia en el rubro',
+            description: 'Más de 30 años asesorando, vendiendo e instalando láminas para arquitectura y automóviles.',
+            percentage: '+30'
           },
           {
-            icon: 'fas fa-bolt',
-            title: 'Eficiencia Energética',
-            description: 'Reduce hasta un 30% el consumo de aire acondicionado y sistemas de climatización.',
-            percentage: '30%'
+            icon: 'fas fa-user-shield',
+            title: 'Instaladores certificados',
+            description: 'Todo el equipo cuenta con certificación Glazing Certified™ y capacitación técnica actualizada.',
+            percentage: '100%'
           },
           {
-            icon: 'fas fa-shield-virus',
-            title: 'Protección UV',
-            description: 'Bloquean hasta el 99% de los rayos UV, protegiendo interiores y personas.',
-            percentage: '99%'
-          },
-          {
-            icon: 'fas fa-clock',
-            title: 'Durabilidad',
-            description: 'Garantía de hasta 10 años, resistentes al desgaste, sol y paso del tiempo.',
+            icon: 'fas fa-shield-alt',
+            title: 'Garantía y seguridad',
+            description: 'Cobertura de seguros, habilitaciones laborales y garantía formal en cada proyecto.',
             percentage: '10 años'
+          },
+          {
+            icon: 'fas fa-layer-group',
+            title: 'Soluciones integrales',
+            description: 'Ofrecemos láminas solares, de seguridad, y decorativas para cada necesidad.',
+            percentage: '3 tipos'
           }
         ]
       };
