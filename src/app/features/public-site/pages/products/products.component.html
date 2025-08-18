@@ -1,16 +1,16 @@
 <!-- Products Page Layout -->
 <div class="products-page">
-  
+
   <!-- Page Hero Section -->
   <section class="products-hero">
     <div class="hero-background">
       <div class="geometric-shapes"></div>
     </div>
-    
+
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-8 text-center">
-          
+
           <!-- Breadcrumb Navigation -->
           <nav aria-label="breadcrumb" class="hero-breadcrumb">
             <ol class="breadcrumb">
@@ -36,9 +36,6 @@
   </section>
 
   <!-- Products & Technology Section -->
-  <app-products-technology
-  [productTypes]="data()?.categories"
-    [technicalBenefits]="data()?.featured"
-  />
+  <app-products-technology [productTypes]="data()?.categories" [technicalBenefits]="data()?.featured" />
 
 </div>

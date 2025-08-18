@@ -17,7 +17,10 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: url('/assets/images/backgrounds/solarcheck/slide-2.jpg') center/cover;
+      // background: url('/assets/images/backgrounds/template/bg-1.jpg');
+            background: url('/assets/images/backgrounds/template/bg-2.png');
+      background-attachment: fixed;
+      // background: url('/assets/images/backgrounds/solarcheck/slide-2.jpg') center/cover;
       z-index: 1;
     }
     
