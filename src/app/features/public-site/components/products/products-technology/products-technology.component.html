@@ -1,15 +1,16 @@
 <!-- Products & Technology Section -->
 <section class="products-technology-section">
   <div class="container">
-    
+
     <!-- Section Header -->
     <div class="row mb-5">
       <div class="col-12 text-center">
         <div class="section-header">
           <p class="section-subtitle">NUESTROS PRODUCTOS Y TECNOLOGÍA</p>
-          <h2 class="section-title col-10 mx-auto">Soluciones Innovadoras en láminas de control solar, de seguridad y decorativas</h2>
+          <h2 class="section-title col-10 mx-auto">Soluciones Innovadoras en láminas de control solar, de seguridad y
+            decorativas</h2>
           <p class="section-description">
-            Ofrecemos una gama completa de láminas de diseñadas para mejorar el rendimiento 
+            Ofrecemos una gama completa de láminas de diseñadas para mejorar el rendimiento
             de los vidrios en edificios residenciales, comerciales e industriales.
           </p>
         </div>
@@ -35,6 +36,7 @@
     </div>
 
     <!-- Product Types -->
+    @if (showProductType) {
     <div class="row">
       <div class="col-12">
         <h3 class="products-section-title text-center mb-5">Tipos de Láminas</h3>
@@ -43,72 +45,73 @@
 
     <div class="row">
       @for (product of productTypes; track $index) {
-        <div class="col-lg-6 mb-4">
-          <div class="product-card">
-            
-            <!-- Product Header -->
-            <div class="product-header">
-              <div class="product-icon">
-                <i [class]="product.icon"></i>
-              </div>
-              <div class="product-info">
-                <h4 class="product-title">{{ product.title }}</h4>
-                <p class="product-description">{{ product.description }}</p>
-              </div>
+      <div class="col-lg-6 mb-4">
+        <div class="product-card">
+
+          <!-- Product Header -->
+          <div class="product-header">
+            <div class="product-icon">
+              <i [class]="product.icon"></i>
             </div>
-  
-            <!-- Product Details -->
-            <div class="product-details">
-              
-              <!-- Benefits -->
-              <div class="benefits-section">
-                <h5 class="detail-title">Beneficios Principales:</h5>
-                <ul class="benefits-list">
-                  <li *ngFor="let benefit of product.benefits">
-                    <i class="fas fa-check-circle"></i>
-                    {{ benefit }}
-                  </li>
-                </ul>
-              </div>
-  
-              <!-- Applications -->
-              <div class="applications-section">
-                <h5 class="detail-title">Aplicaciones Ideales:</h5>
-                <div class="applications-tags">
-                  <span class="application-tag" *ngFor="let application of product.applications">
-                    {{ application }}
-                  </span>
-                </div>
-              </div>
-  
-              <div class="mt-3 text-end">
-                <a [routerLink]="['/product', product.id]" class="btn btn-detail btn-sm">
-                  Ver detalle
-                </a>
-              </div>
+            <div class="product-info">
+              <h4 class="product-title">{{ product.title }}</h4>
+              <p class="product-description">{{ product.description }}</p>
             </div>
           </div>
-        </div>
-      }
-    </div>
 
-    @if (showCallToAction) {
-        <!-- Call to Action -->
-        <div class="row mt-5">
-          <div class="col-12 text-center">
-            <div class="cta-section">
-              <h3 class="cta-title">¿Necesitas Más Información Técnica?</h3>
-              <p class="cta-description">
-                Nuestros especialistas están listos para ayudarte a encontrar la solución perfecta 
-                para tu proyecto específico.
-              </p>
-              <a href="/contact" class="btn btn-primary btn-lg">
-                <i class="fas fa-comments me-2"></i>
-                Consultar con Especialistas
+          <!-- Product Details -->
+          <div class="product-details">
+
+            <!-- Benefits -->
+            <div class="benefits-section">
+              <h5 class="detail-title">Beneficios Principales:</h5>
+              <ul class="benefits-list">
+                <li *ngFor="let benefit of product.benefits">
+                  <i class="fas fa-check-circle"></i>
+                  {{ benefit }}
+                </li>
+              </ul>
+            </div>
+
+            <!-- Applications -->
+            <div class="applications-section">
+              <h5 class="detail-title">Aplicaciones Ideales:</h5>
+              <div class="applications-tags">
+                <span class="application-tag" *ngFor="let application of product.applications">
+                  {{ application }}
+                </span>
+              </div>
+            </div>
+
+            <div class="mt-3 text-end">
+              <a [routerLink]="['/product', product.id]" class="btn btn-detail btn-sm">
+                Ver detalle
               </a>
             </div>
           </div>
         </div>
+      </div>
+      }
+    </div>
+    }
+
+    @if (showCallToAction) {
+    <!-- Call to Action -->
+    <div class="row mt-5">
+      <div class="col-12 text-center">
+        <div class="cta-section">
+          <h3 class="cta-title">¿Necesitas Más Información Técnica?</h3>
+          <p class="cta-description">
+            Nuestros especialistas están listos para ayudarte a encontrar la solución perfecta
+            para tu proyecto específico.
+          </p>
+          <a href="/contact" class="btn btn-primary btn-lg">
+            <i class="fas fa-comments me-2"></i>
+            Consultar con Especialistas
+          </a>
+        </div>
+      </div>
+    </div>
     }
 
   </div>

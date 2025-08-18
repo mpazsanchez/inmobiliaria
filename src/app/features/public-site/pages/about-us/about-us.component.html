@@ -10,15 +10,17 @@
             [experienceData]="data()?.experienceData" />
     </section>
 
+    <!-- Testimonials Section -->
+    <app-clients-testimonials [testimonials]="data()?.testimonials" />
+    
     <!-- Products Section -->
     <app-products-technology
-        [showCallToAction]="false"
+        [showCallToAction]="true"
+        [showProductType]="false"
         [productTypes]="data()?.productTypes"
         [technicalBenefits]="data()?.technicalBenefits"
     />
 
-    <!-- Testimonials Section -->
-    <app-clients-testimonials [testimonials]="data()?.testimonials" />
 
 
 </div>
