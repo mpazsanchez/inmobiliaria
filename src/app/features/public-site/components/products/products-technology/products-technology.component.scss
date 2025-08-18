@@ -40,7 +40,7 @@
   // Technical Benefits Cards
   .benefit-card {
     background: white;
-    border-radius: 12px;
+    // border-radius: 12px;
     padding: 2rem 1.5rem;
     height: 100%;
     text-align: center;
@@ -55,8 +55,8 @@
     }
 
     .benefit-icon {
-      width: 70px;
-      height: 70px;
+      width: 55px;
+      height: 55px;
       background: #009ADE;
       border-radius: 50%;
       display: flex;
@@ -82,7 +82,7 @@
 
       .percentage {
         color: #009ADE;
-        font-size: 2.5rem;
+        font-size: 2rem;
         font-weight: 700;
         line-height: 1;
       }
@@ -247,8 +247,10 @@
       left: 0;
       right: 0;
       bottom: 0;
+      // background: url(../../../../../../assets/images/backgrounds/solarcheck/asset\ 1.webp);
       background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="tech-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%23009ADE" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23tech-pattern)"/></svg>');
       z-index: 0;
+
     }
 
     > * {

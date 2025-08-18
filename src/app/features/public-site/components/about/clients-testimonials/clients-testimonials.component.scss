@@ -108,14 +108,15 @@
           width: 60px;
           height: 60px;
           border-radius: 50%;
-          background: linear-gradient(135deg, $blue-one 0%, $blue-two 100%);
+          // background: linear-gradient(135deg, $blue-one 0%, $blue-two 100%);
           display: flex;
           align-items: center;
           justify-content: center;
-          color: white;
+          color: #047BC1;
           font-weight: 600;
           font-size: 1.2rem;
-          border: 3px solid rgba(255, 255, 255, 0.2);
+          border: 2px solid #047BC1;
+          // border: 3px solid rgba(255, 255, 255, 0.2);
         }
       }
 

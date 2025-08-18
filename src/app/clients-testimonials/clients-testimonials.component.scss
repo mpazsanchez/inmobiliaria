@@ -70,12 +70,15 @@
       right: 20px;
       width: 50px;
       height: 50px;
-      background: linear-gradient(135deg, $blue-one 0%, $blue-two 100%);
+      // background: linear-gradient(135deg, $blue-one 0%, $blue-two 100%);
+      background: linear-gradient(135deg, #04597f 0%, #047BC1 100%);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: 0 5px 15px rgba(0, 154, 222, 0.3);
+
+      
 
       i {
         color: white;
