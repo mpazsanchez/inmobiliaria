@@ -99,25 +99,29 @@
   }
 }
 
+// Galería: overlay oculto por defecto, visible solo en hover
 .gallery-item {
   position: relative;
-//   border-radius: 12px;
   overflow: hidden;
   aspect-ratio: 4/3;
   cursor: pointer;
   transition: all 0.3s ease;
-  
+
+  .gallery-overlay {
+    opacity: 0;
+    pointer-events: none;
+  }
+
   &:hover {
     transform: scale(1.05);
-    
     .gallery-overlay {
       opacity: 1;
+      pointer-events: auto;
     }
   }
-  
+
   &:first-child {
     grid-column: span 2;
-    
     @media (max-width: 576px) {
       grid-column: span 1;
     }
@@ -136,12 +140,16 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(45deg, rgba(0, 154, 222, 0.8), rgba(3, 78, 162, 0.8));
+  background: linear-gradient(45deg, rgba(0, 154, 222, 0.25), rgba(3, 78, 162, 0.25));
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   transition: all 0.3s ease;
+}
+.gallery-item:hover .gallery-overlay {
+  background: linear-gradient(45deg, rgba(0, 154, 222, 0.8), rgba(3, 78, 162, 0.8));
+  opacity: 1;
 }
 
 .gallery-title {

@@ -52,8 +52,8 @@ export class AboutUsPageService {
           },
           gallery: [
             {
-              title: 'Laminas selectivo Las Delicias',
-              image: './assets/images/backgrounds/solarcheck/slide-1.jpg',
+              title: 'Equipo Glazing',
+              image: './assets/images/backgrounds/image-2.jpg',
             }
           ],
           certification: {
