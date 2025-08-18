@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductHeroComponent } from '../../../components/products/product-hero/product-hero.component';
@@ -30,11 +30,11 @@ export class ProductDetailComponent implements OnInit {
   public loading: any;
   public error: any;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private productDetailPageService: ProductDetailPageService
-  ) {
+    private readonly route= inject(ActivatedRoute);
+    private readonly router= inject(Router);
+    private readonly productDetailPageService= inject(ProductDetailPageService); 
+
+  constructor() {
     this.data = this.productDetailPageService.data;
     this.loading = this.productDetailPageService.loading;
     this.error = this.productDetailPageService.error;

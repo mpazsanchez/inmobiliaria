@@ -1,6 +1,7 @@
 <!-- Product Detail Page API-driven Template -->
-<div class="product-detail-page">
-  <!-- Loading State -->
+
+<div class="product-detail-xafran">
+  <!-- Loading & Error States -->
   @if (loading()) {
     <div class="loading-container d-flex justify-content-center align-items-center">
       <div class="spinner-border text-primary" role="status">
@@ -8,8 +9,6 @@
       </div>
     </div>
   }
-
-  <!-- Error State -->
   @else if (error()) {
     <div class="error-container text-center py-5">
       <div class="container">
@@ -23,123 +22,121 @@
       </div>
     </div>
   }
-
-  <!-- Product Content -->
   @else if (data()?.product) {
     <!-- Hero Section -->
     <app-product-hero [heroData]="data().product.heroData" />
 
-    <!-- Main Content -->
-    <app-product-content 
-      [content]="data().product.content"
-      [relatedProducts]="data().related" />
+  <!-- Main Content -->
+  <app-product-content 
+    [content]="data().product.content"
+    [relatedProducts]="data().related" />
 
-    <!-- Features Section -->
-    @if (data().product.features && data().product.features.length > 0) {
-      <app-product-features 
-        [features]="data().product.features"
-        [title]="'¿Por qué elegir ' + data().product.name + '?'"
-        [subtitle]="'Características que marcan la diferencia'" />
-    }
+  <!-- Features Section -->
+  @if (data().product.features && data().product.features.length > 0) {
+    <app-product-features 
+      [features]="data().product.features"
+      [title]="'¿Por qué elegir ' + data().product.name + '?'"
+      [subtitle]="'Características que marcan la diferencia'" />
+  }
 
-    <!-- Product Types Section -->
-    @if (data().product.types && data().product.types.length > 0) {
-      <section class="product-types py-5">
-        <div class="container">
-          <div class="row mb-5">
-            <div class="col-12 text-center">
-              <h2 class="section-title">Tipos Disponibles</h2>
-              <p class="section-description">
-                Diferentes opciones para adaptarse a tus necesidades específicas
-              </p>
-            </div>
+  <!-- Product Types Section -->
+  @if (data().product.types && data().product.types.length > 0) {
+    <section class="product-types py-5">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-12 text-center">
+            <h2 class="section-title">Tipos Disponibles</h2>
+            <p class="section-description">
+              Diferentes opciones para adaptarse a tus necesidades específicas
+            </p>
           </div>
-          <div class="row g-4">
-            @for (type of data().product.types; track $index) {
-              <div class="col-lg-4 col-md-6">
-                <div class="type-card h-100">
-                  <div class="type-header">
-                    <h4 class="type-name">{{ type.name }}</h4>
-                    @if (type.finish) {
-                      <span class="type-finish">{{ type.finish }}</span>
-                    }
-                  </div>
-                  <p class="type-description">{{ type.description }}</p>
-                  <div class="text-center">
-                    <a [routerLink]="['/product-type-detail', getTypeSlug(type.name)]" class="btn btn-outline-primary btn-sm btn-details text-end">
-                      Ver detalle completo
-                    </a>
-                  </div>
+        </div>
+        <div class="row g-4">
+          @for (type of data().product.types; track $index) {
+            <div class="col-lg-4 col-md-6">
+              <div class="type-card h-100">
+                <div class="type-header">
+                  <h4 class="type-name">{{ type.name }}</h4>
+                  @if (type.finish) {
+                    <span class="type-finish">{{ type.finish }}</span>
+                  }
+                </div>
+                <p class="type-description">{{ type.description }}</p>
+                <div class="text-center">
+                  <a [routerLink]="['/product-type-detail', getTypeSlug(type.name)]" class="btn btn-outline-primary btn-sm btn-details text-end">
+                    Ver detalle completo
+                  </a>
                 </div>
               </div>
-            }
-          </div>
-        </div>
-      </section>
-    }
-
-    <!-- Challenges/FAQ Section -->
-    @if (data().product.challenges && data().product.challenges.length > 0) {
-      <section class="product-challenges py-5">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 text-center mb-5">
-              <h2 class="section-title">Preguntas Frecuentes</h2>
             </div>
-            <div class="col-lg-8 mx-auto">
-              <div class="accordion" id="challengesAccordion">
-                @for (challenge of data().product.challenges; track $index) {
-                  <div class="accordion-item">
-                    <h3 class="accordion-header" [id]="'heading' + $index">
-                      <button 
-                        class="accordion-button collapsed" 
-                        type="button" 
-                        data-bs-toggle="collapse" 
-                        [attr.data-bs-target]="'#collapse' + $index"
-                        [attr.aria-expanded]="false"
-                        [attr.aria-controls]="'collapse' + $index">
-                        {{ challenge.question }}
-                      </button>
-                    </h3>
-                    <div 
-                      [id]="'collapse' + $index"
-                      class="accordion-collapse collapse"
-                      [attr.aria-labelledby]="'heading' + $index"
-                      data-bs-parent="#challengesAccordion">
-                      <div class="accordion-body">
-                        {{ challenge.answer }}
-                      </div>
+          }
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- Challenges/FAQ Section -->
+  @if (data().product.challenges && data().product.challenges.length > 0) {
+    <section class="product-challenges py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center mb-5">
+            <h2 class="section-title">Preguntas Frecuentes</h2>
+          </div>
+          <div class="col-lg-8 mx-auto">
+            <div class="accordion" id="challengesAccordion">
+              @for (challenge of data().product.challenges; track $index) {
+                <div class="accordion-item">
+                  <h3 class="accordion-header" [id]="'heading' + $index">
+                    <button 
+                      class="accordion-button collapsed" 
+                      type="button" 
+                      data-bs-toggle="collapse" 
+                      [attr.data-bs-target]="'#collapse' + $index"
+                      [attr.aria-expanded]="false"
+                      [attr.aria-controls]="'collapse' + $index">
+                      {{ challenge.question }}
+                    </button>
+                  </h3>
+                  <div 
+                    [id]="'collapse' + $index"
+                    class="accordion-collapse collapse"
+                    [attr.aria-labelledby]="'heading' + $index"
+                    data-bs-parent="#challengesAccordion">
+                    <div class="accordion-body">
+                      {{ challenge.answer }}
                     </div>
                   </div>
-                }
-              </div>
+                </div>
+              }
             </div>
           </div>
         </div>
-      </section>
-    }
+      </div>
+    </section>
+  }
 
-    <!-- Call to Action Banner -->
-    @if (data().product.banner) {
-      <section class="product-banner py-5" 
-               [style.background-color]="data().product.banner.backgroundColor"
-               [style.color]="data().product.banner.textColor">
-        <div class="container text-center">
-          <div class="row align-items-center">
-            <div class="col-lg-8 mx-auto">
-              <i [class]="data().product.banner.icon + ' mb-3'" style="font-size: 3rem;"></i>
-              <h2 class="banner-title">{{ data().product.banner.title }}</h2>
-              <h4 class="banner-subtitle">{{ data().product.banner.subtitle }}</h4>
-              <p class="banner-description">{{ data().product.banner.description }}</p>
-              <a 
-                [href]="data().product.banner.buttonAction" 
-                class="btn btn-light btn-lg">
-                {{ data().product.banner.buttonText }}
-              </a>
-            </div>
+  <!-- Call to Action Banner -->
+  @if (data().product.banner) {
+    <section class="product-banner py-5" 
+             [style.background-color]="data().product.banner.backgroundColor"
+             [style.color]="data().product.banner.textColor">
+      <div class="container text-center">
+        <div class="row align-items-center">
+          <div class="col-lg-8 mx-auto">
+            <i [class]="data().product.banner.icon + ' mb-3'" style="font-size: 3rem;"></i>
+            <h2 class="banner-title">{{ data().product.banner.title }}</h2>
+            <h4 class="banner-subtitle">{{ data().product.banner.subtitle }}</h4>
+            <p class="banner-description">{{ data().product.banner.description }}</p>
+            <a 
+              [href]="data().product.banner.buttonAction" 
+              class="btn btn-light btn-lg">
+              {{ data().product.banner.buttonText }}
+            </a>
           </div>
         </div>
-      </section>
-    }
+      </div>
+    </section>
+  }
   }
 </div>

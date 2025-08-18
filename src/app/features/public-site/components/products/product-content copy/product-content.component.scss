@@ -5,18 +5,9 @@
   
   .product-introduction {
     margin-bottom: 3rem;
-    // border: solid gray 1px;
-    justify-content: center;
   }
   
-  .text-left {
-    text-align: left;
-  }
-
   .container-left {
-    .text-description {
-      text-align: left;
-    }
     .content-image {
       margin-bottom: 2rem;
       
@@ -27,31 +18,13 @@
         object-fit: cover;
       }
     }
-
-    .sub-image-description {
-      margin-top: 20px;
-      border: 1px solid #eee;
-      padding: 20px;
-      background-color: white;
-      position: relative;
-      z-index: 10000;
-      margin-bottom: 100px;
-
-      .section-description {
-            background-color: #a0b8d324;
-            padding: 20px;
-            border-radius: 6px;
-      }
-    }
-
+    
     .content-text {
-      text-align: center;
       .section-title {
         font-size: 2.2rem;
         font-weight: 600;
         color: $blue-three;
         margin-bottom: 1.5rem;
-        letter-spacing: 5px;
         
         @media (max-width: 768px) {
           font-size: 1.8rem;
@@ -60,8 +33,9 @@
       
       .section-description {
         font-size: 1.1rem;
+        line-height: 1.7;
         color: #555;
-        margin-bottom: 0px;
+        margin-bottom: 1.2rem;
         
         @media (max-width: 768px) {
           font-size: 1rem;
@@ -72,7 +46,6 @@
         list-style: none;
         padding: 0;
         margin-top: 2rem;
-        justify-content: center;
         
         li {
           display: flex;
