@@ -79,12 +79,12 @@ export class ProductsPageService {
             description: 'Cobertura de seguros, habilitaciones laborales y garantía formal en cada proyecto.',
             percentage: '10 años'
           },
-          {
-            icon: 'fas fa-layer-group',
-            title: 'Soluciones integrales',
-            description: 'Ofrecemos láminas solares, de seguridad, y decorativas para cada necesidad.',
-            percentage: '3 tipos'
-          }
+          // {
+          //   icon: 'fas fa-layer-group',
+          //   title: 'Soluciones integrales',
+          //   description: 'Ofrecemos láminas solares, de seguridad, y decorativas para cada necesidad.',
+          //   percentage: '3 tipos'
+          // }
         ]
       };
       this.data.set(result);

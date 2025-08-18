@@ -18,35 +18,39 @@
     </div>
 
     <!-- Technical Benefits Grid -->
-    <div class="row mb-5">
-      <div class="col-lg-3 col-md-6 mb-4" *ngFor="let benefit of technicalBenefits; trackBy: trackByBenefitTitle">
-        <div class="benefit-card">
-          <div class="benefit-icon">
-            <i [class]="benefit.icon"></i>
-          </div>
-          <div class="benefit-content">
-            <h4 class="benefit-title">{{ benefit.title }}</h4>
-            <div class="benefit-percentage" *ngIf="benefit.percentage">
-              <span class="percentage">{{ benefit.percentage }}</span>
-            </div>
-            <p class="benefit-description">{{ benefit.description }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+     @if (showTechnicalBenefits) {
+       <div class="row mb-5 justify-content-center">
+         <div class="col-lg-3 col-md-6 mb-4" *ngFor="let benefit of technicalBenefits; trackBy: trackByBenefitTitle">
+           <div class="benefit-card">
+             <div class="benefit-icon">
+               <i [class]="benefit.icon"></i>
+             </div>
+             <div class="benefit-content">
+               <h4 class="benefit-title">{{ benefit.title }}</h4>
+               <div class="benefit-percentage" *ngIf="benefit.percentage">
+                 <span class="percentage">{{ benefit.percentage }}</span>
+               </div>
+               <p class="benefit-description">{{ benefit.description }}</p>
+             </div>
+           </div>
+         </div>
+       </div>
+     }
 
     <!-- Product Types -->
     @if (showProductType) {
-    <div class="row">
-      <div class="col-12">
-        <h3 class="products-section-title text-center mb-5">Tipos de Láminas</h3>
-      </div>
-    </div>
+      @if (showTechnicalBenefits) {
+        <div class="row">
+          <div class="col-12">
+            <h3 class="products-section-title text-center mb-5">Tipos de Láminas</h3>
+          </div>
+        </div>
+      }
 
     <div class="row">
       @for (product of productTypes; track $index) {
       <div class="col-lg-4 mb-4">
-  <div class="product-card d-flex flex-column h-100">
+        <div class="product-card d-flex flex-column h-100">
 
           <!-- Product Header -->
           <div class="product-header">
@@ -90,6 +94,7 @@
               </div>
             </div>
           </div>
+          
         </div>
       </div>
       }

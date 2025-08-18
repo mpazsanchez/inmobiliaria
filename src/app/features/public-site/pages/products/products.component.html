@@ -36,6 +36,10 @@
   </section>
 
   <!-- Products & Technology Section -->
-  <app-products-technology [productTypes]="data()?.categories" [technicalBenefits]="data()?.featured" />
+  <app-products-technology
+  [productTypes]="data()?.categories"
+  [technicalBenefits]="data()?.featured"
+  [showTechnicalBenefits]="false"
+  />
 
 </div>

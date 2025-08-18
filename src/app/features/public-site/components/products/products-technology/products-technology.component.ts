@@ -26,6 +26,7 @@ interface TechnicalBenefit {
   styleUrl: './products-technology.component.scss'
 })
 export class ProductsTechnologyComponent {
+  @Input() showTechnicalBenefits?: boolean = true;
   @Input() showProductType?: boolean = true;
   @Input() productTypes: ProductType[] = [];
   @Input() technicalBenefits: TechnicalBenefit[] = [

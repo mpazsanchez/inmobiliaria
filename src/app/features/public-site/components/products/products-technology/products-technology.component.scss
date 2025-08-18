@@ -2,7 +2,10 @@
 
 .products-technology-section {
   padding: 80px 0;
-  background: #fff;
+  background: linear-gradient(
+      135deg,
+      #f8f9fa 0%,
+      #e9ecef 100%);
 
   .section-header {
     margin-bottom: 3rem;
