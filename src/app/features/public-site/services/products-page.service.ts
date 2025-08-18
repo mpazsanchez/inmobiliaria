@@ -51,7 +51,7 @@ export class ProductsPageService {
             icon: 'fas fa-palette',
             benefits: [
               'Privacidad sin pérdida de luz',
-              'Variedad de colores',
+     
               'Diseño elegante y moderno',
               'Reducción del deslumbramiento',
               'Fácil mantenimiento y durabilidad',

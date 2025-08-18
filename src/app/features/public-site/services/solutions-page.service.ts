@@ -42,7 +42,6 @@ export class SolutionsPageService {
       description: 'Las láminas decorativas para cristales son películas adhesivas que se aplican con fines estéticos. Transforman el aspecto de los vidrios, añadiendo patrones, colores o texturas, y brindando privacidad sin sacrificar la entrada de luz natural.',
       keyBenefits: [
         'Privacidad sin pérdida de luz',
-        'Variedad de colores',
         'Diseño elegante y moderno',
         'Reducción del deslumbramiento',
         'Fácil mantenimiento y durabilidad',
