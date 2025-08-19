@@ -174,7 +174,7 @@ export class ProductDetailPageService {
             ],
             types: [
               {
-                name: 'Láminas de Seguridad Transparentes (100-400μm)',
+                name: 'Láminas de Seguridad Transparentes (100-400 micrones)',
                 description: 'Las láminas de seguridad transparentes están diseñadas para reforzar los cristales, haciéndolos más seguros y resistentes en caso de rotura. Actúan como barrera protectora, manteniendo unidos los fragmentos de vidrio y previniendo lesiones o daños. Disponibles en diferentes espesores: 100, 200, 300 y 400 micrones. Ideales para lugares públicos y zonas de alto tránsito. Ofrecen protección UV del 99% y mantienen la estética original del cristal.',
                 specifications: [
                   { property: 'Grosor y disponibilidad', value: '100 / 200 / 300 / 400 micrones' },
@@ -194,7 +194,7 @@ export class ProductDetailPageService {
                 ]
               },
               {
-                name: '100μm color 20%',
+                name: '100 micrones color 20%',
                 description: 'Lámina de seguridad de 100 micrones con tonalidad, combina protección física y control solar. Refuerza cristales, reduce temperatura y mejora eficiencia energética. Ofrece privacidad y estética moderna.',
                 specifications: [
                   { property: 'Protección contra rayos UV', value: '99%' },

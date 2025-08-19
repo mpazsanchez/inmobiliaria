@@ -330,7 +330,7 @@
 
 .btn-details {
   border-radius: 50px;
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
 }
 
 .product-types {
@@ -345,23 +345,17 @@
       #e9ecef 100%);
 }
     .type-card {
-      background: white;
-      // border-radius: 6px;
-      border: 1px solid rgba(0, 154, 222, 0.1);
-      overflow: hidden;
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 20px rgba(0, 154, 222, 0.08);
+        border: 1px solid rgba(0, 154, 222, 0.1);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 20px rgba(0, 154, 222, 0.08);
+        background: white;
+        padding: 2rem 1.5rem 1rem 1.5rem;
+        height: 100%;
+        box-shadow: 0 8px 25px rgba(0, 154, 222, 0.1);
+        border: 1px solid rgba #009ade14 (0, 154, 222, 0.08);
+        transition: all 0.3s ease;
 
-
-          background: white;
-    padding: 2rem;
-    height: 100%;
-    box-shadow: 0 8px 25px rgba(0, 154, 222, 0.1);
-    border: 1px solid rgba
-#009ade14
-(0, 154, 222, 0.08);
-    transition: all 0.3s ease;
-    
       
       &:hover {
         transform: translateY(-5px);
@@ -375,21 +369,34 @@
         text-align: center;
         color: $blue-three;
 
+        align-items: start;
+        display: flex;
+        justify-content: flex-start;
+        // color: #034EA2;
+        gap: 13px;
+        flex-direction: column-reverse;
+
         .type-name {
-          font-size: 1.1rem;
+          font-size: 1.3rem;
           font-weight: 600;
           margin: 0 0 0.5rem 0;
           line-height: 1.2;
+          color: #2c3e50;
+          text-align: left;
+
+        
         }
         
         .type-finish {
-          background: rgba(255, 255, 255, 0.2);
-          padding: 0.3rem 0.8rem;
           border-radius: 20px;
           font-size: 0.85rem;
           font-weight: 500;
           display: inline-block;
           backdrop-filter: blur(10px);
+          text-align: left;
+          background: rgb(9 82 164 / 8%);
+          padding: 0.2rem 0.6rem;
+          border: none;
         }
       }
       
