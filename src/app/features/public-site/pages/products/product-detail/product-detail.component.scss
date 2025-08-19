@@ -407,7 +407,7 @@
         // text-align: center;
         text-align: justify;
         margin-bottom: 1.5rem;
-        padding: 0rem 1rem;
+        padding: 0rem 1.3rem;
       }
       
       .type-specs {
@@ -440,6 +440,10 @@
             font-size: 1rem;
           }
         }
+      }
+
+      .view-details {
+        padding-left: 19px;
       }
       
       .type-benefits {

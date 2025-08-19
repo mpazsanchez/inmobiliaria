@@ -40,12 +40,17 @@ export class ProductDetailComponent implements OnInit {
     this.error = this.productDetailPageService.error;
   }
 
-  ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id') || this.route.snapshot.paramMap.get('slug');
-    if (this.data() === null && !this.loading() && id) {
-      this.productDetailPageService.fetchData(id);
+    ngOnInit(): void {
+      // Suscribirse a los cambios de parámetro de ruta para actualizar la data dinámicamente
+      this.route.paramMap.subscribe(params => {
+        const slug = params.get('slug');
+        if (slug) {
+          // Limpiar el signal antes de cada fetch para evitar mostrar data anterior
+          this.productDetailPageService.data.set(null);
+          this.productDetailPageService.fetchData(slug);
+        }
+      });
     }
-  }
 
   goBack(): void {
     this.router.navigate(['/products']);

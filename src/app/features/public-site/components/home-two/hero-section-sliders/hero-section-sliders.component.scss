@@ -106,13 +106,13 @@ ngb-carousel,
 
 
 .hero-title {
-  font-size: 4rem;
+  font-size: 3rem;
+  text-transform: uppercase;
   font-weight: 700;
   color: $hero-light;
   line-height: 0.9;
   margin-bottom: 0.5rem;
   letter-spacing: -0.02em;
-  text-transform: uppercase;
   opacity: 0;
   transform: translateY(30px);
   animation: slideInUp 0.8s ease-out 0.3s forwards;

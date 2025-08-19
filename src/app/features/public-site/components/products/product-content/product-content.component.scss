@@ -75,10 +75,13 @@
       }
       
       .feature-list {
+        gap: 10px;
+        display: flex;
         list-style: none;
         padding: 0;
         margin-top: 2rem;
-        justify-content: center;
+        justify-content: space-around;
+        background-color: rgba(255, 255, 255, 0.5411764706);
         
         li {
           display: flex;
