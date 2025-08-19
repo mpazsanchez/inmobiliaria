@@ -72,7 +72,14 @@ export class ProductDetailPageService {
                   { property: 'Acabado', value: 'Espejo plata' }
                 ],
                 finish: 'Espejo plata',
-                image: '/assets/images/products/solar-plata.jpg'
+                image: '/assets/images/products/solar-plata.jpg',
+                challenges: [
+                  { question: '¿Las láminas espejadas afectan la visibilidad desde adentro?', answer: 'No, permiten ver hacia afuera con claridad, pero desde afuera brindan privacidad.' },
+                  { question: '¿Se pueden instalar en cualquier tipo de vidrio?', answer: 'Sí, son compatibles con la mayoría de los vidrios planos y templados.' },
+                  { question: '¿Cuánto tiempo duran las láminas espejadas?', answer: 'Tienen una vida útil de 8 a 12 años según el mantenimiento y exposición solar.' },
+                  { question: '¿Requieren mantenimiento especial?', answer: 'Solo limpieza con agua y jabón neutro, evitando productos abrasivos.' },
+                  { question: '¿Ayudan a reducir el consumo de aire acondicionado?', answer: 'Sí, al disminuir el ingreso de calor, reducen la necesidad de climatización.' }
+                ]
               },
               {
                 name: 'Láminas No flexivas tono negras Nano cerámicas',
@@ -84,7 +91,14 @@ export class ProductDetailPageService {
                   { property: 'Tonalidades disponibles', value: 'claro / intermedios / oscuros' }
                 ],
                 finish: 'Negro nano cerámico',
-                image: '/assets/images/products/nano-ceramica.jpg'
+                image: '/assets/images/products/nano-ceramica.jpg',
+                challenges: [
+                  { question: '¿Las láminas nano cerámicas se ven oscuras desde adentro?', answer: 'No, ofrecen buena visibilidad y confort visual.' },
+                  { question: '¿Protegen contra rayos UV y calor?', answer: 'Sí, bloquean hasta el 99% de rayos UV y gran parte del calor solar.' },
+                  { question: '¿Se pueden instalar en automóviles?', answer: 'Sí, son aptas para uso arquitectónico y automotriz.' },
+                  { question: '¿Cambian el color del vidrio?', answer: 'Aportan un tono oscuro moderno, sin distorsionar la visión.' },
+                  { question: '¿Son resistentes al rayado?', answer: 'Tienen recubrimiento anti-rayas para mayor durabilidad.' }
+                ]
               },
               {
                 name: 'Láminas Selectivas',
@@ -96,7 +110,14 @@ export class ProductDetailPageService {
                   { property: 'Acabado', value: 'Transparente' }
                 ],
                 finish: 'Transparente',
-                image: '/assets/images/products/selectiva.jpg'
+                image: '/assets/images/products/selectiva.jpg',
+                challenges: [
+                  { question: '¿Las láminas selectivas alteran la estética del vidrio?', answer: 'No, son completamente transparentes y mantienen la apariencia original.' },
+                  { question: '¿Bloquean el calor sin oscurecer?', answer: 'Sí, filtran el calor y los rayos UV sin modificar la claridad.' },
+                  { question: '¿Son recomendadas para vitrinas comerciales?', answer: 'Sí, protegen productos del sol sin afectar la exhibición.' },
+                  { question: '¿Requieren mantenimiento especial?', answer: 'Solo limpieza suave, sin productos abrasivos.' },
+                  { question: '¿Tienen garantía?', answer: 'Sí, cuentan con garantía de fábrica de hasta 10 años.' }
+                ]
               }
             ],
             challenges: [],
@@ -153,7 +174,7 @@ export class ProductDetailPageService {
             ],
             types: [
               {
-                name: 'Láminas de Seguridad Transparentes (100-400 micrones)',
+                name: 'Láminas de Seguridad Transparentes (100-400μm)',
                 description: 'Las láminas de seguridad transparentes están diseñadas para reforzar los cristales, haciéndolos más seguros y resistentes en caso de rotura. Actúan como barrera protectora, manteniendo unidos los fragmentos de vidrio y previniendo lesiones o daños. Disponibles en diferentes espesores: 100, 200, 300 y 400 micrones. Ideales para lugares públicos y zonas de alto tránsito. Ofrecen protección UV del 99% y mantienen la estética original del cristal.',
                 specifications: [
                   { property: 'Grosor y disponibilidad', value: '100 / 200 / 300 / 400 micrones' },
@@ -163,10 +184,17 @@ export class ProductDetailPageService {
                   { property: 'Resistencia de presión', value: '45.36 kg/cm² (100 micrones), 77 kg/cm² (200), 106 kg/cm² (300), 127 kg/cm² (400)' }
                 ],
                 finish: 'Transparente',
-                image: '/assets/images/products/seguridad-100.jpg'
+                image: '/assets/images/products/seguridad-100.jpg',
+                challenges: [
+                  { question: '¿Las láminas de seguridad afectan la transparencia del vidrio?', answer: 'No, son invisibles y no alteran la estética.' },
+                  { question: '¿Qué pasa si el vidrio se rompe?', answer: 'La lámina mantiene los fragmentos unidos, evitando lesiones.' },
+                  { question: '¿Son aptas para lugares públicos?', answer: 'Sí, son ideales para escuelas, hospitales y oficinas.' },
+                  { question: '¿Protegen contra rayos UV?', answer: 'Sí, bloquean hasta el 99% de rayos UV.' },
+                  { question: '¿Cuánto duran instaladas?', answer: 'Tienen una vida útil de 8 a 12 años.' }
+                ]
               },
               {
-                name: '100 micrones color 20%',
+                name: '100μm color 20%',
                 description: 'Lámina de seguridad de 100 micrones con tonalidad, combina protección física y control solar. Refuerza cristales, reduce temperatura y mejora eficiencia energética. Ofrece privacidad y estética moderna.',
                 specifications: [
                   { property: 'Protección contra rayos UV', value: '99%' },
@@ -175,7 +203,14 @@ export class ProductDetailPageService {
                   { property: 'Acabado', value: 'Color 20%' }
                 ],
                 finish: 'Color 20%',
-                image: '/assets/images/products/seguridad-100-color.jpg'
+                image: '/assets/images/products/seguridad-100-color.jpg',
+                challenges: [
+                  { question: '¿La lámina de color reduce la visibilidad?', answer: 'Ofrece privacidad sin comprometer la visión desde adentro.' },
+                  { question: '¿Combina protección física y solar?', answer: 'Sí, refuerza el vidrio y reduce el ingreso de calor.' },
+                  { question: '¿Se puede instalar en cualquier ventana?', answer: 'Sí, es compatible con la mayoría de los cristales.' },
+                  { question: '¿Requiere mantenimiento especial?', answer: 'Solo limpieza suave, sin productos abrasivos.' },
+                  { question: '¿Tiene garantía?', answer: 'Sí, cuenta con garantía de fábrica.' }
+                ]
               }
             ],
             challenges: [

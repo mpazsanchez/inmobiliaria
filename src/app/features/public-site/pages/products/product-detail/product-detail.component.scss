@@ -56,107 +56,7 @@
       margin: 0 auto 3rem auto;
     }
     
-    .type-card {
-      background: white;
-      border-radius: 6px;
-      border: 1px solid rgba(0, 154, 222, 0.1);
-      overflow: hidden;
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 20px rgba(0, 154, 222, 0.08);
-      
-      &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 35px rgba(0, 154, 222, 0.15);
-        border-color: $blue-one;
-      }
-      
-      .type-header {
-        background-color: $blue-four;
-        padding: 1.5rem;
-        text-align: center;
-        color: white;
-        
-        .type-name {
-          font-size: 1.1rem;
-          font-weight: 600;
-          margin: 0 0 0.5rem 0;
-          line-height: 1.2;
-        }
-        
-        .type-finish {
-          background: rgba(255, 255, 255, 0.2);
-          padding: 0.3rem 0.8rem;
-          border-radius: 20px;
-          font-size: 0.85rem;
-          font-weight: 500;
-          display: inline-block;
-          backdrop-filter: blur(10px);
-        }
-      }
-      
-      .type-description {
-        color: #6c757d;
-        font-size: 0.95rem;
-        line-height: 1.5;
-        margin-bottom: 1.5rem;
-        padding: 1.5rem 1.5rem 0 1.5rem;
-      }
-      
-      .type-specs {
-        background: #f8f9fa;
-        border-radius: 10px;
-        padding: 1rem;
-        margin: 0 1.5rem 1rem 1.5rem;
-        
-        .spec-item {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 0.5rem;
-          color: #495057;
-          font-size: 0.9rem;
-          font-weight: 500;
-          
-          &:last-child {
-            margin-bottom: 0;
-          }
-          
-          i {
-            margin-right: 0.5rem;
-            font-size: 0.9rem;
-          }
-          
-          span {
-            color: $blue-three;
-            font-weight: 700;
-            font-size: 1rem;
-          }
-        }
-      }
-      
-      .type-benefits {
-        list-style: none;
-        padding: 0 1.5rem 1.5rem 1.5rem;
-        margin: 0;
-        
-        li {
-          display: flex;
-          align-items: flex-start;
-          margin-bottom: 0.5rem;
-          color: #495057;
-          font-size: 0.9rem;
-          line-height: 1.4;
-          
-          i {
-            color: $blue-three;
-            margin-right: 0.5rem;
-            margin-top: 0.1rem;
-            font-size: 0.8rem;
-            flex-shrink: 0;
-          }
-        }
-      }
-    }
+
   }
   
   // Sección de especificaciones
@@ -436,3 +336,125 @@
 .product-types {
   padding-bottom: 80px;
 }
+
+//Seccion de tipos de producto
+.product-types {
+  background: linear-gradient(
+      135deg,
+      #f8f9fa 0%,
+      #e9ecef 100%);
+}
+    .type-card {
+      background: white;
+      // border-radius: 6px;
+      border: 1px solid rgba(0, 154, 222, 0.1);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px rgba(0, 154, 222, 0.08);
+
+
+          background: white;
+    padding: 2rem;
+    height: 100%;
+    box-shadow: 0 8px 25px rgba(0, 154, 222, 0.1);
+    border: 1px solid rgba
+#009ade14
+(0, 154, 222, 0.08);
+    transition: all 0.3s ease;
+    
+      
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 154, 222, 0.15);
+        border-color: $blue-one;
+      }
+      
+      .type-header {
+        // background-color: $blue-four;
+        padding: 1.5rem;
+        text-align: center;
+        color: $blue-three;
+
+        .type-name {
+          font-size: 1.1rem;
+          font-weight: 600;
+          margin: 0 0 0.5rem 0;
+          line-height: 1.2;
+        }
+        
+        .type-finish {
+          background: rgba(255, 255, 255, 0.2);
+          padding: 0.3rem 0.8rem;
+          border-radius: 20px;
+          font-size: 0.85rem;
+          font-weight: 500;
+          display: inline-block;
+          backdrop-filter: blur(10px);
+        }
+      }
+      
+      .type-description {
+        color: #6c757d;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        // text-align: center;
+        text-align: justify;
+        margin-bottom: 1.5rem;
+        padding: 0rem 1rem;
+      }
+      
+      .type-specs {
+        background: #f8f9fa;
+        // border-radius: 10px;
+        padding: 1rem;
+        margin: 0 1.5rem 1rem 1.5rem;
+        
+        .spec-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 0.5rem;
+          color: #495057;
+          font-size: 0.9rem;
+          font-weight: 500;
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+          
+          i {
+            margin-right: 0.5rem;
+            font-size: 0.9rem;
+          }
+          
+          span {
+            color: $blue-three;
+            font-weight: 700;
+            font-size: 1rem;
+          }
+        }
+      }
+      
+      .type-benefits {
+        list-style: none;
+        padding: 0 1.5rem 1.5rem 1.5rem;
+        margin: 0;
+        
+        li {
+          display: flex;
+          align-items: flex-start;
+          margin-bottom: 0.5rem;
+          color: #495057;
+          font-size: 0.9rem;
+          line-height: 1.4;
+          
+          i {
+            color: $blue-three;
+            margin-right: 0.5rem;
+            margin-top: 0.1rem;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+          }
+        }
+      }
+    }
