@@ -75,6 +75,30 @@ export class PublicNavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadMenuData();
+    // Detectar el scroll inicial al cargar la página
+    if (this.isBrowser) {
+      this.checkInitialScroll();
+    }
+  }
+
+  /**
+   * Verifica la posición del scroll al cargar la página y aplica el estado visual correcto
+   */
+  private checkInitialScroll(): void {
+    const scrollTop =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
+    this.isScrolled = scrollTop > 10;
+    const navbar = this.elementRef.nativeElement.querySelector('.modern-navbar');
+    if (navbar) {
+      if (this.isScrolled) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    }
   }
 
   ngOnDestroy(): void {
