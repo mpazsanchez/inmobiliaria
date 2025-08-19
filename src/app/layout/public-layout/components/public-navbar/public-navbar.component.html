@@ -6,7 +6,9 @@
           
           <!-- Logo y nombre de empresa -->
           <a class="navbar-brand d-flex align-items-center" href="/">
-            <img [src]="'../../../../../assets/images/logos/logotipo.png'" [alt]="config.companyName" class="navbar-logo me-2">
+            <img [src]="'../../../../../assets/images/logos/logotipo.png'" 
+                 [alt]="config.companyName" 
+                 class="navbar-logo me-2">
           </a>
 
           <!-- Toggle button para móvil -->
@@ -25,56 +27,62 @@
                id="navbarNav">
             
             <ul class="navbar-nav main-nav">
-        <li class="nav-item" 
-            *ngFor="let item of mainMenuItems" 
-            [class.dropdown]="hasChildren(item)">
-          
-          <!-- Elemento sin hijos -->
-          <a *ngIf="!hasChildren(item)" 
-             class="nav-link" 
-             [href]="item.link"
-             (click)="onMenuItemClick(item, $event)">
-            {{ item.titleShow }}
-          </a>
 
-          <!-- Elemento con dropdown -->
-          <div *ngIf="hasChildren(item)" ngbDropdown class="d-inline-block">
-            <a class="nav-link dropdown-toggle" 
-               href="#" 
-               role="button" 
-               ngbDropdownToggle
-               id="dropdown-{{ item.id }}"
-               [attr.aria-expanded]="false">
-              {{ item.titleShow }}
-            </a>
-            
-            <div ngbDropdownMenu 
-                 class="dropdown-menu-modern"
-                 [attr.aria-labelledby]="'dropdown-' + item.id">
-              <a *ngFor="let child of item.children" 
-                 class="dropdown-item" 
-                 [href]="child.link"
-                 (click)="onMenuItemClick(child, $event)">
-                {{ child.titleShow }}
-              </a>
+              @for (item of mainMenuItems; track item.id) {
+                <li class="nav-item" [class.dropdown]="hasChildren(item)">
+                  
+                  <!-- Elemento sin hijos -->
+                  @if (!hasChildren(item)) {
+                    <a class="nav-link" 
+                       [href]="item.link"
+                       (click)="onMenuItemClick(item, $event)">
+                      {{ item.titleShow }}
+                    </a>
+                  }
+
+                  <!-- Elemento con dropdown -->
+                  @if (hasChildren(item)) {
+                    <div ngbDropdown class="d-inline-block">
+                      <button class="nav-link dropdown-toggle btn btn-link" 
+                              type="button"
+                              ngbDropdownToggle
+                              id="dropdown-{{ item.id }}">
+                        {{ item.titleShow }}
+                      </button>
+                      
+                      <div ngbDropdownMenu 
+                           class="dropdown-menu-modern"
+                           [attr.aria-labelledby]="'dropdown-' + item.id">
+                        @for (child of item.children; track child.id) {
+                          <a class="dropdown-item" 
+                             [href]="child.link"
+                             (click)="onMenuItemClick(child, $event)">
+                            {{ child.titleShow }}
+                          </a>
+                        }
+                      </div>
+                    </div>
+                  }
+                </li>
+              }
+            </ul>
+          </div>
+
+          <!-- Carrito de compras -->
+          @if (config.cartEnabled) {
+            <div class="navbar-cart">
+              <button class="btn cart-btn position-relative" 
+                      type="button"
+                      (click)="onCartClick()">
+                <i class="fas fa-shopping-cart"></i>
+                @if (cartItemCount > 0) {
+                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {{ cartItemCount }}
+                  </span>
+                }
+              </button>
             </div>
-          </div>
-        </li>
-      </ul>
-    </div>
-
-    <!-- Carrito de compras -->
-    <div class="navbar-cart" *ngIf="config.cartEnabled">
-      <button class="btn cart-btn position-relative" 
-              type="button"
-              (click)="onCartClick()">
-        <i class="fas fa-shopping-cart"></i>
-        <span *ngIf="cartItemCount > 0" 
-              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-          {{ cartItemCount }}
-        </span>
-      </button>
-          </div>
+          }
         </div>
       </div>
     </div>
