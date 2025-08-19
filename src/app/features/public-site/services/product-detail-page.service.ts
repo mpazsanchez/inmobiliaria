@@ -29,6 +29,7 @@ export class ProductDetailPageService {
               'Las láminas solares para vidrios filtran la radiación solar, reducen el calor y mejoran la eficiencia energética.',
               'Ideales para oficinas, residencias y comercios.'
             ],
+
             heroData: {
               bannerImage: '/assets/images/backgrounds/solarcheck/slide-1.jpg',
               title: 'Láminas de Protección Solar',
@@ -122,7 +123,7 @@ export class ProductDetailPageService {
               'Ideales para lugares públicos y zonas de alto tránsito.'
             ],
             heroData: {
-              bannerImage: '/assets/images/backgrounds/solarcheck/slide-2.jpg',
+              bannerImage: '',
               title: 'Láminas de Seguridad',
               subtitle: 'Protección y refuerzo para cristales',
               breadcrumbTextOne: 'Inicio',
@@ -130,12 +131,11 @@ export class ProductDetailPageService {
               breadcrumbTextThree: 'Seguridad'
             },
             content: {
-              mainImage: '/assets/images/backgrounds/solarcheck/slide-2.jpg',
+              mainImage: '/assets/images/backgrounds/bg-3.png',
               mainImageAlt: 'Láminas de Seguridad',
               title: 'Láminas de Seguridad',
               description: [
-                'Refuerzan cristales y evitan lesiones en caso de rotura.',
-                'Protegen contra rayos UV.'
+                'Refuerzan cristales y evitan lesiones en caso de rotura. <br> Protegen contra rayos UV. <br> Las láminas de seguridad para cristales son películas adhesivas que se colocan en ventanas y puertas. En caso de rotura, estas láminas mantienen los fragmentos de vidrio unidos, evitando que se dispersen y causen lesiones o daños. <br> Las láminas de seguridad transparentes de 100 micrones están diseñadas para reforzar los cristales, haciéndolos más seguros y resistentes en caso de rotura. Estas láminas actúan como una barrera protectora, manteniendo unidos los fragmentos de vidrio en caso de impacto, lo que previene que se dispersen y causen lesiones o daños a personas y objetos. Esta característica es especialmente crucial en lugares públicos de alto tránsito, donde la seguridad es una prioridad. Beneficios Clave de las Láminas de Seguridad de 100 Micrones:<br> Protección en Caso de Rotura: Estas láminas están diseñadas para mantener el vidrio unido en caso de que se rompa. Esto reduce significativamente el riesgo de lesiones por cortes o daños a los objetos cercanos, ya que los fragmentos de vidrio permanecen adheridos a la lámina, evitando que se esparzan. <br> Ideal para Lugares Públicos: En lugares con alto tránsito, como centros comerciales, escuelas, hospitales y oficinas, estas láminas son fundamentales para garantizar la seguridad de los usuarios. Proporcionan una capa adicional de protección, minimizando el riesgo de accidentes relacionados con vidrios rotos. <br> Protección Contra Rayos UV: Además de su función de seguridad, estas láminas ofrecen una protección del 99% contra los rayos ultravioleta (UV). Esto no solo protege a las personas de los efectos nocivos de la exposición a los rayos UV, sino que también ayuda a prevenir la decoloración y el deterioro de muebles, cortinas, y otros objetos expuestos a la luz solar directa. '
               ],
               highlightedFeatures: [
                 'Protección en caso de rotura',
@@ -178,7 +178,11 @@ export class ProductDetailPageService {
                 image: '/assets/images/products/seguridad-100-color.jpg'
               }
             ],
-            challenges: [],
+            challenges: [
+              'Mantener la estética del cristal',
+              'Fácil aplicación y durabilidad',
+              'Compatibilidad con diferentes tipos de vidrio'
+            ],
             relatedProducts: [],
             metaTitle: 'Láminas de Seguridad - Glazing™',
             metaDescription: 'Protección y refuerzo para cristales.',

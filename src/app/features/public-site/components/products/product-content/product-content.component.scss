@@ -15,7 +15,8 @@
 
   .container-left {
     .text-description {
-      text-align: left;
+      // text-align: left;
+      text-align: justify;
     }
     .content-image {
       margin-bottom: 2rem;
@@ -49,13 +50,18 @@
       .section-title {
         font-size: 2.2rem;
         font-weight: 600;
-        color: $blue-three;
+        color: $black-two;
         margin-bottom: 1.5rem;
-        letter-spacing: 5px;
+        letter-spacing: 3px;
         
         @media (max-width: 768px) {
           font-size: 1.8rem;
         }
+      }
+
+      .text-description {
+        color: #555;
+        font-weight: light;
       }
       
       .section-description {

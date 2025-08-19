@@ -2,7 +2,7 @@
 
 //Fallback background image
 :host {
-  --hero-bg-image: url('/assets/images/backgrounds/solarcheck/slide-3.png');
+  --hero-bg-image: '' ;
 }
 
 .product-hero {
@@ -20,6 +20,8 @@
     right: 0;
     bottom: 0;
     background: var(--hero-bg-image) center/cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     z-index: 1;
   }
     
@@ -126,8 +128,11 @@
       text-align: center;
       
       .hero-title {
-        font-size: 3.8rem;
-        font-weight: 800;
+        // font-size: 3.8rem;
+        font-size: 45px;
+        font-weight: 700;
+        text-transform: uppercase;
+        // font-variant: all-petite-caps;
         margin: 0 0 1rem 0;
         letter-spacing: -2px;
         color: white;

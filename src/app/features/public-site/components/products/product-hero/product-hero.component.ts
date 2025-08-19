@@ -11,16 +11,7 @@ import { ProductHeroData } from '../../../models';
   selector: 'app-product-hero',
   standalone: true,
   imports: [CommonModule, HeroSectionPublicComponent],
-  template: `
-    <app-hero-section-public
-      [backgroundImage]="heroData.bannerImage"
-      [title]="heroData.title"
-      [subtitle]="heroData.subtitle"
-      [breadcrumbTextOne]="heroData.breadcrumbTextOne"
-      [breadcrumbTextTwo]="heroData.breadcrumbTextTwo"
-      [breadcrumbTextThree]="heroData.breadcrumbTextThree"
-    />
-  `,
+  templateUrl: './product-hero.component.html',
   styleUrl: './product-hero.component.scss'
 })
 export class ProductHeroComponent {

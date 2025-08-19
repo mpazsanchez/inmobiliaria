@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, Renderer2 } from '@angular/core';
+import { Component, ElementRef, inject, Input, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-hero-section-public',
@@ -17,7 +17,8 @@ export class HeroSectionPublicComponent {
   @Input() title?: string = '';
   @Input() subtitle?: string = '';
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+  private readonly elementRef = inject(ElementRef); 
+  private readonly renderer = inject(Renderer2);
 
   ngAfterViewInit(): void {
     this.updateBackgroundImage();
