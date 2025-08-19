@@ -105,10 +105,18 @@
         <button 
           type="submit" 
           class="btn btn-primary btn-submit"
-          [disabled]="contactForm.invalid || isSubmitting">
-          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
-          {{ isSubmitting ? 'ENVIANDO...' : 'ENVIAR MENSAJE' }}
+          [disabled]="contactForm.invalid || loading()">
+          <span *ngIf="loading()" class="spinner-border spinner-border-sm me-2"></span>
+          {{ loading() ? 'ENVIANDO...' : 'ENVIAR MENSAJE' }}
         </button>
+      <!-- Mensaje de éxito -->
+      <div *ngIf="success()" class="alert alert-success mt-3">
+        ¡Tu mensaje fue enviado correctamente!
+      </div>
+      <!-- Mensaje de error -->
+      <div *ngIf="error()" class="alert alert-danger mt-3">
+        {{ error() }}
+      </div>
       </div>
 
     </form>

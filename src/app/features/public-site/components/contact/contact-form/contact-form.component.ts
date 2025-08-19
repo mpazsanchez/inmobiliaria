@@ -1,6 +1,7 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, inject, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ContactFormService, ContactFormData } from '../../../services/contact-form.service';
 
 @Component({
   selector: 'app-contact-form',
@@ -11,13 +12,17 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 })
 export class ContactFormComponent {
   contactForm: FormGroup;
-  isSubmitting = false;
   isBrowser: boolean;
 
+  private readonly fb = inject(FormBuilder);
+  private readonly contactFormService = inject(ContactFormService);
+
+  readonly loading = this.contactFormService.loading;
+  readonly error = this.contactFormService.error;
+  readonly success = this.contactFormService.success;
+
   constructor(
-    @Inject(PLATFORM_ID) private readonly platformId: Object,
-    private readonly fb: FormBuilder
-  ) {
+    @Inject(PLATFORM_ID) private readonly platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.contactForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
@@ -39,19 +44,19 @@ export class ContactFormComponent {
   /**
    * Maneja el envío del formulario
    */
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.contactForm.valid) {
-      this.isSubmitting = true;
-      
-      // Simular envío del formulario
-      console.log('Form submitted:', this.contactForm.value);
-      
-      // Simular delay de envío
-      setTimeout(() => {
-        this.isSubmitting = false;
-        console.log('Su mensaje ha sido enviado correctamente');
+      const formData: ContactFormData = {
+        name: this.contactForm.value.name,
+        email: this.contactForm.value.email,
+        phone: this.contactForm.value.phone,
+        subject: this.contactForm.value.subject,
+        message: this.contactForm.value.message
+      };
+      await this.contactFormService.sendContactForm(formData);
+      if (this.success()) {
         this.contactForm.reset();
-      }, 2000);
+      }
     } else {
       // Marcar todos los campos como tocados para mostrar errores
       Object.keys(this.contactForm.controls).forEach(key => {
