@@ -1,9 +1,36 @@
 @if (course()) {
-  <div class="course-detail-container">
-    <h2>{{ course()?.title }}</h2>
-    <p>{{ course()?.description }}</p>
-    <!-- Aquí puedes agregar más detalles del curso -->
-  </div>
+  <section class="course-detail">
+    <div class="course-header">
+      <h2>{{ course().title }}</h2>
+      <p>{{ course().description }}</p>
+    </div>
+    <div class="course-body">
+      <aside class="course-sidebar">
+        <h3>Capítulos</h3>
+        <ul class="chapter-list">
+          @for (chapter of course().chapters; track chapter.title) {
+            <li [class.active]="$index === currentChapterIndex()" (click)="selectChapter($index)" tabindex="0" (keydown.enter)="selectChapter($index)">
+              <span class="chapter-index">{{ $index + 1 }}</span>
+              <span class="chapter-title">{{ chapter.title }}</span>
+            </li>
+          }
+        </ul>
+      </aside>
+      <main class="course-player">
+        <div class="video-wrapper">
+          @if (currentChapter()?.videoUrl) {
+            <iframe [src]="currentChapter().videoUrl | safeUrl"
+                    frameborder="0"
+                    allowfullscreen></iframe>
+          }
+        </div>
+        <div class="progress-info">
+          <span>Capítulo {{ currentChapterIndex() + 1 }} de {{ course().chapters.length }}</span>
+          <progress [value]="currentChapterIndex() + 1" [max]="course().chapters.length"></progress>
+        </div>
+      </main>
+    </div>
+  </section>
 } @else {
   <div class="loading">Cargando curso...</div>
 }

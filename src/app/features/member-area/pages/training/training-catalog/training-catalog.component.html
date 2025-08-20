@@ -1,18 +1,35 @@
-<div class="catalog-container">
-  <h2>Catálogo de Cursos</h2>
+<section class="catalog-container">
+  <div class="catalog-header">
+    <h2 class="catalog-title">Catálogo de Cursos</h2>
+    <div class="catalog-options">
+      <input type="text" class="search-input" placeholder="Buscar curso..." />
+      <select class="filter-select">
+        <option value="all">Todos</option>
+        <option value="in-progress">En progreso</option>
+        <option value="completed">Completados</option>
+      </select>
+    </div>
+  </div>
   @if (!courses() || courses().length === 0) {
     <div class="loading">Cargando cursos...</div>
   } @else {
-    <div class="courses-list">
+    <div class="courses-grid">
       @for (course of courses(); track course.id) {
-        <div class="course-card" (click)="goToCourse(course.id)">
-          <div class="course-header">
-            <i class="material-icons">school</i>
-            <h3>{{ course.title }}</h3>
+        <div class="course-card">
+          <div class="card-image-wrapper">
+            <img [src]="course.image" alt="{{ course.title }}" class="card-image" />
+            <div class="card-progress">
+              <progress [value]="course.progress" max="100"></progress>
+              <span class="progress-label">{{ course.progress }}%</span>
+            </div>
           </div>
-          <p>{{ course.description }}</p>
+          <div class="card-info">
+            <h3 class="card-title">{{ course.title }}</h3>
+            <p class="card-desc">{{ course.description }}</p>
+            <button class="btn btn-primary" (click)="goToCourse(course.id)">Ver curso</button>
+          </div>
         </div>
       }
     </div>
   }
-</div>
+</section>
