@@ -1,7 +1,6 @@
 <div class="member-layout">
-  <!-- <app-public-navbar/> -->
+  <app-member-navbar [user]="user" (logout)="onLogout()" />
   <main class="main-content">
     <router-outlet/>
   </main>
-  <!-- <app-public-footer/> -->
 </div>
