@@ -1,52 +1,38 @@
-<div class="dashboard-container">
-  <app-member-sidebar [user]="user"></app-member-sidebar>
-  <div class="dashboard-content">
-    <h1>Bienvenido, {{ user?.name }}</h1>
-    <div class="quick-access">
-      @if (user?.role === 'comprador') {
-        <app-dashboard-card
-          [title]="'Capacitación'"
-          [description]="'Accede a cursos y formación técnica.'"
-          [link]="'/member-area/training'"
-          [icon]="'school'"
-          [buttonText]="'Ir a capacitación'"
-        ></app-dashboard-card>
-        <app-dashboard-card
-          [title]="'Compras'"
-          [description]="'Compra productos y herramientas.'"
-          [link]="'/e-commerce'"
-          [icon]="'shopping_cart'"
-          [buttonText]="'Ir a tienda'"
-        ></app-dashboard-card>
-        <app-dashboard-card
-          [title]="'Quiero ser instalador'"
-          [description]="'Solicita acceso al programa de instaladores.'"
-          [icon]="'engineering'"
-          [buttonText]="'Solicitar'"
-          (action)="showInstallerForm = true"
-        ></app-dashboard-card>
-        @if (showInstallerForm) {
-          <app-installer-form (submitForm)="upgradeToInstaller($event)"></app-installer-form>
-        }
-      }
-      @if (user?.role === 'instalador-en-formacion') {
-        <app-dashboard-card
-          [title]="'¡Estás en formación!'"
-          [description]="'Accede a tus cursos y soporte especializado.'"
-          [link]="'/member-area/training'"
-          [icon]="'school'"
-          [buttonText]="'Ir a capacitación'"
-        ></app-dashboard-card>
-      }
-      @if (user?.role === 'instalador-certificado') {
-        <app-dashboard-card
-          [title]="'¡Instalador certificado!'"
-          [description]="'Accede a herramientas premium y precios mayoristas.'"
-          [link]="'/member-area/training'"
-          [icon]="'verified'"
-          [buttonText]="'Ir a capacitación'"
-        ></app-dashboard-card>
-      }
-    </div>
+<div class="dashboard-wrapper">
+  <div class="dashboard-header">
+    <img src="assets/images/logos/logotipo.png" alt="Logo" class="logo" />
+    <h1>¡Bienvenido, {{ user?.name }}!</h1>
+    <span class="user-role">Rol: {{ user?.role }}</span>
+    <p class="subtitle">Accede a todas las herramientas y recursos de tu área de miembro.</p>
+  </div>
+  <div class="dashboard-cards">
+    <app-dashboard-card
+      [title]="'Capacitación'"
+      [description]="'Accede a cursos, formación técnica y recursos exclusivos.'"
+      [link]="'/member-area/training'"
+      [icon]="'bi bi-mortarboard'"
+      [buttonText]="'Ir a capacitación'"
+    ></app-dashboard-card>
+    <app-dashboard-card
+      [title]="'Certificación'"
+      [description]="'Gestiona tu estado como instalador certificado y accede a beneficios.'"
+      [link]="'/member-area/certification'"
+      [icon]="'bi bi-patch-check'"
+      [buttonText]="'Ver estado'"
+    ></app-dashboard-card>
+    <app-dashboard-card
+      [title]="'E-commerce'"
+      [description]="'Compra productos, herramientas y accede a precios exclusivos.'"
+      [link]="'/e-commerce'"
+      [icon]="'bi bi-cart4'"
+      [buttonText]="'Ir a tienda'"
+    ></app-dashboard-card>
+    <app-dashboard-card
+      [title]="'Soporte y recursos'"
+      [description]="'Contacta soporte, descarga manuales y accede a la comunidad.'"
+      [link]="'/member-area/support'"
+      [icon]="'bi bi-life-preserver'"
+      [buttonText]="'Ir a soporte'"
+    ></app-dashboard-card>
   </div>
 </div>
