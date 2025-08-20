@@ -46,7 +46,8 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .navbar-logo {
-        width: 38px;
+        width: 55px;
+        height: auto;
         margin-right: 1rem;
     }
 
@@ -61,10 +62,11 @@ $transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             padding: 0.25rem 0.5rem;
             border-radius: 6px;
             transition: background 0.2s, color 0.2s;
+            padding: 8px 10px;
 
             &:hover,
             &.active {
-                background: $primary-color;
+                background: #034da273;
                 color: black;
             }
         }
