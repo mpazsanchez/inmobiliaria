@@ -1,0 +1,18 @@
+<div class="catalog-container">
+  <h2>Catálogo de Cursos</h2>
+  @if (!courses() || courses().length === 0) {
+    <div class="loading">Cargando cursos...</div>
+  } @else {
+    <div class="courses-list">
+      @for (course of courses(); track course.id) {
+        <div class="course-card" (click)="goToCourse(course.id)">
+          <div class="course-header">
+            <i class="material-icons">school</i>
+            <h3>{{ course.title }}</h3>
+          </div>
+          <p>{{ course.description }}</p>
+        </div>
+      }
+    </div>
+  }
+</div>
