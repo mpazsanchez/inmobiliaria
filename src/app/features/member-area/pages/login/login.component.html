@@ -1,22 +1,33 @@
-<form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
-  <h2>Iniciar sesión</h2>
-  <div>
-    <label>Email</label>
-    <input type="email" formControlName="email" required />
-    @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
-      <div class="error">Email inválido</div>
+<div class="login-wrapper">
+  <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+    <div class="login-header">
+        <!-- logo marca -->
+         <img src="assets/images/logos/logotipo.png" alt="Logo">
+      <h2>Iniciar sesión</h2>
+      <p class="subtitle">Accede a tu área de miembro para capacitación y compras</p>
+    </div>
+    <div class="form-group">
+      <label for="email"><i class="material-icons">mail</i> Email</label>
+      <input id="email" type="email" formControlName="email" required placeholder="ejemplo@correo.com" />
+      @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+        <div class="error">Email inválido</div>
+      }
+    </div>
+    <div class="form-group">
+      <label for="password"><i class="material-icons">vpn_key</i> Contraseña</label>
+      <input id="password" type="password" formControlName="password" required placeholder="••••••••" />
+      @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+        <div class="error">La contraseña es obligatoria</div>
+      }
+    </div>
+    @if (error()) {
+      <div class="error">{{ error() }}</div>
     }
-  </div>
-  <div>
-    <label>Contraseña</label>
-    <input type="password" formControlName="password" required />
-    @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
-      <div class="error">La contraseña es obligatoria</div>
-    }
-  </div>
-  @if (error()) {
-    <div class="error">{{ error() }}</div>
-  }
-  <button type="submit" [disabled]="loginForm.invalid">Ingresar</button>
-  <button type="button" class="btn" (click)="loginFake()">Login rápido (dev)</button>
-</form>
+    <button type="submit" [disabled]="loginForm.invalid" class="btn main-btn">Ingresar</button>
+    <button type="button" class="btn dev-btn" (click)="loginFake()">Login rápido (dev)</button>
+    <div class="login-footer">
+      <span>¿No tienes cuenta? <a routerLink="/register">Regístrate</a></span>
+      <span class="dev-tip">(Usa demo&#64;demo.com / demo para pruebas)</span>
+    </div>
+  </form>
+</div>
