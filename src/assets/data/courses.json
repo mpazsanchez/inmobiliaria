@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "title": "Curso Profesional de Polarizado Automotriz",
+    "description": "Emprende en el mundo de los polarizados de autos y arquitectura. Aprende técnicas, materiales, casos reales y cómo ganar dinero con este negocio.",
+    "image": "assets/images/backgrounds/image-13.jpg",
+    "duration": 6,
+    "progress": 40,
+    "chapters": [
+      { "id": "c1", "title": "Módulo 1: Cómo ganar dinero con el negocio de los polarizados", "videoUrl": "https://www.youtube.com/embed/Ylhz4cbCVQc", "duration": 1.5, "description": "Estrategias y consejos para iniciar y rentabilizar tu negocio de polarizados." },
+      { "id": "c2", "title": "Módulo 2: Parte práctica", "videoUrl": "", "duration": 2, "description": "Demostración práctica de técnicas y materiales." },
+      { "id": "c3", "title": "Módulo 3: Trucos y hacks", "videoUrl": "", "duration": 1, "description": "Tips avanzados y soluciones a problemas comunes." },
+      { "id": "c4", "title": "Módulo 4: Video respuestas", "videoUrl": "", "duration": 1.5, "description": "Respuestas en video a las preguntas frecuentes de los alumnos." }
+    ],
+    "faqs": [
+      { "question": "¿Cómo es la capacitación?", "answer": "100% online, con acceso a todos los materiales y soporte." },
+      { "question": "¿A quién está dirigido?", "answer": "A cualquier persona interesada en el polarizado automotriz." },
+      { "question": "¿Con este curso voy a aprender a polarizar un auto?", "answer": "Sí, el curso cubre todo el proceso paso a paso." },
+      { "question": "¿Qué necesito para comenzar a realizar este trabajo?", "answer": "Solo ganas de aprender y acceso a internet." },
+      { "question": "¿Debo tener un lugar para realizar las prácticas?", "answer": "No es obligatorio, pero es recomendable para practicar." }
+    ],
+    "resources": [
+      { "name": "Manual PDF", "url": "#" },
+      { "name": "Lista de materiales", "url": "#" }
+    ],
+    "instructor": {
+      "name": "Pablo Fabián Gómez",
+      "bio": "Profesional experto en polarizados y láminas para ventanas de arquitectura, con más de 25 años de experiencia.",
+      "photo": "assets/images/logos/logotipo.png",
+      "contact": "https://wa.me/543512454425"
+    },
+    "bonus": "Curso de Polarizado de Franja Delantera incluido como regalo.",
+    "testimonials": [
+      { "student": "Juan Pérez", "comment": "Excelente curso, muy completo y práctico." },
+      { "student": "María López", "comment": "Aprendí todo lo necesario para empezar mi negocio." }
+    ]
+  }
+]

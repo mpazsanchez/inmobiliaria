@@ -3,16 +3,23 @@ import { Course } from '../models/course.interface';
 
 @Injectable({ providedIn: 'root' })
 export class TrainingService {
-  getCourses(): Promise<Course[]> {
-    // Simulación de API
-    return Promise.resolve([
-      { id: '1', title: 'Curso Angular', description: 'Aprende Angular desde cero.' },
-      { id: '2', title: 'Curso SCSS', description: 'Domina SCSS y estilos modernos.' }
-    ]);
+  async getCourses(): Promise<Course[]> {
+    // Simulación: consumir desde un JSON local
+    const res = await fetch('assets/data/courses.json');
+    return await res.json();
   }
 
-  getCourseById(id: string): Promise<Course | null> {
-    // Simulación de API
-    return this.getCourses().then(courses => courses.find(c => c.id === id) || null);
+  async getCourseById(id: string): Promise<Course | null> {
+    const courses = await this.getCourses();
+    return courses.find(c => c.id === id) || null;
+  }
+
+  saveProgress(courseId: string, chapterIndex: number) {
+    localStorage.setItem(`progress_${courseId}`, chapterIndex.toString());
+  }
+
+  getProgress(courseId: string): number {
+    const val = localStorage.getItem(`progress_${courseId}`);
+    return val ? parseInt(val, 10) : 0;
   }
 }

@@ -1,13 +1,13 @@
 @if (course()) {
   <section class="course-detail">
     <div class="course-header">
-      <img [src]="course().image" alt="{{ course().title }}" class="course-image" />
+      <img [src]="course()?.image" alt="{{ course()?.title }}" class="course-image" />
       <div class="course-meta">
-        <h2>{{ course().title }}</h2>
-        <p>{{ course().description }}</p>
+        <h2>{{ course()?.title }}</h2>
+        <p>{{ course()?.description }}</p>
         <div class="meta-info">
-          <span><i class="bi bi-clock"></i> {{ course().duration }} hs</span>
-          <span><i class="bi bi-bar-chart"></i> Progreso: {{ course().progress }}%</span>
+          <span><i class="bi bi-clock"></i> {{ course()?.duration }} hs</span>
+          <span><i class="bi bi-bar-chart"></i> Progreso: {{ course()?.progress }}%</span>
         </div>
       </div>
     </div>
@@ -15,7 +15,7 @@
       <aside class="course-sidebar">
         <h3>Capítulos</h3>
         <ul class="chapter-list">
-          @for (chapter of course().chapters; track chapter.id) {
+          @for (chapter of course()?.chapters; track chapter.id) {
             <li [class.active]="$index === currentChapterIndex()" (click)="selectChapter($index)" tabindex="0" (keydown.enter)="selectChapter($index)">
               <span class="chapter-index">{{ $index + 1 }}</span>
               <span class="chapter-title">{{ chapter.title }}</span>
@@ -27,7 +27,7 @@
       <main class="course-player">
         <div class="video-wrapper">
           @if (currentChapter()?.videoUrl) {
-            <iframe [src]="currentChapter().videoUrl | safeUrl"
+            <iframe [src]="currentChapter()?.videoUrl"
                     frameborder="0"
                     allowfullscreen></iframe>
           }
@@ -36,13 +36,13 @@
           <p>{{ currentChapter()?.description }}</p>
         </div>
         <div class="progress-info">
-          <span>Capítulo {{ currentChapterIndex() + 1 }} de {{ course().chapters.length }}</span>
-          <progress [value]="currentChapterIndex() + 1" [max]="course().chapters.length"></progress>
+          <span>Capítulo {{ currentChapterIndex() + 1 }} de {{ course()?.chapters?.length }}</span>
+          <progress [value]="currentChapterIndex() + 1" [max]="course()?.chapters?.length"></progress>
         </div>
         <div class="resources-panel">
           <h4>Recursos y materiales</h4>
           <ul>
-            @for (res of course().resources; track res.name) {
+            @for (res of course()?.resources; track res.name) {
               <li><a [href]="res.url" target="_blank">{{ res.name }}</a></li>
             }
           </ul>
@@ -50,19 +50,19 @@
         <div class="faq-panel">
           <h4>Preguntas frecuentes</h4>
           <ul>
-            @for (faq of course().faqs; track faq.question) {
+            @for (faq of course()?.faqs; track faq.question) {
               <li><strong>{{ faq.question }}</strong><br />{{ faq.answer }}</li>
             }
           </ul>
         </div>
         <div class="bonus-panel">
           <h4>Bonus</h4>
-          <p>{{ course().bonus }}</p>
+          <p>{{ course()?.bonus }}</p>
         </div>
         <div class="testimonials-panel">
           <h4>Testimonios</h4>
           <ul>
-            @for (t of course().testimonials; track t.student) {
+            @for (t of course()?.testimonials; track t.student) {
               <li><strong>{{ t.student }}</strong>: {{ t.comment }}</li>
             }
           </ul>
@@ -70,11 +70,11 @@
         <div class="instructor-panel">
           <h4>Instructor</h4>
           <div class="instructor-info">
-            <img [src]="course().instructor.photo" alt="Instructor" class="instructor-photo" />
+            <img [src]="course()?.instructor?.photo" alt="Instructor" class="instructor-photo" />
             <div>
-              <strong>{{ course().instructor.name }}</strong><br />
-              <span>{{ course().instructor.bio }}</span><br />
-              <a [href]="course().instructor.contact" target="_blank" class="btn btn-outline-primary"><i class="bi bi-whatsapp"></i> Contactar</a>
+              <strong>{{ course()?.instructor?.name }}</strong><br />
+              <span>{{ course()?.instructor?.bio }}</span><br />
+              <a [href]="course()?.instructor?.contact" target="_blank" class="btn btn-outline-primary"><i class="bi bi-whatsapp"></i> Contactar</a>
             </div>
           </div>
         </div>
