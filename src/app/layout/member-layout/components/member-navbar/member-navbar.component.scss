@@ -1,0 +1,123 @@
+@import '../../../../../assets/styles/_variables.scss';
+
+$navbar-height: 80px;
+$primary-color: $blue-three;
+$background-transparent: rgba(0, 0, 0, 0.1);
+$shadow-elevated: 0 8px 30px rgba(0, 0, 0, 0.15);
+$transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+.modern-navbar {
+  font-size: 16px;
+  background: $background-transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  height: $navbar-height;
+  padding: 0;
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  z-index: 1050;
+  transition: $transition-smooth;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  .container-fluid {
+    height: 100%;
+    padding: 0;
+  }
+  .navbar-content {
+    width: 100%;
+    height: $navbar-height;
+  }
+  .navbar-brand {
+    color: rgba(255, 255, 255, 0.95) !important;
+    text-decoration: none;
+    transition: $transition-smooth;
+    font-size: 16px;
+    letter-spacing: -0.025em;
+    &:hover {
+      color: $primary-color !important;
+      opacity: 0.9;
+    }
+  }
+  .navbar-logo {
+    width: 38px;
+    margin-right: 1rem;
+  }
+  .navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    .nav-link {
+      color: #fff;
+      font-weight: 500;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+      &:hover, &.active {
+        background: $primary-color;
+        color: #fff;
+      }
+    }
+  }
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    .user-info {
+      color: $primary-color;
+      font-weight: 500;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.15);
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+    }
+    .logout-btn {
+      background: #fff;
+      color: #dc3545;
+      border: 1px solid #dc3545;
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      &:hover {
+        background: #ffe3e3;
+        color: #a80000;
+      }
+    }
+    .bi {
+      font-size: 1.15rem;
+      vertical-align: middle;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .modern-navbar {
+    height: auto;
+    .navbar-content {
+      height: auto;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0.75rem 1rem;
+    }
+    .navbar-nav {
+      flex-direction: column;
+      gap: 0.5rem;
+      .nav-link {
+        font-size: 0.95rem;
+      }
+    }
+    .navbar-right {
+      font-size: 0.95rem;
+      padding: 0.15rem 0.5rem;
+    }
+  }
+}
