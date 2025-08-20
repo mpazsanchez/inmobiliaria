@@ -1,0 +1,52 @@
+<div class="dashboard-container">
+  <app-member-sidebar [user]="user"></app-member-sidebar>
+  <div class="dashboard-content">
+    <h1>Bienvenido, {{ user?.name }}</h1>
+    <div class="quick-access">
+      @if (user?.role === 'comprador') {
+        <app-dashboard-card
+          [title]="'Capacitación'"
+          [description]="'Accede a cursos y formación técnica.'"
+          [link]="'/member-area/training'"
+          [icon]="'school'"
+          [buttonText]="'Ir a capacitación'"
+        ></app-dashboard-card>
+        <app-dashboard-card
+          [title]="'Compras'"
+          [description]="'Compra productos y herramientas.'"
+          [link]="'/e-commerce'"
+          [icon]="'shopping_cart'"
+          [buttonText]="'Ir a tienda'"
+        ></app-dashboard-card>
+        <app-dashboard-card
+          [title]="'Quiero ser instalador'"
+          [description]="'Solicita acceso al programa de instaladores.'"
+          [icon]="'engineering'"
+          [buttonText]="'Solicitar'"
+          (action)="showInstallerForm = true"
+        ></app-dashboard-card>
+        @if (showInstallerForm) {
+          <app-installer-form (submitForm)="upgradeToInstaller($event)"></app-installer-form>
+        }
+      }
+      @if (user?.role === 'instalador-en-formacion') {
+        <app-dashboard-card
+          [title]="'¡Estás en formación!'"
+          [description]="'Accede a tus cursos y soporte especializado.'"
+          [link]="'/member-area/training'"
+          [icon]="'school'"
+          [buttonText]="'Ir a capacitación'"
+        ></app-dashboard-card>
+      }
+      @if (user?.role === 'instalador-certificado') {
+        <app-dashboard-card
+          [title]="'¡Instalador certificado!'"
+          [description]="'Accede a herramientas premium y precios mayoristas.'"
+          [link]="'/member-area/training'"
+          [icon]="'verified'"
+          [buttonText]="'Ir a capacitación'"
+        ></app-dashboard-card>
+      }
+    </div>
+  </div>
+</div>

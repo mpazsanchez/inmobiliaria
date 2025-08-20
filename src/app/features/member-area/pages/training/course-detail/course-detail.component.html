@@ -1,0 +1,9 @@
+@if (course()) {
+  <div class="course-detail-container">
+    <h2>{{ course().title }}</h2>
+    <p>{{ course().description }}</p>
+    <!-- Aquí puedes agregar más detalles del curso -->
+  </div>
+} @else {
+  <div class="loading">Cargando curso...</div>
+}
