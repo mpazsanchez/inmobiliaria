@@ -29,9 +29,18 @@ export class LoginComponent {
           this.error.set(null);
           this.router.navigate(['/member-area/dashboard']);
         })
-        .catch(err => this.error.set(err.message));
+        .catch((err: any) => this.error.set(err.message));
     } else {
       this.error.set('Completa todos los campos correctamente.');
     }
+  }
+
+  loginFake(): void {
+    this.authService?.login('demo@demo.com', 'demo')
+      .then(() => {
+        this.error?.set(null);
+        this.router?.navigate(['/member-area/dashboard']);
+      })
+      .catch((err: any) => this.error?.set(err.message));
   }
 }
