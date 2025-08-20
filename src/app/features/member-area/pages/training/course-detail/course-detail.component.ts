@@ -2,7 +2,8 @@ import { Component, signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TrainingService } from '../../../services/training.service';
-import { Course } from '../../models/course.interface';
+import { Course } from '../../../models/course.interface';
+
 
 @Component({
   selector: 'app-course-detail',
