@@ -39,6 +39,12 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
+  justify-content: center;
+}
+.courses-grid:has(.course-card:only-child) {
+  grid-template-columns: 1fr;
+  max-width: 400px;
+  margin: 0 auto;
 }
 .course-card {
   background: #fff;
@@ -47,6 +53,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  height: 100%;
   transition: box-shadow 0.2s;
   &:hover {
     box-shadow: 0 8px 32px rgba(0,0,0,0.12);
@@ -89,6 +96,10 @@
   .card-info {
     padding: 1.5rem;
     text-align: center;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     .card-title {
       font-size: 1.25rem;
       font-weight: 600;
@@ -99,7 +110,28 @@
       font-size: 1rem;
       color: #555;
       margin-bottom: 1.2rem;
+      flex: 1 1 auto;
     }
+    .card-meta {
+      margin-bottom: 0.5rem;
+      .meta-duration {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 0.98rem;
+        color: $blue-three;
+        font-weight: 500;
+        i {
+          font-size: 1.1rem;
+        }
+      }
+    }
+  }
+  .card-actions {
+    padding: 1.2rem 1.5rem 1.5rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
     .btn {
       font-size: 1rem;
       padding: 0.5rem 1.5rem;
