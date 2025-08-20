@@ -9,26 +9,42 @@
           <span><i class="bi bi-clock"></i> {{ course()?.duration }} hs</span>
           <span><i class="bi bi-bar-chart"></i> Progreso: {{ course()?.progress }}%</span>
         </div>
+        <ul class="logros-list">
+          @for (logro of course()?.logros; track logro) {
+            <li>{{ logro }}</li>
+          }
+        </ul>
       </div>
     </div>
     <div class="course-body">
       <aside class="course-sidebar">
-        <h3>Capítulos</h3>
+        <h3>Módulos</h3>
         <ul class="chapter-list">
           @for (chapter of course()?.chapters; track chapter.id) {
             <li [class.active]="$index === currentChapterIndex()" (click)="selectChapter($index)" tabindex="0" (keydown.enter)="selectChapter($index)">
               <span class="chapter-index">{{ $index + 1 }}</span>
               <span class="chapter-title">{{ chapter.title }}</span>
-              <span class="chapter-duration"><i class="bi bi-clock"></i> {{ chapter.duration }} hs</span>
             </li>
           }
         </ul>
       </aside>
       <main class="course-player">
+        <div class="video-selector">
+          <h4>Videos del módulo</h4>
+          <ul class="video-list">
+            @for (video of currentChapter()?.videos; track video.title) {
+              <li [class.active]="$index === currentVideoIndex()" >
+                <button type="button" (click)="selectVideo($index)" (keydown.enter)="selectVideo($index)" class="video-title-btn">
+                  <span class="video-title">{{ video.title }}</span>
+                </button>
+              </li>
+            }
+          </ul>
+        </div>
         <div class="video-wrapper">
-          @if (currentChapter()?.videoUrl) {
-            <iframe [src]="currentChapter()?.videoUrl"
-                    frameborder="0"
+          @if (typeof currentVideo()?.videoUrl === 'string') {
+            <iframe [src]="(currentVideo()?.videoUrl ?? '') | safeUrl"
+                    title="{{ currentVideo()?.title || 'Video del curso' }}"
                     allowfullscreen></iframe>
           }
         </div>

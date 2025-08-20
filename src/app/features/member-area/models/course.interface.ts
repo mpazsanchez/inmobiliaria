@@ -1,9 +1,13 @@
+export interface Video {
+  title: string;
+  videoUrl: string;
+}
+
 export interface Chapter {
   id: string;
   title: string;
-  videoUrl: string;
-  duration: number;
   description: string;
+  videos: Video[];
 }
 
 export interface FAQ {
@@ -35,6 +39,7 @@ export interface Course {
   image: string;
   duration: number;
   progress: number;
+  logros: string[];
   chapters: Chapter[];
   faqs: FAQ[];
   resources: Resource[];

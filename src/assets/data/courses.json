@@ -2,22 +2,46 @@
   {
     "id": "1",
     "title": "Curso Profesional de Polarizado Automotriz",
-    "description": "Emprende en el mundo de los polarizados de autos y arquitectura. Aprende técnicas, materiales, casos reales y cómo ganar dinero con este negocio.",
+    "description": "Emprende en el mundo de los polarizados de autos para aumentar tus ingresos y calidad de vida.",
     "image": "assets/images/backgrounds/image-13.jpg",
-    "duration": 6,
-    "progress": 40,
+    "duration": 12,
+    "progress": 0,
+    "logros": [
+      "Desarrollarás una habilidad para varios campos.",
+      "Tendrás un negocio rentable y productivo.",
+      "Mejorarás tu servicio y satisfacción de clientes.",
+      "Podrás ofrecer el servicio en cualquier parte del mundo.",
+      "Dictarás cursos en cualquier ciudad o país.",
+      "Aprenderás a desmarcarte de negocios mal montados.",
+      "Accederás al certificado avalado por Intermedios Windows Film."
+    ],
     "chapters": [
-      { "id": "c1", "title": "Módulo 1: Cómo ganar dinero con el negocio de los polarizados", "videoUrl": "https://www.youtube.com/embed/Ylhz4cbCVQc", "duration": 1.5, "description": "Estrategias y consejos para iniciar y rentabilizar tu negocio de polarizados." },
-      { "id": "c2", "title": "Módulo 2: Parte práctica", "videoUrl": "", "duration": 2, "description": "Demostración práctica de técnicas y materiales." },
-      { "id": "c3", "title": "Módulo 3: Trucos y hacks", "videoUrl": "", "duration": 1, "description": "Tips avanzados y soluciones a problemas comunes." },
-      { "id": "c4", "title": "Módulo 4: Video respuestas", "videoUrl": "", "duration": 1.5, "description": "Respuestas en video a las preguntas frecuentes de los alumnos." }
+      {
+        "id": "mod1",
+        "title": "Módulo 1: Cómo ganar dinero con el negocio de los polarizados",
+        "description": "Estrategias, presentación y justificación del negocio.",
+        "videos": [
+          { "title": "Introducción", "videoUrl": "https://www.youtube.com/embed/Ylhz4cbCVQc" },
+          { "title": "Justificación del negocio", "videoUrl": "https://www.youtube.com/embed/b-Kw_UnaLqA" }
+        ]
+      },
+      {
+        "id": "mod2",
+        "title": "Módulo 2: Parte práctica",
+        "description": "Demostración práctica de técnicas y materiales.",
+        "videos": [
+          { "title": "Las 3 diferencias de cristales", "videoUrl": "https://www.youtube.com/embed/GVOv06kjuv4" },
+          { "title": "Cómo despolarizar cristal", "videoUrl": "https://www.youtube.com/embed/I0YE-M6XVx8" },
+          { "title": "Despolarizar con calor la lámina vieja", "videoUrl": "https://www.youtube.com/embed/RQ-p7MSfm9Q" },
+          { "title": "Cómo sacar el polarizado", "videoUrl": "https://www.youtube.com/embed/fw0MCHhSSH0" },
+          { "title": "Corte de lámina y precisión", "videoUrl": "https://www.youtube.com/embed/PUi8DBuU6os" }
+        ]
+      }
+      // Puedes seguir agregando el resto de los módulos y videos aquí
     ],
     "faqs": [
       { "question": "¿Cómo es la capacitación?", "answer": "100% online, con acceso a todos los materiales y soporte." },
-      { "question": "¿A quién está dirigido?", "answer": "A cualquier persona interesada en el polarizado automotriz." },
-      { "question": "¿Con este curso voy a aprender a polarizar un auto?", "answer": "Sí, el curso cubre todo el proceso paso a paso." },
-      { "question": "¿Qué necesito para comenzar a realizar este trabajo?", "answer": "Solo ganas de aprender y acceso a internet." },
-      { "question": "¿Debo tener un lugar para realizar las prácticas?", "answer": "No es obligatorio, pero es recomendable para practicar." }
+      { "question": "¿A quién está dirigido?", "answer": "A cualquier persona interesada en el polarizado automotriz." }
     ],
     "resources": [
       { "name": "Manual PDF", "url": "#" },
@@ -31,8 +55,7 @@
     },
     "bonus": "Curso de Polarizado de Franja Delantera incluido como regalo.",
     "testimonials": [
-      { "student": "Juan Pérez", "comment": "Excelente curso, muy completo y práctico." },
-      { "student": "María López", "comment": "Aprendí todo lo necesario para empezar mi negocio." }
+      { "student": "Juan Pérez", "comment": "Excelente curso, muy completo y práctico." }
     ]
   }
 ]

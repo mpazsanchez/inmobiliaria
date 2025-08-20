@@ -14,9 +14,16 @@ export class CourseDetailComponent implements OnInit {
   private trainingService = inject(TrainingService);
   course = signal<Course | null>(null);
   currentChapterIndex = signal(0);
+  currentVideoIndex = signal(0);
+
   currentChapter = computed(() => {
     const c = this.course();
-    return c && c.chapters ? c.chapters[this.currentChapterIndex()] : null;
+    return c?.chapters?.[this.currentChapterIndex()] ?? null;
+  });
+
+  currentVideo = computed(() => {
+    const chapter = this.currentChapter();
+    return chapter?.videos?.[this.currentVideoIndex()] ?? null;
   });
 
   ngOnInit(): void {
@@ -27,15 +34,21 @@ export class CourseDetailComponent implements OnInit {
         if (saved >= 0 && saved < data.chapters.length) {
           this.currentChapterIndex.set(saved);
         }
+        this.currentVideoIndex.set(0);
       }
     });
   }
 
   selectChapter(index: number): void {
     this.currentChapterIndex.set(index);
+    this.currentVideoIndex.set(0);
     const c = this.course();
     if (c) {
       this.trainingService.saveProgress(c.id, index);
     }
+  }
+
+  selectVideo(index: number): void {
+    this.currentVideoIndex.set(index);
   }
 }
