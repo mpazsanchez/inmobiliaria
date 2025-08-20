@@ -1,8 +1,8 @@
 <div class="dashboard-wrapper">
   <div class="dashboard-header">
     <img src="assets/images/logos/logotipo.png" alt="Logo" class="logo" />
-    <h1>¡Bienvenido, {{ user?.name }}!</h1>
-    <span class="user-role">Rol: {{ user?.role }}</span>
+    <h1>¡Bienvenido, Amadeo {{ user?.name }}!</h1>
+    <span class="user-role">Rol: Instalador certificado {{ user?.role }}</span>
     <p class="subtitle">Accede a todas las herramientas y recursos de tu área de miembro.</p>
   </div>
   <div class="dashboard-cards">
@@ -26,13 +26,6 @@
       [link]="'/e-commerce'"
       [icon]="'bi bi-cart4'"
       [buttonText]="'Ir a tienda'"
-    ></app-dashboard-card>
-    <app-dashboard-card
-      [title]="'Soporte y recursos'"
-      [description]="'Contacta soporte, descarga manuales y accede a la comunidad.'"
-      [link]="'/member-area/support'"
-      [icon]="'bi bi-life-preserver'"
-      [buttonText]="'Ir a soporte'"
     ></app-dashboard-card>
   </div>
 </div>
