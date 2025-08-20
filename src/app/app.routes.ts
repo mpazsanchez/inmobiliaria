@@ -45,11 +45,15 @@ export const routes: Routes = [
 
   // ============ ÁREA DE MIEMBROS ============
 
+
+  // Login fuera del layout de miembros
+  { path: 'member-area/login', component: LoginComponent, data: { title: 'Iniciar Sesión' } },
+
+  // Área de miembros protegida y con layout
   {
     path: 'member-area',
     component: MemberLayoutComponent,
     children: [
-      { path: 'login', component: LoginComponent, data: { title: 'Iniciar Sesión' } },
       { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard], data: { title: 'Panel de Miembro' } },
       { path: 'training', component: TrainingCatalogComponent, canActivate: [authGuard], data: { title: 'Catálogo de Cursos' } },
       { path: 'training/:id', component: CourseDetailComponent, canActivate: [authGuard], data: { title: 'Detalle de Curso' } },
