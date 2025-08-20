@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-icon" *ngIf="icon">
+    <i class="material-icons">{{ icon }}</i>
+  </div>
+  <h2>{{ title }}</h2>
+  <p>{{ description }}</p>
+  @if (link) {
+    <a [routerLink]="link" class="btn">{{ buttonText ?? 'Ir' }}</a>
+  } @else {
+    <button *ngIf="buttonText" class="btn" (click)="action.emit()">{{ buttonText }}</button>
+  }
+</div>
