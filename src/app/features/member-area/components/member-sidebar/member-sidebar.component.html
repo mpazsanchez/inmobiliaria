@@ -1,0 +1,10 @@
+<nav class="sidebar">
+  <div class="sidebar-user">
+    <span>{{ user?.name }}</span>
+  </div>
+  <ul>
+    @for (item of menuItems(); track item) {
+      <li><a [routerLink]="item.route">{{ item.label }}</a></li>
+    }
+  </ul>
+</nav>
