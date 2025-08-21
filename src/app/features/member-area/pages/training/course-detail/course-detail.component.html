@@ -49,9 +49,9 @@
       </aside>
     </div>
     <div class="course-main-info">
-      <div class="chapter-desc">
+      <!-- <div class="chapter-desc">
         <p>{{ currentChapter()?.description }}</p>
-      </div>
+      </div> -->
       <div class="progress-info">
         <span>Capítulo {{ currentChapterIndex() + 1 }} de {{ course()?.chapters?.length }}</span>
         <progress [value]="currentChapterIndex() + 1" [max]="course()?.chapters?.length"></progress>

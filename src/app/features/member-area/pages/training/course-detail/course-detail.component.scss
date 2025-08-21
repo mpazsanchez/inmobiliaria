@@ -137,6 +137,9 @@
     justify-content: center;
     align-items: flex-start;
     margin: 2rem 0 0.5rem 0;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
     .video-wrapper {
       flex: 2;
       width: 100%;
@@ -147,6 +150,7 @@
       border-radius: 16px;
       overflow: hidden;
       box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      margin-bottom: 0; // Eliminar espacio extra debajo del video
       iframe {
         width: 100%;
         height: 100%;
@@ -242,8 +246,8 @@
   .course-main-info {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    margin-top: 2.5rem;
+    gap: 1rem;
+    margin-top: 1.2rem;
     .chapter-desc {
       font-size: 1.1rem;
       color: #444;
