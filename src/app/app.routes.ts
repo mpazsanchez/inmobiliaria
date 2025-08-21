@@ -14,6 +14,7 @@ import { DashboardComponent } from "./features/member-area/pages/dashboard/dashb
 import { TrainingCatalogComponent } from "./features/member-area/pages/training/training-catalog/training-catalog.component";
 import { CourseDetailComponent } from "./features/member-area/pages/training/course-detail/course-detail.component";
 import { authGuard } from "./features/member-area/guards/auth.guard";
+import { CertificationsComponent } from './features/member-area/pages/certifications/certifications.component';
 
 
 export const routes: Routes = [
@@ -57,6 +58,7 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard], data: { title: 'Panel de Miembro' } },
       { path: 'training', component: TrainingCatalogComponent, canActivate: [authGuard], data: { title: 'Catálogo de Cursos' } },
       { path: 'training/:id', component: CourseDetailComponent, canActivate: [authGuard], data: { title: 'Detalle de Curso' } },
+      { path: 'certificaciones', component: CertificationsComponent, canActivate: [authGuard], data: { title: 'Certificaciones' } }
     ]
   },
 
