@@ -42,7 +42,7 @@
           </ul>
         </div>
         <div class="video-wrapper">
-          @if (typeof currentVideo()?.videoUrl === 'string') {
+          @if (currentVideo()?.videoUrl) {
             <iframe [src]="(currentVideo()?.videoUrl ?? '') | safeUrl"
                     title="{{ currentVideo()?.title || 'Video del curso' }}"
                     allowfullscreen></iframe>
