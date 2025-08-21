@@ -27,10 +27,14 @@ export class CertificationsComponent {
     motivation: '',
     experience: ''
   };
+  feedback = '';
 
   submitApplication() {
-    // Aquí iría la lógica real de postulación (API, validaciones, etc.)
-    alert('¡Postulación enviada! Nos contactaremos contigo pronto.');
+    if (!this.application.motivation || !this.application.experience) {
+      this.feedback = 'Por favor completa todos los campos.';
+      return;
+    }
+    this.feedback = '¡Postulación enviada! Nos contactaremos contigo pronto.';
     this.canApply = false;
   }
 }
