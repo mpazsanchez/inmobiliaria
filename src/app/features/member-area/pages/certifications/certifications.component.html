@@ -1,0 +1,49 @@
+<section class="certifications">
+  <h2>Mis Certificaciones</h2>
+  <div class="cert-status">
+  <p>Estado actual: <span class="status">{{ userLevel }}</span></p>
+    @if (userLevel === 'Nivel 2 – Instalador en formación') {
+      <p>Completa todos los módulos y evaluaciones para postularte como Instalador Certificado Glazing™.</p>
+    }
+    @if (userLevel === 'Nivel 3 – Instalador Certificado Glazing™') {
+      <p>¡Felicidades! Eres parte de la red profesional Glazing™ y puedes acceder a todos los beneficios.</p>
+    }
+  </div>
+  <div class="cert-list">
+    <!-- Mostrar certificaciones obtenidas -->
+    @for (cert of certifications; track cert.id) {
+      <div class="cert-card">
+        <h3>{{ cert.name }}</h3>
+        <p>{{ cert.description }}</p>
+        <p>Estado: <span class="status">{{ cert.status }}</span></p>
+        @if (cert.status === 'completado') {
+          <button class="btn btn-primary">Descargar certificado</button>
+        }
+      </div>
+    }
+  </div>
+  @if (userLevel === 'Nivel 2 – Instalador en formación' && canApply) {
+    <div class="cert-apply-form">
+      <h4>Postulación a Instalador Certificado Glazing™</h4>
+      <form (ngSubmit)="submitApplication()">
+        <div class="mb-3">
+          <label for="motivation" class="form-label">¿Por qué quieres ser Instalador Certificado?</label>
+          <textarea id="motivation" class="form-control" [(ngModel)]="application.motivation" name="motivation" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="experience" class="form-label">Experiencia relevante</label>
+          <input id="experience" class="form-control" [(ngModel)]="application.experience" name="experience" required />
+        </div>
+        <button type="submit" class="btn btn-success">Enviar postulación</button>
+      </form>
+    </div>
+  }
+  <div class="cert-info">
+    <h4>¿Cómo obtener una certificación?</h4>
+    <ul>
+      <li>Completa todos los módulos y evaluaciones del curso.</li>
+      <li>Solicita tu certificado digital desde esta sección.</li>
+      <li>Postúlate para ser Instalador Certificado Glazing™ si cumples los requisitos.</li>
+    </ul>
+  </div>
+</section>
