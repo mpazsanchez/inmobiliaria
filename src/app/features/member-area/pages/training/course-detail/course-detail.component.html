@@ -29,24 +29,24 @@
         </ul>
       </aside>
       <main class="course-player">
-        <div class="video-selector">
-          <h4>Videos del módulo</h4>
-          <ul class="video-list">
-            @for (video of currentChapter()?.videos; track video.title) {
-              <li [class.active]="$index === currentVideoIndex()" >
-                <button type="button" (click)="selectVideo($index)" (keydown.enter)="selectVideo($index)" class="video-title-btn">
-                  <span class="video-title">{{ video.title }}</span>
-                </button>
-              </li>
-            }
-          </ul>
-        </div>
         <div class="video-wrapper">
           @if (currentVideo()?.videoUrl) {
             <iframe [src]="(currentVideo()?.videoUrl ?? '') | safeUrl"
                     title="{{ currentVideo()?.title || 'Video del curso' }}"
                     allowfullscreen></iframe>
           }
+        </div>
+        <div class="video-selector">
+          <h4>Videos del módulo</h4>
+          <ul class="video-list">
+            @for (video of currentChapter()?.videos; track video.title) {
+              <li [class.active]="$index === currentVideoIndex()">
+                <button type="button" (click)="selectVideo($index)" (keydown.enter)="selectVideo($index)" class="video-title-btn">
+                  <span class="video-title">{{ video.title }}</span>
+                </button>
+              </li>
+            }
+          </ul>
         </div>
         <div class="chapter-desc">
           <p>{{ currentChapter()?.description }}</p>

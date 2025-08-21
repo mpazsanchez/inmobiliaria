@@ -197,6 +197,44 @@
           }
         }
       }
+      .video-selector {
+        margin-bottom: 1.5rem;
+        h4 {
+          font-size: 1.15rem;
+          font-weight: 600;
+          color: $blue-three;
+          margin-bottom: 0.7rem;
+        }
+        .video-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          li {
+            .video-title-btn {
+              display: block;
+              width: 100%;
+              background: #f7faff;
+              color: #222;
+              border: none;
+              border-radius: 6px;
+              padding: 0.7rem 1rem;
+              font-size: 1rem;
+              text-align: left;
+              box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+              transition: background 0.2s, color 0.2s;
+              cursor: pointer;
+            }
+            &.active .video-title-btn,
+            .video-title-btn:hover {
+              background: $blue-three;
+              color: #fff;
+            }
+          }
+        }
+      }
     }
   }
 }
