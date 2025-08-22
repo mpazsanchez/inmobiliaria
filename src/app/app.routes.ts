@@ -15,6 +15,7 @@ import { TrainingCatalogComponent } from "./features/member-area/pages/training/
 import { CourseDetailComponent } from "./features/member-area/pages/training/course-detail/course-detail.component";
 import { authGuard } from "./features/member-area/guards/auth.guard";
 import { CertificationsComponent } from './features/member-area/pages/certifications/certifications.component';
+import { InstallerDerivationComponent } from "./features/public-site/pages/installer-derivation/installer-derivation.component";
 
 
 export const routes: Routes = [
@@ -28,14 +29,14 @@ export const routes: Routes = [
       { path: 'contact', component: ContactComponent, data: { title: 'Contacto - Glazing™' } },
       { path: 'about', component: AboutUsComponent, data: { title: 'Nosotros - Glazing™' } },
       { path: 'products', component: ProductsComponent, data: { title: 'Productos y Servicios - Glazing™' } },
-      
-  // Ruta genérica para cualquier producto
-  { path: 'product/:slug', component: ProductDetailComponent },
-  // Ruta para detalle de tipo de producto
-  { path: 'product-type-detail/:slug', component: ProductTypeDetailComponent },
-  // Rutas específicas legacy (se pueden mantener por compatibilidad)
-  { path: 'products/solar-protection-film', component: SolarProtectionFilmComponent, data: { title: 'Láminas de Protección Solar - Glazing™' } },
+      { path: 'installer-derivation', component: InstallerDerivationComponent, data: { title: 'Instalador Certificado Cercano - Glazing™' } },
 
+      // Ruta genérica para cualquier producto
+      { path: 'product/:slug', component: ProductDetailComponent },
+      // Ruta para detalle de tipo de producto
+      { path: 'product-type-detail/:slug', component: ProductTypeDetailComponent },
+      // Rutas específicas legacy (se pueden mantener por compatibilidad)
+      { path: 'products/solar-protection-film', component: SolarProtectionFilmComponent, data: { title: 'Láminas de Protección Solar - Glazing™' } },
 
     ]
   },
