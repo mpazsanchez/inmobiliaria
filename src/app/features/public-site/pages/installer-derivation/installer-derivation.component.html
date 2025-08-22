@@ -1,0 +1,24 @@
+<section class="installer-derivation">
+  <h2 class="mb-4 text-center">Encuentra tu Instalador Certificado Glazing™ más cercano</h2>
+  <div class="derivation-form card p-4 mb-4">
+  <label for="location" class="form-label">Tu ubicación (ciudad o zona):</label>
+  <input id="location" class="form-control mb-3" [formControl]="userLocationControl" placeholder="Ej: Buenos Aires, Madrid..." />
+  <button class="btn btn-primary w-100" (click)="findNearestInstaller()">Buscar instalador cercano</button>
+  </div>
+  @if (nearestInstaller()) {
+    <div class="installer-card card p-4 mt-3 text-center">
+      <h4 class="mb-2">{{ nearestInstaller()?.name }}</h4>
+      <p class="mb-1"><i class="bi bi-geo-alt"></i> {{ nearestInstaller()?.location }}</p>
+      <p class="mb-1"><i class="bi bi-envelope"></i> {{ nearestInstaller()?.email }}</p>
+      <p class="mb-1"><i class="bi bi-phone"></i> {{ nearestInstaller()?.phone }}</p>
+      <span class="badge bg-success">Certificado Glazing™</span>
+    </div>
+  }
+  @if (!nearestInstaller() && userLocationControl.value?.trim()) {
+    <div class="alert alert-warning mt-3 text-center">
+      No se encontró un instalador certificado en tu zona. Prueba con otra ubicación o contáctanos para asistencia personalizada.
+    </div>
+  }
+
+  <app-installer-map [installers]="installers()" [selectedInstaller]="nearestInstaller()"></app-installer-map>
+</section>
