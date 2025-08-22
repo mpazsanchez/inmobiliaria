@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { Certification } from '../../models/certification.interface';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-certifications',
   standalone: true,
   templateUrl: './certifications.component.html',
   styleUrls: ['./certifications.component.scss'],
-  imports: [FormsModule]
+  imports: [FormsModule, CommonModule]
 })
 export class CertificationsComponent {
   userLevel = 'Nivel 2 – Instalador en formación'; // Simulación, debería venir del usuario

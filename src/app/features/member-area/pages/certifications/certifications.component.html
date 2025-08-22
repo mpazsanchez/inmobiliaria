@@ -1,49 +1,90 @@
-<section class="certifications">
-  <h2>Mis Certificaciones</h2>
-  <div class="cert-status">
-  <p>Estado actual: <span class="status">{{ userLevel }}</span></p>
-    @if (userLevel === 'Nivel 2 – Instalador en formación') {
-      <p>Completa todos los módulos y evaluaciones para postularte como Instalador Certificado Glazing™.</p>
-    }
-    @if (userLevel === 'Nivel 3 – Instalador Certificado Glazing™') {
-      <p>¡Felicidades! Eres parte de la red profesional Glazing™ y puedes acceder a todos los beneficios.</p>
-    }
-  </div>
-  <div class="cert-list">
-    <!-- Mostrar certificaciones obtenidas -->
-    @for (cert of certifications; track cert.id) {
-      <div class="cert-card">
-        <h3>{{ cert.name }}</h3>
-        <p>{{ cert.description }}</p>
-        <p>Estado: <span class="status">{{ cert.status }}</span></p>
-        @if (cert.status === 'completado') {
-          <button class="btn btn-primary">Descargar certificado</button>
-        }
+<section class="certifications col-10 mx-auto">
+  <div class="cert-main card p-5 mx-auto" style="box-shadow: 0 4px 24px rgba(0,32,96,0.10); border-radius: 20px; border: 1px solid #e0e6ed; background: #fff;">
+    <h2 class="mb-4 text-center">Mis Certificaciones</h2>
+    <div class="cert-status mb-4">
+      <div class="d-flex align-items-center justify-content-center mb-2">
+        <span class="fw-bold">Estado actual:</span>
+        <span class="status ms-2">{{ userLevel }}</span>
+      </div>
+      @if (userLevel === 'Nivel 1 – Comprador Autorizado') {
+        <div class="alert alert-info py-2 mb-0 text-center">
+          <i class="bi bi-rocket" style="font-size:2rem;"></i><br>
+          ¡Comienza tu formación y accede a certificaciones profesionales Glazing™!<br>
+          <span class="small">Avanza de nivel para desbloquear beneficios exclusivos.</span>
+        </div>
+      }
+      @if (userLevel === 'Nivel 2 – Instalador en formación') {
+        <div class="alert alert-warning py-2 mb-0 text-center col-10 mx-auto">
+          <!-- <i class="bi bi-lightbulb" style="font-size:2rem;"></i><br> -->
+          Completa todos los módulos y evaluaciones para postularte como Instalador Certificado Glazing™.
+        </div>
+      }
+      @if (userLevel === 'Nivel 3 – Instalador Certificado Glazing™') {
+        <div class="alert alert-success py-2 mb-0 text-center">
+          <i class="bi bi-award" style="font-size:2rem;"></i><br>
+          ¡Felicidades! Eres parte de la red profesional Glazing™ y puedes acceder a todos los beneficios.
+        </div>
+      }
+    </div>
+
+    <div class="cert-list row mb-4 justify-content-center">
+      @if (certifications.length === 0) {
+        <div class="col-12 text-center py-5">
+          <i class="bi bi-emoji-sunglasses" style="font-size:3rem;color:#0056b3;"></i>
+          <h5 class="mt-3">Aún no tienes certificaciones</h5>
+          <p class="text-muted">Completa los cursos y módulos para obtener tu primer certificado digital Glazing™.<br>¡Tu progreso se reflejará aquí automáticamente!</p>
+        </div>
+      }
+      @for (cert of certifications; track cert.id) {
+        <div class="col-md-10 mb-3">
+          <div class="cert-card col-6 card h-100 p-3" style="box-shadow: 0 2px 8px rgba(0,32,96,0.08); border-radius: 12px; border: 1px solid #e0e6ed;">
+            <div class="card-body">
+              <h5 class="card-title"><i class="bi bi-patch-check"></i> {{ cert.name }}</h5>
+              <p class="card-text">{{ cert.description }}</p>
+              <p>Estado:
+                <span class="status badge bg-primary" *ngIf="cert.status === 'completado'">Completado</span>
+                <span class="status badge bg-secondary" *ngIf="cert.status === 'pendiente'">Pendiente</span>
+                <span class="status badge bg-info" *ngIf="cert.status === 'descargado'">Descargado</span>
+              </p>
+              @if (cert.status === 'completado') {
+                <button class="btn btn-primary w-100 mt-2">Descargar certificado</button>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    @if (userLevel === 'Nivel 2 – Instalador en formación' && canApply) {
+      <div class="col-10 mx-auto cert-apply-form card mb-4 p-4" style="box-shadow: 0 4px 24px rgba(0,32,96,0.10); border-radius: 16px; border: 1px solid #e0e6ed;">
+        <h4 class="mb-3 text-center">Postulación a Instalador Certificado Glazing™</h4>
+        <form (ngSubmit)="submitApplication()">
+          <div class="mb-3">
+            <label for="motivation" class="form-label">¿Por qué quieres ser Instalador Certificado?</label>
+            <textarea id="motivation" class="form-control" [(ngModel)]="application.motivation" name="motivation" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="experience" class="form-label">Experiencia relevante</label>
+            <input id="experience" class="form-control" [(ngModel)]="application.experience" name="experience" required />
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Enviar postulación</button>
+        </form>
+        <div *ngIf="feedback" class="mt-3 alert alert-info text-center">{{ feedback }}</div>
       </div>
     }
-  </div>
-  @if (userLevel === 'Nivel 2 – Instalador en formación' && canApply) {
-    <div class="cert-apply-form">
-      <h4>Postulación a Instalador Certificado Glazing™</h4>
-      <form (ngSubmit)="submitApplication()">
-        <div class="mb-3">
-          <label for="motivation" class="form-label">¿Por qué quieres ser Instalador Certificado?</label>
-          <textarea id="motivation" class="form-control" [(ngModel)]="application.motivation" name="motivation" required></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="experience" class="form-label">Experiencia relevante</label>
-          <input id="experience" class="form-control" [(ngModel)]="application.experience" name="experience" required />
-        </div>
-        <button type="submit" class="btn btn-success">Enviar postulación</button>
-      </form>
+    @if (userLevel === 'Nivel 2 – Instalador en formación' && !canApply) {
+      <div class="alert alert-secondary text-center mb-4">
+        <i class="bi bi-info-circle"></i> Debes completar todos los cursos y módulos antes de postularte.
+      </div>
+    }
+
+    <div class="col-10 mx-auto cert-info card p-4 mt-4" style="box-shadow: 0 2px 8px rgba(0,32,96,0.08); border-radius: 10px; border: 1px solid #e0e6ed;">
+      <h4 class="mb-2 text-center">¿Cómo obtener una certificación?</h4>
+      <ul class="mb-0">
+        <li><i class="bi bi-check-circle"></i> Completa todos los módulos y evaluaciones del curso.</li>
+        <li><i class="bi bi-file-earmark-arrow-down"></i> Solicita tu certificado digital desde esta sección.</li>
+        <li><i class="bi bi-person-badge"></i> Postúlate para ser Instalador Certificado Glazing™ si cumples los requisitos.</li>
+      </ul>
     </div>
-  }
-  <div class="cert-info">
-    <h4>¿Cómo obtener una certificación?</h4>
-    <ul>
-      <li>Completa todos los módulos y evaluaciones del curso.</li>
-      <li>Solicita tu certificado digital desde esta sección.</li>
-      <li>Postúlate para ser Instalador Certificado Glazing™ si cumples los requisitos.</li>
-    </ul>
   </div>
 </section>

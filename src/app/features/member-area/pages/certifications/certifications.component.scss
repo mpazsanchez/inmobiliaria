@@ -1,29 +1,66 @@
 .certifications {
-  max-width: 900px;
+  background: #f4f7fb;
+  min-height: 100vh;
+//   padding: 3rem 0;
+}
+.cert-main {
+//   max-width: 700px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(0,32,96,0.10);
+  padding: 1.2rem 1.2rem;
+//   max-width: 350px;
+  margin: 0 auto;
+}
+.cert-status {
+  margin-bottom: 2rem;
 }
 .cert-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
   margin-bottom: 2rem;
 }
 .cert-card {
-  background: #f7faff;
+  background: #f4f7fb;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0,32,96,0.08);
+  border: 1px solid #e0e6ed;
   padding: 1.5rem 2rem;
-  min-width: 280px;
-  flex: 1;
+  transition: box-shadow 0.2s;
+}
+.cert-card:hover {
+  box-shadow: 0 6px 24px rgba(0,32,96,0.12);
 }
 .status {
-  color: #28a745;
+  color: #0056b3;
   font-weight: bold;
 }
 .cert-info {
   background: #fff;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px rgba(0,32,96,0.08);
+  border: 1px solid #e0e6ed;
   padding: 1.2rem 1.5rem;
+}
+.cert-apply-form {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,32,96,0.10);
+  border: 1px solid #e0e6ed;
+  margin-bottom: 2rem;
+  padding: 2rem 1.5rem;
+}
+.btn-primary, .btn-success {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+.btn-primary:hover, .btn-success:hover {
+  background-color: #003a75;
+  border-color: #003a75;
+}
+.cert-list .bi-emoji-sunglasses {
+  display: block;
+  margin: 0 auto;
+}
+.cert-status .bi {
+  vertical-align: middle;
 }
