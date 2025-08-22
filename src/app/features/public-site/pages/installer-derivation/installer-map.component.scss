@@ -1,0 +1,35 @@
+.installer-map {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,32,96,0.10);
+  border: 1px solid #e0e6ed;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+.mock-map {
+  background: #f4f7fb;
+  border-radius: 12px;
+  border: 1px solid #e0e6ed;
+  padding: 1rem;
+  min-height: 200px;
+  position: relative;
+}
+.map-area {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 120px;
+}
+.map-marker {
+  font-size: 2rem;
+  color: #0056b3;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.map-marker.selected {
+  color: #28a745;
+  transform: scale(1.2);
+}
+.map-legend {
+  text-align: center;
+}

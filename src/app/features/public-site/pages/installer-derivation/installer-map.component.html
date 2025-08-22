@@ -1,0 +1,26 @@
+<div class="installer-map">
+  <h5 class="mb-3 text-center">Mapa de Instaladores Certificados</h5>
+  <!-- Aquí iría el mapa -->
+  <div class="mock-map">
+    <div class="map-area">
+      @for (installer of installers; track installer.id) {
+        <div class="map-marker"
+             [class.selected]="selectedInstaller && selectedInstaller.id === installer.id"
+             title="{{ installer.name }} - {{ installer.location }}">
+          <i class="bi bi-geo-alt-fill"></i>
+        </div>
+      }
+    </div>
+
+    <div class="map-legend mt-3">
+      <span class="badge bg-primary">Marcadores simulados</span>
+      @if (selectedInstaller) {
+        <span class="badge bg-success">Seleccionado: {{ selectedInstaller.name }}</span>
+      }
+      
+    </div>
+  </div>
+  <div class="alert alert-info mt-3">
+    Acá se mostrará la ubicación de los instaladores certificados.
+  </div>
+</div>
