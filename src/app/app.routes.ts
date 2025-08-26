@@ -25,7 +25,6 @@ export const routes: Routes = [
     component: PublicLayoutComponent,
     children: [
       { path: '', component: HomeTwoComponent, data: { title: 'Inicio - Glazing™' } },
-      { path: 'homevideo', component: HomeComponent, data: { title: 'Inicio - Glazing™' } },
       { path: 'contact', component: ContactComponent, data: { title: 'Contacto - Glazing™' } },
       { path: 'about', component: AboutUsComponent, data: { title: 'Nosotros - Glazing™' } },
       { path: 'products', component: ProductsComponent, data: { title: 'Productos y Servicios - Glazing™' } },
