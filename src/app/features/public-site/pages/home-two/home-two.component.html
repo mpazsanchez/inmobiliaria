@@ -13,10 +13,11 @@
 />
 <div style="padding: 80px 0;">
     <app-experience-section
-        [showCertification]="data()?.experience?.showCertification ?? true"
+        [showCertification]="false"
         [showCta]="data()?.experience?.showCta ?? true"
         [isAboutComponent]="data()?.experience?.isAboutComponent ?? false"
         [experienceData]="data()?.experience?.experienceData || {}"
+        [showClients]="true"
     />
 </div>
 <app-faq-section [faqItems]="data()?.faqs?.faqItems || []"/>

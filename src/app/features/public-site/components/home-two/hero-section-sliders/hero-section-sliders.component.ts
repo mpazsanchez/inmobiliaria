@@ -21,8 +21,8 @@ export class HeroSectionSlidersComponent {
 
   // Contact information for footer display
   contactInfo = {
-    address: 'Madrid, España & Buenos Aires, Argentina',
-    email: 'info@glazing.me'
+    address: 'Tandil, Buenos Aires, Argentina',
+    email: 'fairwayparquizacion@gmail.com'
   };
 
   trackBySlideId(index: number, item: SliderItem): string {

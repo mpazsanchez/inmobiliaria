@@ -2,10 +2,10 @@
 
 /* Services Section - Dark Modern Style */
 
-// Variables usando colores de marca Glazing
-$primary-blue: $blue-three; // #034EA2
-$secondary-blue: $blue-two; // #047BC1  
-$accent-blue: $blue-one; // #009ADE
+// Variables usando colores de marca Fairway
+$services-primary: $green-fairway;
+$services-secondary: $green-dark;
+$accent-primary: $green-accent;
 $dark-bg: #1a1a1a;
 $darker-bg: #151515;
 $light-text: #ffffff;
@@ -30,7 +30,7 @@ $muted-text: rgba(255, 255, 255, 0.7);
 }
 
 .section-subtitle {
-  color: $primary-blue;
+  color: $yellow-warm;
   font-size: 0.9rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -79,11 +79,11 @@ $muted-text: rgba(255, 255, 255, 0.7);
   
   &:hover {
     transform: translateY(-5px);
-    border-color: rgba($primary-blue, 0.3);
+    border-color: rgba($services-primary, 0.3);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
     
     .service-icon i {
-      color: $accent-blue;
+      color: $accent-primary;
       transform: scale(1.1);
     }
     
@@ -92,7 +92,7 @@ $muted-text: rgba(255, 255, 255, 0.7);
     }
     
     .explore-btn {
-      color: $accent-blue;
+      color: $accent-primary;
       
       i {
         transform: translateX(5px);
@@ -181,7 +181,7 @@ $muted-text: rgba(255, 255, 255, 0.7);
   align-self: flex-start;
   
   &:hover {
-    color: $accent-blue;
+    color: $accent-primary;
   }
   
   i {

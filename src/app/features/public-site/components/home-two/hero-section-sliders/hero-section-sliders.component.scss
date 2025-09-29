@@ -1,9 +1,9 @@
-/* Modern Hero Section - Architecture Style Design */
+@import '../../../../../../assets/styles/variables';
 
-// Variables - Usando colores de marca Glazing
-$hero-primary: #034EA2; // blue-three
-$hero-secondary: #047BC1; // blue-two  
-$hero-accent: #009ADE; // blue-one
+// Variables - Usando colores de marca Fairway
+$hero-primary: $green-fairway;
+$hero-secondary: $green-dark;
+$hero-accent: #2b8b52;
 $hero-dark: #1a1a1a;
 $hero-light: rgba(255, 255, 255, 0.9);
 $hero-overlay: rgba(0, 0, 0, 0.6);

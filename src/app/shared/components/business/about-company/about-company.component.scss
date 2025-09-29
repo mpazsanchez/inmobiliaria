@@ -3,12 +3,12 @@
 /* About Company Section - Modern Architecture Style */
 
 // Variables usando colores de marca Glazing
-$primary-blue: $blue-three; // #034EA2
-$secondary-blue: $blue-two; // #047BC1  
-$accent-blue: $blue-one; // #009ADE
-$dark-gray: $gray-three; // #333333
-$medium-gray: $gray-two; // #595959
-$light-gray: $gray-one; // #808080
+$about-primary: $green-fairway;
+$about-secondary: $green-dark;  
+$accent-primary: $green-accent; 
+$dark-gray: $gray-three; 
+$medium-gray: $gray-two; 
+$light-gray: $gray-one; 
 
 .about-company-section {
   padding: 100px 0;
@@ -141,7 +141,7 @@ $light-gray: $gray-one; // #808080
 }
 
 .section-subtitle {
-  color: $primary-blue;
+  color: $about-primary;
   font-size: 0.9rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -153,8 +153,7 @@ $light-gray: $gray-one; // #808080
 .section-title {
   font-size: 2.5rem;
   font-weight: 700;
-  // color: $dark-gray;
-  color: #2c3e50;
+  color: $dark-gray;
   line-height: 1.2;
   margin-bottom: 0;
   
@@ -209,7 +208,7 @@ $light-gray: $gray-one; // #808080
 .skill-percentage {
   font-size: 1rem;
   font-weight: 600;
-  color: $primary-blue;
+  color: $about-primary;
 }
 
 .skill-bar {
@@ -221,7 +220,7 @@ $light-gray: $gray-one; // #808080
 
 .skill-progress {
   height: 100%;
-  background: linear-gradient(90deg, $primary-blue 0%, $accent-blue 100%);
+  background: linear-gradient(90deg, $about-primary 0%, $accent-primary 100%);
   border-radius: 2px;
   transition: width 1.5s ease-in-out;
   animation: skillLoad 2s ease-in-out;
@@ -242,7 +241,7 @@ $light-gray: $gray-one; // #808080
 }
 
 .cta-button {
-  background-color: $primary-blue;
+  background-color: $about-primary;
   border: none;
   padding: 1rem 2.5rem;
   font-weight: 600;
@@ -252,9 +251,9 @@ $light-gray: $gray-one; // #808080
   transition: all 0.3s ease;
   
   &:hover {
-    background-color: $secondary-blue;
+    background-color: $about-secondary;
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba($primary-blue, 0.3);
+    box-shadow: 0 8px 25px rgba($about-primary, 0.3);
   }
   
   @media (max-width: 768px) {
@@ -302,12 +301,12 @@ $light-gray: $gray-one; // #808080
 .contact-phone {
   font-size: 1.25rem;
   font-weight: 700;
-  color: $primary-blue;
+  color: $about-primary;
   text-decoration: none;
   transition: color 0.3s ease;
   
   &:hover {
-    color: $accent-blue;
+    color: $accent-primary;
   }
 }
 

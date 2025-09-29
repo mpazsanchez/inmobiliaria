@@ -4,9 +4,9 @@ export const CONTACT_PAGE_MOCK = {
   subtitle: '¿Tenés dudas o querés solicitar presupuesto?',
   description: 'Completá el formulario y nuestro equipo te responderá a la brevedad. También podés contactarnos por teléfono o email.',
   contactInfo: {
-    phone: '+34 123 456 789',
-    email: 'info@glazing.me',
-    address: 'Madrid, España & Buenos Aires, Argentina',
+    phone: '0249 424-4568',
+    email: 'fairwayparquizacion@gmail.com',
+    address: 'Tandil, Buenos Aires, Argentina',
     horario: 'Lunes a Viernes de 9 a 18hs'
   },
   social: [

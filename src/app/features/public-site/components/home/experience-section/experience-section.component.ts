@@ -12,6 +12,7 @@ export class ExperienceSectionComponent {
   @Input() showCertification?: boolean = true;
   @Input() showCta?: boolean = true;
   @Input() isAboutComponent?: boolean = false;
+  @Input() showClients?: boolean = false;
 
   @Input() experienceData?: any = {};
 

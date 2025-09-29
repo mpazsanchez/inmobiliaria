@@ -19,9 +19,9 @@ export class PublicFooterComponent implements OnInit, OnDestroy {
   companyInfo = {
     name: 'Glazing',
     description: 'Especialistas en láminas solares de alta calidad. Protección, confort y eficiencia energética para tu hogar y oficina.',
-    address: 'Madrid, España & Buenos Aires, Argentina',
-    phone: '3515941464',
-    email: 'venta@glazing.me'
+    address: 'Tandil, Buenos Aires, Argentina',
+    phone: '0249 424-4568',
+    email: 'fairwayparquizacion@gmail.com'
   };
 
   // Navigation Links
