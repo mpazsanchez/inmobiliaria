@@ -44,10 +44,10 @@ export class PublicFooterComponent implements OnInit, OnDestroy {
 
   // Social Links
   socialLinks = [
-    { platform: 'Facebook', icon: 'fab fa-facebook-f', url: '#' },
-    { platform: 'Instagram', icon: 'fab fa-instagram', url: '#' },
-    { platform: 'TikTok', icon: 'fab fa-tiktok', url: '#' },
-    { platform: 'YouTube', icon: 'fab fa-youtube', url: '#' }
+    { platform: 'Facebook', icon: 'fab fa-facebook-f', url: 'https://www.facebook.com/fairway.parquizacion.integral/' },
+    { platform: 'Instagram', icon: 'fab fa-instagram', url: 'https://www.instagram.com/fairwayserviciosintegrales/?hl=fi' },
+    // { platform: 'TikTok', icon: 'fab fa-tiktok', url: '#' },
+    // { platform: 'YouTube', icon: 'fab fa-youtube', url: '#' }
   ];
 
   // Newsletter

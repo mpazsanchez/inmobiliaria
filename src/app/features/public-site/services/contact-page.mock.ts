@@ -10,12 +10,12 @@ export const CONTACT_PAGE_MOCK = {
     horario: 'Lunes a Viernes de 9 a 18hs'
   },
   social: [
-    { icon: 'fab fa-whatsapp', label: 'WhatsApp', url: 'https://wa.me/34123456789' },
-    { icon: 'fab fa-instagram', label: 'Instagram', url: 'https://instagram.com/glazing.me' },
-    { icon: 'fab fa-facebook', label: 'Facebook', url: 'https://facebook.com/glazing.me' }
+    { icon: 'fab fa-whatsapp', label: 'WhatsApp', url: 'https://wa.me/5492494380238' },
+    { icon: 'fab fa-instagram', label: 'Instagram', url: 'https://www.instagram.com/fairwayserviciosintegrales/' },
+    { icon: 'fab fa-facebook', label: 'Facebook', url: 'https://www.facebook.com/fairway.parquizacion.integral/' }
   ],
   map: {
-    iframeUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d...' // Reemplazar por el embed real
+    iframeUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d...'
   },
   formFields: [
     { name: 'nombre', label: 'Nombre', type: 'text', required: true },
