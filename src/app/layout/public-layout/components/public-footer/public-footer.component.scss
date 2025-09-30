@@ -55,7 +55,7 @@
 .brand-name {
   font-size: 1.8rem;
   font-weight: 700;
-  color: $blue-one;
+  color: $green-accent;
   margin: 0;
   letter-spacing: -0.02em;
 }
@@ -79,7 +79,7 @@
   margin-bottom: 1rem;
   
   i {
-    color: $blue-one;
+    color: $green-accent;
     width: 20px;
     margin-right: 12px;
     font-size: 0.9rem;
@@ -92,7 +92,7 @@
     transition: color 0.3s ease;
     
     &:hover {
-      color: $blue-one;
+      color: $green-accent;
     }
   }
 }
@@ -117,8 +117,8 @@
   transition: all 0.3s ease;
   
   &:hover {
-    background: $blue-one;
-    border-color: $blue-one;
+    background: $green-accent;
+    border-color: $green-accent;
     color: white;
     transform: translateY(-2px);
   }
@@ -143,7 +143,7 @@
     left: 0;
     width: 30px;
     height: 2px;
-    background: $blue-one;
+    background: $green-accent;
   }
 }
 
@@ -170,7 +170,7 @@
   display: inline-block;
   
   &:hover {
-    color: $blue-one;
+    color: $green-accent;
     transform: translateX(3px);
   }
 }
@@ -205,7 +205,7 @@
   
   &:focus {
     background: rgba(255, 255, 255, 0.15);
-    border-color: $blue-one;
+    border-color: $green-accent;
     box-shadow: none;
     outline: none;
     color: white;
@@ -213,8 +213,8 @@
 }
 
 .newsletter-btn {
-  background: $blue-one;
-  border: 1px solid $blue-one;
+  background: $green-accent;
+  border: 1px solid $green-accent;
   color: white;
   padding: 12px 20px;
   border-radius: 0;
@@ -253,7 +253,7 @@
   margin: 0;
   
   .brand-highlight {
-    color: $blue-one;
+    color: $green-accent;
     font-weight: 600;
   }
 }
@@ -277,7 +277,7 @@
   transition: color 0.3s ease;
   
   &:hover {
-    color: $blue-one;
+    color: $green-accent;
   }
 }
 

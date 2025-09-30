@@ -189,9 +189,20 @@ export class HomeTwoPageService {
               },
             ],
             cta: {
-              text: '¿Querés una consulta técnica personalizada? Nuestro equipo te asesora sin cargo.',
-              button: 'Solicitar Consulta',
+              text: '¿Querés saber solicitar una cotización para tu proyecto?',
+              button: 'Contactanos',
             },
+            clients: [
+              { name: 'Cannon', logo: './assets/images/clients/cannon.jpg' },
+              { name: 'Carrefour', logo: './assets/images/clients/carrefour.png' },
+              { name: 'Constructora Vasquez', logo: './assets/images/clients/constructora vasquez.png' },
+              { name: 'DIA', logo: './assets/images/clients/dia.png' },
+              { name: 'Faro Verde', logo: './assets/images/clients/faro verde - black.png' },
+              { name: 'Felfort', logo: './assets/images/clients/felfort.png' },
+              { name: 'Globant', logo: './assets/images/clients/globant.png' },
+              { name: 'Shell', logo: './assets/images/clients/shell.png' },
+              { name: 'YPF', logo: './assets/images/clients/ypf.png' }
+            ],
           },
         },
         faqs: {

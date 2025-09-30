@@ -17,8 +17,8 @@ export class PublicFooterComponent implements OnInit, OnDestroy {
 
   // Company Info
   companyInfo = {
-    name: 'Glazing',
-    description: 'Especialistas en láminas solares de alta calidad. Protección, confort y eficiencia energética para tu hogar y oficina.',
+    name: 'Fairway',
+    description: ' Servicios Integrales -  Seguridad, Paisajismo, Urbanismo, Industria y Agro.',
     address: 'Tandil, Buenos Aires, Argentina',
     phone: '0249 424-4568',
     email: 'fairwayparquizacion@gmail.com'

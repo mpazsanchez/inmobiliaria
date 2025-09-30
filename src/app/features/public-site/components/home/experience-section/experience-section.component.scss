@@ -16,11 +16,12 @@ $gray-two: #6c757d;
 .clients-badge {
   display: inline-flex;
   align-items: center;
-  color: #034EA2;
+  color: #333333;
+  font-weight: 600;
   padding: 12px 25px;
   border-radius: 50px;
-  font-size: 1.2rem;
-  margin-bottom: 1.5rem;
+  font-size: 40px;
+  // margin-bottom: 1.5rem;
   i {
     margin-right: 10px;
     font-size: 1.3rem;
@@ -137,7 +138,7 @@ $gray-two: #6c757d;
   font-size: 2.5rem;
   font-weight: 700;
   // color: $gray-three;
-  color: #2c3e50;
+  color: #333333;
   margin-bottom: 1rem;
   line-height: 1.2;
   
@@ -354,8 +355,7 @@ $gray-two: #6c757d;
 }
 
 .cta-button {
-//   background: linear-gradient(135deg, $blue-one, $blue-two);
-background-color: #034EA2;
+background-color: black;
   border: none;
   padding: 15px 40px;
   font-size: 1.1rem;

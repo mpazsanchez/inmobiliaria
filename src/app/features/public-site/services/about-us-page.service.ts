@@ -44,7 +44,7 @@ export class AboutUsPageService {
             coverage: 'Todo el país',
           },
           company: {
-            title: 'Brindamos soluciones seguras, estéticas y duraderas',
+            title: 'Brindamos soluciones innovadoras y personalizadas para cada cliente',
             subtitle:
               'Con una larga trayectoria en el rubro y un profundo compromiso con la calidad y la satisfacción de cada cliente.',
             description:
