@@ -13,11 +13,28 @@
                 <!-- Texto Descriptivo -->
                 <div class="content-text">
                     <h2 class="section-title text-left">{{ content.title }}</h2>
-                    <p class="text-description text-left" [innerHTML]="content.description">
-                        <!-- {{ content.description }} -->
-                    </p>
+                    <ng-container *ngIf="content.blocks">
+                            <ng-container *ngIf="content?.blocks?.length; else showDescription">
+                                <div *ngFor="let block of content.blocks" class="service-block mb-4">
+                                    <h3 class="service-subtitle">{{ block.subtitle }}</h3>
+                                    <ul>
+                                        <li *ngFor="let item of block.items">{{ item }}</li>
+                                    </ul>
+                                </div>
+                            </ng-container>
+                            <ng-template #showDescription>
+                                <div *ngIf="content?.description?.length">
+                                    <div *ngFor="let item of content.description">
+                                        <span>{{ item }}</span>
+                                    </div>
+                                </div>
+                            </ng-template>
+                    </ng-container>
+                    <ng-container *ngIf="!content.blocks">
+                        <p class="text-description text-left" [innerHTML]="content.description"></p>
+                    </ng-container>
 
-                    @if (content.highlightedFeatures.length > 0) {
+                    <!-- @if (content.highlightedFeatures.length > 0) {
                     <ul class="feature-list text-left d-flex flex-wrap col-12 align-items-start">
                         @for (feature of content.highlightedFeatures; track $index) {
                         <li class="col-3 align-items-baseline">
@@ -26,7 +43,7 @@
                         </li>
                         }
                     </ul>
-                    }
+                    } -->
                 </div>
             </div>
 

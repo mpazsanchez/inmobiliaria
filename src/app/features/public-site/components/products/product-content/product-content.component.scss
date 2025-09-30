@@ -53,7 +53,7 @@
         font-weight: 600;
         color: $black-two;
         margin-bottom: 1.5rem;
-        letter-spacing: 3px;
+        letter-spacing: 2px;
         
         @media (max-width: 768px) {
           font-size: 1.8rem;
@@ -75,30 +75,129 @@
         }
       }
       
-      .feature-list {
-        gap: 10px;
+      .feature-list-horizontal {
         display: flex;
-        list-style: none;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
         margin-top: 2rem;
-        justify-content: space-around;
+        margin-bottom: 2rem;
+      }
+      .feature-pill {
+        background: linear-gradient(90deg, #f9b233 0%, #1a7f4f 100%);
+        color: #fff;
+        font-weight: 600;
+        border-radius: 24px;
+        font-size: 1.08rem;
+        box-shadow: 0 2px 8px rgba(26,127,79,0.07);
+        padding: 0.7rem 1.5rem;
+        letter-spacing: 0.5px;
+        transition: background 0.2s;
+        display: inline-block;
+        text-align: center;
+        border: none;
+      }
+      .feature-pill:hover {
+        background: linear-gradient(90deg, #1a7f4f 60%, #f9b233 100%);
+        color: #fff;
+      }
+    }
+    // Estilos Fairway para bloques de servicios
+    .service-block {
+      background: #f8fafc;
+      border-radius: 18px;
+      box-shadow: 0 2px 12px rgba(26,127,79,0.07);
+      margin-bottom: 2.8rem;
+      padding: 2.2rem 2.7rem;
+      border: 1px solid #e0e7ef;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      transition: box-shadow 0.2s;
+    }
 
-        padding: 24px;
-        border-radius: 8px;
-        background-color: rgb(243 243 243);
-        
-        li {
-          display: flex;
-          align-items: center;
-          margin-bottom: 0.8rem;
-          font-size: 1rem;
-          color: #333;
-          
-          i {
-            margin-right: 0.8rem;
-            color: $blue-one;
-            font-size: 0.9rem;
-          }
-        }
+    .service-block:not(:last-child) {
+      margin-bottom: 2.8rem;
+    }
+
+    .service-block:hover {
+      box-shadow: 0 6px 24px rgba(26,127,79,0.13);
+      border-color: #1a7f4f33;
+    }
+
+    .service-subtitle {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1a7f4f;
+      margin-bottom: 1.1rem;
+      letter-spacing: 0.5px;
+      text-align: left;
+      position: relative;
+      padding-left: 44px;
+      line-height: 1.2;
+    }
+    .service-subtitle::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 5px;
+      background: linear-gradient(90deg, #1a7f4f 60%, #f9b233 100%);
+      border-radius: 2px;
+      margin-right: 12px;
+      vertical-align: middle;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 0.5rem;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+    li {
+      font-size: 1.08rem;
+      color: #222;
+      margin-bottom: 0.3rem;
+      padding-left: 32px;
+      position: relative;
+      line-height: 1.7;
+      min-height: 28px;
+      display: flex;
+      align-items: center;
+    }
+    li::before {
+      content: '\2714';
+      color: #1a7f4f;
+      font-size: 1.15rem;
+      margin-right: 12px;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    @media (max-width: 900px) {
+      .service-block {
+        padding: 1.2rem 0.7rem;
+      }
+      .service-subtitle {
+        font-size: 1.08rem;
+        padding-left: 28px;
+      }
+      li {
+        font-size: 0.98rem;
+        padding-left: 22px;
+      }
+      .service-subtitle::before {
+        width: 18px;
+        height: 4px;
       }
     }
   }

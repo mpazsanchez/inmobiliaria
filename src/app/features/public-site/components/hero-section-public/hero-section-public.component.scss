@@ -107,13 +107,13 @@
             transition: color 0.3s ease;
             
             &:hover {
-              color: $blue-one;
+              color: white;
             }
           }
           
           &.active {
-            color: $blue-one;
-            font-weight: 600;
+            color: white;
+            font-weight: 800;
           }
           
           + .breadcrumb-item::before {

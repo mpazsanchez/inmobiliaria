@@ -77,7 +77,11 @@ export interface ProductContent {
   mainImage: string;
   mainImageAlt: string;
   title: string;
-  description: string[];
+  description?: string[];
+  blocks?: Array<{
+    subtitle: string;
+    items: string[];
+  }>;
   highlightedFeatures: string[];
 }
 
