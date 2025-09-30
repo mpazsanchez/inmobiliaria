@@ -321,7 +321,7 @@ export class ProductDetailPageService {
               'Brindamos servicios integrales para el sector agropecuario, desde la siembra y cosecha hasta la administración, logística y venta de insumos.'
             ],
             heroData: {
-              bannerImage: '/assets/images/backgrounds/bg-4.png',
+              bannerImage: '/assets/images/backgrounds/fairway/agro-1.jpg',
               title: 'Agro',
               subtitle: 'Soluciones para el campo',
               breadcrumbTextOne: 'Inicio',
@@ -329,7 +329,7 @@ export class ProductDetailPageService {
               breadcrumbTextThree: 'Agro',
             },
             content: {
-              mainImage: '/assets/images/backgrounds/bg-4.png',
+              mainImage: '/assets/images/backgrounds/fairway/agro.jpg',
               mainImageAlt: 'Agro',
               title: 'Servicios Agropecuarios',
               blocks: [
@@ -649,7 +649,7 @@ export class ProductDetailPageService {
               'Ofrecemos servicios integrales de seguridad: venta e instalación de cámaras, domótica, alarmas y control de acceso.'
             ],
             heroData: {
-              bannerImage: '/assets/images/backgrounds/bg-2.png',
+              bannerImage: '/assets/images/backgrounds/fairway/slide-4.jpg',
               title: 'Seguridad',
               subtitle: 'Protección y tecnología para tu espacio',
               breadcrumbTextOne: 'Inicio',
@@ -657,7 +657,7 @@ export class ProductDetailPageService {
               breadcrumbTextThree: 'Seguridad',
             },
             content: {
-              mainImage: '/assets/images/backgrounds/bg-2.png',
+              mainImage: '/assets/images/backgrounds/fairway/seguridad.jpg',
               mainImageAlt: 'Seguridad',
               title: 'Servicios de Seguridad',
               blocks: [
