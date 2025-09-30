@@ -473,8 +473,13 @@
 
 
 .cta-section {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
+  background-image: url('/assets/images/backgrounds/fairway/paisajismo-1-black.png');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 60px 0;
+
 }
 
 .cta-content {
@@ -484,14 +489,14 @@
 
 .cta-text {
   font-size: 1.2rem;
-  color: $gray-two;
+  color: white;
   margin-bottom: 2rem;
   line-height: 1.6;
 }
 
 .cta-button {
   //   background: linear-gradient(135deg, $blue-one, $blue-two);
-  background-color: #034EA2;
+  background: linear-gradient(135deg, $green-fairway, #0f3820);
   border: none;
   padding: 15px 40px;
   font-size: 1.1rem;
@@ -500,11 +505,12 @@
   //   border-radius: 30px;
   margin-bottom: 1.5rem;
   transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(36, 41, 36, 0.808);
 
   &:hover {
-    background: linear-gradient(135deg, $blue-two, $blue-three);
+    background: linear-gradient(135deg, $green-dark, #0a2415);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 154, 222, 0.3);
+    box-shadow: 0 8px 25px rgb(41, 83, 44);
   }
 
   @media (max-width: 576px) {
@@ -516,7 +522,7 @@
 .security-badge {
   display: inline-flex;
   align-items: center;
-  color: $gray-two;
+  color: white;
   font-size: 0.9rem;
   font-weight: 500;
 

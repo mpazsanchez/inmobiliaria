@@ -29,7 +29,7 @@ export class ProductDetailPageService {
               'Ofrecemos servicios completos de paisajismo, desde el diseño y diagnóstico hasta la ejecución y mantenimiento de espacios verdes, arquitectura paisajística, ingeniería y venta de plantas y accesorios.'
             ],
             heroData: {
-              bannerImage: '/assets/images/backgrounds/bg-1.png',
+              bannerImage: '/assets/images/backgrounds/fairway/paisajismo.jpg',
               title: 'Paisajismo',
               subtitle: 'Soluciones integrales para espacios verdes',
               breadcrumbTextOne: 'Inicio',
@@ -37,7 +37,7 @@ export class ProductDetailPageService {
               breadcrumbTextThree: 'Paisajismo',
             },
             content: {
-              mainImage: '/assets/images/backgrounds/bg-1.png',
+              mainImage: '/assets/images/backgrounds/fairway/paisajismo-1.jpg',
               mainImageAlt: 'Paisajismo',
               title: 'Servicios de Paisajismo',
               description: [
