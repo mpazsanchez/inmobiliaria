@@ -37,6 +37,8 @@ export const routes: Routes = [
       // Rutas específicas legacy (se pueden mantener por compatibilidad)
       { path: 'products/solar-protection-film', component: SolarProtectionFilmComponent, data: { title: 'Láminas de Protección Solar - Glazing™' } },
 
+  { path: 'services/:slug', component: ProductDetailComponent, data: { title: 'Servicio - Fairway' } },
+
     ]
   },
 
