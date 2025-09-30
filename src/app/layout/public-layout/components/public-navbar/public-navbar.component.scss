@@ -8,8 +8,9 @@ $accent-color: #ff0080;
 $text-dark: $black-one;
 $text-light: rgba(255, 255, 255, 0.9); // Texto blanco para navbar transparente
 $text-muted: rgba(255, 255, 255, 0.7);
-$background-transparent: #1a4d2e5d; // Fondo más transparente
-$background-transparent: rgb(134 143 137 / 66%);
+// $background-transparent: #1a4d2e5d; // Fondo más transparente
+// $background-transparent: rgb(134 143 137 / 66%);
+$background-transparent: rgb(7 16 10);
 $background-blur: rgba(0, 0, 0, 0.2); // Fondo con blur más sutil
 $shadow-subtle: 0 0 0 1px rgba(255, 255, 255, 0.1);
 $shadow-elevated: 0 8px 30px rgba(0, 0, 0, 0.15);

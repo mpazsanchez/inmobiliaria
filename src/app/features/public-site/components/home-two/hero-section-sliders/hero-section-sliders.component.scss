@@ -421,8 +421,10 @@ ngb-carousel,
 /* Social Media Icons */
 .hero-social {
   position: absolute;
-  right: 10rem;
-  bottom: 2rem;
+  // right: 10rem;
+  // bottom: 2rem;
+  right: 9rem;
+  bottom: 45%;
   z-index: 3;
   display: flex;
   flex-direction: column;
