@@ -191,7 +191,8 @@ export class ProductDetailPageService {
               'Ofrecemos servicios integrales de urbanismo, desde arquitectura y diseño de planos hasta construcción, movimiento de suelo, herrería, durlock y carpintería.'
             ],
             heroData: {
-              bannerImage: '/assets/images/backgrounds/bg-2.png',
+              // bannerImage: '/assets/images/backgrounds/fairway/urbanismo-1.jpg',
+              bannerImage: '/assets/images/backgrounds/fairway/urbanismo.jpg',
               title: 'Urbanismo',
               subtitle: 'Obras, construcción y servicios esenciales',
               breadcrumbTextOne: 'Inicio',
@@ -199,7 +200,7 @@ export class ProductDetailPageService {
               breadcrumbTextThree: 'Urbanismo',
             },
             content: {
-              mainImage: '/assets/images/backgrounds/bg-2.png',
+              mainImage: '/assets/images/backgrounds/fairway/urbanismo-1.jpg',
               mainImageAlt: 'Urbanismo',
               title: 'Servicios de Urbanismo',
               blocks: [
@@ -430,7 +431,7 @@ export class ProductDetailPageService {
               'Soluciones integrales para la industria: ingeniería, cálculos estructurales, gestión ambiental, higiene y seguridad.'
             ],
             heroData: {
-              bannerImage: '/assets/images/backgrounds/bg-3.png',
+              bannerImage: '/assets/images/backgrounds/fairway/industria.jpg',
               title: 'Industria',
               subtitle: 'Soluciones integrales para la industria',
               breadcrumbTextOne: 'Inicio',
@@ -438,7 +439,7 @@ export class ProductDetailPageService {
               breadcrumbTextThree: 'Industria',
             },
             content: {
-              mainImage: '/assets/images/backgrounds/bg-3.png',
+              mainImage: '/assets/images/backgrounds/fairway/industria.jpg',
               mainImageAlt: 'Industria',
               title: 'Servicios Industriales',
               blocks: [
