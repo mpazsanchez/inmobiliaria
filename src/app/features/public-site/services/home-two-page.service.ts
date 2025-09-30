@@ -29,7 +29,7 @@ export class HomeTwoPageService {
               text: 'CONOCÉ NUESTRAS SOLUCIONES',
               action: 'discover',
             },
-            secondaryButton: { text: 'Ver Instalaciones', action: 'video' },
+            secondaryButton: { text: 'Contactanos', action: 'video' },
           },
           {
             id: 'slide-2',

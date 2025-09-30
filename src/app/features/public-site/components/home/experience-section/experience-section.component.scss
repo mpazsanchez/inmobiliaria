@@ -366,9 +366,9 @@ background-color: black;
   transition: all 0.3s ease;
   
   &:hover {
-    background: linear-gradient(135deg, $blue-two, $blue-three);
+    background: linear-gradient(135deg, black, $green-fairway);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 154, 222, 0.3);
+    box-shadow: 0 8px 25px rgba(54, 60, 63, 0.3);
   }
   
   @media (max-width: 576px) {

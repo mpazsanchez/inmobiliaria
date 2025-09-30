@@ -191,7 +191,8 @@ ngb-carousel,
 }
 
 .hero-btn-primary {
-  background-color: $hero-primary;
+  // background-color: $hero-primary;
+  background: linear-gradient(-251deg, #112718, #1f5532);
   border: none;
   padding: 1rem 2rem;
   font-weight: 600;
