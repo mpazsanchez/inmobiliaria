@@ -18,9 +18,9 @@
                     </p>
 
                     @if (content.highlightedFeatures.length > 0) {
-                    <ul class="feature-list text-left">
+                    <ul class="feature-list text-left d-flex flex-wrap col-12 align-items-start">
                         @for (feature of content.highlightedFeatures; track $index) {
-                        <li>
+                        <li class="col-3 align-items-baseline">
                             <i class="fas fa-check text-primary"></i>
                             {{ feature }}
                         </li>

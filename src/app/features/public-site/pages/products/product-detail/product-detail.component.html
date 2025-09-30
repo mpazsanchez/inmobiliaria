@@ -26,19 +26,7 @@
     <!-- Hero Section -->
     <app-product-hero [heroData]="data().product.heroData" />
 
-    <!-- Main Content -->
-    <section class="product-content-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <h2 class="section-title">{{ data().product.content.title }}</h2>
-            <div class="section-description">
-              {{ data().product.content.description.join(' ') }}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Main Content solo en product-content -->
 
     <app-product-content 
       [content]="data().product.content"
