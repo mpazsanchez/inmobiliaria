@@ -4,7 +4,7 @@ $gray-two: #6c757d;
 .clients-section {
   background: linear-gradient(135deg, #f8f9fa, #e9ecef);
   padding: 3rem 2rem;
-  margin: 4rem 0;
+  margin: 3rem 0;
   position: relative;
   border-radius: 20px;
 
@@ -607,5 +607,16 @@ $gray-two: #6c757d;
   
   i {
     color: #28a745;
+  }
+
+  @media (max-width: 575px) {
+    flex-direction: column;
+    text-align: center;
+    font-size: 0.85rem;
+    gap: 4px;
+
+    i {
+      margin-bottom: 4px;
+    }
   }
 }
