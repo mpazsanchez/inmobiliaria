@@ -10,6 +10,7 @@ $text-dark: $black-one;
 $text-light: rgba(255, 255, 255, 0.9);
 $text-muted: rgba(255, 255, 255, 0.7);
 $background-transparent: rgb(7 16 10 / 48%);
+$background-transparent-mobile: rgb(7 16 10 / 81%);
 $background-blur: rgba(0, 0, 0, 0.2);
 $shadow-subtle: 0 0 0 1px rgba(255, 255, 255, 0.1);
 $shadow-elevated: 0 8px 30px rgba(0, 0, 0, 0.15);
@@ -32,6 +33,10 @@ $transition-fast: all 0.2s ease;
   
   @media (max-width: 991px) {
     height: $navbar-height-mobile;
+  }
+
+  @media (max-width: 575px) {
+    background: $background-transparent-mobile;
   }
 
   &.scrolled {
@@ -138,7 +143,7 @@ $transition-fast: all 0.2s ease;
       }
       
       @media (max-width: 575px) {
-        height: 35px;
+        height: 50px;
       }
     }
   }
@@ -460,7 +465,7 @@ $transition-fast: all 0.2s ease;
             }
             
             &.dropdown-toggle {
-              color: #2c3e50 !important;
+              color: #333333 !important;
               
               &:hover {
                 color: $green-fairway !important;
