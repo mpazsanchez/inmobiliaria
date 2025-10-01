@@ -26,6 +26,21 @@
                [class.show]="!isMenuCollapsed" 
                id="navbarNav">
             
+            <!-- Header del menú móvil -->
+            <div class="mobile-menu-header d-lg-none">
+              <button class="close-menu" 
+                      type="button"
+                      (click)="toggleMobileMenu()"
+                      aria-label="Cerrar menú">
+                <i class="fas fa-times"></i>
+              </button>
+              <div class="menu-logo">
+                <img [src]="'./assets/images/logos/logotipo.png'" 
+                     [alt]="config.companyName">
+                <span>{{ config.companyName }}</span>
+              </div>
+            </div>
+            
             <ul class="navbar-nav main-nav">
 
               @for (item of mainMenuItems; track item.id) {
@@ -36,7 +51,6 @@
                     <a class="nav-link" 
                        [href]="item.link"
                        (click)="onMenuItemClick(item, $event)">
-                       <!-- <i [class]="item.icon"></i> -->
                       {{ item.titleShow }}
                     </a>
                   }
