@@ -19,7 +19,7 @@ export class HomeTwoPageService {
         heroSliders: [
           {
             id: 'slide-1',
-            imageUrl: './assets/images/backgrounds/fairway/slide-1.jpg',
+            imageUrl: './assets/images/backgrounds/fairway/slide-1.webp',
             altText: 'Instalación profesional de láminas solares Glazing',
             title: 'SOLUCIONES INTEGRALES',
             subtitle: 'PARA EL AGRO',
@@ -33,7 +33,7 @@ export class HomeTwoPageService {
           },
           {
             id: 'slide-2',
-            imageUrl: './assets/images/backgrounds/fairway/slide-2.jpg',
+            imageUrl: './assets/images/backgrounds/fairway/slide-2.webp',
             altText: 'Red de instaladores certificados Glazing',
             title: 'DISEÑO Y DESARROLLO',
             subtitle: 'DE ESPACIOS URBANOS',
@@ -47,7 +47,7 @@ export class HomeTwoPageService {
           },
           {
             id: 'slide-3',
-            imageUrl: './assets/images/backgrounds/fairway/slide-3.jpg',
+            imageUrl: './assets/images/backgrounds/fairway/slide-3.webp',
             altText: 'Alarma y seguridad',
             title: 'SEGURIDAD',
             subtitle: 'Y PROTECCIÓN',

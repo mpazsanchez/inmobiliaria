@@ -1,21 +1,11 @@
 import { Routes } from '@angular/router';
 import { PublicLayoutComponent } from './layout/public-layout/public-layout.component';
-import { MemberLayoutComponent } from './layout/member-layout/member-layout.component';
 import { HomeComponent } from './features/public-site/pages/home/home.component';
 import { HomeTwoComponent } from './features/public-site/pages/home-two/home-two.component';
 import { ContactComponent } from './features/public-site/pages/contact/contact.component';
 import { AboutUsComponent } from './features/public-site/pages/about-us/about-us.component';
-import { ProductsComponent } from './features/public-site/pages/products/products.component';
-import { SolarProtectionFilmComponent } from './features/public-site/pages/products/films/solar-protection-film/solar-protection-film.component';
 import { ProductDetailComponent } from './features/public-site/pages/products/product-detail/product-detail.component';
-import { ProductTypeDetailComponent } from './features/public-site/pages/products/product-type-detail/product-type-detail.component';
 import { LoginComponent } from './features/member-area/pages/login/login.component';
-import { DashboardComponent } from './features/member-area/pages/dashboard/dashboard.component';
-import { TrainingCatalogComponent } from './features/member-area/pages/training/training-catalog/training-catalog.component';
-import { CourseDetailComponent } from './features/member-area/pages/training/course-detail/course-detail.component';
-import { authGuard } from './features/member-area/guards/auth.guard';
-import { CertificationsComponent } from './features/member-area/pages/certifications/certifications.component';
-import { InstallerDerivationComponent } from './features/public-site/pages/installer-derivation/installer-derivation.component';
 
 export const routes: Routes = [
   // ============ SITIO PÚBLICO ============
