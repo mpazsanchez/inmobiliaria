@@ -3,15 +3,39 @@ $gray-two: #6c757d;
 // Sección de clientes destacados
 .clients-section {
   background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-  // padding: 3rem 2rem;
-  padding: 1.5rem 2rem 3rem 2rem;
+  padding: 3rem 2rem;
   margin: 4rem 0;
   position: relative;
   border-radius: 20px;
+  
+  @media (max-width: 991px) {
+    padding: 2.5rem 1.5rem;
+    margin: 3rem 0;
+  }
+  
+  @media (max-width: 767px) {
+    padding: 2rem 1rem;
+    margin: 2rem 0;
+    border-radius: 15px;
+  }
+  
+  @media (max-width: 575px) {
+    padding: 1.5rem 1rem;
+    margin: 1.5rem 0;
+    border-radius: 12px;
+  }
 }
 
 .clients-header {
   margin-bottom: 3rem;
+  
+  @media (max-width: 767px) {
+    margin-bottom: 2rem;
+  }
+  
+  @media (max-width: 575px) {
+    margin-bottom: 1.5rem;
+  }
 }
 
 .clients-badge {
@@ -21,11 +45,31 @@ $gray-two: #6c757d;
   font-weight: 600;
   padding: 12px 25px;
   border-radius: 50px;
-  font-size: 40px;
-  // margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  
+  @media (max-width: 991px) {
+    font-size: 1.3rem;
+    padding: 10px 20px;
+  }
+  
+  @media (max-width: 767px) {
+    font-size: 1.2rem;
+    padding: 8px 16px;
+  }
+  
+  @media (max-width: 575px) {
+    font-size: 1.1rem;
+    padding: 6px 12px;
+  }
+  
   i {
     margin-right: 10px;
     font-size: 1.3rem;
+    
+    @media (max-width: 767px) {
+      font-size: 1.1rem;
+      margin-right: 8px;
+    }
   }
 }
 
@@ -35,6 +79,21 @@ $gray-two: #6c757d;
   max-width: 800px;
   margin: 0 auto;
   line-height: 1.6;
+  
+  @media (max-width: 991px) {
+    font-size: 1.05rem;
+    max-width: 700px;
+  }
+  
+  @media (max-width: 767px) {
+    font-size: 1rem;
+    max-width: 100%;
+    line-height: 1.5;
+  }
+  
+  @media (max-width: 575px) {
+    font-size: 0.95rem;
+  }
 }
 
 .clients-logos-grid {
@@ -43,6 +102,18 @@ $gray-two: #6c757d;
   gap: 2rem;
   justify-content: center;
   align-items: center;
+  
+  @media (max-width: 991px) {
+    gap: 1.5rem;
+  }
+  
+  @media (max-width: 767px) {
+    gap: 1rem;
+  }
+  
+  @media (max-width: 575px) {
+    gap: 0.75rem;
+  }
 }
 
 .client-logo-item {
@@ -56,6 +127,27 @@ $gray-two: #6c757d;
   min-width: 120px;
   min-height: 80px;
   transition: box-shadow 0.3s;
+  
+  @media (max-width: 991px) {
+    padding: 0.875rem 1.75rem;
+    min-width: 110px;
+    min-height: 75px;
+  }
+  
+  @media (max-width: 767px) {
+    padding: 0.75rem 1.5rem;
+    min-width: 100px;
+    min-height: 70px;
+    border-radius: 10px;
+  }
+  
+  @media (max-width: 575px) {
+    padding: 0.625rem 1.25rem;
+    min-width: 90px;
+    min-height: 60px;
+    border-radius: 8px;
+  }
+  
   &:hover {
     box-shadow: 0 6px 20px rgba(0,154,222,0.12);
   }
@@ -67,6 +159,22 @@ $gray-two: #6c757d;
   object-fit: contain;
   filter: grayscale(0.2);
   transition: filter 0.3s;
+  
+  @media (max-width: 991px) {
+    max-width: 90px;
+    max-height: 55px;
+  }
+  
+  @media (max-width: 767px) {
+    max-width: 80px;
+    max-height: 50px;
+  }
+  
+  @media (max-width: 575px) {
+    max-width: 70px;
+    max-height: 45px;
+  }
+  
   &:hover {
     filter: none;
   }
@@ -74,13 +182,20 @@ $gray-two: #6c757d;
 @import '../../../../../../assets/styles/_variables.scss';
 
 .experience-section {
-  // padding: 80px 0;
   background: white;
   position: relative;
 }
 
 .stats-header {
   margin-bottom: 4rem;
+  
+  @media (max-width: 767px) {
+    margin-bottom: 3rem;
+  }
+  
+  @media (max-width: 575px) {
+    margin-bottom: 2rem;
+  }
 }
 
 .stat-item {
@@ -105,13 +220,33 @@ $gray-two: #6c757d;
   background-clip: text;
   margin-bottom: 0.5rem;
   
+  @media (max-width: 991px) {
+    font-size: 2.75rem;
+  }
+  
+  @media (max-width: 767px) {
+    font-size: 2.5rem;
+  }
+  
+  @media (max-width: 575px) {
+    font-size: 2.25rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 2rem;
+  }
+  
   i {
     font-size: 2.5rem;
     color: $blue-two;
-  }
-  
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
+    
+    @media (max-width: 767px) {
+      font-size: 2rem;
+    }
+    
+    @media (max-width: 575px) {
+      font-size: 1.75rem;
+    }
   }
 }
 
@@ -126,6 +261,10 @@ $gray-two: #6c757d;
 .experience-content {
   padding-right: 2rem;
   
+  @media (max-width: 1199px) {
+    padding-right: 1.5rem;
+  }
+  
   @media (max-width: 991px) {
     padding-right: 0;
   }
@@ -133,18 +272,43 @@ $gray-two: #6c757d;
 
 .section-header {
   margin-bottom: 2rem;
+  
+  @media (max-width: 767px) {
+    margin-bottom: 1.5rem;
+  }
+  
+  @media (max-width: 575px) {
+    margin-bottom: 1.25rem;
+  }
 }
 
 .section-title {
   font-size: 2.5rem;
   font-weight: 700;
-  // color: $gray-three;
   color: #333333;
   margin-bottom: 1rem;
   line-height: 1.2;
   
-  @media (max-width: 768px) {
+  @media (max-width: 1199px) {
+    font-size: 2.25rem;
+  }
+  
+  @media (max-width: 991px) {
     font-size: 2rem;
+  }
+  
+  @media (max-width: 767px) {
+    font-size: 1.875rem;
+    margin-bottom: 0.875rem;
+  }
+  
+  @media (max-width: 575px) {
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.625rem;
   }
 }
 
@@ -153,6 +317,20 @@ $gray-two: #6c757d;
   color: $gray-two;
   font-weight: 600;
   margin-bottom: 1.5rem;
+  
+  @media (max-width: 991px) {
+    font-size: 1.15rem;
+  }
+  
+  @media (max-width: 767px) {
+    font-size: 1.1rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  @media (max-width: 575px) {
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+  }
 }
 
 .section-description {
@@ -160,6 +338,20 @@ $gray-two: #6c757d;
   line-height: 1.7;
   color: $gray-two;
   margin: 0;
+  
+  @media (max-width: 991px) {
+    font-size: 1.05rem;
+  }
+  
+  @media (max-width: 767px) {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  @media (max-width: 575px) {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
 }
 
 .gallery-grid {
@@ -223,11 +415,6 @@ $gray-two: #6c757d;
   opacity: 0;
   transition: all 0.3s ease;
 }
-.gallery-item:hover .gallery-overlay {
-  background: linear-gradient(45deg, rgba(65, 136, 94, 0.8), rgba(162, 125, 3, 0.8));
-  opacity: 1;
-}
-
 .gallery-title {
   color: white;
   font-weight: 600;
@@ -238,7 +425,6 @@ $gray-two: #6c757d;
 
 .certification-section {
   background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-//   border-radius: 20px;
   padding: 3rem 2rem;
   margin: 4rem 0;
   position: relative;
@@ -268,9 +454,6 @@ $gray-two: #6c757d;
     border-radius: 50px;
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
-    //   background: linear-gradient(135deg, $blue-one, $blue-two);
-    //   color: white;
-    //   font-weight: 700;
 
     i {
         margin-right: 10px;
@@ -292,7 +475,6 @@ $gray-two: #6c757d;
   margin-bottom: 2rem;
   padding: 1.5rem;
   background: #ffffffa6;
-  //border-radius: 12px;
   border-radius: 6px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
@@ -308,7 +490,6 @@ $gray-two: #6c757d;
   color: white;
   width: 50px;
   height: 50px;
-//   border-radius: 10px;
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -341,11 +522,24 @@ $gray-two: #6c757d;
 
 .cta-section {
   margin-top: 4rem;
+  
+  @media (max-width: 767px) {
+    margin-top: 3rem;
+  }
+  
+  @media (max-width: 575px) {
+    margin-top: 2rem;
+  }
 }
 
 .cta-content {
   max-width: 600px;
   margin: 0 auto;
+  
+  @media (max-width: 767px) {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
 }
 
 .cta-text {
@@ -353,16 +547,30 @@ $gray-two: #6c757d;
   color: $gray-two;
   margin-bottom: 2rem;
   line-height: 1.6;
+  
+  @media (max-width: 991px) {
+    font-size: 1.15rem;
+  }
+  
+  @media (max-width: 767px) {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+  
+  @media (max-width: 575px) {
+    font-size: 1.05rem;
+    margin-bottom: 1.25rem;
+  }
 }
 
 .cta-button {
-background-color: black;
+  background-color: black;
   border: none;
   padding: 15px 40px;
   font-size: 1.1rem;
   font-weight: 600;
   border-radius: 8px;
-//   border-radius: 30px;
   margin-bottom: 1.5rem;
   transition: all 0.3s ease;
   
@@ -372,9 +580,16 @@ background-color: black;
     box-shadow: 0 8px 25px rgba(54, 60, 63, 0.3);
   }
   
-  @media (max-width: 576px) {
+  @media (max-width: 767px) {
+    padding: 12px 32px;
+    font-size: 1.05rem;
+  }
+  
+  @media (max-width: 575px) {
     display: block;
     width: 100%;
+    padding: 12px 24px;
+    font-size: 1rem;
   }
 }
 
