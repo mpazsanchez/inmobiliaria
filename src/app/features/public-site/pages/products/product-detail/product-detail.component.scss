@@ -515,7 +515,9 @@
 
   @media (max-width: 576px) {
     display: block;
-    width: 100%;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -528,5 +530,16 @@
 
   i {
     color: #28a745;
+  }
+
+    @media (max-width: 575px) {
+    flex-direction: column;
+    text-align: center;
+    font-size: 0.85rem;
+    gap: 4px;
+
+    i {
+      margin-bottom: 4px;
+    }
   }
 }
