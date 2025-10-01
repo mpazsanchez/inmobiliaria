@@ -108,8 +108,8 @@
         }
         
         &.active {
-          color: $blue-one;
-          font-weight: 600;
+          color: white;
+          font-weight: 800;
         }
         
         &:not(:last-child)::after {
