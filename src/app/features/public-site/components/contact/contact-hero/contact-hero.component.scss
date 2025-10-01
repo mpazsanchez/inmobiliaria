@@ -113,8 +113,8 @@
         }
         
         &:not(:last-child)::after {
-          content: '/';
-          color: rgba(255, 255, 255, 0.5);
+          // content: '/';
+          color: rgb(255, 255, 255);
           margin: 0 0.8rem;
         }
       }

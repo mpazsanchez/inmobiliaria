@@ -29,6 +29,16 @@ export const routes: Routes = [
         data: { title: 'Inicio - Fairway' },
       },
       {
+        path: 'home',
+        component: HomeComponent,
+        data: { title: 'Inicio - Fairway' },
+      },
+      {
+        path: 'home-two',
+        component: HomeTwoComponent,
+        data: { title: 'Inicio - Fairway' },
+      },
+      {
         path: 'contact',
         component: ContactComponent,
         data: { title: 'Contacto - Fairway' },
@@ -45,6 +55,12 @@ export const routes: Routes = [
         path: 'services/:slug',
         component: ProductDetailComponent,
         data: { title: 'Servicio - Fairway' },
+      },
+
+            {
+        path: '**',
+        component: HomeTwoComponent,
+        data: { title: 'Inicio - Fairway' },
       },
     ],
   },

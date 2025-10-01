@@ -301,7 +301,7 @@ export class PublicNavbarComponent implements OnInit, OnDestroy {
         name: 'Inicio',
         titleShow: 'Inicio',
         icon: 'fa fa-home',
-        link: '#',
+        link: '',
         orderby: 1,
         status: 1,
         menuArguments: [],

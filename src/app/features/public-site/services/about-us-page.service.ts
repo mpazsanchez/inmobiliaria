@@ -17,179 +17,88 @@ export class AboutUsPageService {
     this.loading.set(true);
     this.error.set(null);
     try {
-      const result: AboutUsPageData = {
-        companyInfo: {
-          name: 'Glazing',
-          description: 'Transformamos tus espacios con vidrio de alta calidad',
-          mission: 'Brindar soluciones innovadoras en vidrio para mejorar la calidad de vida de las personas.',
-          vision: 'Ser líderes en el sector del vidrio, reconocidos por nuestra calidad e innovación.'
-        },
-        team: [
-          {
-            name: 'a',
-            role: 'Developer',
-            photo: '/assets/images/team/a.jpg',
-            bio: 'Apasionado por la tecnología y el desarrollo web.'
-          }
-        ],
-        stats: [
-          { label: 'Proyectos Completados', value: '150+' },
-          { label: 'Clientes Satisfechos', value: '120+' },
-          { label: 'Años de Experiencia', value: '10' }
-        ],
-        experienceData: {
-          stats: {
-            works: '4.000+',
-            years: '30+',
-            coverage: 'Todo el país',
-          },
-          company: {
-            title: 'Brindamos soluciones innovadoras y personalizadas para cada cliente',
-            subtitle:
-              'Con una larga trayectoria en el rubro y un profundo compromiso con la calidad y la satisfacción de cada cliente.',
-            description:
-              'Con más de 30 años de presencia en el mercado, en Glazing nos hemos consolidado como una empresa líder en el asesoramiento, venta e instalación de láminas de control solar para automóviles y arquitectura. Nuestro equipo está conformado por técnicos altamente capacitados, con una larga trayectoria en el rubro y un profundo compromiso con la calidad y la satisfacción de cada cliente.',
-          },
-          gallery: [
-            {
-              title: 'Equipo Glazing',
-              image: './assets/images/backgrounds/image-2.jpg',
-            }
-          ],
-          certification: {
-            title: 'Glazing Certified™',
-            subtitle:
-              'En Glazing trabajamos exclusivamente con instaladores certificados bajo nuestro sello Glazing Certified™, lo que garantiza un servicio profesional, seguro y de alta calidad.',
-            features: [
+          const result: AboutUsPageData = {
+            companyInfo: {
+              name: 'Fairway Servicios Integrales',
+              description: 'Fairway es una empresa de servicios integrales con más de 12 años de trayectoria en el mercado. Nos especializamos en cinco áreas claves: Seguridad, Paisajismo, Urbanismo, Industria y Agro. Nos hemos consolidado como un referente a nivel nacional, destacándonos por nuestro compromiso con la excelencia y la satisfacción de nuestros clientes.',
+              mission: 'Apostamos por la ética, la responsabilidad y la excelencia en cada uno de los servicios que ofrecemos, porque creemos que el éxito de nuestros clientes es también nuestro éxito.',
+              vision: 'Ser líderes nacionales en soluciones integrales, adaptándonos a los cambios del mercado y superando las expectativas de nuestros clientes.'
+            },
+            team: [],
+            stats: [
+              { label: 'Divisiones Especializadas', value: '5' },
+              { label: 'Años de Experiencia', value: '12+' },
+              { label: 'Cobertura', value: 'Nacional' }
+            ],
+            experienceData: {
+              stats: {
+                works: '5 divisiones',
+                years: '12+',
+                coverage: 'Todo el país',
+              },
+              company: {
+                title: 'Fairway Servicios Integrales es mucho más que una empresa de servicios',
+                subtitle: 'Más de una década de experiencia y reputación como referentes nacionales en soluciones integrales.',
+                description: 'En Fairway, apostamos por la ética, la responsabilidad y la excelencia en cada uno de los servicios que ofrecemos, porque creemos que el éxito de nuestros clientes es también nuestro éxito. Contamos con cinco divisiones especializadas: Seguridad, Agro, Industria, Paisajismo y Urbanismo, lo que nos permite cubrir de manera eficaz y profesional una amplia variedad de necesidades. Desde la protección de instalaciones y entornos, hasta el cuidado y embellecimiento de espacios verdes, y la optimización de procesos industriales y agrícolas, Fairway garantiza la máxima calidad en el desempeño de cada tarea. Nuestro equipo de expertos altamente capacitados se compromete a superar expectativas, brindando soluciones innovadoras y personalizadas en cada uno de los sectores que atendemos.'
+              },
+              gallery: [
+                {
+                  title: 'Equipo Fairway',
+                  image: './assets/images/backgrounds/fairway/team.jpg',
+                }
+              ],
+              certification: {
+                title: 'Fairway Certified™',
+                subtitle: 'En Fairway trabajamos con equipos certificados y procesos auditados para garantizar la máxima calidad y seguridad en cada servicio.',
+                features: [
+                  {
+                    icon: 'fas fa-user-shield',
+                    title: 'Compromiso ético y profesional',
+                    description: 'Responsabilidad y excelencia en cada división.'
+                  },
+                  {
+                    icon: 'fas fa-users',
+                    title: 'Equipo altamente capacitado',
+                    description: 'Expertos en cada área de servicio.'
+                  },
+                  {
+                    icon: 'fas fa-award',
+                    title: 'Certificaciones y auditorías',
+                    description: 'Procesos auditados y certificados para máxima calidad.'
+                  },
+                  {
+                    icon: 'fas fa-handshake',
+                    title: 'Garantía de satisfacción',
+                    description: 'Compromiso con el cliente en cada proyecto.'
+                  }
+                ]
+              }
+            },
+            divisions: [
               {
-                icon: 'fas fa-graduation-cap',
-                title: 'Capacitaciones técnicas actualizadas',
-                description: 'Formación continua en las últimas tecnologías',
+                name: 'Seguridad',
+                description: 'Soluciones personalizadas para hogares, empresas y organizaciones, de la mano de los mejores fabricantes de la industria para garantizar que nuestros productos sean de la más alta calidad y tecnología avanzada. Instalación de sistemas de alarmas, cámaras de seguridad, control de acceso, automatización del hogar, comercios e industrias y muchas soluciones más, tomando la protección y la tranquilidad del cliente como máxima prioridad.'
               },
               {
-                icon: 'fas fa-hard-hat',
-                title: 'Certificación en trabajos en altura',
-                description: 'Seguridad garantizada en instalaciones complejas',
+                name: 'Paisajismo',
+                description: 'Diseño, creación y mantenimiento de espacios exteriores, combinando elementos naturales y decorativos para mejorar la estética y funcionalidad de jardines, parques y áreas exteriores. Servicios: Arquitectura Paisajística y Planeamiento, Ingeniería paisajística, Servicios de Mantenimiento, Ventas de Plantas y diseño de Macetas a medida, Movimiento de Suelo, entre otros.'
               },
               {
-                icon: 'fas fa-shield-alt',
-                title: 'Cobertura de seguros correspondiente',
-                description: 'Protección completa para instalador y cliente',
+                name: 'Industria',
+                description: 'Soluciones y servicios para el sector industrial: optimización de procesos, automatización, mantenimiento de maquinaria, estandarización de normativas, regularización de la seguridad en el ambiente laboral y gestión eficiente de recursos. Servicios: Ingeniería Hidráulica, Industrial, Civil, Química, en Sistemas, Vial, Ambiental, Agrimensura y Topografía, Cálculos Estructurales, Trámites ADA, Servicios de Higiene y Seguridad, entre otros.'
               },
               {
-                icon: 'fas fa-file-contract',
-                title: 'Documentación formal y habilitaciones laborales',
-                description: 'Cumplimiento total de normativas legales',
+                name: 'Urbanismo',
+                description: 'Diseño, planificación y desarrollo de espacios urbanos, infraestructura, ordenación del territorio y proyectos que favorecen el bienestar social y ambiental. Servicios: Arquitectura, Maestro Mayor de Obra, Diseño de Planos, Agrimensura, Higiene y Seguridad, Diseño de Interiores, Demolición, Movimiento de Suelo, Herrería, Durlock, Carpintería, Servicios esenciales, Construcción sostenible, Construcción y/o Remodelaciones de Casas, Edificios, Estructuras, Caminos, Canales, Desagües, Alcantarillados, entre otros.'
               },
+              {
+                name: 'Agro',
+                description: 'Soluciones para el sector agrícola: tecnología, productos y servicios para mejorar la producción, gestión y sostenibilidad. Servicios: Siembra, Picado y Cosecha, Administración, Logística, Venta de Semillas, Venta de Fertilizantes, Asesoramiento agronómico y comercial especializado, Higiene y Seguridad, Gestión Ambiental, Veterinarios, Agronomía, entre otros.'
+              }
             ],
-          }
-        },
-        technicalBenefits: [
-          {
-            icon: 'fas fa-thermometer-half',
-            title: 'Reducción de Calor',
-            description: 'Nuestras láminas bloquean hasta el 97% de la radiación infrarroja, manteniendo espacios más frescos.',
-            percentage: '97%'
-          },
-          {
-            icon: 'fas fa-bolt',
-            title: 'Eficiencia Energética',
-            description: 'Reduce hasta un 30% el consumo de aire acondicionado y sistemas de climatización.',
-            percentage: '30%'
-          },
-          {
-            icon: 'fas fa-shield-virus',
-            title: 'Protección UV',
-            description: 'Bloquean hasta el 99% de los rayos UV, protegiendo interiores y personas.',
-            percentage: '99%'
-          },
-          {
-            icon: 'fas fa-clock',
-            title: 'Durabilidad',
-            description: 'Garantía de hasta 10 años, resistentes al desgaste, sol y paso del tiempo.',
-            percentage: '10 años'
-          }
-        ],
-        productTypes: [
-          {
-            id: 'solar-protection',
-            title: 'Láminas de Protección Solar',
-            description: 'Diseñadas para reducir el calor y el deslumbramiento, mejorando el confort interior y reduciendo la necesidad de aire acondicionado.',
-            icon: 'fas fa-sun',
-            benefits: [
-              'Reducción de hasta 85% del calor',
-              'Control del deslumbramiento',
-              'Mejora del confort térmico',
-              'Reducción de costos de climatización'
-            ],
-            applications: ['Oficinas', 'Residencias', 'Centros comerciales', 'Vehículos']
-          },
-          {
-            id: 'privacy',
-            title: 'Láminas de Privacidad',
-            description: 'Ofrecen diferentes niveles de opacidad y diseño para aumentar la privacidad sin comprometer la luz natural.',
-            icon: 'fas fa-eye-slash',
-            benefits: [
-              'Privacidad durante el día',
-              'Mantenimiento de luz natural',
-              'Visibilidad desde el interior',
-              'Diferentes niveles de opacidad'
-            ],
-            applications: ['Oficinas ejecutivas', 'Consultorios', 'Residencias', 'Salas de juntas']
-          },
-          {
-            id: 'security',
-            title: 'Láminas de Seguridad',
-            description: 'Refuerzan el vidrio para aumentar su resistencia al impacto, ayudando a prevenir roturas y mejorar la seguridad.',
-            icon: 'fas fa-shield-alt',
-            benefits: [
-              'Aumento de resistencia al impacto',
-              'Prevención de roturas peligrosas',
-              'Protección contra intrusiones',
-              'Retención de fragmentos'
-            ],
-            applications: ['Bancos', 'Joyerías', 'Escuelas', 'Edificios gubernamentales']
-          },
-          {
-            id: 'decorative',
-            title: 'Láminas Decorativas',
-            description: 'Disponibles en una variedad de colores y patrones, estas láminas permiten personalizar la apariencia de los vidrios.',
-            icon: 'fas fa-palette',
-            benefits: [
-              'Personalización estética',
-              'Variedad de diseños',
-              'Mejora del ambiente',
-              'Adaptación arquitectónica'
-            ],
-            applications: ['Hoteles', 'Restaurantes', 'Showrooms', 'Oficinas corporativas']
-          }
-        ],
-        testimonials: [
-          {
-            id: 1,
-            name: 'María González',
-            position: 'Gerente de Operaciones',
-            company: 'Construcciones del Valle',
-            content: 'Glazing superó nuestras expectativas con su servicio profesional y productos de alta calidad. Su equipo demostró un compromiso excepcional en cada fase del proyecto.',
-            initials: 'MG'
-          },
-          {
-            id: 2,
-            name: 'Carlos Rodríguez',
-            position: 'Arquitecto Principal',
-            company: 'Diseños Modernos SA',
-            content: 'La calidad de los vidrios y la atención al detalle de Glazing es incomparable. Han sido nuestro socio estratégico en múltiples proyectos exitosos.',
-            initials: 'CR'
-          },
-          {
-            id: 3,
-            name: 'Ana Patricia López',
-            position: 'Directora de Proyectos',
-            company: 'Inmobiliaria Premier',
-            content: 'Trabajar con Glazing ha sido una experiencia excepcional. Su profesionalismo y innovación en soluciones de vidrio han transformado nuestros espacios.',
-            initials: 'AL'
-          }
-        ]
+            technicalBenefits: [],
+        productTypes: [],
+        testimonials: []
       }
 
       this.data.set(result);

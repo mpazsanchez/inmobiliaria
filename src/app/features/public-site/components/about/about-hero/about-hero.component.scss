@@ -2,8 +2,8 @@
 
 .about-hero {
   position: relative;
-  background: linear-gradient(135deg, #2C3E50 0%, #34495E 50%, #1a252f 100%);
-  min-height: 500px;
+  background: linear-gradient(135deg, #{black} 0%, #{#05130b} 50%, #{#05140c} 100%);
+  min-height: 420px;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -16,9 +16,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    // background: url('../../../../../../assets/images/backgrounds/solarcheck/asset\ 2.webp') center/cover;
-    // opacity: 0.15;
-    background: url('/assets/images/backgrounds/template/bg-2.png');
+    background: url('/assets/images/backgrounds/fairway/slide-9.jpg') cover;
     background-attachment: fixed;
     z-index: 1;
   }
@@ -32,7 +30,6 @@
     right: 0;
     bottom: 0;
     z-index: 2;
-    // background: linear-gradient(135deg, rgba(26, 37, 47, 0.9) 0%, rgba(44, 62, 80, 0.8) 100%);
   }
   
   .hero-background {
@@ -71,7 +68,7 @@
         left: -10%;
         width: 350px;
         height: 350px;
-        background: linear-gradient(135deg, #{$blue-two}, #{$blue-three});
+        background: linear-gradient(135deg, #{$orange-fairway}, #{$yellow-warm});
         opacity: 0.08;
         transform: rotate(-30deg);
         clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
@@ -105,18 +102,18 @@
           transition: color 0.3s ease;
           
           &:hover {
-            color: $blue-one;
+            color: white;
           }
         }
         
         &.active {
-          color: $blue-one;
-          font-weight: 600;
+          color: white;
+          font-weight: 800;
         }
         
         &:not(:last-child)::after {
-          content: '/';
-          color: rgba(255, 255, 255, 0.5);
+          // content: '/';
+          color: rgb(255, 255, 255);
           margin: 0 0.8rem;
         }
       }
