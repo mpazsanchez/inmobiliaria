@@ -30,7 +30,10 @@
     @media (max-width: 768px) {
       background-attachment: scroll; // Mejor performance en móvil
       background-position: center center;
+      background: url('/assets/images/backgrounds/fairway/slide-11-mobile-small.webp') center/cover;
     }
+
+    //para celu y tablets
   }
   
   // Dark overlay
