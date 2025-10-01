@@ -27,9 +27,14 @@
     background-attachment: fixed;
     z-index: 1;
     
-    @media (max-width: 768px) {
+    //tablets
+    @media (max-width: 992px) {
       background-attachment: scroll; // Mejor performance en móvil
       background-position: center center;
+      background: url('/assets/images/backgrounds/fairway/slide-11-mobile.png') center/cover;
+    }
+    //smartphones
+    @media (max-width: 575px) {
       background: url('/assets/images/backgrounds/fairway/slide-11-mobile-small.webp') center/cover;
     }
 
