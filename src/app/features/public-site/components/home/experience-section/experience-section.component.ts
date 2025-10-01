@@ -17,7 +17,8 @@ export class ExperienceSectionComponent {
   @Input() experienceData?: any = {};
 
   onRequestConsultation() {
-    // Lógica para solicitar consulta
-    console.log('Solicitar consulta técnica');
+    if (typeof window !== 'undefined') {
+      window.location.href = '/contact';
+    }
   }
 }
