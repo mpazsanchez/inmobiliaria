@@ -42,6 +42,12 @@ export interface ExperienceData {
   };
   gallery: GalleryItem[];
   certification: CertificationData;
+  clients?: Client[];
+}
+
+export interface Client {
+  name: string;
+  logo: string;
 }
 
 export interface CertificationData {

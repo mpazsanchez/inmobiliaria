@@ -2,7 +2,7 @@
 
 .about-hero {
   position: relative;
-  background: linear-gradient(135deg, #{black} 0%, #{#05130b} 50%, #{#05140c} 100%);
+  background: linear-gradient(342deg, #173923 0%, #000000 50%, #010402 100%);
   min-height: 420px;
   display: flex;
   align-items: center;
@@ -16,7 +16,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('/assets/images/backgrounds/fairway/slide-9.jpg') cover;
+    // background: url('/assets/images/backgrounds/fairway/agro-2.png') center/cover;
     background-attachment: fixed;
     z-index: 1;
   }
