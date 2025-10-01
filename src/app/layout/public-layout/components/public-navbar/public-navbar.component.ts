@@ -385,7 +385,7 @@ export class PublicNavbarComponent implements OnInit, OnDestroy {
         name: 'Nosotros',
         titleShow: 'Nosotros',
         icon: '',
-        link: '/about-us',
+        link: '/about',
         orderby: 2,
         status: 1,
         menuArguments: [],
