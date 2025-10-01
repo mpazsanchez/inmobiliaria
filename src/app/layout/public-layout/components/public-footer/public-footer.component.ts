@@ -98,9 +98,9 @@ export class PublicFooterComponent implements OnInit, OnDestroy {
       console.log('Subscribe email:', this.newsletterEmail);
       // Implement newsletter subscription logic here
       // For now, just clear the input and show success
-      if (this.isBrowser) {
-        alert('¡Gracias por suscribirte a nuestro newsletter!');
-      }
+      // if (this.isBrowser) {
+      //   alert('¡Gracias por suscribirte a nuestro newsletter!');
+      // }
       this.newsletterEmail = '';
     }
   }

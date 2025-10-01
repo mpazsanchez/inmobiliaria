@@ -43,7 +43,7 @@ export class HomeTwoPageService {
               text: 'DESCUBRÍ NUESTROS PROYECTOS',
               action: 'training',
             },
-            secondaryButton: { text: 'Ver Garantías', action: 'gallery' },
+            secondaryButton: { text: 'Ver Más', action: 'gallery' },
           },
           {
             id: 'slide-3',
