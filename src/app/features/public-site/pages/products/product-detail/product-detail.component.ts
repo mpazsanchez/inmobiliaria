@@ -59,4 +59,8 @@ export class ProductDetailComponent implements OnInit {
   getTypeSlug(typeName: string): string {
     return typeName.toLowerCase().replace(/\s+/g, '-');
   }
+
+  onContactClick(): void {
+    this.router.navigate(['/contact']);
+  }
 }
