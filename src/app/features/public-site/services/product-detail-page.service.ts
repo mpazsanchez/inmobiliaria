@@ -29,7 +29,7 @@ export class ProductDetailPageService {
               'Ofrecemos servicios completos de paisajismo, desde el diseño y diagnóstico hasta la ejecución y mantenimiento de espacios verdes, arquitectura paisajística, ingeniería y venta de plantas y accesorios.'
             ],
             heroData: {
-              bannerImage: '/assets/images/backgrounds/fairway/paisajismo.jpg',
+              bannerImage: '/assets/images/backgrounds/fairway/paisajismo.webp',
               title: 'Paisajismo',
               subtitle: 'Soluciones integrales para espacios verdes',
               breadcrumbTextOne: 'Inicio',
@@ -192,7 +192,7 @@ export class ProductDetailPageService {
             ],
             heroData: {
               // bannerImage: '/assets/images/backgrounds/fairway/urbanismo-1.jpg',
-              bannerImage: '/assets/images/backgrounds/fairway/urbanismo.jpg',
+              bannerImage: '/assets/images/backgrounds/fairway/urbanismo.webp',
               title: 'Urbanismo',
               subtitle: 'Obras, construcción y servicios esenciales',
               breadcrumbTextOne: 'Inicio',
@@ -321,7 +321,7 @@ export class ProductDetailPageService {
               'Brindamos servicios integrales para el sector agropecuario, desde la siembra y cosecha hasta la administración, logística y venta de insumos.'
             ],
             heroData: {
-              bannerImage: '/assets/images/backgrounds/fairway/agro-1.jpg',
+              bannerImage: '/assets/images/backgrounds/fairway/agro-1.webp',
               title: 'Agro',
               subtitle: 'Soluciones para el campo',
               breadcrumbTextOne: 'Inicio',
@@ -329,7 +329,7 @@ export class ProductDetailPageService {
               breadcrumbTextThree: 'Agro',
             },
             content: {
-              mainImage: '/assets/images/backgrounds/fairway/agro.jpg',
+              mainImage: '/assets/images/backgrounds/fairway/agro.webp',
               mainImageAlt: 'Agro',
               title: 'Servicios Agropecuarios',
               blocks: [
@@ -431,7 +431,7 @@ export class ProductDetailPageService {
               'Soluciones integrales para la industria: ingeniería, cálculos estructurales, gestión ambiental, higiene y seguridad.'
             ],
             heroData: {
-              bannerImage: '/assets/images/backgrounds/fairway/industria.jpg',
+              bannerImage: '/assets/images/backgrounds/fairway/industria.webp',
               title: 'Industria',
               subtitle: 'Soluciones integrales para la industria',
               breadcrumbTextOne: 'Inicio',
@@ -439,7 +439,7 @@ export class ProductDetailPageService {
               breadcrumbTextThree: 'Industria',
             },
             content: {
-              mainImage: '/assets/images/backgrounds/fairway/industria.jpg',
+              mainImage: '/assets/images/backgrounds/fairway/industria.webp',
               mainImageAlt: 'Industria',
               title: 'Servicios Industriales',
               blocks: [
@@ -649,7 +649,7 @@ export class ProductDetailPageService {
               'Ofrecemos servicios integrales de seguridad: venta e instalación de cámaras, domótica, alarmas y control de acceso.'
             ],
             heroData: {
-              bannerImage: '/assets/images/backgrounds/fairway/slide-4.jpg',
+              bannerImage: '/assets/images/backgrounds/fairway/slide-4.webp',
               title: 'Seguridad',
               subtitle: 'Protección y tecnología para tu espacio',
               breadcrumbTextOne: 'Inicio',
@@ -657,7 +657,7 @@ export class ProductDetailPageService {
               breadcrumbTextThree: 'Seguridad',
             },
             content: {
-              mainImage: '/assets/images/backgrounds/fairway/seguridad.jpg',
+              mainImage: '/assets/images/backgrounds/fairway/seguridad.webp',
               mainImageAlt: 'Seguridad',
               title: 'Servicios de Seguridad',
               blocks: [
