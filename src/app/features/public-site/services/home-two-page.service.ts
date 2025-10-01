@@ -27,9 +27,9 @@ export class HomeTwoPageService {
               'Ofrecemos soluciones destinadas a mejorar la producción, gestión y sostenibilidad de las actividades agrícolas',
             primaryButton: {
               text: 'CONOCÉ NUESTRAS SOLUCIONES',
-              action: 'discover',
+              action: '/services/agro',
             },
-            secondaryButton: { text: 'Contactanos', action: 'video' },
+            secondaryButton: { text: 'Contactanos', action: '/contact' },
           },
           {
             id: 'slide-2',
@@ -41,9 +41,9 @@ export class HomeTwoPageService {
               'Buscamos crear entornos funcionales, sostenibles y de calidad, que favorezcan el bienestar social y ambiental',
             primaryButton: {
               text: 'DESCUBRÍ NUESTROS PROYECTOS',
-              action: 'training',
+              action: '/services/urbanismo',
             },
-            secondaryButton: { text: 'Ver Más', action: 'gallery' },
+            secondaryButton: { text: 'Ver Más', action: '/services/urbanismo' },
           },
           {
             id: 'slide-3',
@@ -53,8 +53,8 @@ export class HomeTwoPageService {
             subtitle: 'Y PROTECCIÓN',
             description:
               'Nos enfocamos en generar soluciones personalizadas para hogares, empresas y organizaciones. Contamos con un equipo de expertos altamente capacitados',
-            primaryButton: { text: 'CONOCÉ NUESTROS PLANES', action: 'shop' },
-            secondaryButton: { text: 'Casos de Éxito', action: 'specs' },
+            primaryButton: { text: 'CONOCÉ NUESTROS SERVICIO', action: '/services/seguridad' },
+            secondaryButton: { text: 'Detalles', action: '/services/seguridad' },
           },
         ],
         aboutCompany: {
