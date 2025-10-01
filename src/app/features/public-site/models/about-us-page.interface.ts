@@ -3,9 +3,15 @@ export interface AboutUsPageData {
   team: TeamMember[];
   stats: StatData[];
   experienceData: ExperienceData;
+  divisions?: Division[];
   productTypes: ProductType[];
   technicalBenefits: TechnicalBenefit[];
   testimonials: Testimonial[];
+}
+
+export interface Division {
+  name: string;
+  description: string;
 }
 export interface CompanyInfo {
   name: string;
