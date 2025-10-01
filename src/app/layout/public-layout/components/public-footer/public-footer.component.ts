@@ -28,9 +28,9 @@ export class PublicFooterComponent implements OnInit, OnDestroy {
   navigationLinks = [
     { title: 'Inicio', url: '/home' },
     { title: 'Acerca de Nosotros', url: '/about' },
-    { title: 'Servicios', url: '/services' },
+    // { title: 'Servicios', url: '/services' },
     { title: 'Contacto', url: '/contact' },
-    { title: 'Blog', url: '/blog' }
+    // { title: 'Blog', url: '/blog' }
   ];
 
   // Quick Links
@@ -38,8 +38,6 @@ export class PublicFooterComponent implements OnInit, OnDestroy {
     { title: 'Ayuda', url: '/help' },
     { title: 'Soporte', url: '/support' },
     { title: 'Clientes', url: '/clients' },
-    { title: 'Tienda', url: '/shop' },
-    { title: 'Portafolio', url: '/portfolio' }
   ];
 
   // Social Links
