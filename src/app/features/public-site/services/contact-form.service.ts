@@ -12,7 +12,7 @@ export interface ContactFormData {
 
 @Injectable({ providedIn: 'root' })
 export class ContactFormService {
-  private readonly apiUrl = ''; // Endpoint falso
+  private readonly apiUrl = '';
   readonly loading = signal<boolean>(false);
   readonly error = signal<string | null>(null);
   readonly success = signal<boolean>(false);

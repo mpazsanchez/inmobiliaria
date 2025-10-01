@@ -28,18 +28,18 @@ const CONTACT_PAGE_MOCK = {
   subtitle: '¿Tenés dudas o querés solicitar presupuesto?',
   description: 'Completá el formulario y nuestro equipo te responderá a la brevedad. También podés contactarnos por teléfono o email.',
   contactInfo: {
-    phone: '+34 123 456 789',
-    email: 'info@glazing.me',
-    address: 'Blvd Las Heras 708, Córdoba Argentina',
-    horario: 'Lunes a Viernes de 9 a 18hs'
+    phone: '0249 424-4568',
+    email: 'fairwayparquizacion@gmail.com',
+    address: 'Garibaldi 750, Tandil, Buenos Aires, Argentina',
+    horario: ''
   },
   social: [
-    { icon: 'fab fa-whatsapp', label: 'WhatsApp', url: 'https://wa.me/5492494380238' },
+    { icon: 'fab fa-whatsapp', label: 'WhatsApp', url: 'https://wa.me/5492494244568' },
     { icon: 'fab fa-instagram', label: 'Instagram', url: 'https://www.instagram.com/fairwayserviciosintegrales/?hl=fi' },
     { icon: 'fab fa-facebook', label: 'Facebook', url: 'https://www.facebook.com/fairway.parquizacion.integral/' }
   ],
   map: {
-    iframeUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.1234567890!2d-64.1887766846812!3d-31.42008398141809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9432a2e2b2b2b2b2%3A0x1234567890abcdef!2sBlvd%20Las%20Heras%20708%2C%20C%C3%B3rdoba!5e0!3m2!1ses!2sar!4v1234567890123'
+    iframeUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3255.0876147220537!2d-59.14285922458904!3d-37.32794924099706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95911f1f5b33e93f%3A0xd8d529d9fd0e9302!2sGaribaldi%20750%2C%20Tandil%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1727804641234!5m2!1ses!2sar'
   },
   formFields: [
     { name: 'nombre', label: 'Nombre', type: 'text', required: true },

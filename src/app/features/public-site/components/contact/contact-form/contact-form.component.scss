@@ -86,7 +86,7 @@
       }
       
       .btn-submit {
-        background: $blue-one;
+        background: $green-accent;
         border: none;
         color: white;
         padding: 16px 35px;
@@ -99,9 +99,9 @@
         margin-top: 1rem;
         
         &:hover {
-          background: $blue-two;
+          background: $green-fairway;
           transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba($blue-one, 0.3);
+          box-shadow: 0 4px 12px rgba($green-fairway, 0.3);
         }
         
         &:active {
