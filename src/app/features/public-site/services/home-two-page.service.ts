@@ -96,35 +96,35 @@ export class HomeTwoPageService {
               title: 'Agro',
               description:
                 'Servicios de Siembra, Picado y Cosecha, Administración, Logística, Venta de Semillas, Venta de Fertilizantes, Asesoramiento agronómico y comercial especializado, Servicios de Higiene y Seguridad, Servicios de Gestión Ambiental, Servicios Veterinarios, Servicios de Agronomía.',
-              link: 'solar-control',
+              link: '/services/agro',
             },
             {
               icon: 'fas fa-city',
               title: 'Urbanismo',
               description:
                 'Servicios de Arquitectura, Maestro Mayor de Obra, Diseño de Planos, Agrimensura, Higiene y Seguridad, Diseño de Interiores, Demolición, Movimiento de Suelo, Servicios de Herrería, Durlock, Carpintería, Servicios esenciales, Construcción sostenible, Construcción y Remodelaciones de Casas, Edificios, Estructuras, Caminos, Canales, Desagües, Alcantarillados.',
-              link: 'architectural',
+              link: 'services/urbanismo',
             },
             {
               icon: 'fas fa-home',
               title: 'Seguridad',
               description:
                 'Instalación de sistemas de alarmas, cámaras de seguridad, control de acceso, automatización del hogar, comercios e industrias y muchas soluciones más, tomando la protección y la tranquilidad del cliente como máxima prioridad',
-              link: 'residential',
+              link: 'services/seguridad',
             },
             {
               icon: 'fas fa-tree',
               title: 'Paisajismo',
               description:
                 'Arquitectura Paisajística y Planeamiento, Ingeniería paisajística, Servicios de Mantenimiento, Ventas de Plantas y diseño de Macetas a medida, Movimiento de Suelo, entre otros',
-              link: 'commercial',
+              link: 'services/paisajismo',
             },
             {
               icon: 'fas fa-cogs',
               title: 'Industria',
               description:
                 'Servicios de  Ingeniería Hidráulica, Ingeniería Industrial, Ingeniería Civil, Ingeniería Química, Ingeniería en Sistemas, Ingeniería Vial, Ingeniería Ambiental, Agrimensura y Topografía, Cálculos Estructurales, Trámites ADA, Servicios de Higiene y Seguridad, entre otros',
-              link: 'automotive',
+              link: 'services/industria',
             },
           ],
         },

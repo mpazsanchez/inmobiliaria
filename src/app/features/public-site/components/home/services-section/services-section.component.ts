@@ -20,8 +20,10 @@ export class ServicesSectionComponent {
   @Input() services: ServiceItem[] = [];
 
   onExploreService(serviceLink: string): void {
-    // Navigate to specific service page
-    console.log('Navigate to service:', serviceLink);
+    // Navegar a la página del servicio
+    if (typeof window !== 'undefined') {
+      window.location.assign(serviceLink);
+    }
   }
 
   trackByTitle(index: number, item: ServiceItem): string {
