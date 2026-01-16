@@ -1,0 +1,102 @@
+<div class="search-container">
+  <!-- Tabs de operación -->
+  <div class="operation-tabs">
+    <button
+      type="button"
+      class="tab-btn"
+      [class.active]="filtros.operacion === 'venta'"
+      (click)="setOperacion('venta')"
+    >
+      Comprar
+    </button>
+    <button
+      type="button"
+      class="tab-btn"
+      [class.active]="filtros.operacion === 'alquiler'"
+      (click)="setOperacion('alquiler')"
+    >
+      Alquilar
+    </button>
+  </div>
+
+  <!-- Barra de búsqueda -->
+  <div class="search-bar">
+    <form (ngSubmit)="onBuscar()" class="search-form">
+      <!-- Ubicación -->
+      <div class="search-field">
+        <span class="field-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <path d="m21 21-4.35-4.35"/>
+          </svg>
+        </span>
+        <input
+          type="text"
+          [(ngModel)]="filtros.ubicacion"
+          name="ubicacion"
+          placeholder="¿Dónde querés mudarte?"
+          class="search-input"
+        />
+      </div>
+
+      <!-- Tipo de Propiedad -->
+      <div class="search-field">
+        <span class="field-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </span>
+        <select
+          [(ngModel)]="filtros.tipoPropiedad"
+          name="tipoPropiedad"
+          class="search-select"
+        >
+          <option *ngFor="let tipo of tiposPropiedad" [value]="tipo.value">
+            {{ tipo.label }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Rango de Precios -->
+      <div class="search-field search-field--price">
+        <select
+          [(ngModel)]="moneda"
+          name="moneda"
+          class="currency-select"
+        >
+          <option value="USD">USD</option>
+          <option value="ARS">ARS</option>
+        </select>
+        <div class="price-inputs">
+          <input
+            type="number"
+            [(ngModel)]="filtros.precioMinimo"
+            name="precioMinimo"
+            placeholder="Mín"
+            class="search-input search-input--price"
+            min="0"
+          />
+          <span class="price-separator">-</span>
+          <input
+            type="number"
+            [(ngModel)]="filtros.precioMaximo"
+            name="precioMaximo"
+            placeholder="Máx"
+            class="search-input search-input--price"
+            min="0"
+          />
+        </div>
+      </div>
+
+      <!-- Botón Buscar -->
+      <button type="submit" class="search-button search-button--icon-only">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+        <span>Buscar</span>
+      </button>
+    </form>
+  </div>
+</div>
