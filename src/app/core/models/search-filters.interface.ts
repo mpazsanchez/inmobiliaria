@@ -1,12 +1,10 @@
-import { TipoPropiedad, TipoOperacion, Moneda } from './property.interface';
-
 // =============================================
 // FILTROS DE BUSQUEDA DE PROPIEDADES
 // =============================================
 export interface FiltrosBusqueda {
   // Filtros basicos (search bar principal)
-  operacion?: TipoOperacion;
-  tipoPropiedad?: TipoPropiedad | TipoPropiedad[];
+  operacion?: string;                    // 'venta' | 'alquiler'
+  tipoPropiedad?: string | string[];     // 'casa' | 'departamento' | 'ph' | 'oficina' | 'terreno'
   ubicacion?: string;                    // texto libre: ciudad, barrio, zona
   provincia?: string;
   ciudad?: string;
@@ -15,26 +13,28 @@ export interface FiltrosBusqueda {
   // Filtros de precio
   precioMinimo?: number;
   precioMaximo?: number;
-  moneda?: Moneda;
-  incluyeExpensas?: boolean;
+  moneda?: string;                       // 'USD' | 'ARS'
 
   // Filtros de caracteristicas
+  ambientes?: number;
   ambientesMinimo?: number;
   ambientesMaximo?: number;
+  dormitorios?: number;
   dormitoriosMinimo?: number;
   dormitoriosMaximo?: number;
+  banos?: number;
   banosMinimo?: number;
   superficieMinima?: number;             // m2
   superficieMaxima?: number;             // m2
-  cocherasMinimo?: number;
-  antiguedadMaxima?: number;             // anios
+  garageMinimo?: number;
+  antiguedadMaxima?: number;             // años
 
   // Filtros de amenidades
   amenidades?: string[];                 // ['pileta', 'parrilla', 'gym', etc]
 
   // Filtros de estado
   soloDestacadas?: boolean;
-  soloDisponibles?: boolean;
+  estado?: string;                       // 'disponible' | 'reservado' | 'vendido'
 
   // Ordenamiento
   ordenarPor?: OrdenBusqueda;
@@ -43,16 +43,40 @@ export interface FiltrosBusqueda {
   // Paginacion
   pagina?: number;
   porPagina?: number;
+  limite?: number; // alias para porPagina
 }
 
 // =============================================
 // OPCIONES DE ORDENAMIENTO
 // =============================================
 export type OrdenBusqueda =
+  | 'reciente'
+  | 'precio_menor'
+  | 'precio_mayor'
+  | 'superficie_mayor'
   | 'precio'
   | 'fecha'
   | 'superficie'
   | 'relevancia';
+
+// =============================================
+// RESPUESTA PAGINADA
+// =============================================
+export interface RespuestaPaginada<T> {
+  datos: T[];
+  total?: number; // alias para mantener compatibilidad
+  paginacion: InfoPaginacion;
+}
+
+export interface InfoPaginacion {
+  paginaActual: number;
+  porPagina: number;
+  totalItems: number;
+  totalPaginas: number;
+  tieneSiguiente: boolean;
+  total?: number; // alias para totalItems
+  tieneAnterior: boolean;
+}
 
 // =============================================
 // FILTROS DISPONIBLES (para UI dinamica)

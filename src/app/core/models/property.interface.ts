@@ -14,10 +14,20 @@ export interface Propiedad {
   asesorId: number;
   fechaPublicacion: string;
   ultimaActualizacion: string;
+  agente?: AgenteInfo; // Info del agente/asesor
+}
+
+export interface AgenteInfo {
+  id: number;
+  nombre: string;
+  telefono: string;
+  email: string;
+  fotoUrl: string;
 }
 
 export interface Ubicacion {
   direccion: string;
+  barrio?: string;
   ciudad: string;
   provincia: string;
   pais: string;
