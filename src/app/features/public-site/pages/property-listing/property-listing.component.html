@@ -1,0 +1,155 @@
+<div class="property-listing-page">
+  <div class="container">
+    <!-- Breadcrumbs -->
+    <app-breadcrumbs [items]="breadcrumbs"></app-breadcrumbs>
+    
+    <!-- Header con título y controles -->
+    <div class="page-header">
+      <div class="header-content">
+        <h1 class="page-title">Propiedades {{ tituloOperacion }}</h1>
+        <p class="results-count">{{ totalResultados }} propiedades encontradas</p>
+      </div>
+
+      <div class="header-controls">
+        <!-- Ordenar por -->
+        <div class="sort-control">
+          <label for="ordenar">Ordenar por:</label>
+          <select id="ordenar" [(ngModel)]="filtros.ordenarPor" (change)="onOrdenChange($any($event.target).value)" class="sort-select">
+            <option *ngFor="let opcion of ordenOpciones" [value]="opcion.value">
+              {{ opcion.label }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Toggle Filtros (Móvil) -->
+        <button class="btn-toggle-filters d-lg-none" (click)="toggleFilters()" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+          </svg>
+          Filtros
+        </button>
+
+        <!-- Vista de Mapa -->
+        <button class="btn-map-toggle" (click)="toggleMapView()" type="button" [class.active]="showMapView">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+            <line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/>
+          </svg>
+          {{ showMapView ? 'Ver Lista' : 'Ver Mapa' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="listing-content">
+      <!-- Sidebar de Filtros -->
+      <aside class="filters-sidebar" [class.show]="showFilters" (click)="toggleFilters()">
+        <div class="filters-sticky" (click)="$event.stopPropagation()">
+          <app-property-filters
+            [filtrosActivos]="filtros"
+            (filtrosChange)="onFiltrosChange($event)"
+            (limpiarFiltros)="limpiarFiltros()"
+            (cerrar)="toggleFilters()">
+          </app-property-filters>
+        </div>
+      </aside>
+
+      <!-- Grid de Propiedades / Vista de Mapa -->
+      <main class="properties-main">
+        <!-- Vista de Mapa -->
+        <div *ngIf="showMapView && !isLoading" class="map-view">
+          <app-property-map [propiedades]="propiedades"></app-property-map>
+        </div>
+
+        <!-- Loading State con Skeletons -->
+        <div *ngIf="isLoading" class="properties-grid">
+          <app-property-skeleton *ngFor="let item of skeletonItems"></app-property-skeleton>
+        </div>
+
+        <!-- Grid de Propiedades -->
+        <div *ngIf="!isLoading && !showMapView" class="properties-grid">
+          <app-property-card
+            *ngFor="let propiedad of propiedades"
+            [propiedad]="propiedad"
+            (favoriteToggle)="onFavoriteToggle($event)"
+            (share)="onShare($event)">
+          </app-property-card>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="!isLoading && propiedades.length === 0 && !showMapView" class="empty-state">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <h3>No se encontraron propiedades</h3>
+          <p>Intenta ajustar los filtros de búsqueda</p>
+          <button class="btn-clear-filters" (click)="limpiarFiltros()" type="button">
+            Limpiar Filtros
+          </button>
+        </div>
+
+        <!-- Paginación -->
+        <nav *ngIf="!isLoading && totalPaginas > 1 && !showMapView" class="pagination-nav">
+          <button 
+            class="pagination-btn pagination-prev"
+            [disabled]="filtros.pagina === 1"
+            (click)="onPaginaChange(filtros.pagina! - 1)"
+            type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+            Anterior
+          </button>
+
+          <div class="pagination-numbers">
+            <button 
+              *ngIf="filtros.pagina! > 3"
+              class="pagination-number"
+              (click)="onPaginaChange(1)"
+              type="button">
+              1
+            </button>
+            <span *ngIf="filtros.pagina! > 3" class="pagination-ellipsis">...</span>
+
+            <button 
+              *ngFor="let pagina of paginasArray"
+              class="pagination-number"
+              [class.active]="pagina === filtros.pagina"
+              (click)="onPaginaChange(pagina)"
+              type="button">
+              {{ pagina }}
+            </button>
+
+            <span *ngIf="filtros.pagina! < totalPaginas - 2" class="pagination-ellipsis">...</span>
+            <button 
+              *ngIf="filtros.pagina! < totalPaginas - 2"
+              class="pagination-number"
+              (click)="onPaginaChange(totalPaginas)"
+              type="button">
+              {{ totalPaginas }}
+            </button>
+          </div>
+
+          <button 
+            class="pagination-btn pagination-next"
+            [disabled]="filtros.pagina === totalPaginas"
+            (click)="onPaginaChange(filtros.pagina! + 1)"
+            type="button">
+            Siguiente
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+        </nav>
+      </main>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Compartir -->
+<app-share-modal
+  [property]="selectedPropertyToShare"
+  [isOpen]="showShareModal"
+  (closed)="closeShareModal()">
+</app-share-modal>
