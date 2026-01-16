@@ -5,7 +5,7 @@
       type="button"
       class="tab-btn"
       [class.active]="filtros.operacion === 'venta'"
-      (click)="setOperacion('venta')"
+      (click)="setOperation('venta')"
     >
       Comprar
     </button>
@@ -13,7 +13,7 @@
       type="button"
       class="tab-btn"
       [class.active]="filtros.operacion === 'alquiler'"
-      (click)="setOperacion('alquiler')"
+      (click)="setOperation('alquiler')"
     >
       Alquilar
     </button>
@@ -21,7 +21,7 @@
 
   <!-- Barra de búsqueda -->
   <div class="search-bar">
-    <form (ngSubmit)="onBuscar()" class="search-form">
+    <form (ngSubmit)="onSearch()" class="search-form">
       <!-- Ubicación -->
       <div class="search-field">
         <span class="field-icon">

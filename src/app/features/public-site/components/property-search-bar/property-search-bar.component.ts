@@ -43,16 +43,16 @@ export class PropertySearchBarComponent {
   moneda: 'USD' | 'ARS' = 'USD';
 
   // Método para cambiar la operación desde los tabs
-  setOperacion(operacion: string): void {
+  setOperation(operacion: string): void {
     this.filtros.operacion = operacion;
   }
 
   // Método para cambiar la moneda
-  setMoneda(moneda: 'USD' | 'ARS'): void {
+  setCurrency(moneda: 'USD' | 'ARS'): void {
     this.moneda = moneda;
   }
 
-  onBuscar(): void {
+  onSearch(): void {
     // Limpiar filtros vacíos
     const filtrosLimpios = Object.entries(this.filtros)
       .filter(([_, value]) => value !== '' && value !== undefined)
