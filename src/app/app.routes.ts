@@ -2,6 +2,11 @@ import { Routes } from '@angular/router';
 import { PublicLayoutComponent } from './layout/public-layout/public-layout.component';
 import { HomeComponent } from './features/public-site/pages/home/home.component';
 import { HomeTwoComponent } from './features/public-site/pages/home-two/home-two.component';
+import { FairwayHomeComponent } from './features/public-site/pages/fairway-home/fairway-home.component';
+import { PropertyListingComponent } from './features/public-site/pages/property-listing/property-listing.component';
+import { PropertyDetailComponent } from './features/public-site/pages/property-detail/property-detail.component';
+import { AgentListingComponent } from './features/public-site/pages/agent-listing/agent-listing.component';
+import { AgentProfileComponent } from './features/public-site/pages/agent-profile/agent-profile.component';
 import { ContactComponent } from './features/public-site/pages/contact/contact.component';
 import { AboutUsComponent } from './features/public-site/pages/about-us/about-us.component';
 import { ProductDetailComponent } from './features/public-site/pages/products/product-detail/product-detail.component';
@@ -15,8 +20,43 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: HomeTwoComponent,
-        data: { title: 'Inicio - Fairway' },
+        component: FairwayHomeComponent,
+        data: { title: 'Inicio - Fairway Inmobiliaria' },
+      },
+      {
+        path: 'fairway',
+        component: FairwayHomeComponent,
+        data: { title: 'Inicio - Fairway Inmobiliaria' },
+      },
+      {
+        path: 'propiedades',
+        component: PropertyListingComponent,
+        data: { title: 'Propiedades - Fairway Inmobiliaria' },
+      },
+      {
+        path: 'comprar',
+        component: PropertyListingComponent,
+        data: { title: 'Propiedades en Venta - Fairway Inmobiliaria', operacion: 'venta' },
+      },
+      {
+        path: 'alquilar',
+        component: PropertyListingComponent,
+        data: { title: 'Propiedades en Alquiler - Fairway Inmobiliaria', operacion: 'alquiler' },
+      },
+      {
+        path: 'propiedad/:id',
+        component: PropertyDetailComponent,
+        data: { title: 'Detalle de Propiedad - Fairway Inmobiliaria' },
+      },
+      {
+        path: 'equipo',
+        component: AgentListingComponent,
+        data: { title: 'Nuestro Equipo - Fairway Inmobiliaria' },
+      },
+      {
+        path: 'equipo/:id',
+        component: AgentProfileComponent,
+        data: { title: 'Perfil de Asesor - Fairway Inmobiliaria' },
       },
       {
         path: 'home',
@@ -47,10 +87,10 @@ export const routes: Routes = [
         data: { title: 'Servicio - Fairway' },
       },
 
-            {
+      {
         path: '**',
-        component: HomeTwoComponent,
-        data: { title: 'Inicio - Fairway' },
+        component: FairwayHomeComponent,
+        data: { title: 'Inicio - Fairway Inmobiliaria' },
       },
     ],
   },
