@@ -4,7 +4,7 @@
     <button
       type="button"
       class="tab-btn"
-      [class.active]="filtros.operacion === 'venta'"
+      [class.active]="filters.operacion === 'venta'"
       (click)="setOperation('venta')"
     >
       Comprar
@@ -12,7 +12,7 @@
     <button
       type="button"
       class="tab-btn"
-      [class.active]="filtros.operacion === 'alquiler'"
+      [class.active]="filters.operacion === 'alquiler'"
       (click)="setOperation('alquiler')"
     >
       Alquilar
@@ -32,7 +32,7 @@
         </span>
         <input
           type="text"
-          [(ngModel)]="filtros.ubicacion"
+          [(ngModel)]="filters.ubicacion"
           name="ubicacion"
           placeholder="¿Dónde querés mudarte?"
           class="search-input"
@@ -48,11 +48,11 @@
           </svg>
         </span>
         <select
-          [(ngModel)]="filtros.tipoPropiedad"
+          [(ngModel)]="filters.tipoPropiedad"
           name="tipoPropiedad"
           class="search-select"
         >
-          <option *ngFor="let tipo of tiposPropiedad" [value]="tipo.value">
+          <option *ngFor="let tipo of propertyTypeOptions" [value]="tipo.value">
             {{ tipo.label }}
           </option>
         </select>
@@ -61,17 +61,18 @@
       <!-- Rango de Precios -->
       <div class="search-field search-field--price">
         <select
-          [(ngModel)]="moneda"
+          [(ngModel)]="filters.moneda"
           name="moneda"
           class="currency-select"
         >
-          <option value="USD">USD</option>
-          <option value="ARS">ARS</option>
+          <option *ngFor="let currency of currencyOptions" [value]="currency.value">
+            {{ currency.label }}
+          </option>
         </select>
         <div class="price-inputs">
           <input
             type="number"
-            [(ngModel)]="filtros.precioMinimo"
+            [(ngModel)]="filters.precioMinimo"
             name="precioMinimo"
             placeholder="Mín"
             class="search-input search-input--price"
@@ -80,7 +81,7 @@
           <span class="price-separator">-</span>
           <input
             type="number"
-            [(ngModel)]="filtros.precioMaximo"
+            [(ngModel)]="filters.precioMaximo"
             name="precioMaximo"
             placeholder="Máx"
             class="search-input search-input--price"

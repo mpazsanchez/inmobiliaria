@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { PropertySearchService } from '../../../../core/services/property-search.service';
 import { FiltrosBusqueda } from '../../../../core/models/search-filters.interface';
 
 @Component({
@@ -11,61 +11,113 @@ import { FiltrosBusqueda } from '../../../../core/models/search-filters.interfac
   templateUrl: './property-search-bar.component.html',
   styleUrl: './property-search-bar.component.scss'
 })
-export class PropertySearchBarComponent {
-  private router = inject(Router);
+export class PropertySearchBarComponent implements OnInit {
+  private searchService = inject(PropertySearchService);
 
-  // Opciones para los selectores
-  operaciones = [
+  /**
+   * If true, navigates to /propiedades with filters as query params.
+   * If false, executes search in-place (for listing page).
+   */
+  @Input() navigateOnSearch = true;
+
+  /**
+   * Optional initial filters (e.g., to pre-select operation)
+   */
+  @Input() initialFilters?: Partial<FiltrosBusqueda>;
+
+  // =============================================
+  // SELECT OPTIONS
+  // Values match FiltrosBusqueda interface
+  // =============================================
+
+  readonly operationOptions = [
     { value: '', label: 'Comprar o Alquilar' },
     { value: 'venta', label: 'Comprar' },
     { value: 'alquiler', label: 'Alquilar' }
-  ];
+  ] as const;
 
-  tiposPropiedad = [
+  readonly propertyTypeOptions = [
     { value: '', label: 'Tipo de propiedad' },
     { value: 'casa', label: 'Casa' },
     { value: 'departamento', label: 'Departamento' },
     { value: 'ph', label: 'PH' },
     { value: 'oficina', label: 'Oficina' },
     { value: 'terreno', label: 'Terreno' }
-  ];
+  ] as const;
 
-  // Modelo del formulario
-  filtros: Partial<FiltrosBusqueda> = {
+  readonly currencyOptions = [
+    { value: 'USD', label: 'USD' },
+    { value: 'ARS', label: 'ARS' }
+  ] as const;
+
+  // =============================================
+  // FORM MODEL
+  // Uses same property names as FiltrosBusqueda
+  // =============================================
+
+  filters: Partial<FiltrosBusqueda> = {
     operacion: 'venta',
     tipoPropiedad: '',
     ubicacion: '',
     precioMinimo: undefined,
-    precioMaximo: undefined
+    precioMaximo: undefined,
+    moneda: 'USD'
   };
 
-  // Moneda seleccionada
-  moneda: 'USD' | 'ARS' = 'USD';
+  // =============================================
+  // LIFECYCLE
+  // =============================================
 
-  // Método para cambiar la operación desde los tabs
-  setOperation(operacion: string): void {
-    this.filtros.operacion = operacion;
+  ngOnInit(): void {
+    if (this.initialFilters) {
+      this.filters = {
+        ...this.filters,
+        ...this.initialFilters
+      };
+    }
+
+    const serviceFilters = this.searchService.filters();
+    if (serviceFilters.operacion) {
+      this.filters.operacion = serviceFilters.operacion;
+    }
   }
 
-  // Método para cambiar la moneda
-  setCurrency(moneda: 'USD' | 'ARS'): void {
-    this.moneda = moneda;
+  // =============================================
+  // PUBLIC METHODS - UI INTERACTION
+  // =============================================
+
+  setOperation(operation: string): void {
+    this.filters.operacion = operation;
+  }
+
+  setCurrency(currency: string): void {
+    this.filters.moneda = currency;
   }
 
   onSearch(): void {
-    // Limpiar filtros vacíos
-    const filtrosLimpios = Object.entries(this.filtros)
-      .filter(([_, value]) => value !== '' && value !== undefined)
-      .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+    const cleanFilters = this.removeEmptyFilters(this.filters);
 
-    // Agregar moneda si hay precios
-    if (this.filtros.precioMinimo || this.filtros.precioMaximo) {
-      (filtrosLimpios as Record<string, unknown>)['moneda'] = this.moneda;
+    if (this.navigateOnSearch) {
+      this.searchService.searchAndNavigate(cleanFilters);
+    } else {
+      this.searchService.searchWithFilters(cleanFilters).subscribe();
     }
+  }
 
-    // Navegar a la página de listado con los filtros como query params
-    this.router.navigate(['/propiedades'], {
-      queryParams: filtrosLimpios
-    });
+  // =============================================
+  // PRIVATE METHODS
+  // =============================================
+
+  private removeEmptyFilters(filters: Partial<FiltrosBusqueda>): Partial<FiltrosBusqueda> {
+    return Object.entries(filters)
+      .filter(([_, value]) => {
+        if (value === undefined || value === null) return false;
+        if (typeof value === 'string' && value === '') return false;
+        return true;
+      })
+      .reduce((acc, [key, value]) => {
+        (acc as Record<string, unknown>)[key] = value;
+        return acc;
+      }, {} as Partial<FiltrosBusqueda>);
   }
 }
