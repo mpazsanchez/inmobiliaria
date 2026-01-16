@@ -1,0 +1,144 @@
+<div class="property-gallery" (keydown)="onKeydown($event)" tabindex="0">
+  <!-- Tabs -->
+  <div class="gallery-tabs">
+    <button 
+      class="tab-button" 
+      [class.active]="activeTab === 'fotos'"
+      (click)="changeTab('fotos')"
+      type="button">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21 15 16 10 5 21"/>
+      </svg>
+      Fotos ({{ imagenes.length }})
+    </button>
+    <button 
+      class="tab-button" 
+      [class.active]="activeTab === 'videos'"
+      [disabled]="!videoUrl"
+      (click)="changeTab('videos')"
+      type="button">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="5 3 19 12 5 21 5 3"/>
+      </svg>
+      Videos
+    </button>
+    <button 
+      class="tab-button" 
+      [class.active]="activeTab === '360'"
+      [disabled]="!video360Url"
+      (click)="changeTab('360')"
+      type="button">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M2 12h20"/>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      </svg>
+      360°
+    </button>
+  </div>
+
+  <!-- Imagen Principal -->
+  <div class="main-image-container" (click)="openLightbox()" *ngIf="activeTab === 'fotos'">
+    <img [src]="mainImage" [alt]="titulo" class="main-image">
+
+    <!-- Badge de fotos -->
+    <div class="photo-count" *ngIf="imagenes.length > 1">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21 15 16 10 5 21"/>
+      </svg>
+      {{ imagenes.length }} fotos
+    </div>
+
+    <!-- Botón ver todas -->
+    <button class="btn-view-all" type="button">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+      </svg>
+      Ver galería
+    </button>
+  </div>
+
+  <!-- Video Container -->
+  <div class="video-container" *ngIf="activeTab === 'videos' && videoUrl">
+    <iframe 
+      [src]="videoUrl" 
+      frameborder="0" 
+      allowfullscreen
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+    </iframe>
+  </div>
+
+  <!-- 360 Container -->
+  <div class="video-360-container" *ngIf="activeTab === '360' && video360Url">
+    <iframe 
+      [src]="video360Url" 
+      frameborder="0" 
+      allowfullscreen
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; xr-spatial-tracking">
+    </iframe>
+  </div>
+
+  <!-- Thumbnails -->
+  <div class="thumbnails-container" *ngIf="imagenes.length > 1 && activeTab === 'fotos'">
+    <div
+      class="thumbnail"
+      *ngFor="let img of thumbnails; let i = index"
+      [class.active]="i === selectedIndex"
+      (click)="selectImage(i)">
+      <img [src]="img.url" [alt]="img.descripcion || 'Imagen ' + (i + 1)">
+
+      <!-- Overlay para ver más -->
+      <div class="more-overlay" *ngIf="i === 4 && hasMoreImages > 0" (click)="openLightbox(4)">
+        +{{ hasMoreImages }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" *ngIf="lightboxOpen" (click)="closeLightbox()">
+  <button class="lightbox-close" type="button" (click)="closeLightbox()">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  </button>
+
+  <button class="lightbox-nav lightbox-prev" type="button" (click)="prevImage($event)" *ngIf="imagenes.length > 1">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+  </button>
+
+  <div class="lightbox-content" (click)="$event.stopPropagation()">
+    <img [src]="imagenes[selectedIndex].url" [alt]="imagenes[selectedIndex].descripcion || titulo">
+
+    <div class="lightbox-caption" *ngIf="imagenes[selectedIndex].descripcion">
+      {{ imagenes[selectedIndex].descripcion }}
+    </div>
+
+    <div class="lightbox-counter">
+      {{ selectedIndex + 1 }} / {{ imagenes.length }}
+    </div>
+  </div>
+
+  <button class="lightbox-nav lightbox-next" type="button" (click)="nextImage($event)" *ngIf="imagenes.length > 1">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6"/>
+    </svg>
+  </button>
+
+  <!-- Thumbnails en lightbox -->
+  <div class="lightbox-thumbnails" *ngIf="imagenes.length > 1" (click)="$event.stopPropagation()">
+    <div
+      class="lightbox-thumb"
+      *ngFor="let img of imagenes; let i = index"
+      [class.active]="i === selectedIndex"
+      (click)="selectImage(i)">
+      <img [src]="img.url" [alt]="img.descripcion || 'Imagen ' + (i + 1)">
+    </div>
+  </div>
+</div>
