@@ -7,12 +7,13 @@ export * from './property.interface';
 
 // Usuarios y Asesores
 export * from './user.interface';
+export * from './agent.interface';
 
 // Leads/Contactos
 export * from './lead.interface';
 
 // Filtros de busqueda
-// export * from './search-filters.interface';
+export * from './search-filters.interface';
 
 // Contenido estatico
 export * from './static-content/about-us.interface';
