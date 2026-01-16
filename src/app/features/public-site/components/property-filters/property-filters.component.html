@@ -1,0 +1,124 @@
+<div class="property-filters">
+  <!-- Header -->
+  <div class="filters-header">
+    <h3 class="filters-title">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+      </svg>
+      Filtros
+    </h3>
+    <div class="header-actions">
+      <button *ngIf="contarFiltrosActivos() > 0" class="btn-clear" (click)="limpiar()" type="button">
+        Limpiar ({{ contarFiltrosActivos() }})
+      </button>
+      <button class="btn-close-mobile" (click)="cerrarFiltros()" type="button" aria-label="Cerrar filtros">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="filters-content" [class.collapsed]="isCollapsed">
+    <!-- Tipo de Propiedad -->
+    <div class="filter-group">
+      <span class="filter-label">Tipo de Propiedad</span>
+      <select [(ngModel)]="filtros.tipoPropiedad" name="tipoPropiedad" class="filter-select">
+        <option *ngFor="let tipo of tiposPropiedad" [value]="tipo.value">
+          {{ tipo.label }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Rango de Precios -->
+    <div class="filter-group">
+      <span class="filter-label">Precio</span>
+      <div class="price-range">
+        <input 
+          type="number" 
+          [(ngModel)]="filtros.precioMinimo"
+          name="precioMinimo"
+          placeholder="Mínimo"
+          class="filter-input"
+          min="0"
+        />
+        <span class="range-separator">-</span>
+        <input 
+          type="number" 
+          [(ngModel)]="filtros.precioMaximo"
+          name="precioMaximo"
+          placeholder="Máximo"
+          class="filter-input"
+          min="0"
+        />
+      </div>
+    </div>
+
+    <!-- Ambientes -->
+    <div class="filter-group">
+      <span class="filter-label">Ambientes</span>
+      <div class="options-grid">
+        <button 
+          *ngFor="let opt of ambientesOpciones"
+          type="button"
+          class="option-btn"
+          [class.active]="filtros.ambientes === opt.value"
+          (click)="filtros.ambientes = filtros.ambientes === opt.value ? undefined : opt.value">
+          {{ opt.label }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Dormitorios -->
+    <div class="filter-group">
+      <span class="filter-label">Dormitorios</span>
+      <div class="options-grid">
+        <button 
+          *ngFor="let opt of dormitoriosOpciones"
+          type="button"
+          class="option-btn"
+          [class.active]="filtros.dormitorios === opt.value"
+          (click)="filtros.dormitorios = filtros.dormitorios === opt.value ? undefined : opt.value">
+          {{ opt.label }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Baños -->
+    <div class="filter-group">
+      <span class="filter-label">Baños</span>
+      <div class="options-grid">
+        <button 
+          *ngFor="let opt of banosOpciones"
+          type="button"
+          class="option-btn"
+          [class.active]="filtros.banos === opt.value"
+          (click)="filtros.banos = filtros.banos === opt.value ? undefined : opt.value">
+          {{ opt.label }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Amenities -->
+    <div class="filter-group">
+      <span class="filter-label">Amenities</span>
+      <div class="amenities-list">
+        <label *ngFor="let amenity of amenities" class="amenity-checkbox">
+          <input 
+            type="checkbox"
+            [checked]="isAmenitySelected(amenity.value)"
+            (change)="toggleAmenity(amenity.value)"
+          />
+          <span class="checkmark"></span>
+          <span class="amenity-label">{{ amenity.label }}</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Botón Aplicar -->
+    <button type="button" class="btn-apply" (click)="aplicarFiltros()">
+      Aplicar Filtros
+    </button>
+  </div>
+</div>
