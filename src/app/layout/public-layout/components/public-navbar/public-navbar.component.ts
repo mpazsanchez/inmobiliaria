@@ -109,7 +109,7 @@ export class PublicNavbarComponent implements OnInit, OnDestroy {
   /**
    * Detecta el scroll para aplicar efectos visuales
    */
-  @HostListener('window:scroll', ['$event'])
+  @HostListener('window:scroll')
   onWindowScroll(): void {
     if (!this.isBrowser) return;
     
@@ -255,6 +255,16 @@ export class PublicNavbarComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Maneja el click de iniciar sesión
+   */
+  onLoginClick(event: Event): void {
+    event.preventDefault();
+    console.log('Login clickeado');
+    // Navegación al login
+    // this.router.navigate(['/login']);
+  }
+
+  /**
    * Maneja el click del carrito con animación
    */
   onCartClick(): void {
@@ -298,82 +308,10 @@ export class PublicNavbarComponent implements OnInit, OnDestroy {
       {
         id: 1,
         idParent: null,
-        name: 'Inicio',
-        titleShow: 'Inicio',
-        icon: 'fa fa-home',
-        link: '',
-        orderby: 1,
-        status: 1,
-        menuArguments: [],
-        usersMenu: true,
-      },
-      {
-        id: 2,
-        idParent: null,
-        name: 'Servicios',
-        titleShow: 'Servicios',
-        icon: '',
-        link: '/services/all',
-        orderby: 1,
-        status: 1,
-        menuArguments: [],
-        usersMenu: true,
-      },
-      {
-        id: 5,
-        idParent: 2,
-        name: 'Paisajismo',
-        titleShow: 'Paisajismo',
-        icon: '',
-        link: '/services/paisajismo',
-        orderby: 1,
-        status: 1,
-        menuArguments: [],
-        usersMenu: true,
-      },
-      {
-        id: 6,
-        idParent: 2,
-        name: 'Urbanismo',
-        titleShow: 'Urbanismo',
-        icon: '',
-        link: '/services/urbanismo',
-        orderby: 1,
-        status: 1,
-        menuArguments: [],
-        usersMenu: true,
-      },
-      {
-        id: 7,
-        idParent: 2,
-        name: 'Industria',
-        titleShow: 'Industria',
-        icon: '',
-        link: '/services/industria',
-        orderby: 1,
-        status: 1,
-        menuArguments: [],
-        usersMenu: true,
-      },
-      {
-        id: 8,
-        idParent: 2,
-        name: 'Agro',
-        titleShow: 'Agro',
-        icon: '',
-        link: '/services/agro',
-        orderby: 1,
-        status: 1,
-        menuArguments: [],
-        usersMenu: true,
-      },
-      {
-        id: 9,
-        idParent: 2,
-        name: 'Seguridad',
-        titleShow: 'Seguridad',
-        icon: '',
-        link: '/services/seguridad',
+        name: 'Comprar',
+        titleShow: 'Comprar',
+        icon: 'fa fa-buy',
+        link: '/comprar',
         orderby: 1,
         status: 1,
         menuArguments: [],
@@ -382,10 +320,10 @@ export class PublicNavbarComponent implements OnInit, OnDestroy {
       {
         id: 3,
         idParent: null,
-        name: 'Nosotros',
-        titleShow: 'Nosotros',
-        icon: '',
-        link: '/about',
+        name: 'Alquilar',
+        titleShow: 'Alquilar',
+        icon: 'fa fa-rent',
+        link: '/alquilar',
         orderby: 2,
         status: 1,
         menuArguments: [],
@@ -394,11 +332,23 @@ export class PublicNavbarComponent implements OnInit, OnDestroy {
       {
         id: 4,
         idParent: null,
+        name: 'Nosotros',
+        titleShow: 'Nosotros',
+        icon: 'fa fa-about',
+        link: '/about',
+        orderby: 3,
+        status: 1,
+        menuArguments: [],
+        usersMenu: true,
+      },
+      {
+        id: 5,
+        idParent: null,
         name: 'Contacto',
         titleShow: 'Contacto',
-        icon: '',
+        icon: 'fa fa-contact',
         link: '/contact',
-        orderby: 3,
+        orderby: 4,
         status: 1,
         menuArguments: [],
         usersMenu: true,

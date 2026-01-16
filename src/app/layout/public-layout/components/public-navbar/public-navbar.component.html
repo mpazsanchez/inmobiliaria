@@ -6,7 +6,7 @@
           
           <!-- Logo y nombre de empresa -->
           <a class="navbar-brand d-flex align-items-center" href="/">
-            <img [src]="'./assets/images/logos/logotipo.png'" 
+            <img [src]="'./assets/images/logos/logotipo-horizontal.png'" 
                  [alt]="config.companyName" 
                  class="navbar-logo me-2">
           </a>
@@ -80,13 +80,22 @@
                   }
                 </li>
               }
-            </ul>
-          </div>
+            </ul>            
+            <!-- Botón de login dentro del menú móvil -->
+            <div class="mobile-login-section d-lg-none">
+              <a href="/login" class="btn-mobile-login" (click)="onLoginClick($event)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+                <span>Iniciar Sesión</span>
+              </a>
+            </div>          </div>
 
           <!-- Carrito de compras -->
           @if (config.cartEnabled) {
             <div class="navbar-cart">
-              <button class="btn cart-btn position-relative" 
+              <button class="btn cart-btn position-relative"
                       type="button"
                       (click)="onCartClick()">
                 <i class="fas fa-shopping-cart"></i>
@@ -98,6 +107,17 @@
               </button>
             </div>
           }
+
+          <!-- Botón Iniciar Sesión -->
+          <div class="navbar-auth">
+            <a href="/login" class="btn-login" (click)="onLoginClick($event)">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              <span>Iniciar Sesión</span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
