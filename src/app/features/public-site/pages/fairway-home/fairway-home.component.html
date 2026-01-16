@@ -1,0 +1,52 @@
+<!-- Hero Section con Buscador -->
+<section class="hero-section">
+  <div class="hero-background">
+    <div class="hero-overlay"></div>
+    <img 
+      [src]="heroData.backgroundImage" 
+      alt="Fairway Inmobiliaria"
+      class="hero-image"
+    />
+  </div>
+  
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1 class="hero-title">{{ heroData.title }}</h1>
+      <p class="hero-subtitle">{{ heroData.subtitle }}</p>
+    </div>
+    
+    <!-- Buscador de Propiedades -->
+    <div class="search-container">
+      <app-property-search-bar/>
+    </div>
+  </div>
+</section>
+
+<!-- Propiedades Destacadas -->
+<app-featured-properties/>
+
+<!-- Propiedades Exclusivas CTA -->
+<app-exclusive-properties-cta/>
+
+<!-- Por Qué Fairway -->
+<app-why-fairway/>
+
+<!-- Call to Action Section -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-content">
+      <h2 class="cta-title">¿Listo para encontrar tu próxima propiedad?</h2>
+      <p class="cta-subtitle">
+        Nuestro equipo de asesores profesionales está aquí para ayudarte en cada paso del camino
+      </p>
+      <div class="cta-buttons">
+        <a routerLink="/propiedades" class="btn btn-primary">
+          Explorar Propiedades
+        </a>
+        <a routerLink="/contact" class="btn btn-secondary">
+          Contactar Asesor
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

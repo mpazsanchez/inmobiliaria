@@ -1,0 +1,123 @@
+<section class="why-fairway">
+
+
+  <!-- About Section -->
+  <div class="about-section">
+    <div class="container">
+      <div class="about-content">
+        <div class="about-text">
+          <span class="section-label">Sobre Nosotros</span>
+          <h2 class="section-title">¿Por Qué Elegir Fairway?</h2>
+          <p class="about-description">
+            En Fairway Inmobiliaria llevamos más de 12 años conectando personas con su hogar ideal.
+            Nuestro compromiso es brindar un servicio personalizado, transparente y profesional
+            en cada operación inmobiliaria.
+          </p>
+          <p class="about-description">
+            Contamos con un equipo de asesores altamente capacitados que te acompañarán
+            en todo el proceso, desde la búsqueda hasta la firma del contrato.
+          </p>
+          <a routerLink="/nosotros" class="btn-about">
+            Conocenos más
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+        <div class="about-image">
+          <img
+            src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=500&fit=crop"
+            alt="Equipo Fairway Inmobiliaria"
+            loading="lazy"
+          />
+          <div class="image-accent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Benefits Section -->
+  <div class="benefits-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Nuestras Ventajas</span>
+        <h2 class="section-title">Lo que nos diferencia</h2>
+      </div>
+
+      <div class="benefits-grid">
+        <div *ngFor="let beneficio of beneficios" class="benefit-card">
+          <div class="benefit-icon">
+            <ng-container [ngSwitch]="beneficio.icono">
+              <svg *ngSwitchCase="'shield-check'" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <polyline points="9 12 11 14 15 10"></polyline>
+              </svg>
+              <svg *ngSwitchCase="'users'" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <svg *ngSwitchCase="'home'" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+              <svg *ngSwitchCase="'headset'" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+                <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+              </svg>
+              <svg *ngSwitchCase="'trending-up'" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                <polyline points="17 6 23 6 23 12"></polyline>
+              </svg>
+              <svg *ngSwitchCase="'clock'" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </ng-container>
+          </div>
+          <h3 class="benefit-title">{{ beneficio.titulo }}</h3>
+          <p class="benefit-description">{{ beneficio.descripcion }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonials Section -->
+  <div class="testimonials-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Testimonios</span>
+        <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+      </div>
+
+      <div class="testimonials-grid">
+        <div *ngFor="let testimonio of testimonios" class="testimonial-card">
+          <div class="testimonial-quote">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" opacity="0.15">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+            </svg>
+          </div>
+          <p class="testimonial-text">{{ testimonio.texto }}</p>
+          <div class="testimonial-author">
+            <img
+              [src]="testimonio.fotoUrl"
+              [alt]="testimonio.nombre"
+              class="author-photo"
+            />
+            <div class="author-info">
+              <span class="author-name">{{ testimonio.nombre }}</span>
+              <span class="author-location">{{ testimonio.ubicacion }}</span>
+            </div>
+          </div>
+          <div class="testimonial-rating">
+            <svg *ngFor="let star of [1,2,3,4,5]" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
