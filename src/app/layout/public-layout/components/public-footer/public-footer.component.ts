@@ -18,34 +18,35 @@ export class PublicFooterComponent implements OnInit, OnDestroy {
   // Company Info
   companyInfo = {
     name: 'Fairway',
-    description: ' Servicios Integrales -  Seguridad, Paisajismo, Urbanismo, Industria y Agro.',
-    address: 'Tandil, Buenos Aires, Argentina',
+    description: 'Tu socio de confianza en el mercado inmobiliario. Más de 12 años ayudando a personas y familias a encontrar su hogar ideal.',
+    address: 'Tandil, Argentina',
     phone: '0249 424-4568',
     email: 'fairwayparquizacion@gmail.com'
   };
 
   // Navigation Links
   navigationLinks = [
-    { title: 'Inicio', url: '/home' },
-    { title: 'Acerca de Nosotros', url: '/about' },
-    // { title: 'Servicios', url: '/services' },
-    { title: 'Contacto', url: '/contact' },
-    // { title: 'Blog', url: '/blog' }
+    { title: 'Inicio', url: '/' },
+    { title: 'Comprar', url: '/propiedades?operacion=venta' },
+    { title: 'Alquilar', url: '/propiedades?operacion=alquiler' },
+    { title: 'Nosotros', url: '/about' },
+    { title: 'Contacto', url: '/contact' }
   ];
 
   // Quick Links
   quickLinks = [
-    { title: 'Ayuda', url: '/help' },
-    { title: 'Soporte', url: '/support' },
-    { title: 'Clientes', url: '/clients' },
+    { title: 'Nuestros Asesores', url: '/asesores' },
+    { title: 'Tasar mi Propiedad', url: '/tasacion' },
+    { title: 'Publicar Propiedad', url: '/publicar' },
+    { title: 'Preguntas Frecuentes', url: '/faq' }
   ];
 
   // Social Links
   socialLinks = [
-    { platform: 'Facebook', icon: 'fab fa-facebook-f', url: 'https://www.facebook.com/fairway.parquizacion.integral/' },
-    { platform: 'Instagram', icon: 'fab fa-instagram', url: 'https://www.instagram.com/fairwayserviciosintegrales/?hl=fi' },
-    // { platform: 'TikTok', icon: 'fab fa-tiktok', url: '#' },
-    // { platform: 'YouTube', icon: 'fab fa-youtube', url: '#' }
+    { platform: 'Facebook', icon: 'fab fa-facebook-f', url: 'https://facebook.com/fairway' },
+    { platform: 'Instagram', icon: 'fab fa-instagram', url: 'https://instagram.com/fairway' },
+    { platform: 'LinkedIn', icon: 'fab fa-linkedin-in', url: 'https://linkedin.com/company/fairway' },
+    { platform: 'YouTube', icon: 'fab fa-youtube', url: 'https://youtube.com/@fairway' }
   ];
 
   // Newsletter
