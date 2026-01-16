@@ -15,7 +15,7 @@
     <div *ngIf="!isLoading && propiedadesDestacadas.length > 0" class="properties-grid">
       <article *ngFor="let propiedad of propiedadesDestacadas" class="property-card">
         <!-- Image (clickeable) -->
-        <a [routerLink]="['/propiedades', propiedad.id]" class="property-image-link">
+        <a [routerLink]="['/propiedad', propiedad.id]" class="property-image-link">
           <div class="property-image">
             <img
               [src]="propiedad.imagenes[0].url || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop'"
