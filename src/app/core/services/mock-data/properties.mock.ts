@@ -30,15 +30,22 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: ['jardin', 'parrilla', 'cochera', 'lavadero']
     },
     imagenes: [
-      { url: 'assets/images/properties/casa-palermo-1.jpg', descripcion: 'Frente' },
-      { url: 'assets/images/properties/casa-palermo-2.jpg', descripcion: 'Living' },
-      { url: 'assets/images/properties/casa-palermo-3.jpg', descripcion: 'Jardin' }
+      { url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop', descripcion: 'Frente' },
+      { url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop', descripcion: 'Living' },
+      { url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop', descripcion: 'Jardin' }
     ],
     estado: 'disponible',
     destacada: true,
     asesorId: 1,
     fechaPublicacion: '2024-01-15',
-    ultimaActualizacion: '2024-01-20'
+    ultimaActualizacion: '2024-01-20',
+    agente: {
+      id: 1,
+      nombre: 'María González',
+      telefono: '+5491123456789',
+      email: 'maria.gonzalez@fairway.com.ar',
+      fotoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop'
+    }
   },
   {
     id: 2,
@@ -68,14 +75,21 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: ['balcon', 'pileta', 'gym', 'sum', 'seguridad-24hs']
     },
     imagenes: [
-      { url: 'assets/images/properties/depto-belgrano-1.jpg', descripcion: 'Living' },
-      { url: 'assets/images/properties/depto-belgrano-2.jpg', descripcion: 'Dormitorio' }
+      { url: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop', descripcion: 'Living' },
+      { url: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop', descripcion: 'Dormitorio' }
     ],
     estado: 'disponible',
     destacada: true,
     asesorId: 2,
     fechaPublicacion: '2024-01-10',
-    ultimaActualizacion: '2024-01-18'
+    ultimaActualizacion: '2024-01-18',
+    agente: {
+      id: 2,
+      nombre: 'Carlos Rodríguez',
+      telefono: '+5491187654321',
+      email: 'carlos.rodriguez@fairway.com.ar',
+      fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop'
+    }
   },
   {
     id: 3,
@@ -105,13 +119,20 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: ['patio', 'parrilla']
     },
     imagenes: [
-      { url: 'assets/images/properties/ph-vcrespo-1.jpg', descripcion: 'Living' }
+      { url: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&h=600&fit=crop', descripcion: 'Living' }
     ],
     estado: 'disponible',
-    destacada: false,
+    destacada: true,
     asesorId: 1,
     fechaPublicacion: '2024-01-20',
-    ultimaActualizacion: '2024-01-20'
+    ultimaActualizacion: '2024-01-20',
+    agente: {
+      id: 1,
+      nombre: 'María González',
+      telefono: '+5491123456789',
+      email: 'maria.gonzalez@fairway.com.ar',
+      fotoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop'
+    }
   },
   {
     id: 4,
@@ -141,13 +162,20 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: ['aire-acondicionado', 'seguridad-24hs', 'recepcion']
     },
     imagenes: [
-      { url: 'assets/images/properties/oficina-micro-1.jpg', descripcion: 'Vista general' }
+      { url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop', descripcion: 'Vista general' }
     ],
     estado: 'disponible',
     destacada: true,
     asesorId: 2,
     fechaPublicacion: '2024-01-05',
-    ultimaActualizacion: '2024-01-15'
+    ultimaActualizacion: '2024-01-15',
+    agente: {
+      id: 2,
+      nombre: 'Carlos Rodríguez',
+      telefono: '+5491187654321',
+      email: 'carlos.rodriguez@fairway.com.ar',
+      fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop'
+    }
   },
   {
     id: 5,
@@ -177,13 +205,20 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: []
     },
     imagenes: [
-      { url: 'assets/images/properties/terreno-norte-1.jpg', descripcion: 'Vista' }
+      { url: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop', descripcion: 'Vista' }
     ],
     estado: 'disponible',
-    destacada: false,
+    destacada: true,
     asesorId: 1,
     fechaPublicacion: '2024-01-12',
-    ultimaActualizacion: '2024-01-12'
+    ultimaActualizacion: '2024-01-19',
+    agente: {
+      id: 3,
+      nombre: 'Ana Martínez',
+      telefono: '+5491145678901',
+      email: 'ana.martinez@fairway.com.ar',
+      fotoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop'
+    }
   },
   {
     id: 6,
@@ -213,13 +248,515 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: ['balcon', 'pileta', 'gym', 'solarium', 'laundry', 'seguridad-24hs']
     },
     imagenes: [
-      { url: 'assets/images/properties/depto-nunez-1.jpg', descripcion: 'Living' },
-      { url: 'assets/images/properties/depto-nunez-2.jpg', descripcion: 'Dormitorio' }
+      { url: 'https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?w=800&h=600&fit=crop', descripcion: 'Living' },
+      { url: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&h=600&fit=crop', descripcion: 'Dormitorio' }
     ],
     estado: 'disponible',
     destacada: true,
     asesorId: 2,
     fechaPublicacion: '2024-01-18',
-    ultimaActualizacion: '2024-01-22'
+    ultimaActualizacion: '2024-01-22',
+    agente: {
+      id: 2,
+      nombre: 'Carlos Rodríguez',
+      telefono: '+5491187654321',
+      email: 'carlos.rodriguez@fairway.com.ar',
+      fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop'
+    }
+  },
+  // Propiedades adicionales en Palermo para clustering
+  {
+    id: 7,
+    titulo: 'Loft Moderno en Palermo Soho',
+    descripcion: 'Loft de diseño con doble altura, ideal para jóvenes profesionales.',
+    tipoPropiedad: 'departamento',
+    operacion: 'alquiler',
+    precio: 450000,
+    moneda: 'ARS',
+    ubicacion: {
+      direccion: 'Honduras 4800',
+      ciudad: 'Buenos Aires',
+      provincia: 'CABA',
+      pais: 'Argentina',
+      coordenadas: { lat: -34.5862, lng: -58.4298 }
+    },
+    caracteristicas: {
+      ambientes: 1,
+      dormitorios: 1,
+      banos: 1,
+      superficie_cubierta: 45,
+      superficie_total: 45,
+      antiguedad: 5,
+      garage: 0,
+      amenidades: ['terraza']
+    },
+    imagenes: [
+      { url: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop', descripcion: 'Interior' }
+    ],
+    estado: 'disponible',
+    destacada: false,
+    asesorId: 1,
+    fechaPublicacion: '2024-01-22',
+    ultimaActualizacion: '2024-01-22',
+    agente: {
+      id: 1,
+      nombre: 'María González',
+      telefono: '+5491123456789',
+      email: 'maria.gonzalez@fairway.com.ar',
+      fotoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop'
+    }
+  },
+  {
+    id: 8,
+    titulo: 'Departamento con Terraza en Palermo Hollywood',
+    descripcion: 'Hermoso 3 ambientes con terraza propia de 30m2.',
+    tipoPropiedad: 'departamento',
+    operacion: 'venta',
+    precio: 195000,
+    moneda: 'USD',
+    ubicacion: {
+      direccion: 'Fitz Roy 1900',
+      ciudad: 'Buenos Aires',
+      provincia: 'CABA',
+      pais: 'Argentina',
+      coordenadas: { lat: -34.5855, lng: -58.4335 }
+    },
+    caracteristicas: {
+      ambientes: 3,
+      dormitorios: 2,
+      banos: 1,
+      superficie_cubierta: 70,
+      superficie_total: 100,
+      antiguedad: 10,
+      garage: 0,
+      amenidades: ['terraza', 'parrilla']
+    },
+    imagenes: [
+      { url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop', descripcion: 'Terraza' }
+    ],
+    estado: 'disponible',
+    destacada: false,
+    asesorId: 2,
+    fechaPublicacion: '2024-01-21',
+    ultimaActualizacion: '2024-01-21',
+    agente: {
+      id: 2,
+      nombre: 'Carlos Rodríguez',
+      telefono: '+5491187654321',
+      email: 'carlos.rodriguez@fairway.com.ar',
+      fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop'
+    }
+  },
+  {
+    id: 9,
+    titulo: 'Monoambiente Luminoso en Palermo',
+    descripcion: 'Monoambiente divisible con excelente luz natural.',
+    tipoPropiedad: 'departamento',
+    operacion: 'alquiler',
+    precio: 280000,
+    moneda: 'ARS',
+    ubicacion: {
+      direccion: 'Gorriti 5500',
+      ciudad: 'Buenos Aires',
+      provincia: 'CABA',
+      pais: 'Argentina',
+      coordenadas: { lat: -34.5870, lng: -58.4325 }
+    },
+    caracteristicas: {
+      ambientes: 1,
+      dormitorios: 0,
+      banos: 1,
+      superficie_cubierta: 32,
+      superficie_total: 32,
+      antiguedad: 3,
+      garage: 0,
+      amenidades: []
+    },
+    imagenes: [
+      { url: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&h=600&fit=crop', descripcion: 'Interior' }
+    ],
+    estado: 'disponible',
+    destacada: false,
+    asesorId: 1,
+    fechaPublicacion: '2024-01-20',
+    ultimaActualizacion: '2024-01-20',
+    agente: {
+      id: 1,
+      nombre: 'María González',
+      telefono: '+5491123456789',
+      email: 'maria.gonzalez@fairway.com.ar',
+      fotoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop'
+    }
+  },
+  {
+    id: 10,
+    titulo: 'PH de 3 Ambientes en Palermo Viejo',
+    descripcion: 'PH reciclado con patio y parrilla propia.',
+    tipoPropiedad: 'ph',
+    operacion: 'venta',
+    precio: 245000,
+    moneda: 'USD',
+    ubicacion: {
+      direccion: 'Armenia 1700',
+      ciudad: 'Buenos Aires',
+      provincia: 'CABA',
+      pais: 'Argentina',
+      coordenadas: { lat: -34.5880, lng: -58.4290 }
+    },
+    caracteristicas: {
+      ambientes: 3,
+      dormitorios: 2,
+      banos: 2,
+      superficie_cubierta: 90,
+      superficie_total: 120,
+      antiguedad: 0,
+      garage: 0,
+      amenidades: ['patio', 'parrilla', 'lavadero']
+    },
+    imagenes: [
+      { url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop', descripcion: 'Patio' }
+    ],
+    estado: 'disponible',
+    destacada: false,
+    asesorId: 3,
+    fechaPublicacion: '2024-01-19',
+    ultimaActualizacion: '2024-01-19',
+    agente: {
+      id: 3,
+      nombre: 'Ana Martínez',
+      telefono: '+5491145678901',
+      email: 'ana.martinez@fairway.com.ar',
+      fotoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop'
+    }
+  },
+  {
+    id: 11,
+    titulo: 'Duplex con Pileta en Palermo Chico',
+    descripcion: 'Espectacular duplex en edificio con amenities premium.',
+    tipoPropiedad: 'departamento',
+    operacion: 'venta',
+    precio: 520000,
+    moneda: 'USD',
+    ubicacion: {
+      direccion: 'Av. del Libertador 2800',
+      ciudad: 'Buenos Aires',
+      provincia: 'CABA',
+      pais: 'Argentina',
+      coordenadas: { lat: -34.5765, lng: -58.4095 }
+    },
+    caracteristicas: {
+      ambientes: 5,
+      dormitorios: 3,
+      banos: 3,
+      superficie_cubierta: 180,
+      superficie_total: 200,
+      antiguedad: 2,
+      garage: 2,
+      amenidades: ['pileta', 'gym', 'spa', 'seguridad-24hs']
+    },
+    imagenes: [
+      { url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop', descripcion: 'Vista' }
+    ],
+    estado: 'disponible',
+    destacada: true,
+    asesorId: 2,
+    fechaPublicacion: '2024-01-18',
+    ultimaActualizacion: '2024-01-18',
+    agente: {
+      id: 2,
+      nombre: 'Carlos Rodríguez',
+      telefono: '+5491187654321',
+      email: 'carlos.rodriguez@fairway.com.ar',
+      fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop'
+    }
+  },
+  // Propiedades en Recoleta para otro cluster
+  {
+    id: 12,
+    titulo: 'Departamento Clásico en Recoleta',
+    descripcion: 'Elegante 4 ambientes en edificio francés.',
+    tipoPropiedad: 'departamento',
+    operacion: 'venta',
+    precio: 380000,
+    moneda: 'USD',
+    ubicacion: {
+      direccion: 'Av. Alvear 1500',
+      ciudad: 'Buenos Aires',
+      provincia: 'CABA',
+      pais: 'Argentina',
+      coordenadas: { lat: -34.5875, lng: -58.3935 }
+    },
+    caracteristicas: {
+      ambientes: 4,
+      dormitorios: 3,
+      banos: 2,
+      superficie_cubierta: 150,
+      superficie_total: 150,
+      antiguedad: 80,
+      garage: 1,
+      amenidades: ['balcon']
+    },
+    imagenes: [
+      { url: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop', descripcion: 'Living' }
+    ],
+    estado: 'disponible',
+    destacada: false,
+    asesorId: 1,
+    fechaPublicacion: '2024-01-17',
+    ultimaActualizacion: '2024-01-17',
+    agente: {
+      id: 1,
+      nombre: 'María González',
+      telefono: '+5491123456789',
+      email: 'maria.gonzalez@fairway.com.ar',
+      fotoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop'
+    }
+  },
+  {
+    id: 13,
+    titulo: 'Penthouse con Vista al Parque',
+    descripcion: 'Increíble penthouse frente a Plaza Francia.',
+    tipoPropiedad: 'departamento',
+    operacion: 'venta',
+    precio: 750000,
+    moneda: 'USD',
+    ubicacion: {
+      direccion: 'Posadas 1300',
+      ciudad: 'Buenos Aires',
+      provincia: 'CABA',
+      pais: 'Argentina',
+      coordenadas: { lat: -34.5890, lng: -58.3920 }
+    },
+    caracteristicas: {
+      ambientes: 6,
+      dormitorios: 4,
+      banos: 4,
+      superficie_cubierta: 300,
+      superficie_total: 350,
+      antiguedad: 15,
+      garage: 3,
+      amenidades: ['terraza', 'pileta-privada', 'seguridad-24hs']
+    },
+    imagenes: [
+      { url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop', descripcion: 'Terraza' }
+    ],
+    estado: 'disponible',
+    destacada: true,
+    asesorId: 3,
+    fechaPublicacion: '2024-01-16',
+    ultimaActualizacion: '2024-01-16',
+    agente: {
+      id: 3,
+      nombre: 'Ana Martínez',
+      telefono: '+5491145678901',
+      email: 'ana.martinez@fairway.com.ar',
+      fotoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop'
+    }
+  },
+  {
+    id: 14,
+    titulo: '2 Ambientes Moderno en Recoleta',
+    descripcion: 'Departamento a estrenar con amenities.',
+    tipoPropiedad: 'departamento',
+    operacion: 'alquiler',
+    precio: 550000,
+    moneda: 'ARS',
+    ubicacion: {
+      direccion: 'Junín 1200',
+      ciudad: 'Buenos Aires',
+      provincia: 'CABA',
+      pais: 'Argentina',
+      coordenadas: { lat: -34.5905, lng: -58.3945 }
+    },
+    caracteristicas: {
+      ambientes: 2,
+      dormitorios: 1,
+      banos: 1,
+      superficie_cubierta: 48,
+      superficie_total: 52,
+      antiguedad: 0,
+      garage: 0,
+      amenidades: ['gym', 'laundry']
+    },
+    imagenes: [
+      { url: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop', descripcion: 'Living' }
+    ],
+    estado: 'disponible',
+    destacada: false,
+    asesorId: 2,
+    fechaPublicacion: '2024-01-15',
+    ultimaActualizacion: '2024-01-15',
+    agente: {
+      id: 2,
+      nombre: 'Carlos Rodríguez',
+      telefono: '+5491187654321',
+      email: 'carlos.rodriguez@fairway.com.ar',
+      fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop'
+    }
+  },
+  {
+    id: 15,
+    titulo: 'Semipiso en Av. Quintana',
+    descripcion: 'Lujoso semipiso con vista panorámica.',
+    tipoPropiedad: 'departamento',
+    operacion: 'venta',
+    precio: 620000,
+    moneda: 'USD',
+    ubicacion: {
+      direccion: 'Av. Quintana 500',
+      ciudad: 'Buenos Aires',
+      provincia: 'CABA',
+      pais: 'Argentina',
+      coordenadas: { lat: -34.5868, lng: -58.3905 }
+    },
+    caracteristicas: {
+      ambientes: 5,
+      dormitorios: 3,
+      banos: 3,
+      superficie_cubierta: 200,
+      superficie_total: 220,
+      antiguedad: 25,
+      garage: 2,
+      amenidades: ['balcon', 'dependencia']
+    },
+    imagenes: [
+      { url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop', descripcion: 'Living' }
+    ],
+    estado: 'disponible',
+    destacada: false,
+    asesorId: 1,
+    fechaPublicacion: '2024-01-14',
+    ultimaActualizacion: '2024-01-14',
+    agente: {
+      id: 1,
+      nombre: 'María González',
+      telefono: '+5491123456789',
+      email: 'maria.gonzalez@fairway.com.ar',
+      fotoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop'
+    }
+  },
+  // Más propiedades en Microcentro para otro cluster
+  {
+    id: 16,
+    titulo: 'Oficina en Edificio Inteligente',
+    descripcion: 'Oficina equipada en edificio corporativo.',
+    tipoPropiedad: 'oficina',
+    operacion: 'alquiler',
+    precio: 1800,
+    moneda: 'USD',
+    ubicacion: {
+      direccion: 'Reconquista 200',
+      ciudad: 'Buenos Aires',
+      provincia: 'CABA',
+      pais: 'Argentina',
+      coordenadas: { lat: -34.6025, lng: -58.3750 }
+    },
+    caracteristicas: {
+      ambientes: 1,
+      dormitorios: 0,
+      banos: 1,
+      superficie_cubierta: 80,
+      superficie_total: 80,
+      antiguedad: 3,
+      garage: 0,
+      amenidades: ['aire-acondicionado', 'seguridad-24hs']
+    },
+    imagenes: [
+      { url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop', descripcion: 'Oficina' }
+    ],
+    estado: 'disponible',
+    destacada: false,
+    asesorId: 2,
+    fechaPublicacion: '2024-01-13',
+    ultimaActualizacion: '2024-01-13',
+    agente: {
+      id: 2,
+      nombre: 'Carlos Rodríguez',
+      telefono: '+5491187654321',
+      email: 'carlos.rodriguez@fairway.com.ar',
+      fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop'
+    }
+  },
+  {
+    id: 17,
+    titulo: 'Local Comercial en Florida',
+    descripcion: 'Excelente local sobre peatonal Florida.',
+    tipoPropiedad: 'local',
+    operacion: 'alquiler',
+    precio: 5000,
+    moneda: 'USD',
+    ubicacion: {
+      direccion: 'Florida 400',
+      ciudad: 'Buenos Aires',
+      provincia: 'CABA',
+      pais: 'Argentina',
+      coordenadas: { lat: -34.6040, lng: -58.3780 }
+    },
+    caracteristicas: {
+      ambientes: 1,
+      dormitorios: 0,
+      banos: 1,
+      superficie_cubierta: 120,
+      superficie_total: 120,
+      antiguedad: 50,
+      garage: 0,
+      amenidades: []
+    },
+    imagenes: [
+      { url: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop', descripcion: 'Local' }
+    ],
+    estado: 'disponible',
+    destacada: false,
+    asesorId: 3,
+    fechaPublicacion: '2024-01-12',
+    ultimaActualizacion: '2024-01-12',
+    agente: {
+      id: 3,
+      nombre: 'Ana Martínez',
+      telefono: '+5491145678901',
+      email: 'ana.martinez@fairway.com.ar',
+      fotoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop'
+    }
+  },
+  {
+    id: 18,
+    titulo: 'Departamento 1 Ambiente en Microcentro',
+    descripcion: 'Ideal inversión, alquilado con renta.',
+    tipoPropiedad: 'departamento',
+    operacion: 'venta',
+    precio: 55000,
+    moneda: 'USD',
+    ubicacion: {
+      direccion: 'Sarmiento 600',
+      ciudad: 'Buenos Aires',
+      provincia: 'CABA',
+      pais: 'Argentina',
+      coordenadas: { lat: -34.6050, lng: -58.3795 }
+    },
+    caracteristicas: {
+      ambientes: 1,
+      dormitorios: 0,
+      banos: 1,
+      superficie_cubierta: 28,
+      superficie_total: 28,
+      antiguedad: 40,
+      garage: 0,
+      amenidades: []
+    },
+    imagenes: [
+      { url: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&h=600&fit=crop', descripcion: 'Interior' }
+    ],
+    estado: 'disponible',
+    destacada: false,
+    asesorId: 1,
+    fechaPublicacion: '2024-01-11',
+    ultimaActualizacion: '2024-01-11',
+    agente: {
+      id: 1,
+      nombre: 'María González',
+      telefono: '+5491123456789',
+      email: 'maria.gonzalez@fairway.com.ar',
+      fotoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop'
+    }
   }
 ];
