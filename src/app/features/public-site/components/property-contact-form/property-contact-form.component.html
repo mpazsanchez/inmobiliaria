@@ -1,0 +1,105 @@
+<div class="contact-form-card">
+  <h3 class="form-title">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+      <polyline points="22,6 12,13 2,6"/>
+    </svg>
+    Enviar consulta
+  </h3>
+
+  <!-- Success Message -->
+  <div class="success-message" *ngIf="submitSuccess">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+      <polyline points="22 4 12 14.01 9 11.01"/>
+    </svg>
+    <div>
+      <strong>¡Consulta enviada!</strong>
+      <p>El asesor se pondrá en contacto contigo a la brevedad.</p>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" *ngIf="!submitSuccess">
+    <div class="form-group">
+      <label for="nombre">Nombre completo *</label>
+      <input
+        type="text"
+        id="nombre"
+        formControlName="nombre"
+        placeholder="Tu nombre"
+        [class.error]="f['nombre'].touched && f['nombre'].invalid">
+      <span class="error-text" *ngIf="f['nombre'].touched && f['nombre'].errors?.['required']">
+        El nombre es requerido
+      </span>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="email">Email *</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="tu@email.com"
+          [class.error]="f['email'].touched && f['email'].invalid">
+        <span class="error-text" *ngIf="f['email'].touched && f['email'].errors?.['required']">
+          El email es requerido
+        </span>
+        <span class="error-text" *ngIf="f['email'].touched && f['email'].errors?.['email']">
+          Ingresa un email válido
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="telefono">Teléfono *</label>
+        <input
+          type="tel"
+          id="telefono"
+          formControlName="telefono"
+          placeholder="+54 11 1234-5678"
+          [class.error]="f['telefono'].touched && f['telefono'].invalid">
+        <span class="error-text" *ngIf="f['telefono'].touched && f['telefono'].errors?.['required']">
+          El teléfono es requerido
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="mensaje">Mensaje *</label>
+      <textarea
+        id="mensaje"
+        formControlName="mensaje"
+        rows="4"
+        placeholder="Escribe tu consulta..."
+        [class.error]="f['mensaje'].touched && f['mensaje'].invalid">
+      </textarea>
+      <span class="error-text" *ngIf="f['mensaje'].touched && f['mensaje'].errors?.['required']">
+        El mensaje es requerido
+      </span>
+      <span class="error-text" *ngIf="f['mensaje'].touched && f['mensaje'].errors?.['minlength']">
+        El mensaje debe tener al menos 10 caracteres
+      </span>
+    </div>
+
+    <button type="submit" class="btn-submit" [disabled]="isSubmitting">
+      <span *ngIf="!isSubmitting">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+        Enviar Consulta
+      </span>
+      <span *ngIf="isSubmitting" class="loading">
+        <svg class="spinner" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="30 70"/>
+        </svg>
+        Enviando...
+      </span>
+    </button>
+
+    <p class="privacy-note">
+      Al enviar aceptas nuestra política de privacidad. Tus datos serán utilizados únicamente para responder tu consulta.
+    </p>
+  </form>
+</div>
