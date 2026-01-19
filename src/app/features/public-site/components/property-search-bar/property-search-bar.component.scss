@@ -158,10 +158,14 @@ $transition: all 0.25s ease;
     @media (max-width: 767px) {
       min-width: unset;
       flex: 1;
-      flex-direction: column;
-      align-items: stretch;
+      flex-direction: row;
+      align-items: center;
       gap: 0.5rem;
-      padding-bottom: 0 !important;
+      padding-bottom: 0.75rem !important;
+      display: flex;
+      background: #f9fafb;
+      border-radius: 10px;
+      padding: 0.5rem 0.75rem;
     }
   }
 }
@@ -196,14 +200,17 @@ $transition: all 0.25s ease;
   }
 
   @media (max-width: 767px) {
-    width: 100%;
-    padding: 0.75rem 2rem 0.75rem 0.75rem;
-    border-right: none;
+    width: auto;
+    min-width: 70px;
+    padding: 0.5rem 1.5rem 0.5rem 0.75rem;
+    border-right: 1px solid #e5e7eb;
     border-bottom: none;
-    background-color: #f9fafb;
-    background-position: right 0.75rem center;
-    border-radius: 10px;
+    background-color: transparent;
+    background-position: right 0.25rem center;
+    border-radius: 0;
     margin-bottom: 0;
+    flex-shrink: 0;
+    font-size: 0.85rem;
   }
 }
 
@@ -217,10 +224,11 @@ $transition: all 0.25s ease;
 
   @media (max-width: 767px) {
     padding: 0;
-    background: #f9fafb;
-    border-radius: 10px;
-    height: 48px;
-    padding: 0 0.75rem;
+    background: transparent;
+    border-radius: 0;
+    height: auto;
+    padding: 0 0.5rem;
+    flex: 1;
   }
 }
 
@@ -231,8 +239,9 @@ $transition: all 0.25s ease;
   flex-shrink: 0;
   
   @media (max-width: 767px) {
-    font-size: 1rem;
+    font-size: 0.875rem;
     color: #64748b;
+    padding: 0 0.25rem;
   }
 }
 
@@ -248,14 +257,14 @@ $transition: all 0.25s ease;
   }
 
   @media (max-width: 767px) {
-    padding: 0.75rem 0.5rem !important;
+    padding: 0.5rem 0.25rem !important;
     background: transparent !important;
-    height: 100%;
-    font-size: 0.95rem;
+    height: auto;
+    font-size: 0.85rem;
     color: #374151;
     
     &::placeholder {
-      font-size: 0.875rem;
+      font-size: 0.8rem;
     }
   }
 }
