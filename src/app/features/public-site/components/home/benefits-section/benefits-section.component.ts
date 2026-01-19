@@ -37,7 +37,7 @@ export class BenefitsSectionComponent {
     ],
     solution: {
       title: "Las láminas solares arquitectónicas de Glazing son la evolución.",
-      subtitle: "Más de 20 años protegiendo hogares y empresas con tecnología que se ve… y se siente.",
+      subtitle: "Más de 12 años protegiendo hogares y empresas con tecnología que se ve… y se siente.",
       benefits: [
         {
           icon: "fas fa-shield-alt",
