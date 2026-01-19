@@ -1,8 +1,8 @@
 <div class="property-gallery" (keydown)="onKeydown($event)" tabindex="0">
   <!-- Tabs -->
   <div class="gallery-tabs">
-    <button 
-      class="tab-button" 
+    <button
+      class="tab-button"
       [class.active]="activeTab === 'fotos'"
       (click)="changeTab('fotos')"
       type="button">
@@ -13,8 +13,8 @@
       </svg>
       Fotos ({{ imagenes.length }})
     </button>
-    <button 
-      class="tab-button" 
+    <button
+      class="tab-button"
       [class.active]="activeTab === 'videos'"
       [disabled]="!videoUrl"
       (click)="changeTab('videos')"
@@ -24,8 +24,8 @@
       </svg>
       Videos
     </button>
-    <button 
-      class="tab-button" 
+    <button
+      class="tab-button"
       [class.active]="activeTab === '360'"
       [disabled]="!video360Url"
       (click)="changeTab('360')"
@@ -39,34 +39,65 @@
     </button>
   </div>
 
-  <!-- Imagen Principal -->
-  <div class="main-image-container" (click)="openLightbox()" *ngIf="activeTab === 'fotos'">
-    <img [src]="mainImage" [alt]="titulo" class="main-image">
+  <!-- Gallery Layout: Main Image + Thumbnails Side by Side -->
+  <div class="gallery-layout" *ngIf="activeTab === 'fotos'">
+    <!-- Thumbnails Column (Left) -->
+    <div class="thumbnails-column" *ngIf="imagenes.length > 1">
+      <div
+        class="thumbnail"
+        *ngFor="let img of thumbnails; let i = index"
+        [class.active]="i === selectedIndex"
+        (click)="selectImage(i)">
+        <img [src]="img.url" [alt]="img.descripcion || 'Imagen ' + (i + 1)">
 
-    <!-- Badge de fotos -->
-    <div class="photo-count" *ngIf="imagenes.length > 1">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-        <circle cx="8.5" cy="8.5" r="1.5"/>
-        <polyline points="21 15 16 10 5 21"/>
-      </svg>
-      {{ imagenes.length }} fotos
+        <!-- Overlay para ver más -->
+        <div class="more-overlay" *ngIf="i === 4 && hasMoreImages > 0" (click)="openLightbox(4)">
+          +{{ hasMoreImages }}
+        </div>
+      </div>
     </div>
 
-    <!-- Botón ver todas -->
-    <button class="btn-view-all" type="button">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-      </svg>
-      Ver galería
-    </button>
+    <!-- Main Image -->
+    <div class="main-image-container" (click)="openLightbox()">
+      <img [src]="mainImage" [alt]="titulo" class="main-image">
+
+      <!-- Badge de fotos -->
+      <div class="photo-count" *ngIf="imagenes.length > 1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+          <polyline points="21 15 16 10 5 21"/>
+        </svg>
+        {{ imagenes.length }} fotos
+      </div>
+
+      <!-- Botón ver todas -->
+      <button class="btn-view-all" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+        </svg>
+        Ver galería
+      </button>
+
+      <!-- Navigation Arrows -->
+      <button class="nav-arrow nav-prev" type="button" (click)="prevImage($event)" *ngIf="imagenes.length > 1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+      <button class="nav-arrow nav-next" type="button" (click)="nextImage($event)" *ngIf="imagenes.length > 1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+    </div>
   </div>
 
   <!-- Video Container -->
   <div class="video-container" *ngIf="activeTab === 'videos' && videoUrl">
-    <iframe 
-      [src]="videoUrl" 
-      frameborder="0" 
+    <iframe
+      [src]="videoUrl"
+      frameborder="0"
       allowfullscreen
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
     </iframe>
@@ -74,28 +105,12 @@
 
   <!-- 360 Container -->
   <div class="video-360-container" *ngIf="activeTab === '360' && video360Url">
-    <iframe 
-      [src]="video360Url" 
-      frameborder="0" 
+    <iframe
+      [src]="video360Url"
+      frameborder="0"
       allowfullscreen
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; xr-spatial-tracking">
     </iframe>
-  </div>
-
-  <!-- Thumbnails -->
-  <div class="thumbnails-container" *ngIf="imagenes.length > 1 && activeTab === 'fotos'">
-    <div
-      class="thumbnail"
-      *ngFor="let img of thumbnails; let i = index"
-      [class.active]="i === selectedIndex"
-      (click)="selectImage(i)">
-      <img [src]="img.url" [alt]="img.descripcion || 'Imagen ' + (i + 1)">
-
-      <!-- Overlay para ver más -->
-      <div class="more-overlay" *ngIf="i === 4 && hasMoreImages > 0" (click)="openLightbox(4)">
-        +{{ hasMoreImages }}
-      </div>
-    </div>
   </div>
 </div>
 
