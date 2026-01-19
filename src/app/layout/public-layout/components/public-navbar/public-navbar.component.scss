@@ -89,7 +89,7 @@ $transition-fast: all 0.2s ease;
     .navbar-toggler-icon {
       width: 24px;
       height: 24px;
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cline x1='3' y1='6' x2='21' y2='6'%3e%3c/line%3e%3cline x1='3' y1='12' x2='21' y2='12'%3e%3c/line%3e%3cline x1='3' y1='18' x2='21' y2='18'%3e%3c/line%3e%3c/svg%3e");
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a4d2e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cline x1='3' y1='6' x2='21' y2='6'%3e%3c/line%3e%3cline x1='3' y1='12' x2='21' y2='12'%3e%3c/line%3e%3cline x1='3' y1='18' x2='21' y2='18'%3e%3c/line%3e%3c/svg%3e");
       transition: $transition-fast;
       @media (max-width: 575px) {
         width: 22px;
@@ -137,20 +137,25 @@ $transition-fast: all 0.2s ease;
         &.dropdown-toggle {
           display: flex;
           align-items: center;
-          gap: 4px;
+          gap: 6px;
+          padding-right: 12px;
+          
           &::after {
             content: "";
-            width: 0;
-            height: 0;
-            border-left: 3px solid transparent;
-            border-right: 3px solid transparent;
-            border-top: 3px solid currentColor;
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
             transition: $transition-fast;
-            margin-left: 4px;
             position: static;
             transform: none;
-            background: none;
+            border: none;
+            margin-left: 0;
           }
+          
           &[aria-expanded="true"]::after {
             transform: rotate(180deg);
           }
@@ -386,19 +391,34 @@ $transition-fast: all 0.2s ease;
           }
           &.dropdown-toggle {
             color: #333 !important;
+            display: flex !important;
+            align-items: center;
+            gap: 4px;
+            padding-right: 20px !important;
+            
             &:hover {
               color: $green-fairway !important;
             }
+            
             &::after {
-              position: absolute;
-              right: 20px;
-              top: 50%;
-              transform: translateY(-50%);
-              border-top-color: currentColor;
+              display: inline-block !important;
+              position: relative;
+              right: auto;
+              top: auto;
+              transform: none;
+              width: 12px;
+              height: 12px;
+              background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+              background-size: contain;
+              background-repeat: no-repeat;
+              background-position: center;
+              border: none;
               transition: transform 0.3s ease;
+              flex-shrink: 0;
             }
+            
             &[aria-expanded="true"]::after {
-              transform: translateY(-50%) rotate(180deg);
+              transform: rotate(180deg);
             }
           }
         }
