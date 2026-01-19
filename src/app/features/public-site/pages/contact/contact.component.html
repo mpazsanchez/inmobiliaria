@@ -2,36 +2,7 @@
 <div class="contact-page">
 
   <!-- Hero Section -->
-  <app-contact-hero></app-contact-hero>
-
-  <!-- Main Contact Section -->
-  <section class="main-contact-section">
-    <div class="container">
-      <div class="contact-container row g-0">
-
-        <!-- Left Side - Get in Touch Info -->
-        <div class="col-lg-6 col-md-12 order-2 order-lg-1">
-          <div class="contact-info-wrapper">
-            <app-contact-info [info]="data()?.contactInfo"/>
-          </div>
-        </div>
-
-        <!-- Right Side - Map -->
-        <div class="col-lg-6 col-md-12 order-1 order-lg-2">
-          <div class="map-wrapper">
-            <div class="map-placeholder">
-              <iframe title="Glazing Location Map"
-                [src]="safeMapUrl"
-                width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-              </iframe>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
+  <app-contact-hero />
 
   <!-- Contact Form Section -->
   <section class="contact-form-section">
@@ -39,5 +10,56 @@
       <app-contact-form />
     </div>
   </section>
+
+  <!-- Main Contact Section -->
+  @if (data()) {
+    <section class="main-contact-section">
+      <div class="container">
+        <div class="contact-container row g-0">
+
+          <!-- Left Side - Contact Info -->
+          <div class="col-lg-6 col-md-12 order-2 order-lg-1">
+            <div class="contact-info-wrapper">
+              <app-contact-info [info]="data()?.contactInfo"/>
+            </div>
+          </div>
+
+          <!-- Right Side - Map -->
+          <div class="col-lg-6 col-md-12 order-1 order-lg-2">
+            <div class="map-wrapper">
+              <div class="map-placeholder">
+                @if (safeMapUrl()) {
+                  <iframe
+                    title="Ubicación Fairway"
+                    [src]="safeMapUrl()"
+                    width="100%"
+                    height="100%"
+                    style="border:0;"
+                    allowfullscreen
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                  </iframe>
+                }
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- Loading State -->
+  @if (loading()) {
+    <section class="loading-section">
+      <div class="container text-center py-5">
+        <output>
+          <div class="spinner-border text-success">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+        </output>
+      </div>
+    </section>
+  }
 
 </div>

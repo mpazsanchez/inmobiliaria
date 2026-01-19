@@ -1,10 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactHeroComponent } from '../../components/contact/contact-hero/contact-hero.component';
 import { ContactInfoComponent } from '../../components/contact/contact-info/contact-info.component';
 import { ContactFormComponent } from '../../components/contact/contact-form/contact-form.component';
 import { ContactPageService } from '../../services/contact-page.service';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contact',
@@ -19,27 +19,24 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrl: './contact.component.scss',
 })
 export class ContactComponent implements OnInit {
-  public data: any;
-  public loading: any;
-  public error: any;
   private contactPageService = inject(ContactPageService);
   private sanitizer = inject(DomSanitizer);
-  public safeMapUrl: SafeResourceUrl = '';
 
-  constructor() {
-    this.data = this.contactPageService.data;
-    this.loading = this.contactPageService.loading;
-    this.error = this.contactPageService.error;
-  }
+  readonly data = this.contactPageService.data;
+  readonly loading = this.contactPageService.loading;
+  readonly error = this.contactPageService.error;
+
+  readonly safeMapUrl = computed(() => {
+    const mapUrl = this.data()?.map?.iframeUrl;
+    if (mapUrl) {
+      return this.sanitizer.bypassSecurityTrustResourceUrl(mapUrl);
+    }
+    return null;
+  });
 
   ngOnInit(): void {
     if (this.data() === null && !this.loading()) {
       this.contactPageService.fetchData();
     }
-    this.safeMapUrl = this.getSafeMapUrl(this.data().map.iframeUrl);
-  }
-
-  getSafeMapUrl(url: string): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }

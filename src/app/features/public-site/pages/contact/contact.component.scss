@@ -1,22 +1,35 @@
 @import '../../../../../assets/styles/variables';
 
 .contact-page {
+  background: #f8fafc;
+
   .contact-container {
     align-items: stretch;
     min-height: 100%;
-    
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
     @media (max-width: 991px) {
       align-items: flex-start;
+      border-radius: 12px;
     }
   }
 
   .main-contact-section {
-    min-height: 500px;
-    margin-top: 60px;
-    
+    padding: 60px 0;
+
+    @media (max-width: 991px) {
+      padding: 50px 0;
+    }
+
     @media (max-width: 768px) {
-      margin-top: 40px;
-      min-height: auto;
+      padding: 40px 0;
+    }
+
+    @media (max-width: 575px) {
+      padding: 32px 0;
     }
 
     .contact-info-wrapper {
@@ -24,62 +37,58 @@
       height: 100%;
       display: flex;
       align-items: center;
-      padding: 80px 60px;
-      
+      padding: 48px 40px;
+
       @media (max-width: 1199px) {
-        padding: 60px 40px;
+        padding: 40px 32px;
       }
 
       @media (max-width: 991px) {
-        padding: 50px 30px;
-        min-height: 400px;
+        padding: 32px 24px;
       }
 
       @media (max-width: 768px) {
-        padding: 40px 20px;
-        min-height: 300px;
+        padding: 24px 20px;
       }
 
       @media (max-width: 575px) {
-        padding: 30px 15px;
-        min-height: 250px;
+        padding: 20px 16px;
       }
 
       .section-content {
         width: 100%;
 
         .section-title {
-          font-size: 2.5rem;
-          color: #2c3e50;
-          margin-bottom: 1.5rem;
+          font-size: 2rem;
+          font-weight: 700;
+          color: #1e293b;
+          margin-bottom: 1rem;
           line-height: 1.2;
 
-          @media (max-width: 1199px) {
-            font-size: 2.2rem;
+          @media (max-width: 991px) {
+            font-size: 1.75rem;
           }
 
           @media (max-width: 768px) {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+            font-size: 1.5rem;
           }
-          
+
           @media (max-width: 575px) {
-            font-size: 1.75rem;
-            margin-bottom: 0.75rem;
+            font-size: 1.35rem;
           }
         }
 
         .section-description {
           font-size: 1rem;
-          color: #6c757d;
+          color: #64748b;
           line-height: 1.6;
-          margin-bottom: 2rem;
-          
+          margin-bottom: 1.5rem;
+
           @media (max-width: 768px) {
             font-size: 0.95rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
           }
-          
+
           @media (max-width: 575px) {
             font-size: 0.9rem;
             margin-bottom: 1rem;
@@ -90,33 +99,40 @@
       .contact-info {
         .contact-info-title {
           color: $green-fairway;
-          
+          font-weight: 600;
+
           @media (max-width: 575px) {
-            font-size: 1.1rem;
+            font-size: 1rem;
           }
         }
-        
+
         .contact-icon {
-          background-color: $green-fairway;
-          padding: 18px 26px;
-          border-radius: 50%;
+          background: linear-gradient(135deg, $green-fairway 0%, #0f3820 100%);
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
           color: white;
           display: flex;
           align-items: center;
           justify-content: center;
-          
+          flex-shrink: 0;
+
           @media (max-width: 768px) {
-            padding: 15px 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
           }
-          
+
           @media (max-width: 575px) {
-            padding: 12px 16px;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
           }
         }
-        
+
         .info-text-content {
-          color: #595959;
-          
+          color: #475569;
+
           @media (max-width: 575px) {
             font-size: 0.9rem;
           }
@@ -125,37 +141,35 @@
     }
 
     .map-wrapper {
-      height: 500px;
+      height: 100%;
+      min-height: 400px;
       position: relative;
-      
+
       @media (max-width: 1199px) {
-        height: 450px;
+        min-height: 380px;
       }
 
       @media (max-width: 991px) {
-        height: 400px;
-        margin-bottom: 2rem;
+        min-height: 320px;
+        margin-bottom: 0;
       }
-      
+
       @media (max-width: 768px) {
-        height: 350px;
-        margin-bottom: 1.5rem;
+        min-height: 280px;
       }
-      
+
       @media (max-width: 575px) {
-        height: 300px;
-        margin-bottom: 1rem;
+        min-height: 250px;
       }
 
       .map-placeholder {
         width: 100%;
         height: 100%;
-        border-radius: 0;
         overflow: hidden;
-        
+        border-radius: 0 16px 16px 0;
+
         @media (max-width: 991px) {
-          border-radius: 8px;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          border-radius: 0;
         }
 
         iframe {
@@ -163,9 +177,9 @@
           height: 100%;
           border: none;
           transition: filter 0.3s ease;
-          
+
           &:hover {
-            filter: brightness(1.05);
+            filter: brightness(1.02);
           }
         }
       }
@@ -173,18 +187,37 @@
   }
 
   .contact-form-section {
-    padding: 80px 0;
-    
+    padding: 24px 0 80px;
+    background: #f8fafc;
+
     @media (max-width: 991px) {
-      padding: 60px 0;
+      padding: 20px 0 60px;
     }
 
     @media (max-width: 768px) {
-      padding: 50px 0;
+      padding: 16px 0 50px;
     }
-    
+
     @media (max-width: 575px) {
-      padding: 40px 0;
+      padding: 12px 0 40px;
+    }
+  }
+
+  // Static content section
+  .static-content-section {
+    padding: 40px 0;
+    background: white;
+
+    @media (max-width: 768px) {
+      padding: 32px 0;
+    }
+
+    .content-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #475569;
     }
   }
 }
