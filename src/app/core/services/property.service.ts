@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of, delay } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Propiedad } from '../models/property.interface';
 import { FiltrosBusqueda, RespuestaPaginada } from '../models/search-filters.interface';
 import { MOCK_PROPIEDADES } from './mock-data/properties.mock';
@@ -65,8 +66,14 @@ export class PropertyService {
       return this.getPropiedadesDestacadasMock(limite);
     }
     
-    const params = new HttpParams().set('destacada', 'true').set('limite', limite.toString());
-    return this.http.get<Propiedad[]>(`${this.apiUrl}/destacadas`, { params });
+    // Usar endpoint con filtros
+    return this.getPropiedades({ 
+      soloDestacadas: true,
+      ordenarPor: 'relevancia',
+      limite 
+    }).pipe(
+      map(response => response.datos.slice(0, limite))
+    );
   }
 
   // =============================================
@@ -83,8 +90,14 @@ export class PropertyService {
       return this.getPropiedadesRecientesMock(limite);
     }
     
-    const params = new HttpParams().set('ordenarPor', 'fecha').set('limite', limite.toString());
-    return this.http.get<Propiedad[]>(`${this.apiUrl}/recientes`, { params });
+    // Usar endpoint con filtros
+    return this.getPropiedades({ 
+      ordenarPor: 'reciente',
+      ordenDireccion: 'desc',
+      limite 
+    }).pipe(
+      map(response => response.datos.slice(0, limite))
+    );
   }
 
   // =============================================
@@ -331,7 +344,7 @@ export class PropertyService {
     if (!filtros?.ordenarPor) return propiedades;
 
     const resultado = [...propiedades];
-    const direccion = filtros.ordenDireccion === 'desc' ? -1 : 1;
+    let direccion = filtros.ordenDireccion === 'desc' ? -1 : 1;
 
     resultado.sort((a, b) => {
       let comparacion = 0;
@@ -352,6 +365,25 @@ export class PropertyService {
             return a.destacada ? -1 : 1;
           }
           comparacion = new Date(b.fechaPublicacion).getTime() - new Date(a.fechaPublicacion).getTime();
+          break;
+        case 'reciente':
+          // Más recientes primero (descendente por defecto)
+          comparacion = new Date(b.fechaPublicacion).getTime() - new Date(a.fechaPublicacion).getTime();
+          break;
+        case 'precio_menor':
+          // Siempre ascendente (más baratos primero)
+          comparacion = a.precio - b.precio;
+          direccion = 1; // Forzar ascendente independiente del parámetro
+          break;
+        case 'precio_mayor':
+          // Siempre descendente (más caros primero)
+          comparacion = b.precio - a.precio;
+          direccion = 1; // Ya está invertido en la comparación
+          break;
+        case 'superficie_mayor':
+          // Siempre descendente (más grandes primero)
+          comparacion = b.caracteristicas.superficie_total - a.caracteristicas.superficie_total;
+          direccion = 1; // Ya está invertido
           break;
       }
 
