@@ -165,7 +165,7 @@ export class PropertySearchService {
    */
   navigateToResults(): void {
     const queryParams = this.filtersToQueryParams(this._filters());
-    this.router.navigate(['/propiedades'], { queryParams });
+    this.router.navigate(['/properties'], { queryParams });
   }
 
   /**

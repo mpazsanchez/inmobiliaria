@@ -28,7 +28,7 @@ export class ShareModalComponent {
   shareOn(platform: string): void {
     if (!this.property) return;
 
-    const url = `${window.location.origin}/propiedad/${this.property.id}`;
+    const url = `${window.location.origin}/property/${this.property.id}`;
     const text = `${this.property.titulo} - ${this.formatearPrecio(this.property.precio, this.property.moneda)}`;
 
     switch (platform) {
@@ -50,7 +50,7 @@ export class ShareModalComponent {
   async copyLink(): Promise<void> {
     if (!this.property) return;
 
-    const url = `${window.location.origin}/propiedad/${this.property.id}`;
+    const url = `${window.location.origin}/property/${this.property.id}`;
 
     try {
       await navigator.clipboard.writeText(url);

@@ -1,7 +1,7 @@
 <section class="related-properties" *ngIf="propiedades.length > 0">
   <div class="section-header">
     <h2 class="section-title">{{ titulo }}</h2>
-    <a routerLink="/propiedades" class="view-all-link">
+    <a routerLink="/properties" class="view-all-link">
       Ver todas
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <polyline points="9 18 15 12 9 6"/>
@@ -12,7 +12,7 @@
   <div class="properties-grid">
     <a
       *ngFor="let propiedad of propiedades"
-      [routerLink]="['/propiedad', propiedad.id]"
+      [routerLink]="['/property', propiedad.id]"
       class="property-item">
 
       <div class="property-image">

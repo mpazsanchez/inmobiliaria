@@ -15,7 +15,7 @@
     <div *ngIf="!isLoading && propiedadesDestacadas.length > 0" class="properties-grid">
       <article *ngFor="let propiedad of propiedadesDestacadas" class="property-card">
         <!-- Image (clickeable) -->
-        <a [routerLink]="['/propiedad', propiedad.id]" class="property-image-link">
+        <a [routerLink]="['/property', propiedad.id]" class="property-image-link">
           <div class="property-image">
             <img
               [src]="propiedad.imagenes[0].url || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop'"
@@ -107,7 +107,7 @@
 
     <!-- Ver Todas Button -->
     <div class="section-footer">
-      <a routerLink="/propiedades" class="btn-view-all">
+      <a routerLink="/properties" class="btn-view-all">
         Ver todas las propiedades
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="5" y1="12" x2="19" y2="12"></line>

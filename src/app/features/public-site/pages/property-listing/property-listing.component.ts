@@ -51,7 +51,7 @@ export class PropertyListingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Leer operación desde la configuración de la ruta (para /comprar y /alquilar)
+    // Leer operación desde la configuración de la ruta (para /buy y /rent)
     const operacionRuta = this.route.snapshot.data['operacion'];
     
     // Configurar breadcrumbs

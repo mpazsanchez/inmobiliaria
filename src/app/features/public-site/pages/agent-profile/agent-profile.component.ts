@@ -113,6 +113,6 @@ export class AgentProfileComponent implements OnInit {
   }
 
   volverAlListado(): void {
-    this.router.navigate(['/equipo']);
+    this.router.navigate(['/team']);
   }
 }

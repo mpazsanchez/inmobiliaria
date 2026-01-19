@@ -15,7 +15,7 @@ export class PropertySearchBarComponent implements OnInit {
   private searchService = inject(PropertySearchService);
 
   /**
-   * If true, navigates to /propiedades with filters as query params.
+   * If true, navigates to /properties with filters as query params.
    * If false, executes search in-place (for listing page).
    */
   @Input() navigateOnSearch = true;

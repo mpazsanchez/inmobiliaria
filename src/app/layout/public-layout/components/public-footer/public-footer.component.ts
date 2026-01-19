@@ -27,17 +27,17 @@ export class PublicFooterComponent implements OnInit, OnDestroy {
   // Navigation Links
   navigationLinks = [
     { title: 'Inicio', url: '/' },
-    { title: 'Comprar', url: '/propiedades?operacion=venta' },
-    { title: 'Alquilar', url: '/propiedades?operacion=alquiler' },
+    { title: 'Comprar', url: '/buy' },
+    { title: 'Alquilar', url: '/rent' },
     { title: 'Nosotros', url: '/about' },
     { title: 'Contacto', url: '/contact' }
   ];
 
   // Quick Links
   quickLinks = [
-    { title: 'Nuestros Asesores', url: '/asesores' },
-    { title: 'Tasar mi Propiedad', url: '/tasacion' },
-    { title: 'Publicar Propiedad', url: '/publicar' },
+    { title: 'Nuestro Equipo', url: '/team' },
+    { title: 'Tasar mi Propiedad', url: '/services/appraisals' },
+    { title: 'Publicar Propiedad', url: '/contact' },
     { title: 'Preguntas Frecuentes', url: '/faq' }
   ];
 

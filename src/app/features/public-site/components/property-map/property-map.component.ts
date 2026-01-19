@@ -33,7 +33,7 @@ export class PropertyMapComponent implements OnInit, OnChanges, OnDestroy, After
 
     // Escuchar el evento de navegación desde el popup
     this.navigationListener = ((event: CustomEvent) => {
-      this.router.navigate(['/propiedad', event.detail]);
+      this.router.navigate(['/property', event.detail]);
     }) as EventListener;
     window.addEventListener('navigateToProperty', this.navigationListener);
   }

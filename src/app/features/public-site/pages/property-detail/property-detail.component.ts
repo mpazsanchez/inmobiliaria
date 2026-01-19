@@ -38,7 +38,7 @@ export class PropertyDetailComponent implements OnInit {
 
   breadcrumbs = [
     { label: 'Inicio', link: '/' },
-    { label: 'Propiedades', link: '/propiedades' },
+    { label: 'Propiedades', link: '/properties' },
     { label: 'Detalle', link: '' }
   ];
 

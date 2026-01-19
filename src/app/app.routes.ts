@@ -18,46 +18,60 @@ export const routes: Routes = [
     path: '',
     component: PublicLayoutComponent,
     children: [
+      // Homepage
       {
         path: '',
         component: FairwayHomeComponent,
         data: { title: 'Inicio - Fairway Inmobiliaria' },
       },
+
+      // ============ PROPIEDADES ============
       {
-        path: 'fairway',
-        component: FairwayHomeComponent,
-        data: { title: 'Inicio - Fairway Inmobiliaria' },
-      },
-      {
-        path: 'propiedades',
+        path: 'properties',
         component: PropertyListingComponent,
         data: { title: 'Propiedades - Fairway Inmobiliaria' },
       },
       {
-        path: 'comprar',
+        path: 'buy',
         component: PropertyListingComponent,
         data: { title: 'Propiedades en Venta - Fairway Inmobiliaria', operacion: 'venta' },
       },
       {
-        path: 'alquilar',
+        path: 'rent',
         component: PropertyListingComponent,
         data: { title: 'Propiedades en Alquiler - Fairway Inmobiliaria', operacion: 'alquiler' },
       },
       {
-        path: 'propiedad/:id',
+        path: 'property/:id',
         component: PropertyDetailComponent,
         data: { title: 'Detalle de Propiedad - Fairway Inmobiliaria' },
       },
+
+      // ============ EQUIPO / AGENTES ============
       {
-        path: 'equipo',
+        path: 'team',
         component: AgentListingComponent,
         data: { title: 'Nuestro Equipo - Fairway Inmobiliaria' },
       },
       {
-        path: 'equipo/:id',
+        path: 'team/:id',
         component: AgentProfileComponent,
         data: { title: 'Perfil de Asesor - Fairway Inmobiliaria' },
       },
+
+      // ============ PÁGINAS INFORMATIVAS ============
+      {
+        path: 'about',
+        component: AboutUsComponent,
+        data: { title: 'Nosotros - Fairway' },
+      },
+      {
+        path: 'contact',
+        component: ContactComponent,
+        data: { title: 'Contacto - Fairway' },
+      },
+
+      // ============ LEGACY HOMES (mantener por compatibilidad) ============
       {
         path: 'home',
         component: HomeComponent,
@@ -68,18 +82,8 @@ export const routes: Routes = [
         component: HomeTwoComponent,
         data: { title: 'Inicio - Fairway' },
       },
-      {
-        path: 'contact',
-        component: ContactComponent,
-        data: { title: 'Contacto - Fairway' },
-      },
-      {
-        path: 'about',
-        component: AboutUsComponent,
-        data: { title: 'Nosotros - Fairway' },
-      },
 
-      // Ruta genérica para cualquier producto/servicio
+      // ============ SERVICIOS ============
       { path: 'product/:slug', component: ProductDetailComponent },
       {
         path: 'services/:slug',
@@ -87,6 +91,15 @@ export const routes: Routes = [
         data: { title: 'Servicio - Fairway' },
       },
 
+      // ============ REDIRECTS (rutas antiguas en español) ============
+      { path: 'propiedades', redirectTo: 'properties', pathMatch: 'full' },
+      { path: 'comprar', redirectTo: 'buy', pathMatch: 'full' },
+      { path: 'alquilar', redirectTo: 'rent', pathMatch: 'full' },
+      { path: 'propiedad/:id', redirectTo: 'property/:id', pathMatch: 'full' },
+      { path: 'equipo', redirectTo: 'team', pathMatch: 'full' },
+      { path: 'equipo/:id', redirectTo: 'team/:id', pathMatch: 'full' },
+
+      // ============ FALLBACK ============
       {
         path: '**',
         component: FairwayHomeComponent,

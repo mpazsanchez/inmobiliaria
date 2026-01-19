@@ -14,7 +14,7 @@
     </svg>
     <h2>Propiedad no encontrada</h2>
     <p>{{ error }}</p>
-    <a routerLink="/propiedades" class="btn-back">Ver todas las propiedades</a>
+    <a routerLink="/properties" class="btn-back">Ver todas las propiedades</a>
   </div>
 
   <!-- Content -->
@@ -25,7 +25,7 @@
 
       <!-- Header Actions -->
       <div class="page-actions">
-        <a routerLink="/propiedades" class="btn-back-link">
+        <a routerLink="/properties" class="btn-back-link">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="15 18 9 12 15 6"/>
           </svg>
@@ -52,43 +52,45 @@
         </div>
       </div>
 
+      <!-- Header Info (arriba de la galería) -->
+      <div class="property-header property-header--top">
+        <div class="header-top">
+          <span class="property-type">{{ getTipoLabel(propiedad.tipoPropiedad) }}</span>
+          <span class="property-operation" [class.alquiler]="propiedad.operacion === 'alquiler'">
+            {{ getOperacionLabel(propiedad.operacion) }}
+          </span>
+          <span class="property-status" [ngClass]="getEstadoClass(propiedad.estado)">
+            {{ getEstadoLabel(propiedad.estado) }}
+          </span>
+        </div>
+
+        <h1 class="property-title">{{ propiedad.titulo }}</h1>
+
+        <div class="property-location">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+          <span>{{ propiedad.ubicacion.direccion }}, {{ propiedad.ubicacion.ciudad }}, {{ propiedad.ubicacion.provincia }}</span>
+        </div>
+      </div>
+
       <!-- Gallery -->
       <app-property-gallery
         [imagenes]="propiedad.imagenes"
         [titulo]="propiedad.titulo">
       </app-property-gallery>
 
+      <!-- Price (debajo de la galería) -->
+      <div class="property-price-bar">
+        <p class="property-price">{{ formatearPrecio(propiedad.precio, propiedad.moneda) }}</p>
+        <span class="property-code">Código: {{ propiedad.id }}</span>
+      </div>
+
       <!-- Main Content -->
       <div class="content-grid">
         <!-- Left Column - Property Info -->
         <div class="main-content">
-          <!-- Header Info -->
-          <div class="property-header">
-            <div class="header-top">
-              <span class="property-type">{{ getTipoLabel(propiedad.tipoPropiedad) }}</span>
-              <span class="property-operation" [class.alquiler]="propiedad.operacion === 'alquiler'">
-                {{ getOperacionLabel(propiedad.operacion) }}
-              </span>
-              <span class="property-status" [ngClass]="getEstadoClass(propiedad.estado)">
-                {{ getEstadoLabel(propiedad.estado) }}
-              </span>
-            </div>
-
-            <h1 class="property-title">{{ propiedad.titulo }}</h1>
-
-            <div class="property-location">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-              <span>{{ propiedad.ubicacion.direccion }}, {{ propiedad.ubicacion.ciudad }}, {{ propiedad.ubicacion.provincia }}</span>
-            </div>
-
-            <div class="property-price-row">
-              <p class="property-price">{{ formatearPrecio(propiedad.precio, propiedad.moneda) }}</p>
-              <span class="property-code">Código: {{ propiedad.id }}</span>
-            </div>
-          </div>
 
           <!-- Main Features -->
           <div class="features-section">
