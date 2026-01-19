@@ -52,9 +52,9 @@
           name="tipoPropiedad"
           class="search-select"
         >
-          <option *ngFor="let tipo of propertyTypeOptions" [value]="tipo.value">
-            {{ tipo.label }}
-          </option>
+          @for (tipo of propertyTypeOptions; track tipo.value) {
+            <option [value]="tipo.value">{{ tipo.label }}</option>
+          }
         </select>
       </div>
 
@@ -65,9 +65,9 @@
           name="moneda"
           class="currency-select"
         >
-          <option *ngFor="let currency of currencyOptions" [value]="currency.value">
-            {{ currency.label }}
-          </option>
+          @for (currency of currencyOptions; track currency.value) {
+            <option [value]="currency.value">{{ currency.label }}</option>
+          }
         </select>
         <div class="price-inputs">
           <input
