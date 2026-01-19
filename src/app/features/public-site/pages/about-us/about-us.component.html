@@ -1,26 +1,108 @@
-<!-- About Us Page Layout -->
+<!-- About Us Page -->
 <div class="about-us-page">
 
-    <!-- Hero Section -->
-    <app-about-hero [companyInfo]="data()?.companyInfo" />
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="hero-content">
+        @if (content) {
+          <h1 class="hero-title">{{ content.titulo }}</h1>
+        }
+        <div class="hero-divider"></div>
+        <p class="hero-subtitle">Tu socio de confianza en el mercado inmobiliario</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- Main Content Section -->
-    <section class="main-content-section">
-        <app-experience-section [showCertification]="false" [showCta]="false" [isAboutComponent]="true"
-            [experienceData]="data()?.experienceData" [showClients]="true" />
+  <!-- Loading State -->
+  @if (loading) {
+    <section class="loading-section">
+      <div class="container">
+        <div class="loading-wrapper">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+          <p class="loading-text">Cargando contenido...</p>
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- Error State -->
+  @if (error && !loading) {
+    <section class="error-section">
+      <div class="container">
+        <div class="error-wrapper">
+          <i class="fas fa-exclamation-circle error-icon"></i>
+          <p class="error-text">{{ error }}</p>
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- Main Content -->
+  @if (content && !loading && !error) {
+    <section class="content-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+            <div class="content-wrapper" [innerHTML]="safeHtml"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- Stats Section -->
+  @if (content && !loading) {
+    <section class="stats-section">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              <h3 class="stat-number">20+</h3>
+              <p class="stat-label">Años de Experiencia</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-home"></i>
+              </div>
+              <h3 class="stat-number">500+</h3>
+              <p class="stat-label">Propiedades Vendidas</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <h3 class="stat-number">1000+</h3>
+              <p class="stat-label">Clientes Satisfechos</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <!-- <app-clients-testimonials [testimonials]="data()?.testimonials" /> -->
-    
-    <!-- Products Section -->
-    <!-- <app-products-technology
-        [showCallToAction]="true"
-        [showProductType]="false"
-        [productTypes]="data()?.productTypes"
-        [technicalBenefits]="data()?.technicalBenefits"
-    /> -->
-
-
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-wrapper">
+          <h2 class="cta-title">¿Listo para encontrar tu propiedad ideal?</h2>
+          <p class="cta-text">Nuestro equipo de expertos está aquí para ayudarte en cada paso del camino</p>
+          <div class="cta-buttons">
+            <a routerLink="/properties" class="btn btn-light btn-lg">Ver Propiedades</a>
+            <a routerLink="/contact" class="btn btn-outline-light btn-lg">Contactanos</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
 
 </div>

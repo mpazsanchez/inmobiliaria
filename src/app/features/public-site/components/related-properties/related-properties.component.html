@@ -1,53 +1,53 @@
-<section class="related-properties" *ngIf="propiedades.length > 0">
-  <div class="section-header">
-    <h2 class="section-title">{{ titulo }}</h2>
-    <a routerLink="/properties" class="view-all-link">
-      Ver todas
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <polyline points="9 18 15 12 9 6"/>
-      </svg>
-    </a>
-  </div>
+@if (propiedades.length > 0) {
+  <section class="related-properties">
+    <div class="section-header">
+      <h2 class="section-title">{{ titulo }}</h2>
+      <a routerLink="/properties" class="view-all-link">
+        Ver todas
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </a>
+    </div>
 
-  <div class="properties-grid">
-    <a
-      *ngFor="let propiedad of propiedades"
-      [routerLink]="['/property', propiedad.id]"
-      class="property-item">
+    <div class="properties-grid">
+      @for (propiedad of propiedades; track propiedad.id) {
+        <a [routerLink]="['/property', propiedad.id]" class="property-item">
+          <div class="property-image">
+            <img
+              [src]="propiedad.imagenes[0].url || 'assets/images/placeholder-property.jpg'"
+              [alt]="propiedad.titulo"
+              onerror="this.src='assets/images/placeholder-property.jpg'">
+            <span class="property-badge" [class.alquiler]="propiedad.operacion === 'alquiler'">
+              {{ getOperacionLabel(propiedad.operacion) }}
+            </span>
+          </div>
 
-      <div class="property-image">
-        <img
-          [src]="propiedad.imagenes[0].url || 'assets/images/placeholder-property.jpg'"
-          [alt]="propiedad.titulo"
-          onerror="this.src='assets/images/placeholder-property.jpg'">
-        <span class="property-badge" [class.alquiler]="propiedad.operacion === 'alquiler'">
-          {{ getOperacionLabel(propiedad.operacion) }}
-        </span>
-      </div>
+          <div class="property-content">
+            <h3 class="property-title">{{ propiedad.titulo }}</h3>
+            <p class="property-location">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              {{ propiedad.ubicacion.ciudad }}
+            </p>
+            <p class="property-price">{{ formatearPrecio(propiedad.precio, propiedad.moneda) }}</p>
 
-      <div class="property-content">
-        <h3 class="property-title">{{ propiedad.titulo }}</h3>
-        <p class="property-location">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-            <circle cx="12" cy="10" r="3"/>
-          </svg>
-          {{ propiedad.ubicacion.ciudad }}
-        </p>
-        <p class="property-price">{{ formatearPrecio(propiedad.precio, propiedad.moneda) }}</p>
-
-        <div class="property-features">
-          <span *ngIf="propiedad.caracteristicas.ambientes">
-            {{ propiedad.caracteristicas.ambientes }} amb
-          </span>
-          <span *ngIf="propiedad.caracteristicas.dormitorios">
-            {{ propiedad.caracteristicas.dormitorios }} dorm
-          </span>
-          <span *ngIf="propiedad.caracteristicas.superficie_total">
-            {{ propiedad.caracteristicas.superficie_total }} m²
-          </span>
-        </div>
-      </div>
-    </a>
-  </div>
-</section>
+            <div class="property-features">
+              @if (propiedad.caracteristicas.ambientes) {
+                <span>{{ propiedad.caracteristicas.ambientes }} amb</span>
+              }
+              @if (propiedad.caracteristicas.dormitorios) {
+                <span>{{ propiedad.caracteristicas.dormitorios }} dorm</span>
+              }
+              @if (propiedad.caracteristicas.superficie_total) {
+                <span>{{ propiedad.caracteristicas.superficie_total }} m²</span>
+              }
+            </div>
+          </div>
+        </a>
+      }
+    </div>
+  </section>
+}
