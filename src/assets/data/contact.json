@@ -1,0 +1,27 @@
+{
+  "contactInfo": {
+    "address": "Garibaldi 750, Tandil, Buenos Aires, Argentina",
+    "email": "fairwayparquizacion@gmail.com",
+    "phone": "0249 424-4568"
+  },
+  "social": [
+    {
+      "icon": "fab fa-whatsapp",
+      "label": "WhatsApp",
+      "url": "https://wa.me/5492494244568"
+    },
+    {
+      "icon": "fab fa-instagram",
+      "label": "Instagram",
+      "url": "https://www.instagram.com/fairwayserviciosintegrales/"
+    },
+    {
+      "icon": "fab fa-facebook",
+      "label": "Facebook",
+      "url": "https://www.facebook.com/fairway.parquizacion.integral/"
+    }
+  ],
+  "map": {
+    "iframeUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3255.0876147220537!2d-59.14285922458904!3d-37.32794924099706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95911f1f5b33e93f%3A0xd8d529d9fd0e9302!2sGaribaldi%20750%2C%20Tandil%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1727804641234!5m2!1ses!2sar"
+  }
+}
