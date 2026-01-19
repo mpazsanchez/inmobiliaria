@@ -9,6 +9,9 @@ export * from './property.interface';
 export * from './user.interface';
 export * from './agent.interface';
 
+// Contenido Estático
+export * from './static-content/contenido-estatico.interface';
+
 // Leads/Contactos
 export * from './lead.interface';
 
