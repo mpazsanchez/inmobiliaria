@@ -1,7 +1,7 @@
-import { Component, inject, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, inject, Inject, PLATFORM_ID, signal } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ContactFormService, ContactFormData } from '../../../services/contact-form.service';
+import { LeadService } from '../../../../../core/services/lead.service';
 
 @Component({
   selector: 'app-contact-form',
@@ -13,13 +13,12 @@ import { ContactFormService, ContactFormData } from '../../../services/contact-f
 export class ContactFormComponent {
   contactForm: FormGroup;
   isBrowser: boolean;
+  loading = signal(false);
+  success = signal(false);
+  error = signal<string | null>(null);
 
   private readonly fb = inject(FormBuilder);
-  private readonly contactFormService = inject(ContactFormService);
-
-  readonly loading = this.contactFormService.loading;
-  readonly error = this.contactFormService.error;
-  readonly success = this.contactFormService.success;
+  private readonly leadService = inject(LeadService);
 
   constructor(
     @Inject(PLATFORM_ID) private readonly platformId: Object) {
@@ -44,20 +43,8 @@ export class ContactFormComponent {
   /**
    * Maneja el envío del formulario
    */
-  async onSubmit(): Promise<void> {
-    if (this.contactForm.valid) {
-      const formData: ContactFormData = {
-        name: this.contactForm.value.name,
-        email: this.contactForm.value.email,
-        phone: this.contactForm.value.phone,
-        subject: this.contactForm.value.subject,
-        message: this.contactForm.value.message
-      };
-      await this.contactFormService.sendContactForm(formData);
-      if (this.success()) {
-        this.contactForm.reset();
-      }
-    } else {
+  onSubmit(): void {
+    if (this.contactForm.invalid) {
       // Marcar todos los campos como tocados para mostrar errores
       Object.keys(this.contactForm.controls).forEach(key => {
         const control = this.contactForm.get(key);
@@ -65,6 +52,43 @@ export class ContactFormComponent {
           control.markAsTouched();
         }
       });
+      return;
     }
+
+    this.loading.set(true);
+    this.error.set(null);
+    this.success.set(false);
+
+    const mensaje = `Asunto: ${this.contactForm.value.subject}\n\n${this.contactForm.value.message}`;
+
+    this.leadService.submitInquiry({
+      propiedadId: 0, // Consulta general
+      asesorId: 0, // Backend asignará automáticamente
+      nombreContacto: this.contactForm.value.name,
+      emailContacto: this.contactForm.value.email,
+      telefonoContacto: this.contactForm.value.phone,
+      mensaje: mensaje
+    }).subscribe({
+      next: () => {
+        this.loading.set(false);
+        this.success.set(true);
+        this.contactForm.reset();
+
+        // Ocultar mensaje de éxito después de 5 segundos
+        setTimeout(() => {
+          this.success.set(false);
+        }, 5000);
+      },
+      error: (err: Error) => {
+        console.error('Error al enviar consulta:', err);
+        this.loading.set(false);
+        this.error.set('Hubo un error al enviar el mensaje. Por favor intente nuevamente.');
+
+        // Ocultar mensaje de error después de 5 segundos
+        setTimeout(() => {
+          this.error.set(null);
+        }, 5000);
+      }
+    });
   }
 }
