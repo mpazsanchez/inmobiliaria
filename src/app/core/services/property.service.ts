@@ -279,24 +279,27 @@ export class PropertyService {
         return false;
       }
 
-      // Filtro por ambientes
-      if (filtros.ambientesMinimo && propiedad.caracteristicas.ambientes < filtros.ambientesMinimo) {
+      // Filtro por ambientes (singular = mínimo, o rango min/max)
+      const ambientesMin = filtros.ambientes || filtros.ambientesMinimo;
+      if (ambientesMin && propiedad.caracteristicas.ambientes < ambientesMin) {
         return false;
       }
       if (filtros.ambientesMaximo && propiedad.caracteristicas.ambientes > filtros.ambientesMaximo) {
         return false;
       }
 
-      // Filtro por dormitorios
-      if (filtros.dormitoriosMinimo && propiedad.caracteristicas.dormitorios < filtros.dormitoriosMinimo) {
+      // Filtro por dormitorios (singular = mínimo, o rango min/max)
+      const dormitoriosMin = filtros.dormitorios || filtros.dormitoriosMinimo;
+      if (dormitoriosMin && propiedad.caracteristicas.dormitorios < dormitoriosMin) {
         return false;
       }
       if (filtros.dormitoriosMaximo && propiedad.caracteristicas.dormitorios > filtros.dormitoriosMaximo) {
         return false;
       }
 
-      // Filtro por baños
-      if (filtros.banosMinimo && propiedad.caracteristicas.banos < filtros.banosMinimo) {
+      // Filtro por baños (singular = mínimo)
+      const banosMin = filtros.banos || filtros.banosMinimo;
+      if (banosMin && propiedad.caracteristicas.banos < banosMin) {
         return false;
       }
 

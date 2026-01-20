@@ -57,18 +57,27 @@ export class PropertyListingComponent implements OnInit {
     // Configurar breadcrumbs
     this.setupBreadcrumbs(operacionRuta);
     
-    // Leer parámetros de la URL
+    // Leer parámetros de la URL (nombres normalizados con la interfaz FiltrosBusqueda)
     this.route.queryParams.subscribe(params => {
       this.filtros = {
         ...this.filtros,
         operacion: operacionRuta || params['operacion'] || undefined,
-        tipoPropiedad: params['tipo'] || undefined,
+        tipoPropiedad: params['tipoPropiedad'] || undefined,
         ubicacion: params['ubicacion'] || undefined,
-        precioMinimo: params['precioMin'] ? +params['precioMin'] : undefined,
-        precioMaximo: params['precioMax'] ? +params['precioMax'] : undefined,
+        precioMinimo: params['precioMinimo'] ? +params['precioMinimo'] : undefined,
+        precioMaximo: params['precioMaximo'] ? +params['precioMaximo'] : undefined,
+        moneda: (params['moneda'] as 'USD' | 'ARS') || undefined,
+        ambientes: params['ambientes'] ? +params['ambientes'] : undefined,
+        dormitorios: params['dormitorios'] ? +params['dormitorios'] : undefined,
+        banos: params['banos'] ? +params['banos'] : undefined,
+        superficieMinima: params['superficieMinima'] ? +params['superficieMinima'] : undefined,
+        superficieMaxima: params['superficieMaxima'] ? +params['superficieMaxima'] : undefined,
+        garageMinimo: params['garageMinimo'] ? +params['garageMinimo'] : undefined,
+        amenidades: params['amenidades'] ? params['amenidades'].split(',') : undefined,
+        ordenarPor: (params['ordenarPor'] as OrdenBusqueda) || 'reciente',
         pagina: params['pagina'] ? +params['pagina'] : 1
       };
-      
+
       this.cargarPropiedades();
     });
   }
@@ -171,19 +180,33 @@ export class PropertyListingComponent implements OnInit {
   }
 
   private actualizarURL(): void {
-    const queryParams: any = {};
-    
+    const queryParams: Record<string, string | number> = {};
+
+    // Nombres normalizados con la interfaz FiltrosBusqueda
     if (this.filtros.operacion) queryParams['operacion'] = this.filtros.operacion;
-    if (this.filtros.tipoPropiedad) queryParams['tipo'] = this.filtros.tipoPropiedad;
+    if (this.filtros.tipoPropiedad) {
+      queryParams['tipoPropiedad'] = Array.isArray(this.filtros.tipoPropiedad)
+        ? this.filtros.tipoPropiedad.join(',')
+        : this.filtros.tipoPropiedad;
+    }
     if (this.filtros.ubicacion) queryParams['ubicacion'] = this.filtros.ubicacion;
-    if (this.filtros.precioMinimo) queryParams['precioMin'] = this.filtros.precioMinimo;
-    if (this.filtros.precioMaximo) queryParams['precioMax'] = this.filtros.precioMaximo;
+    if (this.filtros.precioMinimo) queryParams['precioMinimo'] = this.filtros.precioMinimo;
+    if (this.filtros.precioMaximo) queryParams['precioMaximo'] = this.filtros.precioMaximo;
+    if (this.filtros.moneda) queryParams['moneda'] = this.filtros.moneda;
+    if (this.filtros.ambientes) queryParams['ambientes'] = this.filtros.ambientes;
+    if (this.filtros.dormitorios) queryParams['dormitorios'] = this.filtros.dormitorios;
+    if (this.filtros.banos) queryParams['banos'] = this.filtros.banos;
+    if (this.filtros.superficieMinima) queryParams['superficieMinima'] = this.filtros.superficieMinima;
+    if (this.filtros.superficieMaxima) queryParams['superficieMaxima'] = this.filtros.superficieMaxima;
+    if (this.filtros.garageMinimo) queryParams['garageMinimo'] = this.filtros.garageMinimo;
+    if (this.filtros.amenidades?.length) queryParams['amenidades'] = this.filtros.amenidades.join(',');
+    if (this.filtros.ordenarPor && this.filtros.ordenarPor !== 'reciente') queryParams['ordenarPor'] = this.filtros.ordenarPor;
     if (this.filtros.pagina && this.filtros.pagina > 1) queryParams['pagina'] = this.filtros.pagina;
 
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams,
-      queryParamsHandling: 'merge'
+      replaceUrl: true
     });
   }
 

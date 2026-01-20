@@ -35,8 +35,11 @@
     <div class="filter-group">
       <span class="filter-label">Precio</span>
       <div class="price-range">
-        <input 
-          type="number" 
+        <select [(ngModel)]="filtros.moneda" name="moneda" class="filter-select currency-select">
+          <option *ngFor="let m of monedaOpciones" [value]="m.value">{{ m.label }}</option>
+        </select>
+        <input
+          type="number"
           [(ngModel)]="filtros.precioMinimo"
           name="precioMinimo"
           placeholder="Mínimo"
@@ -44,8 +47,8 @@
           min="0"
         />
         <span class="range-separator">-</span>
-        <input 
-          type="number" 
+        <input
+          type="number"
           [(ngModel)]="filtros.precioMaximo"
           name="precioMaximo"
           placeholder="Máximo"
@@ -89,7 +92,7 @@
     <div class="filter-group">
       <span class="filter-label">Baños</span>
       <div class="options-grid">
-        <button 
+        <button
           *ngFor="let opt of banosOpciones"
           type="button"
           class="option-btn"
@@ -97,6 +100,45 @@
           (click)="filtros.banos = filtros.banos === opt.value ? undefined : opt.value">
           {{ opt.label }}
         </button>
+      </div>
+    </div>
+
+    <!-- Garage -->
+    <div class="filter-group">
+      <span class="filter-label">Cocheras</span>
+      <div class="options-grid">
+        <button
+          *ngFor="let opt of garageOpciones"
+          type="button"
+          class="option-btn"
+          [class.active]="filtros.garageMinimo === opt.value"
+          (click)="filtros.garageMinimo = filtros.garageMinimo === opt.value ? undefined : opt.value">
+          {{ opt.label }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Superficie -->
+    <div class="filter-group">
+      <span class="filter-label">Superficie (m²)</span>
+      <div class="price-range">
+        <input
+          type="number"
+          [(ngModel)]="filtros.superficieMinima"
+          name="superficieMinima"
+          placeholder="Mínimo"
+          class="filter-input"
+          min="0"
+        />
+        <span class="range-separator">-</span>
+        <input
+          type="number"
+          [(ngModel)]="filtros.superficieMaxima"
+          name="superficieMaxima"
+          placeholder="Máximo"
+          class="filter-input"
+          min="0"
+        />
       </div>
     </div>
 

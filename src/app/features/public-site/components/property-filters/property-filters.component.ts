@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FiltrosBusqueda } from '../../../../core/models';
@@ -10,7 +10,7 @@ import { FiltrosBusqueda } from '../../../../core/models';
   templateUrl: './property-filters.component.html',
   styleUrl: './property-filters.component.scss'
 })
-export class PropertyFiltersComponent implements OnInit {
+export class PropertyFiltersComponent implements OnInit, OnChanges {
   @Input() filtrosActivos: FiltrosBusqueda = {};
   @Output() filtrosChange = new EventEmitter<FiltrosBusqueda>();
   @Output() limpiarFiltros = new EventEmitter<void>();
@@ -49,6 +49,17 @@ export class PropertyFiltersComponent implements OnInit {
     { value: 3, label: '3+' }
   ];
 
+  garageOpciones = [
+    { value: 1, label: '1+' },
+    { value: 2, label: '2+' },
+    { value: 3, label: '3+' }
+  ];
+
+  monedaOpciones = [
+    { value: 'USD', label: 'USD' },
+    { value: 'ARS', label: 'ARS' }
+  ];
+
   amenities = [
     { value: 'piscina', label: 'Piscina' },
     { value: 'gimnasio', label: 'Gimnasio' },
@@ -62,8 +73,15 @@ export class PropertyFiltersComponent implements OnInit {
     this.filtros = { ...this.filtrosActivos };
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['filtrosActivos'] && !changes['filtrosActivos'].firstChange) {
+      this.filtros = { ...this.filtrosActivos };
+    }
+  }
+
   aplicarFiltros(): void {
     this.filtrosChange.emit(this.filtros);
+    this.cerrar.emit(); // Cerrar panel en móvil después de aplicar
   }
 
   limpiar(): void {
@@ -97,9 +115,13 @@ export class PropertyFiltersComponent implements OnInit {
     if (this.filtros.tipoPropiedad) count++;
     if (this.filtros.precioMinimo) count++;
     if (this.filtros.precioMaximo) count++;
+    if (this.filtros.moneda) count++;
     if (this.filtros.ambientes) count++;
     if (this.filtros.dormitorios) count++;
     if (this.filtros.banos) count++;
+    if (this.filtros.superficieMinima) count++;
+    if (this.filtros.superficieMaxima) count++;
+    if (this.filtros.garageMinimo) count++;
     if (this.filtros.amenidades && this.filtros.amenidades.length > 0) count += this.filtros.amenidades.length;
     return count;
   }
