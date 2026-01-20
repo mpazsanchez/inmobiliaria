@@ -222,7 +222,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
   },
   {
     id: 6,
-    titulo: 'Departamento 2 Ambientes a Estrenar en Nuniez',
+    titulo: 'Departamento 2 Ambientes a Estrenar en Nuñez',
     descripcion: `Departamento a estrenar en edificio de categoria. Living con balcon,
     dormitorio en suite, cocina integrada con mesada de granito.
     Amenities completos: pileta, solarium, gym, laundry.`,
