@@ -138,11 +138,16 @@ export class PublicNavbarComponent implements OnInit, OnDestroy {
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     if (!this.isBrowser) return;
-    
+
     const target = event.target as HTMLElement;
     const navbar = this.elementRef.nativeElement;
 
-    if (!navbar.contains(target) && !this.isMenuCollapsed) {
+    // No cerrar si el click es dentro de un dropdown
+    const isDropdownClick = target.closest('[ngbDropdown]') ||
+                            target.closest('.dropdown-menu-modern') ||
+                            target.closest('[ngbDropdownToggle]');
+
+    if (!navbar.contains(target) && !this.isMenuCollapsed && !isDropdownClick) {
       this.isMenuCollapsed = true;
     }
   }

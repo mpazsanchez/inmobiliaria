@@ -16,7 +16,7 @@ $transition-fast: all 0.2s ease;
   left: 0;
   right: 0;
   @media (max-width: 991px) { height: $navbar-height-mobile; }
-  @media (max-width: 575px) { background: rgba(255, 255, 255, 0.308); }
+  @media (max-width: 575px) { background: rgb(255, 255, 255); }
   &.scrolled {
     background: rgba(255, 255, 255, 0.95);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
