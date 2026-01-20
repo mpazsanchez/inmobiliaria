@@ -21,3 +21,6 @@ export * from './search-filters.interface';
 // Contenido estatico
 export * from './static-content/about-us.interface';
 export * from './static-content/contact.interface';
+
+// Testimonios y Beneficios
+export * from './testimonio.interface';

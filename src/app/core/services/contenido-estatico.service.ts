@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, delay, map, forkJoin } from 'rxjs';
+import { Observable, of, delay, map, forkJoin, shareReplay, catchError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ContenidoEstatico, TipoPaginaEstatica } from '../models/static-content/contenido-estatico.interface';
+import { Testimonio, Beneficio, ContenidoResponse } from '../models/testimonio.interface';
 
 /**
  * Service for managing static page content
@@ -126,5 +127,68 @@ export class ContenidoEstaticoService {
       ultimaActualizacion: new Date().toISOString(),
       publicada: false
     };
+  }
+
+  // ============================================
+  // TESTIMONIOS Y BENEFICIOS
+  // ============================================
+
+  private testimoniosCache$: Observable<ContenidoResponse> | null = null;
+
+  /**
+   * Obtiene todos los testimonios
+   */
+  getTestimonios(): Observable<Testimonio[]> {
+    return this.getTestimoniosContenido().pipe(
+      map(data => data.testimonios)
+    );
+  }
+
+  /**
+   * Obtiene todos los beneficios ordenados
+   */
+  getBeneficios(): Observable<Beneficio[]> {
+    return this.getTestimoniosContenido().pipe(
+      map(data => data.beneficios.sort((a, b) => a.orden - b.orden))
+    );
+  }
+
+  /**
+   * Obtiene testimonios limitados (para mostrar en home)
+   */
+  getTestimoniosDestacados(limite: number = 3): Observable<Testimonio[]> {
+    return this.getTestimonios().pipe(
+      map(testimonios => testimonios.slice(0, limite))
+    );
+  }
+
+  /**
+   * Carga el contenido de testimonios (con cache)
+   */
+  private getTestimoniosContenido(): Observable<ContenidoResponse> {
+    if (this.testimoniosCache$) {
+      return this.testimoniosCache$;
+    }
+
+    const source$ = this.useMockData
+      ? this.http.get<ContenidoResponse>('/assets/data/static-content/testimonios.json')
+      : this.http.get<ContenidoResponse>(`${this.apiUrl}/testimonios`);
+
+    this.testimoniosCache$ = source$.pipe(
+      catchError(error => {
+        console.error('Error cargando testimonios:', error);
+        return of({ testimonios: [], beneficios: [] });
+      }),
+      shareReplay(1)
+    );
+
+    return this.testimoniosCache$;
+  }
+
+  /**
+   * Limpia el cache de testimonios
+   */
+  clearTestimoniosCache(): void {
+    this.testimoniosCache$ = null;
   }
 }
