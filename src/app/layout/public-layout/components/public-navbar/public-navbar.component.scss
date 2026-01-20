@@ -415,6 +415,7 @@ $transition-fast: all 0.2s ease;
               border: none;
               transition: transform 0.3s ease;
               flex-shrink: 0;
+              pointer-events: none;
             }
             
             &[aria-expanded="true"]::after {
