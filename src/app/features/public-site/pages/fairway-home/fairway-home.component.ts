@@ -23,7 +23,7 @@ import { WhyFairwayComponent } from '../../components/why-fairway/why-fairway.co
 export class FairwayHomeComponent {
   // Hero section data
   heroData = {
-    backgroundImage: 'assets/images/backgrounds/fairway/hero-home.webp',
+    backgroundImage: 'assets/images/backgrounds/fairway/hero-home-3.jpg',
     title: 'Encuentra tu hogar ideal',
     subtitle: 'Miles de propiedades en venta y alquiler te esperan'
   };
