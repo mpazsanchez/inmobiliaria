@@ -4,7 +4,12 @@
   </div>
   <ul>
     @for (item of menuItems(); track item) {
-      <li><a [routerLink]="item.route">{{ item.label }}</a></li>
+      <li>
+        <a [routerLink]="item.route" routerLinkActive="active">
+          <i [class]="item.icon"></i>
+          {{ item.label }}
+        </a>
+      </li>
     }
   </ul>
 </nav>

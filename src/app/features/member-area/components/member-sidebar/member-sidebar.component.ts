@@ -11,8 +11,9 @@ import { RouterModule } from '@angular/router';
 export class MemberSidebarComponent {
   @Input() user: any;
   menuItems = signal([
-    { label: 'Dashboard', route: '/member-area/dashboard' },
-    { label: 'Capacitación', route: '/member-area/training' },
-    // Puedes agregar más items aquí
+    { label: 'Dashboard', route: '/member-area/dashboard', icon: 'bi bi-house' },
+    { label: 'Mi Perfil', route: '/member-area/profile', icon: 'bi bi-person' },
+    { label: 'Capacitacion', route: '/member-area/training', icon: 'bi bi-mortarboard' },
+    { label: 'Certificaciones', route: '/member-area/certificaciones', icon: 'bi bi-patch-check' },
   ]);
 }
