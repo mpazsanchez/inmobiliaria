@@ -1,33 +1,194 @@
-<div class="login-wrapper">
-  <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
-    <div class="login-header">
-      <!-- logo marca -->
-      <img src="assets/images/logos/logotipo.png" alt="Logo">
-      <h2>Iniciar sesión</h2>
-      <p class="subtitle">Accede a tu área de miembro para capacitación y compras</p>
+<div class="login-page">
+  <div class="login-card">
+    <!-- Panel Izquierdo - Imagen y Branding -->
+    <div class="login-branding">
+      <div class="branding-overlay">
+        <!-- Logo -->
+        <div class="branding-header">
+          <img src="assets/images/logos/logotipo.png" alt="Fairway" class="brand-logo">
+        </div>
+
+        <!-- Contenido principal centrado -->
+        <div class="branding-content">
+          <h1>Bienvenido al Panel de Gestion</h1>
+          <p>Administra tus propiedades, conecta con clientes y haz crecer tu cartera inmobiliaria.</p>
+
+          <!-- Features -->
+          <div class="features">
+            <div class="feature">
+              <div class="feature-icon">
+                <i class="bi bi-building"></i>
+              </div>
+              <div class="feature-text">
+                <strong>Gestiona propiedades</strong>
+                <span>Publica y administra tu cartera</span>
+              </div>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">
+                <i class="bi bi-people"></i>
+              </div>
+              <div class="feature-text">
+                <strong>Conecta con clientes</strong>
+                <span>Recibe y responde consultas</span>
+              </div>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">
+                <i class="bi bi-graph-up-arrow"></i>
+              </div>
+              <div class="feature-text">
+                <strong>Analiza resultados</strong>
+                <span>Metricas y estadisticas en tiempo real</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer con stats -->
+        <div class="branding-footer">
+          <div class="stats">
+            <div class="stat">
+              <span class="stat-number">500+</span>
+              <span class="stat-label">Propiedades</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+              <span class="stat-number">50+</span>
+              <span class="stat-label">Asesores</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+              <span class="stat-number">15</span>
+              <span class="stat-label">Anos</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="email"><i class="bi bi-envelope"></i> Email</label>
-      <input id="email" type="email" formControlName="email" required placeholder="ejemplo@correo.com" />
-      @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
-        <div class="error">Email inválido</div>
-      }
+
+    <!-- Panel Derecho - Formulario -->
+    <div class="login-form-panel">
+      <div class="form-wrapper">
+        <!-- Logo mobile -->
+        <div class="mobile-logo">
+          <img src="assets/images/logos/logotipo.png" alt="Fairway">
+        </div>
+
+        <!-- Header del form -->
+        <div class="form-header">
+          <span class="welcome-badge">
+            <i class="bi bi-shield-check"></i>
+            Area Privada
+          </span>
+          <h2>Iniciar Sesion</h2>
+          <p>Ingresa tus credenciales para acceder al panel</p>
+        </div>
+
+        <!-- Formulario -->
+        <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+          <div class="form-group">
+            <label for="email">
+              <i class="bi bi-envelope"></i>
+              Correo electronico
+            </label>
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              placeholder="tu@fairway.com"
+              autocomplete="email"
+              [class.invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+              <span class="field-error">
+                <i class="bi bi-exclamation-circle"></i>
+                Ingresa un email valido
+              </span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="password">
+              <i class="bi bi-lock"></i>
+              Contrasena
+            </label>
+            <div class="password-input">
+              <input
+                id="password"
+                [type]="showPassword ? 'text' : 'password'"
+                formControlName="password"
+                placeholder="Tu contrasena"
+                autocomplete="current-password"
+                [class.invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+              <button type="button" class="toggle-password" (click)="showPassword = !showPassword">
+                <i class="bi" [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword"></i>
+              </button>
+            </div>
+            @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+              <span class="field-error">
+                <i class="bi bi-exclamation-circle"></i>
+                La contrasena es requerida
+              </span>
+            }
+          </div>
+
+          <div class="form-options">
+            <label class="checkbox-label">
+              <input type="checkbox">
+              <span class="checkbox-custom"></span>
+              Recordarme
+            </label>
+            <a href="#" class="forgot-link">Olvide mi contrasena</a>
+          </div>
+
+          @if (error()) {
+            <div class="alert-error">
+              <i class="bi bi-exclamation-triangle"></i>
+              <span>{{ error() }}</span>
+            </div>
+          }
+
+          <button type="submit" class="btn-submit" [disabled]="loginForm.invalid || isLoading">
+            @if (isLoading) {
+              <span class="spinner"></span>
+              Ingresando...
+            } @else {
+              Ingresar
+              <i class="bi bi-arrow-right"></i>
+            }
+          </button>
+        </form>
+
+        <!-- Credenciales de prueba -->
+        <div class="test-credentials">
+          <div class="credentials-header">
+            <i class="bi bi-info-circle"></i>
+            <span>Credenciales de prueba</span>
+          </div>
+          <div class="credentials-list">
+            <button type="button" class="credential-btn" (click)="fillCredentials('asesor@fairway.com', 'asesor123')">
+              <i class="bi bi-person-badge"></i>
+              <div>
+                <strong>Asesor</strong>
+                <small>asesor&#64;fairway.com</small>
+              </div>
+            </button>
+            <button type="button" class="credential-btn admin" (click)="fillCredentials('admin@fairway.com', 'admin123')">
+              <i class="bi bi-shield-lock"></i>
+              <div>
+                <strong>Admin</strong>
+                <small>admin&#64;fairway.com</small>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Back link -->
+        <a routerLink="/" class="back-link">
+          <i class="bi bi-arrow-left"></i>
+          Volver al sitio web
+        </a>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="password"><i class="bi bi-key"></i> Contraseña</label>
-      <input id="password" type="password" formControlName="password" required placeholder="••••••••" />
-      @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
-        <div class="error">La contraseña es obligatoria</div>
-      }
-    </div>
-    @if (error()) {
-      <div class="error">{{ error() }}</div>
-    }
-    <button type="submit" class="btn main-btn">Ingresar</button>
-    <!-- <button type="button" class="btn dev-btn" (click)="loginFake()">Login rápido (dev)</button> -->
-    <div class="login-footer">
-      <span>¿No tienes cuenta? <a routerLink="/register">Regístrate</a></span>
-      <span class="dev-tip">(Usa demo&#64;demo.com / demo para pruebas)</span>
-    </div>
-  </form>
+  </div>
 </div>
