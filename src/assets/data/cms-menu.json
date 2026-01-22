@@ -1,0 +1,92 @@
+{
+  "menus": {
+    "administrador": [
+      {
+        "id": "dashboard",
+        "label": "Dashboard",
+        "icon": "bi-grid-1x2",
+        "route": "/member-area/dashboard",
+        "orden": 1
+      },
+      {
+        "id": "profile",
+        "label": "Mi Perfil",
+        "icon": "bi-person",
+        "route": "/member-area/profile",
+        "orden": 2
+      },
+      {
+        "id": "propiedades",
+        "label": "Propiedades",
+        "icon": "bi-buildings",
+        "route": "/member-area/propiedades",
+        "orden": 3
+      },
+      {
+        "id": "asesores",
+        "label": "Asesores",
+        "icon": "bi-people",
+        "route": "/member-area/asesores",
+        "orden": 4
+      },
+      {
+        "id": "consultas",
+        "label": "Consultas",
+        "icon": "bi-chat-dots",
+        "route": "/member-area/consultas",
+        "orden": 5
+      },
+      {
+        "id": "contenido",
+        "label": "Contenido",
+        "icon": "bi-file-earmark-text",
+        "route": "/member-area/contenido",
+        "orden": 6
+      },
+      {
+        "id": "estadisticas",
+        "label": "Estadisticas",
+        "icon": "bi-bar-chart-line",
+        "route": "/member-area/estadisticas",
+        "orden": 7
+      },
+      {
+        "id": "configuracion",
+        "label": "Configuracion",
+        "icon": "bi-gear",
+        "route": "/member-area/configuracion",
+        "orden": 8
+      }
+    ],
+    "asesor": [
+      {
+        "id": "dashboard",
+        "label": "Dashboard",
+        "icon": "bi-grid-1x2",
+        "route": "/member-area/dashboard",
+        "orden": 1
+      },
+      {
+        "id": "profile",
+        "label": "Mi Perfil",
+        "icon": "bi-person",
+        "route": "/member-area/profile",
+        "orden": 2
+      },
+      {
+        "id": "mis-propiedades",
+        "label": "Mis Propiedades",
+        "icon": "bi-house",
+        "route": "/member-area/mis-propiedades",
+        "orden": 3
+      },
+      {
+        "id": "consultas",
+        "label": "Mis Consultas",
+        "icon": "bi-chat-dots",
+        "route": "/member-area/consultas",
+        "orden": 4
+      }
+    ]
+  }
+}

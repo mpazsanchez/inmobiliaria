@@ -1,0 +1,40 @@
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "nombre": "Administrador Fairway",
+      "email": "admin@fairway.com",
+      "password": "admin123",
+      "telefono": "+54 11 4555-0000",
+      "rol": "administrador",
+      "fotoUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+      "activo": true,
+      "fechaRegistro": "2023-01-01",
+      "agenteId": null
+    },
+    {
+      "id": 2,
+      "nombre": "Maria Gonzalez",
+      "email": "asesor@fairway.com",
+      "password": "asesor123",
+      "telefono": "+54 9 11 2345-6789",
+      "rol": "asesor",
+      "fotoUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face",
+      "activo": true,
+      "fechaRegistro": "2022-03-15",
+      "agenteId": 1
+    },
+    {
+      "id": 3,
+      "nombre": "Carlos Rodriguez",
+      "email": "carlos@fairway.com",
+      "password": "carlos123",
+      "telefono": "+54 9 11 8765-4321",
+      "rol": "asesor",
+      "fotoUrl": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=face",
+      "activo": true,
+      "fechaRegistro": "2023-01-10",
+      "agenteId": 2
+    }
+  ]
+}
