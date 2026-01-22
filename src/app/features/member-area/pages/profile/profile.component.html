@@ -1,0 +1,291 @@
+<div class="profile-page">
+  <!-- Loading State -->
+  @if (isLoading()) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Cargando perfil...</p>
+    </div>
+  }
+
+  <!-- Error State (sin perfil) -->
+  @if (error() && !agente()) {
+    <div class="error-state">
+      <i class="bi bi-exclamation-circle"></i>
+      <h2>Error</h2>
+      <p>{{ error() }}</p>
+      <a routerLink="/member-area/dashboard" class="btn-back">Volver al Dashboard</a>
+    </div>
+  }
+
+  <!-- Content -->
+  @if (agente() && !isLoading()) {
+    <div class="profile-container">
+      <!-- Header -->
+      <header class="profile-header">
+        <div class="header-content">
+          <div class="photo-section">
+            <div class="photo-wrapper">
+              <img [src]="getCurrentPhotoUrl()" [alt]="getNombreCompleto()" class="profile-photo">
+              @if (photoPreview()) {
+                <button type="button" class="btn-remove-photo" (click)="removePhoto()" title="Quitar foto">
+                  <i class="bi bi-x"></i>
+                </button>
+              }
+            </div>
+            <label class="btn-change-photo">
+              <i class="bi bi-camera"></i>
+              <span>Cambiar foto</span>
+              <input type="file" accept="image/*" (change)="onPhotoChange($event)" hidden>
+            </label>
+          </div>
+          <div class="header-info">
+            <h1>{{ getNombreCompleto() }}</h1>
+            <p class="role">{{ agente()?.cargo }}</p>
+            @if (agente()?.especialidad) {
+              <p class="specialty"><i class="bi bi-award"></i> {{ agente()?.especialidad }}</p>
+            }
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-value">{{ agente()?.experienciaAnios || 0 }}+</span>
+            <span class="stat-label">Años de experiencia</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">{{ agente()?.propiedadesVendidas || 0 }}</span>
+            <span class="stat-label">Propiedades vendidas</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">{{ agente()?.propiedadesActivas || 0 }}</span>
+            <span class="stat-label">Propiedades activas</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value">{{ agente()?.clientesSatisfechos || 0 }}+</span>
+            <span class="stat-label">Clientes satisfechos</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Messages -->
+      @if (error()) {
+        <div class="alert alert-error">
+          <i class="bi bi-exclamation-triangle"></i>
+          {{ error() }}
+        </div>
+      }
+
+      @if (successMessage()) {
+        <div class="alert alert-success">
+          <i class="bi bi-check-circle"></i>
+          {{ successMessage() }}
+        </div>
+      }
+
+      <!-- Form -->
+      <form [formGroup]="profileForm" (ngSubmit)="onSave()" class="profile-form">
+        <!-- Seccion: Informacion Personal -->
+        <section class="form-section">
+          <h2><i class="bi bi-person"></i> Informacion Personal</h2>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="nombre">Nombre *</label>
+              <input id="nombre" type="text" formControlName="nombre" placeholder="Tu nombre">
+              @if (getFieldError('nombre')) {
+                <span class="field-error">{{ getFieldError('nombre') }}</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="apellido">Apellido *</label>
+              <input id="apellido" type="text" formControlName="apellido" placeholder="Tu apellido">
+              @if (getFieldError('apellido')) {
+                <span class="field-error">{{ getFieldError('apellido') }}</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="cargo">Cargo *</label>
+              <input id="cargo" type="text" formControlName="cargo" placeholder="Ej: Agente Inmobiliario">
+              @if (getFieldError('cargo')) {
+                <span class="field-error">{{ getFieldError('cargo') }}</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input id="email" type="email" formControlName="email" placeholder="tu@email.com">
+              @if (getFieldError('email')) {
+                <span class="field-error">{{ getFieldError('email') }}</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="telefono">Telefono *</label>
+              <input id="telefono" type="tel" formControlName="telefono" placeholder="+54 11 1234-5678">
+              @if (getFieldError('telefono')) {
+                <span class="field-error">{{ getFieldError('telefono') }}</span>
+              }
+            </div>
+          </div>
+        </section>
+
+        <!-- Seccion: Perfil Profesional -->
+        <section class="form-section">
+          <h2><i class="bi bi-briefcase"></i> Perfil Profesional</h2>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="especialidad">Especialidad</label>
+              <input id="especialidad" type="text" formControlName="especialidad" placeholder="Ej: Propiedades de Lujo">
+            </div>
+
+            <div class="form-group">
+              <label for="slogan">Slogan</label>
+              <input id="slogan" type="text" formControlName="slogan" placeholder="Una frase que te represente">
+              @if (getFieldError('slogan')) {
+                <span class="field-error">{{ getFieldError('slogan') }}</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="experienciaAnios">Años de experiencia</label>
+              <input id="experienciaAnios" type="number" formControlName="experienciaAnios" min="0" max="50">
+              @if (getFieldError('experienciaAnios')) {
+                <span class="field-error">{{ getFieldError('experienciaAnios') }}</span>
+              }
+            </div>
+
+            <div class="form-group full-width">
+              <label for="biografia">Biografia</label>
+              <textarea id="biografia" formControlName="biografia" rows="4" placeholder="Cuentanos sobre ti, tu experiencia y lo que te diferencia..."></textarea>
+              <span class="char-count">{{ profileForm.get('biografia')?.value?.length || 0 }}/1000</span>
+              @if (getFieldError('biografia')) {
+                <span class="field-error">{{ getFieldError('biografia') }}</span>
+              }
+            </div>
+          </div>
+        </section>
+
+        <!-- Seccion: Idiomas -->
+        <section class="form-section">
+          <h2><i class="bi bi-translate"></i> Idiomas</h2>
+          <div class="tags-container">
+            @for (idioma of idiomas.controls; track $index; let i = $index) {
+              <span class="tag">
+                {{ idioma.value }}
+                <button type="button" class="tag-remove" (click)="removeIdioma(i)">
+                  <i class="bi bi-x"></i>
+                </button>
+              </span>
+            }
+          </div>
+          <div class="add-item-row">
+            <input type="text" [(ngModel)]="newIdioma" [ngModelOptions]="{standalone: true}" placeholder="Agregar idioma" (keyup.enter)="addIdioma()">
+            <button type="button" class="btn-add" (click)="addIdioma()">
+              <i class="bi bi-plus"></i>
+            </button>
+          </div>
+        </section>
+
+        <!-- Seccion: Redes Sociales -->
+        <section class="form-section">
+          <h2><i class="bi bi-share"></i> Redes Sociales</h2>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="whatsapp"><i class="bi bi-whatsapp"></i> WhatsApp</label>
+              <input id="whatsapp" type="text" formControlName="whatsapp" placeholder="5491123456789">
+            </div>
+
+            <div class="form-group">
+              <label for="linkedin"><i class="bi bi-linkedin"></i> LinkedIn</label>
+              <input id="linkedin" type="url" formControlName="linkedin" placeholder="https://linkedin.com/in/tu-perfil">
+            </div>
+
+            <div class="form-group">
+              <label for="instagram"><i class="bi bi-instagram"></i> Instagram</label>
+              <input id="instagram" type="url" formControlName="instagram" placeholder="https://instagram.com/tu-usuario">
+            </div>
+
+            <div class="form-group">
+              <label for="facebook"><i class="bi bi-facebook"></i> Facebook</label>
+              <input id="facebook" type="url" formControlName="facebook" placeholder="https://facebook.com/tu-pagina">
+            </div>
+          </div>
+        </section>
+
+        <!-- Seccion: Certificaciones -->
+        <section class="form-section">
+          <h2><i class="bi bi-patch-check"></i> Certificaciones</h2>
+          <ul class="editable-list">
+            @for (cert of certificaciones.controls; track $index; let i = $index) {
+              <li>
+                <span>{{ cert.value }}</span>
+                <button type="button" class="btn-remove" (click)="removeCertificacion(i)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </li>
+            }
+          </ul>
+          @if (certificaciones.length === 0) {
+            <p class="empty-list">No has agregado certificaciones</p>
+          }
+          <div class="add-item-row">
+            <input type="text" [(ngModel)]="newCertificacion" [ngModelOptions]="{standalone: true}" placeholder="Agregar certificacion" (keyup.enter)="addCertificacion()">
+            <button type="button" class="btn-add" (click)="addCertificacion()">
+              <i class="bi bi-plus"></i>
+            </button>
+          </div>
+        </section>
+
+        <!-- Seccion: Premios -->
+        <section class="form-section">
+          <h2><i class="bi bi-trophy"></i> Premios y Reconocimientos</h2>
+          <ul class="editable-list">
+            @for (premio of premios.controls; track $index; let i = $index) {
+              <li>
+                <span>{{ premio.value }}</span>
+                <button type="button" class="btn-remove" (click)="removePremio(i)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </li>
+            }
+          </ul>
+          @if (premios.length === 0) {
+            <p class="empty-list">No has agregado premios</p>
+          }
+          <div class="add-item-row">
+            <input type="text" [(ngModel)]="newPremio" [ngModelOptions]="{standalone: true}" placeholder="Agregar premio" (keyup.enter)="addPremio()">
+            <button type="button" class="btn-add" (click)="addPremio()">
+              <i class="bi bi-plus"></i>
+            </button>
+          </div>
+        </section>
+
+        <!-- Actions -->
+        <div class="form-actions">
+          <a routerLink="/member-area/dashboard" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Volver
+          </a>
+          <button type="submit" class="btn btn-primary" [disabled]="isSaving()">
+            @if (isSaving()) {
+              <span class="spinner-small"></span> Guardando...
+            } @else {
+              <i class="bi bi-check-lg"></i> Guardar Cambios
+            }
+          </button>
+        </div>
+      </form>
+
+      <!-- Preview Link -->
+      <div class="preview-section">
+        <p>
+          <i class="bi bi-eye"></i>
+          <a [routerLink]="['/team', agente()?.id]" target="_blank">
+            Ver mi perfil publico
+          </a>
+        </p>
+      </div>
+    </div>
+  }
+</div>
