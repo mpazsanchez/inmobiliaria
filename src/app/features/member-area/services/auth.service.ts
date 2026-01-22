@@ -22,7 +22,7 @@ export class AuthService {
           email,
           telefono: '+54 11 4555-0000',
           rol: 'administrador',
-          fotoUrl: 'assets/images/agents/admin.jpg',
+          fotoUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
           passwordHash: '',
           activo: true,
           fechaRegistro: '2023-01-01'
@@ -31,16 +31,33 @@ export class AuthService {
         this.guardarSesion(user);
         resolve(user);
       } else if (email === 'asesor@fairway.com' && password === 'asesor123') {
+        // Usuario asesor - ID coincide con Maria Gonzalez en AGENTES_MOCK (id: 1)
         const user: Usuario = {
-          id: 2,
-          nombre: 'Maria Garcia',
+          id: 1,
+          nombre: 'Maria Gonzalez',
           email,
-          telefono: '+54 11 4555-1234',
+          telefono: '+54 9 11 2345-6789',
           rol: 'asesor',
-          fotoUrl: 'assets/images/agents/maria-garcia.jpg',
+          fotoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face',
           passwordHash: '',
           activo: true,
           fechaRegistro: '2022-03-15'
+        };
+        this.usuario.set(user);
+        this.guardarSesion(user);
+        resolve(user);
+      } else if (email === 'carlos@fairway.com' && password === 'carlos123') {
+        // Usuario asesor - ID coincide con Carlos Rodriguez en AGENTES_MOCK (id: 2)
+        const user: Usuario = {
+          id: 2,
+          nombre: 'Carlos Rodriguez',
+          email,
+          telefono: '+54 9 11 8765-4321',
+          rol: 'asesor',
+          fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=face',
+          passwordHash: '',
+          activo: true,
+          fechaRegistro: '2023-01-10'
         };
         this.usuario.set(user);
         this.guardarSesion(user);
