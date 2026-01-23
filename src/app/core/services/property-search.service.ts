@@ -59,7 +59,7 @@ export class PropertySearchService {
     return {
       operacion: 'venta',
       pagina: 1,
-      porPagina: 12
+      limite: 12
     };
   }
 
@@ -162,6 +162,7 @@ export class PropertySearchService {
   /**
    * Navigates to results page with current filters as query params
    * Use this when search bar is on another page (e.g., home)
+   * Always routes to /properties with operacion as query param for backend coherence
    */
   navigateToResults(): void {
     const queryParams = this.filtersToQueryParams(this._filters());
@@ -243,7 +244,7 @@ export class PropertySearchService {
       }
       // Exclude default values that don't add information
       if (key === 'pagina' && value === 1) return;
-      if (key === 'porPagina' && value === 12) return;
+      if (key === 'limite' && value === 12) return;
 
       // Convert arrays to comma-separated string
       if (Array.isArray(value)) {

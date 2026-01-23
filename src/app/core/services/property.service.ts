@@ -205,11 +205,11 @@ export class PropertyService {
 
     // Calcular paginación
     const pagina = filtros?.pagina || 1;
-    const porPagina = filtros?.porPagina || 10;
+    const limite = filtros?.limite || filtros?.porPagina || 10; // Soportar ambos por compatibilidad
     const totalItems = resultado.length;
-    const totalPaginas = Math.ceil(totalItems / porPagina);
-    const inicio = (pagina - 1) * porPagina;
-    const fin = inicio + porPagina;
+    const totalPaginas = Math.ceil(totalItems / limite);
+    const inicio = (pagina - 1) * limite;
+    const fin = inicio + limite;
 
     // Paginar resultados
     const datosPaginados = resultado.slice(inicio, fin);
@@ -218,7 +218,7 @@ export class PropertyService {
       datos: datosPaginados,
       paginacion: {
         paginaActual: pagina,
-        porPagina,
+        porPagina: limite, // Mantener porPagina en respuesta para la interfaz
         totalItems,
         totalPaginas,
         tieneSiguiente: pagina < totalPaginas,

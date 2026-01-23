@@ -1,0 +1,40 @@
+{
+  "banners": [
+    {
+      "id": 1,
+      "titulo": "Encontrá tu hogar ideal",
+      "subtitulo": "Miles de propiedades en venta y alquiler te esperan",
+      "imagenUrl": "assets/images/backgrounds/fairway/hero-home-3.jpg",
+      "imagenMovilUrl": "assets/images/backgrounds/fairway/hero-home-3.jpg",
+      "enlace": "/properties",
+      "textoBoton": "Ver propiedades",
+      "posicion": "hero",
+      "orden": 1,
+      "activo": true
+    },
+    {
+      "id": 2,
+      "titulo": "Vendé tu propiedad con nosotros",
+      "subtitulo": "Tasación gratuita y el mejor asesoramiento del mercado",
+      "imagenUrl": "assets/images/backgrounds/fairway/hero-home-2.jpg",
+      "imagenMovilUrl": "assets/images/backgrounds/fairway/hero-home-2.jpg",
+      "enlace": "/contact",
+      "textoBoton": "Solicitar tasación",
+      "posicion": "hero",
+      "orden": 2,
+      "activo": true
+    },
+    {
+      "id": 3,
+      "titulo": "Equipo de profesionales a tu servicio",
+      "subtitulo": "Más de 12 años de experiencia en el mercado inmobiliario",
+      "imagenUrl": "assets/images/backgrounds/fairway/hero-home-1.jpg",
+      "imagenMovilUrl": "assets/images/backgrounds/fairway/hero-home-1.jpg",
+      "enlace": "/team",
+      "textoBoton": "Conocer equipo",
+      "posicion": "hero",
+      "orden": 3,
+      "activo": true
+    }
+  ]
+}

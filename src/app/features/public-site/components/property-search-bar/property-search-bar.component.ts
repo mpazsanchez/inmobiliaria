@@ -75,11 +75,7 @@ export class PropertySearchBarComponent implements OnInit {
         ...this.initialFilters
       };
     }
-
-    const serviceFilters = this.searchService.filters();
-    if (serviceFilters.operacion) {
-      this.filters.operacion = serviceFilters.operacion;
-    }
+    // NO leer del servicio para evitar mantener estado entre navegaciones
   }
 
   // =============================================

@@ -1,0 +1,425 @@
+<div class="property-form-page">
+  <!-- Header -->
+  <header class="page-header">
+    <div class="header-content">
+      <a routerLink="/member-area/propiedades" class="back-link">
+        <i class="bi bi-arrow-left"></i>
+        Volver
+      </a>
+      <h1>
+        @if (isEditMode()) {
+          <i class="bi bi-pencil"></i>
+          Editar Propiedad
+        } @else {
+          <i class="bi bi-plus-lg"></i>
+          Nueva Propiedad
+        }
+      </h1>
+    </div>
+  </header>
+
+  @if (isLoading()) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Cargando propiedad...</p>
+    </div>
+  } @else {
+    <!-- Tabs Navigation -->
+    <nav class="form-tabs">
+      <button
+        [class.active]="activeTab() === 'basic'"
+        [class.valid]="isTabValid('basic')"
+        (click)="setTab('basic')">
+        <i class="bi bi-info-circle"></i>
+        <span>Informacion Basica</span>
+      </button>
+      <button
+        [class.active]="activeTab() === 'location'"
+        [class.valid]="isTabValid('location')"
+        (click)="setTab('location')">
+        <i class="bi bi-geo-alt"></i>
+        <span>Ubicacion</span>
+      </button>
+      <button
+        [class.active]="activeTab() === 'features'"
+        [class.valid]="isTabValid('features')"
+        (click)="setTab('features')">
+        <i class="bi bi-list-check"></i>
+        <span>Caracteristicas</span>
+      </button>
+      <button
+        [class.active]="activeTab() === 'images'"
+        [class.valid]="isTabValid('images')"
+        (click)="setTab('images')">
+        <i class="bi bi-images"></i>
+        <span>Imagenes</span>
+      </button>
+    </nav>
+
+    <!-- Form -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="property-form">
+      <!-- Error Alert -->
+      @if (error()) {
+        <div class="alert-error">
+          <i class="bi bi-exclamation-triangle"></i>
+          <span>{{ error() }}</span>
+          <button type="button" (click)="error.set(null)">
+            <i class="bi bi-x"></i>
+          </button>
+        </div>
+      }
+
+      <!-- Tab: Basic Info -->
+      @if (activeTab() === 'basic') {
+        <div class="form-section">
+          <h2>Informacion Basica</h2>
+
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label for="titulo">
+                Titulo de la Propiedad <span class="required">*</span>
+              </label>
+              <input
+                id="titulo"
+                type="text"
+                formControlName="titulo"
+                placeholder="Ej: Departamento 3 ambientes con balcon en Palermo"
+                [class.invalid]="form.get('titulo')?.invalid && form.get('titulo')?.touched">
+              @if (form.get('titulo')?.invalid && form.get('titulo')?.touched) {
+                <span class="field-error">Minimo 10 caracteres</span>
+              }
+            </div>
+
+            <div class="form-group full-width">
+              <label for="descripcion">
+                Descripcion <span class="required">*</span>
+              </label>
+              <textarea
+                id="descripcion"
+                formControlName="descripcion"
+                rows="5"
+                placeholder="Describe la propiedad en detalle..."
+                [class.invalid]="form.get('descripcion')?.invalid && form.get('descripcion')?.touched">
+              </textarea>
+              @if (form.get('descripcion')?.invalid && form.get('descripcion')?.touched) {
+                <span class="field-error">Minimo 50 caracteres</span>
+              }
+              <span class="char-count">{{ form.get('descripcion')?.value?.length || 0 }} caracteres</span>
+            </div>
+
+            <div class="form-group">
+              <label for="tipoPropiedad">Tipo de Propiedad <span class="required">*</span></label>
+              <select id="tipoPropiedad" formControlName="tipoPropiedad">
+                @for (tipo of tiposPropiedad; track tipo) {
+                  <option [value]="tipo">{{ getTipoLabel(tipo) }}</option>
+                }
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="operacion">Operacion <span class="required">*</span></label>
+              <div class="radio-group">
+                <label class="radio-option" [class.selected]="form.get('operacion')?.value === 'venta'">
+                  <input type="radio" formControlName="operacion" value="venta">
+                  <i class="bi bi-tag"></i>
+                  Venta
+                </label>
+                <label class="radio-option" [class.selected]="form.get('operacion')?.value === 'alquiler'">
+                  <input type="radio" formControlName="operacion" value="alquiler">
+                  <i class="bi bi-key"></i>
+                  Alquiler
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="precio">Precio <span class="required">*</span></label>
+              <div class="price-input">
+                <select formControlName="moneda" class="currency-select">
+                  <option value="USD">USD</option>
+                  <option value="ARS">ARS</option>
+                </select>
+                <input
+                  id="precio"
+                  type="number"
+                  formControlName="precio"
+                  placeholder="0"
+                  [class.invalid]="form.get('precio')?.invalid && form.get('precio')?.touched">
+              </div>
+              @if (form.get('precio')?.invalid && form.get('precio')?.touched) {
+                <span class="field-error">Ingresa un precio valido</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="estado">Estado</label>
+              <select id="estado" formControlName="estado">
+                @for (estado of estados; track estado) {
+                  <option [value]="estado">{{ estado | titlecase }}</option>
+                }
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="checkbox-group">
+                <input type="checkbox" formControlName="destacada">
+                <span class="checkbox-custom"></span>
+                <span class="checkbox-label">
+                  <i class="bi bi-star"></i>
+                  Marcar como destacada
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Tab: Location -->
+      @if (activeTab() === 'location') {
+        <div class="form-section" formGroupName="ubicacion">
+          <h2>Ubicacion</h2>
+
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label for="direccion">Direccion <span class="required">*</span></label>
+              <input
+                id="direccion"
+                type="text"
+                formControlName="direccion"
+                placeholder="Ej: Av. Santa Fe 1500"
+                [class.invalid]="form.get('ubicacion.direccion')?.invalid && form.get('ubicacion.direccion')?.touched">
+            </div>
+
+            <div class="form-group">
+              <label for="barrio">Barrio</label>
+              <input
+                id="barrio"
+                type="text"
+                formControlName="barrio"
+                placeholder="Ej: Palermo">
+            </div>
+
+            <div class="form-group">
+              <label for="ciudad">Ciudad <span class="required">*</span></label>
+              <input
+                id="ciudad"
+                type="text"
+                formControlName="ciudad"
+                placeholder="Ej: Buenos Aires"
+                [class.invalid]="form.get('ubicacion.ciudad')?.invalid && form.get('ubicacion.ciudad')?.touched">
+            </div>
+
+            <div class="form-group">
+              <label for="provincia">Provincia <span class="required">*</span></label>
+              <input
+                id="provincia"
+                type="text"
+                formControlName="provincia"
+                placeholder="Ej: CABA"
+                [class.invalid]="form.get('ubicacion.provincia')?.invalid && form.get('ubicacion.provincia')?.touched">
+            </div>
+
+            <div class="form-group">
+              <label for="pais">Pais</label>
+              <input id="pais" type="text" formControlName="pais" readonly>
+            </div>
+          </div>
+
+          <div class="map-placeholder">
+            <i class="bi bi-geo-alt"></i>
+            <p>El mapa se mostrara aqui cuando se integre la API de Google Maps</p>
+            <small>Las coordenadas se asignaran automaticamente</small>
+          </div>
+        </div>
+      }
+
+      <!-- Tab: Features -->
+      @if (activeTab() === 'features') {
+        <div class="form-section" formGroupName="caracteristicas">
+          <h2>Caracteristicas</h2>
+
+          <div class="form-grid features-grid">
+            <div class="form-group">
+              <label for="ambientes">Ambientes <span class="required">*</span></label>
+              <div class="number-input">
+                <button type="button" (click)="form.get('caracteristicas.ambientes')?.setValue(Math.max(0, form.get('caracteristicas.ambientes')?.value - 1))">
+                  <i class="bi bi-dash"></i>
+                </button>
+                <input id="ambientes" type="number" formControlName="ambientes" min="0">
+                <button type="button" (click)="form.get('caracteristicas.ambientes')?.setValue(form.get('caracteristicas.ambientes')?.value + 1)">
+                  <i class="bi bi-plus"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="dormitorios">Dormitorios</label>
+              <div class="number-input">
+                <button type="button" (click)="form.get('caracteristicas.dormitorios')?.setValue(Math.max(0, form.get('caracteristicas.dormitorios')?.value - 1))">
+                  <i class="bi bi-dash"></i>
+                </button>
+                <input id="dormitorios" type="number" formControlName="dormitorios" min="0">
+                <button type="button" (click)="form.get('caracteristicas.dormitorios')?.setValue(form.get('caracteristicas.dormitorios')?.value + 1)">
+                  <i class="bi bi-plus"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="banos">Banos <span class="required">*</span></label>
+              <div class="number-input">
+                <button type="button" (click)="form.get('caracteristicas.banos')?.setValue(Math.max(0, form.get('caracteristicas.banos')?.value - 1))">
+                  <i class="bi bi-dash"></i>
+                </button>
+                <input id="banos" type="number" formControlName="banos" min="0">
+                <button type="button" (click)="form.get('caracteristicas.banos')?.setValue(form.get('caracteristicas.banos')?.value + 1)">
+                  <i class="bi bi-plus"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="garage">Cocheras</label>
+              <div class="number-input">
+                <button type="button" (click)="form.get('caracteristicas.garage')?.setValue(Math.max(0, form.get('caracteristicas.garage')?.value - 1))">
+                  <i class="bi bi-dash"></i>
+                </button>
+                <input id="garage" type="number" formControlName="garage" min="0">
+                <button type="button" (click)="form.get('caracteristicas.garage')?.setValue(form.get('caracteristicas.garage')?.value + 1)">
+                  <i class="bi bi-plus"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="superficie_cubierta">Superficie Cubierta (m²) <span class="required">*</span></label>
+              <input
+                id="superficie_cubierta"
+                type="number"
+                formControlName="superficie_cubierta"
+                min="0"
+                placeholder="0">
+            </div>
+
+            <div class="form-group">
+              <label for="superficie_total">Superficie Total (m²) <span class="required">*</span></label>
+              <input
+                id="superficie_total"
+                type="number"
+                formControlName="superficie_total"
+                min="0"
+                placeholder="0">
+            </div>
+
+            <div class="form-group">
+              <label for="antiguedad">Antiguedad (años)</label>
+              <input
+                id="antiguedad"
+                type="number"
+                formControlName="antiguedad"
+                min="0"
+                placeholder="0 = A estrenar">
+            </div>
+          </div>
+
+          <div class="amenidades-section">
+            <h3>Amenidades</h3>
+            <div class="amenidades-grid">
+              @for (amenidad of amenidadesDisponibles; track amenidad) {
+                <button
+                  type="button"
+                  class="amenidad-chip"
+                  [class.selected]="isAmenidadSelected(amenidad)"
+                  (click)="toggleAmenidad(amenidad)">
+                  @if (isAmenidadSelected(amenidad)) {
+                    <i class="bi bi-check-lg"></i>
+                  }
+                  {{ getAmenidadLabel(amenidad) }}
+                </button>
+              }
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Tab: Images -->
+      @if (activeTab() === 'images') {
+        <div class="form-section">
+          <h2>Imagenes</h2>
+          <p class="section-description">Agrega las fotos de la propiedad. La primera imagen sera la principal.</p>
+
+          <div class="images-list">
+            @for (imagen of imagenesArray.controls; track $index; let i = $index) {
+              <div class="image-item" [formGroupName]="i">
+                <div class="image-preview">
+                  @if (imagen.get('url')?.value) {
+                    <img [src]="imagen.get('url')?.value" alt="Preview">
+                  } @else {
+                    <div class="no-image">
+                      <i class="bi bi-image"></i>
+                    </div>
+                  }
+                  @if (i === 0) {
+                    <span class="main-badge">Principal</span>
+                  }
+                </div>
+                <div class="image-fields">
+                  <div class="form-group">
+                    <label>URL de la imagen</label>
+                    <input
+                      type="text"
+                      formControlName="url"
+                      placeholder="https://..."
+                      [class.invalid]="imagen.get('url')?.invalid && imagen.get('url')?.touched">
+                  </div>
+                  <div class="form-group">
+                    <label>Descripcion</label>
+                    <input
+                      type="text"
+                      formControlName="descripcion"
+                      placeholder="Ej: Living, Dormitorio...">
+                  </div>
+                </div>
+                <button type="button" class="btn-remove" (click)="removeImage(i)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            }
+          </div>
+
+          <button type="button" class="btn-add-image" (click)="addImage()">
+            <i class="bi bi-plus-lg"></i>
+            Agregar Imagen
+          </button>
+
+          @if (imagenesArray.length === 0) {
+            <div class="images-hint">
+              <i class="bi bi-lightbulb"></i>
+              <p>Agrega al menos una imagen para publicar la propiedad</p>
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="cancel()">
+          Cancelar
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="isSaving()">
+          @if (isSaving()) {
+            <span class="spinner-small"></span>
+            Guardando...
+          } @else {
+            <i class="bi bi-check-lg"></i>
+            @if (isEditMode()) {
+              Guardar Cambios
+            } @else {
+              Publicar Propiedad
+            }
+          }
+        </button>
+      </div>
+    </form>
+  }
+</div>
