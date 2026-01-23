@@ -1,0 +1,88 @@
+<section class="hero-banner-section">
+  @if (isLoading()) {
+    <div class="hero-loading">
+      <div class="spinner"></div>
+    </div>
+  } @else if (banners().length === 0) {
+    <!-- Fallback si no hay banners -->
+    <div class="hero-fallback">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>Encontrá tu hogar ideal</h1>
+        <p>Miles de propiedades en venta y alquiler te esperan</p>
+        <a routerLink="/properties" class="hero-btn">Ver propiedades</a>
+      </div>
+    </div>
+  } @else if (banners().length === 1) {
+    <!-- Single banner (sin carousel) -->
+    <div class="hero-single" [style.backgroundImage]="'url(' + banners()[0].imagenUrl + ')'">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>{{ banners()[0].titulo }}</h1>
+        @if (banners()[0].subtitulo) {
+          <p>{{ banners()[0].subtitulo }}</p>
+        }
+        @if (banners()[0].enlace && banners()[0].textoBoton) {
+          @if (isExternalLink(banners()[0].enlace)) {
+            <a [href]="banners()[0].enlace" class="hero-btn" target="_blank" rel="noopener">
+              {{ banners()[0].textoBoton }}
+            </a>
+          } @else {
+            <a [routerLink]="banners()[0].enlace" class="hero-btn">
+              {{ banners()[0].textoBoton }}
+            </a>
+          }
+        }
+      </div>
+    </div>
+  } @else {
+    <!-- Multiple banners con carousel -->
+    <ngb-carousel
+      #carousel
+      [interval]="5000"
+      [pauseOnHover]="true"
+      [showNavigationArrows]="false"
+      [showNavigationIndicators]="false"
+      (slid)="onSlideChange($event)">
+
+      @for (banner of banners(); track banner.id; let i = $index) {
+        <ng-template ngbSlide [id]="'banner-' + i">
+          <div class="hero-slide" [style.backgroundImage]="'url(' + banner.imagenUrl + ')'">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+              <h1>{{ banner.titulo }}</h1>
+              @if (banner.subtitulo) {
+                <p>{{ banner.subtitulo }}</p>
+              }
+              @if (banner.enlace && banner.textoBoton) {
+                @if (isExternalLink(banner.enlace)) {
+                  <a [href]="banner.enlace" class="hero-btn" target="_blank" rel="noopener">
+                    {{ banner.textoBoton }}
+                  </a>
+                } @else {
+                  <a [routerLink]="banner.enlace" class="hero-btn">
+                    {{ banner.textoBoton }}
+                  </a>
+                }
+              }
+            </div>
+          </div>
+        </ng-template>
+      }
+    </ngb-carousel>
+
+    <!-- Custom Indicators -->
+    @if (banners().length > 1) {
+      <div class="hero-indicators">
+        @for (banner of banners(); track banner.id; let i = $index) {
+          <button
+            class="indicator"
+            [class.active]="currentSlideIndex() === i"
+            (click)="goToSlide(i)"
+            [attr.aria-label]="'Ir al slide ' + (i + 1)">
+          </button>
+        }
+      </div>
+    }
+  }
+</section>
