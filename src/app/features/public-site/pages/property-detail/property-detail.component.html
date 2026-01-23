@@ -1,10 +1,7 @@
 <div class="property-detail-page">
   <!-- Loading State -->
   @if (isLoading) {
-    <div class="loading-state">
-      <div class="spinner"></div>
-      <p>Cargando propiedad...</p>
-    </div>
+    <app-property-detail-skeleton />
   }
 
   <!-- Error State -->

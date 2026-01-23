@@ -8,6 +8,7 @@ import { PropertyAgentCardComponent } from '../../components/property-agent-card
 import { PropertyContactFormComponent } from '../../components/property-contact-form/property-contact-form.component';
 import { RelatedPropertiesComponent } from '../../components/related-properties/related-properties.component';
 import { PropertyMapComponent } from '../../components/property-map/property-map.component';
+import { PropertyDetailSkeletonComponent } from '../../components/property-detail-skeleton/property-detail-skeleton.component';
 import { BreadcrumbsComponent } from '../../../../shared/components/breadcrumbs/breadcrumbs.component';
 import { ShareModalComponent } from '../../../../shared/components/share-modal/share-modal.component';
 
@@ -22,6 +23,7 @@ import { ShareModalComponent } from '../../../../shared/components/share-modal/s
     PropertyContactFormComponent,
     RelatedPropertiesComponent,
     PropertyMapComponent,
+    PropertyDetailSkeletonComponent,
     BreadcrumbsComponent,
     ShareModalComponent
   ],
