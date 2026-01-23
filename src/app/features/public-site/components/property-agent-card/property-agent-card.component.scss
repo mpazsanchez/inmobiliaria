@@ -12,6 +12,27 @@
   margin-bottom: 20px;
   padding-bottom: 20px;
   border-bottom: 1px solid #e2e8f0;
+
+  &.agent-link {
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    padding: 12px;
+    margin: -12px -12px 8px -12px;
+
+    &:hover {
+      background-color: rgba(26, 77, 46, 0.05);
+
+      .agent-avatar {
+        transform: scale(1.08);
+        border-color: #e6962e;
+      }
+
+      .agent-name {
+        color: #1a4d2e;
+      }
+    }
+  }
 }
 
 .agent-avatar {
@@ -21,6 +42,7 @@
   overflow: hidden;
   flex-shrink: 0;
   border: 3px solid #1a4d2e;
+  transition: all 0.3s ease;
 
   img {
     width: 100%;

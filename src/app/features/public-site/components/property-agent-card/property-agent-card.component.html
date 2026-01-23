@@ -1,5 +1,5 @@
 <div class="agent-card" *ngIf="agente">
-  <div class="agent-header">
+  <a [routerLink]="['/team', agente.id]" class="agent-header agent-link">
     <div class="agent-avatar">
       <img
         [src]="agente.fotoUrl || 'assets/images/default-avatar.png'"
@@ -10,7 +10,7 @@
       <span class="agent-label">Asesor a cargo</span>
       <h4 class="agent-name">{{ agente.nombre }}</h4>
     </div>
-  </div>
+  </a>
 
   <div class="agent-contact">
     <a [href]="phoneUrl" class="contact-item">

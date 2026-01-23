@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { AgenteInfo } from '../../../../core/models';
 
 @Component({
   selector: 'app-property-agent-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './property-agent-card.component.html',
   styleUrl: './property-agent-card.component.scss'
 })
