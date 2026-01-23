@@ -1,26 +1,48 @@
-<!-- Hero Section con Buscador -->
+<!-- Hero Section con imagen estática desde API -->
 <section class="hero-section">
   <div class="hero-background">
     <div class="hero-overlay"></div>
-    <img 
-      [src]="heroData.backgroundImage" 
-      alt="Fairway Inmobiliaria"
-      class="hero-image"
-    />
+    @if (!isLoading()) {
+      <img
+        [src]="heroData.imagenUrl"
+        alt="Fairway Inmobiliaria"
+        class="hero-image"
+        loading="eager"
+        fetchpriority="high"
+      />
+    }
   </div>
-  
+
   <div class="hero-content">
     <div class="hero-text">
-      <h1 class="hero-title">{{ heroData.title }}</h1>
-      <p class="hero-subtitle">{{ heroData.subtitle }}</p>
+      <h1 class="hero-title">{{ heroData.titulo }}</h1>
+      @if (heroData.subtitulo) {
+        <p class="hero-subtitle">{{ heroData.subtitulo }}</p>
+      }
     </div>
-    
+
     <!-- Buscador de Propiedades -->
     <div class="search-container">
       <app-property-search-bar/>
     </div>
   </div>
 </section>
+
+<!--
+  NOTA: Slider disponible para usar cuando se necesite.
+  Para activar el slider, descomentar lo siguiente y comentar el hero-section de arriba:
+
+  <div class="hero-wrapper">
+    <app-hero-banner-slider/>
+    <div class="search-overlay">
+      <div class="search-container">
+        <app-property-search-bar/>
+      </div>
+    </div>
+  </div>
+
+  También agregar HeroBannerSliderComponent a los imports en el .ts
+-->
 
 <!-- Propiedades Destacadas -->
 <app-featured-properties/>
@@ -30,6 +52,9 @@
 
 <!-- Por Qué Fairway -->
 <app-why-fairway/>
+
+<!-- Preguntas Frecuentes -->
+<app-fairway-faq-section/>
 
 <!-- Call to Action Section -->
 <section class="cta-section">
