@@ -1,0 +1,242 @@
+<div class="property-list-page">
+  <!-- Header -->
+  <app-page-header
+    [title]="pageTitle()"
+    subtitle="Gestiona tu cartera de propiedades"
+    icon="bi-buildings"
+    [primaryAction]="primaryAction">
+  </app-page-header>
+
+  <!-- Stats Cards -->
+  @if (stats()) {
+    <app-stats-grid [stats]="statsCards()" minCardWidth="160px"></app-stats-grid>
+  }
+
+  <!-- Filters -->
+  <section class="filters-section">
+    <div class="search-box">
+      <i class="bi bi-search"></i>
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (keyup.enter)="onSearch()"
+        placeholder="Buscar por titulo, direccion o ciudad...">
+      <button class="btn-search" (click)="onSearch()">Buscar</button>
+    </div>
+
+    <div class="filter-selects">
+      <select (change)="onFilterChange('operacion', $any($event.target).value)">
+        <option value="">Operacion</option>
+        @for (op of operaciones; track op) {
+          <option [value]="op">{{ getOperacionLabel(op) }}</option>
+        }
+      </select>
+
+      <select (change)="onFilterChange('tipoPropiedad', $any($event.target).value)">
+        <option value="">Tipo</option>
+        @for (tipo of tiposPropiedad; track tipo) {
+          <option [value]="tipo">{{ getTipoLabel(tipo) }}</option>
+        }
+      </select>
+
+      <select (change)="onFilterChange('estado', $any($event.target).value)">
+        <option value="">Estado</option>
+        @for (estado of estados; track estado) {
+          <option [value]="estado">{{ getStatusLabel(estado) }}</option>
+        }
+      </select>
+
+      @if (hasActiveFilters()) {
+        <button class="btn-clear" (click)="clearFilters()">
+          <i class="bi bi-x-lg"></i>
+          Limpiar
+        </button>
+      }
+    </div>
+  </section>
+
+  <!-- Property List -->
+  <section class="properties-section">
+    @if (isLoading()) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Cargando propiedades...</p>
+      </div>
+    } @else if (properties().length === 0) {
+      <app-empty-state
+        icon="bi-building-slash"
+        [title]="hasActiveFilters() ? 'No hay resultados' : 'No hay propiedades'"
+        [message]="hasActiveFilters() ? 'No se encontraron propiedades con los filtros aplicados' : 'Comienza agregando tu primera propiedad'"
+        [showClearFilters]="hasActiveFilters()"
+        (clearFilters)="clearFilters()"
+        [primaryActionText]="hasActiveFilters() ? '' : 'Nueva Propiedad'"
+        primaryActionIcon="bi-plus-lg"
+        primaryActionRoute="/member-area/propiedades/nueva">
+      </app-empty-state>
+    } @else {
+      <div class="results-header">
+        <span class="results-count">{{ properties().length }} propiedades</span>
+      </div>
+
+      <div class="properties-table">
+        <table>
+          <thead>
+            <tr>
+              <th class="th-image">Imagen</th>
+              <th class="th-property">Propiedad</th>
+              <th class="th-price">Precio</th>
+              <th class="th-type">Tipo</th>
+              <th class="th-status">Estado</th>
+              <th class="th-actions">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (property of properties(); track property.id) {
+              <tr>
+                <td class="td-image">
+                  <div class="property-image">
+                    @if (property.imagenes && property.imagenes.length > 0) {
+                      <img [src]="property.imagenes[0].url" [alt]="property.titulo">
+                    } @else {
+                      <div class="no-image">
+                        <i class="bi bi-image"></i>
+                      </div>
+                    }
+                    @if (property.destacada) {
+                      <span class="featured-badge" title="Destacada">
+                        <i class="bi bi-star-fill"></i>
+                      </span>
+                    }
+                  </div>
+                </td>
+                <td class="td-property">
+                  <div class="property-info">
+                    <h4>{{ property.titulo }}</h4>
+                    <p class="location">
+                      <i class="bi bi-geo-alt"></i>
+                      {{ property.ubicacion.direccion }}, {{ property.ubicacion.ciudad }}
+                    </p>
+                    <div class="property-features">
+                      @if (property.caracteristicas.dormitorios > 0) {
+                        <span><i class="bi bi-door-closed"></i> {{ property.caracteristicas.dormitorios }}</span>
+                      }
+                      @if (property.caracteristicas.banos > 0) {
+                        <span><i class="bi bi-droplet"></i> {{ property.caracteristicas.banos }}</span>
+                      }
+                      <span><i class="bi bi-arrows-angle-expand"></i> {{ property.caracteristicas.superficie_cubierta }}m²</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="td-price">
+                  <span class="price">{{ formatPrice(property.precio, property.moneda) }}</span>
+                  <span class="operation-badge" [class.alquiler]="property.operacion === 'alquiler'">
+                    {{ getOperacionLabel(property.operacion) }}
+                  </span>
+                </td>
+                <td class="td-type">
+                  <span class="type-badge">{{ getTipoLabel(property.tipoPropiedad) }}</span>
+                </td>
+                <td class="td-status">
+                  <div class="status-dropdown">
+                    <span class="status-badge" [class]="getStatusClass(property.estado)">
+                      {{ getStatusLabel(property.estado) }}
+                    </span>
+                    <div class="status-options">
+                      @for (estado of estados; track estado) {
+                        <button
+                          [class.active]="property.estado === estado"
+                          (click)="changeStatus(property, estado)">
+                          {{ getStatusLabel(estado) }}
+                        </button>
+                      }
+                    </div>
+                  </div>
+                </td>
+                <td class="td-actions">
+                  <div class="actions">
+                    <a [routerLink]="['/property', property.id]" target="_blank" class="action-btn view" title="Ver en sitio">
+                      <i class="bi bi-eye"></i>
+                    </a>
+                    <a [routerLink]="['/member-area/propiedades/editar', property.id]" class="action-btn edit" title="Editar">
+                      <i class="bi bi-pencil"></i>
+                    </a>
+                    <button
+                      class="action-btn star"
+                      [class.active]="property.destacada"
+                      (click)="toggleDestacada(property)"
+                      title="Destacar">
+                      <i class="bi" [class.bi-star-fill]="property.destacada" [class.bi-star]="!property.destacada"></i>
+                    </button>
+                    <button class="action-btn delete" (click)="confirmDelete(property)" title="Eliminar">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile Cards (visible en móvil) -->
+      <div class="properties-cards">
+        @for (property of properties(); track property.id) {
+          <div class="property-card">
+            <div class="card-image">
+              @if (property.imagenes && property.imagenes.length > 0) {
+                <img [src]="property.imagenes[0].url" [alt]="property.titulo">
+              } @else {
+                <div class="no-image">
+                  <i class="bi bi-image"></i>
+                </div>
+              }
+              @if (property.destacada) {
+                <span class="featured-badge">
+                  <i class="bi bi-star-fill"></i>
+                </span>
+              }
+              <span class="status-badge" [class]="getStatusClass(property.estado)">
+                {{ getStatusLabel(property.estado) }}
+              </span>
+            </div>
+            <div class="card-content">
+              <h4>{{ property.titulo }}</h4>
+              <p class="location">
+                <i class="bi bi-geo-alt"></i>
+                {{ property.ubicacion.direccion }}
+              </p>
+              <div class="card-meta">
+                <span class="price">{{ formatPrice(property.precio, property.moneda) }}</span>
+                <span class="operation-badge" [class.alquiler]="property.operacion === 'alquiler'">
+                  {{ getOperacionLabel(property.operacion) }}
+                </span>
+              </div>
+              <div class="card-actions">
+                <a [routerLink]="['/member-area/propiedades/editar', property.id]" class="btn-edit">
+                  <i class="bi bi-pencil"></i> Editar
+                </a>
+                <button class="btn-delete" (click)="confirmDelete(property)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </section>
+
+  <!-- Delete Modal -->
+  <app-confirm-modal
+    [isOpen]="showDeleteModal()"
+    variant="danger"
+    title="Eliminar Propiedad"
+    [itemName]="propertyToDeleteTitle()"
+    messagePrefix="¿Estás seguro de eliminar"
+    messageSuffix="?"
+    warningText="Esta acción no se puede deshacer."
+    confirmText="Eliminar"
+    (confirm)="deleteProperty()"
+    (cancel)="cancelDelete()">
+  </app-confirm-modal>
+</div>
