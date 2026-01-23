@@ -14,7 +14,9 @@ import { MenuService, MenuItem } from '../../../../features/member-area/services
 })
 export class AdminSidebarComponent implements OnInit {
   @Input() collapsed = false;
+  @Input() mobileOpen = false;
   @Output() toggleCollapse = new EventEmitter<void>();
+  @Output() closeMobile = new EventEmitter<void>();
 
   private authService = inject(AuthService);
   private menuService = inject(MenuService);

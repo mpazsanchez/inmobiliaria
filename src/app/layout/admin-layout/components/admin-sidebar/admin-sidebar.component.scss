@@ -21,9 +21,10 @@ $white: #ffffff;
   border-right: 1px solid $border-color;
   display: flex;
   flex-direction: column;
-  z-index: 999;
-  transition: width 0.3s ease;
+  z-index: 1000;
+  transition: transform 0.3s ease, width 0.3s ease;
 
+  // Estado colapsado (solo desktop)
   &.collapsed {
     width: $sidebar-collapsed-width;
 
@@ -56,11 +57,49 @@ $white: #ffffff;
     }
   }
 
+  // Móvil: oculto por defecto
   @media (max-width: 1024px) {
+    width: 280px;
     transform: translateX(-100%);
+    box-shadow: none;
 
-    &.open {
+    // Cuando está abierto en móvil
+    &.mobile-open {
       transform: translateX(0);
+      box-shadow: 4px 0 25px rgba(0, 0, 0, 0.15);
+    }
+
+    // En móvil nunca está colapsado
+    &.collapsed {
+      width: 280px;
+
+      .logo-full {
+        display: block;
+      }
+
+      .logo-icon {
+        display: none !important;
+      }
+
+      .nav-label,
+      .user-details,
+      .logout-label {
+        display: block;
+      }
+
+      .nav-link {
+        justify-content: flex-start;
+        padding: 0.875rem 1rem;
+      }
+
+      .user-card {
+        justify-content: flex-start;
+        padding: 0.75rem;
+      }
+
+      .btn-logout {
+        justify-content: flex-start;
+      }
     }
   }
 }
@@ -94,6 +133,7 @@ $white: #ffffff;
     object-fit: contain;
   }
 
+  // Botón colapsar (solo desktop)
   .btn-collapse {
     width: 32px;
     height: 32px;
@@ -112,12 +152,42 @@ $white: #ffffff;
       color: $primary;
     }
 
+    // Ocultar en móvil
+    @media (max-width: 1024px) {
+      display: none;
+    }
+
     .collapsed & {
       display: none;
 
-      @media (min-width: 1024px) {
+      @media (min-width: 1025px) {
         display: flex;
       }
+    }
+  }
+
+  // Botón cerrar (solo móvil)
+  .btn-close-mobile {
+    display: none;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: $bg-light;
+    border-radius: 8px;
+    cursor: pointer;
+    color: $text-dark;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-size: 1.25rem;
+
+    &:hover {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    @media (max-width: 1024px) {
+      display: flex;
     }
   }
 }
