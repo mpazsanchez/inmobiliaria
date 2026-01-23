@@ -43,10 +43,10 @@ export class PublicFooterComponent implements OnInit, OnDestroy {
 
   // Social Links
   socialLinks = [
-    { platform: 'Facebook', icon: 'fab fa-facebook-f', url: 'https://facebook.com/fairway' },
-    { platform: 'Instagram', icon: 'fab fa-instagram', url: 'https://instagram.com/fairway' },
-    { platform: 'LinkedIn', icon: 'fab fa-linkedin-in', url: 'https://linkedin.com/company/fairway' },
-    { platform: 'YouTube', icon: 'fab fa-youtube', url: 'https://youtube.com/@fairway' }
+    { platform: 'Facebook', icon: 'fab fa-facebook-f', url: 'https://www.facebook.com/fairway.parquizacion.integral/' },
+    { platform: 'Instagram', icon: 'fab fa-instagram', url: 'https://www.instagram.com/fairwayserviciosintegrales/' },
+    { platform: 'LinkedIn', icon: 'fab fa-linkedin-in', url: 'https://linkedin.com/company/fairway' }, //TODO: Agregar link correcto
+    { platform: 'YouTube', icon: 'fab fa-youtube', url: 'https://youtube.com/@fairway' } //TODO: Agregar link correcto
   ];
 
   // Newsletter
