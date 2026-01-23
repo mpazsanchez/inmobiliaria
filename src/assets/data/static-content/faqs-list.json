@@ -1,0 +1,68 @@
+{
+  "faqs": [
+    {
+      "id": 1,
+      "pregunta": "¿Cuánto cobran por sus servicios?",
+      "respuesta": "Nuestros honorarios varían según el tipo de operación. En ventas, cobramos un porcentaje del valor de la transacción. En alquileres, un mes de alquiler. Contactanos para un presupuesto personalizado.",
+      "categoria": "Comisiones",
+      "orden": 1,
+      "activo": true
+    },
+    {
+      "id": 2,
+      "pregunta": "¿Cuánto demora vender una propiedad?",
+      "respuesta": "El tiempo de venta depende de varios factores: precio, ubicación, estado de la propiedad y condiciones del mercado. En promedio, una propiedad bien tasada se vende entre 3 y 6 meses.",
+      "categoria": "Proceso",
+      "orden": 2,
+      "activo": true
+    },
+    {
+      "id": 3,
+      "pregunta": "¿Necesito ser el propietario para publicar?",
+      "respuesta": "Sí, debes ser el propietario o tener autorización expresa del mismo mediante poder o contrato de intermediación.",
+      "categoria": "Legal",
+      "orden": 3,
+      "activo": true
+    },
+    {
+      "id": 4,
+      "pregunta": "¿Hacen tasaciones gratuitas?",
+      "respuesta": "Ofrecemos una valoración orientativa sin cargo. Para tasaciones oficiales con informe técnico, se cobra un honorario según la complejidad.",
+      "categoria": "Servicios",
+      "orden": 4,
+      "activo": true
+    },
+    {
+      "id": 5,
+      "pregunta": "¿Trabajan con créditos hipotecarios?",
+      "respuesta": "Sí, te asesoramos en el proceso de solicitud de crédito hipotecario y trabajamos con las principales entidades bancarias.",
+      "categoria": "Financiamiento",
+      "orden": 5,
+      "activo": true
+    },
+    {
+      "id": 6,
+      "pregunta": "¿Qué documentación necesito para vender?",
+      "respuesta": "Título de propiedad, DNI del titular, último impuesto inmobiliario y expensas al día, certificado de libre deuda, y planos aprobados.",
+      "categoria": "Legal",
+      "orden": 6,
+      "activo": true
+    },
+    {
+      "id": 7,
+      "pregunta": "¿Hacen contratos de alquiler?",
+      "respuesta": "Sí, gestionamos contratos de alquiler conforme a la Ley de Alquileres vigente, con asesoramiento legal incluido.",
+      "categoria": "Servicios",
+      "orden": 7,
+      "activo": true
+    },
+    {
+      "id": 8,
+      "pregunta": "¿Puedo visitar propiedades los fines de semana?",
+      "respuesta": "Sí, coordinamos visitas de lunes a sábados. Contactá a tu asesor para programar un horario conveniente.",
+      "categoria": "Proceso",
+      "orden": 8,
+      "activo": true
+    }
+  ]
+}
