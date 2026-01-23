@@ -11,14 +11,17 @@
 
     <!-- Loading State -->
     @if (isLoading) {
-      <div class="loading-state">
-        <div class="spinner"></div>
-        <p>Cargando equipo...</p>
-      </div>
+      <section class="all-agents-section">
+        <div class="agents-grid">
+          @for (item of skeletonItems; track $index) {
+            <app-agent-card-skeleton />
+          }
+        </div>
+      </section>
     }
 
     <!-- Content -->
-    @if (!isLoading) {
+    @if (!isLoading && agentes.length > 0) {
       <section class="all-agents-section">
         <div class="agents-grid">
           @for (agente of agentes; track agente.id) {
