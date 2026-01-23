@@ -253,6 +253,27 @@
   gap: 0.625rem;
   min-width: 0;
   flex: 1;
+
+  &.agent-link {
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    padding: 0.5rem;
+    margin: -0.5rem;
+
+    &:hover {
+      background-color: rgba(26, 77, 46, 0.05);
+      
+      .agent-photo {
+        transform: scale(1.1);
+        border-color: #e6962e;
+      }
+
+      .agent-name {
+        color: #1a4d2e;
+      }
+    }
+  }
 }
 
 .agent-photo {
@@ -262,6 +283,7 @@
   object-fit: cover;
   border: 2px solid #1a4d2e;
   flex-shrink: 0;
+  transition: all 0.3s ease;
 }
 
 .agent-details {

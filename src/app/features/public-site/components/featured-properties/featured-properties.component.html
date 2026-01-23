@@ -51,7 +51,7 @@
 
           <!-- Agent Section -->
           <div *ngIf="propiedad.agente" class="agent-section">
-            <div class="agent-info">
+            <a [routerLink]="['/team', propiedad.agente.id]" class="agent-info agent-link">
               <img
                 [src]="propiedad.agente.fotoUrl"
                 [alt]="propiedad.agente.nombre"
@@ -61,7 +61,7 @@
                 <span class="agent-name">{{ propiedad.agente.nombre }}</span>
                 <span class="agent-company">Fairway Inmobiliaria</span>
               </div>
-            </div>
+            </a>
 
             <!-- Contact Buttons -->
             <div class="contact-buttons">
