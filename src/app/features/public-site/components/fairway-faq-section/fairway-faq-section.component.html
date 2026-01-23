@@ -1,0 +1,90 @@
+<section class="faq-section">
+  <div class="container">
+    <!-- Header -->
+    <div class="section-header">
+      <span class="section-badge">PREGUNTAS FRECUENTES</span>
+      <h2 class="section-title">¿Tienes dudas sobre nuestros servicios?</h2>
+      <p class="section-description">
+        Encuentra respuestas a las preguntas más comunes de nuestros clientes.
+      </p>
+    </div>
+
+    <!-- Loading State -->
+    @if (isLoading()) {
+      <div class="loading-container">
+        <div class="spinner"></div>
+        <p>Cargando preguntas...</p>
+      </div>
+    }
+
+    <!-- FAQs Content -->
+    @if (!isLoading() && faqs().length > 0) {
+      <!-- Filtros por Categoría -->
+      @if (categorias().length > 1) {
+        <div class="category-filters">
+          <button
+            type="button"
+            class="filter-btn"
+            [class.active]="categoriaActiva() === 'todas'"
+            (click)="filtrarPorCategoria('todas')">
+            Todas
+          </button>
+          @for (cat of categorias(); track cat) {
+            <button
+              type="button"
+              class="filter-btn"
+              [class.active]="categoriaActiva() === cat"
+              (click)="filtrarPorCategoria(cat)">
+              {{ cat }}
+            </button>
+          }
+        </div>
+      }
+
+      <!-- FAQ Accordion -->
+      <div class="faq-accordion">
+        @for (faq of faqsFiltradas; track trackByFaqId($index, faq)) {
+          <div class="faq-item" [class.active]="isFaqOpen(faq.id)">
+            <button
+              type="button"
+              class="faq-question"
+              (click)="toggleFaq(faq.id)"
+              [attr.aria-expanded]="isFaqOpen(faq.id)"
+              [attr.aria-controls]="'faq-answer-' + faq.id">
+              <span class="question-text">{{ faq.pregunta }}</span>
+              <span class="toggle-icon">
+                <i class="bi" [class.bi-plus]="!isFaqOpen(faq.id)" [class.bi-dash]="isFaqOpen(faq.id)"></i>
+              </span>
+            </button>
+
+            <div
+              class="faq-answer"
+              [id]="'faq-answer-' + faq.id"
+              [class.show]="isFaqOpen(faq.id)">
+              <div class="answer-content">
+                <p>{{ faq.respuesta }}</p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- CTA -->
+      <div class="faq-cta">
+        <p>¿No encontraste lo que buscabas?</p>
+        <a routerLink="/contact" class="btn-contact">
+          <i class="bi bi-chat-dots"></i>
+          Contactanos
+        </a>
+      </div>
+    }
+
+    <!-- Empty State -->
+    @if (!isLoading() && faqs().length === 0) {
+      <div class="empty-state">
+        <i class="bi bi-question-circle"></i>
+        <p>No hay preguntas frecuentes disponibles en este momento.</p>
+      </div>
+    }
+  </div>
+</section>
