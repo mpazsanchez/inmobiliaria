@@ -1,0 +1,191 @@
+<div class="agent-list-page">
+  <!-- Header -->
+  <app-page-header
+    title="Asesores"
+    subtitle="Gestiona el equipo de asesores inmobiliarios"
+    icon="bi-people"
+    [primaryAction]="primaryAction">
+  </app-page-header>
+
+  <!-- Stats Cards -->
+  @if (stats()) {
+    <app-stats-grid [stats]="statsCards()" minCardWidth="180px"></app-stats-grid>
+  }
+
+  <!-- Filters -->
+  <div class="filters-section">
+    <div class="search-box">
+      <i class="bi bi-search"></i>
+      <input
+        type="text"
+        placeholder="Buscar por nombre, email o especialidad..."
+        [value]="filters().busqueda || ''"
+        (input)="onSearchChange($event)">
+    </div>
+
+    <div class="filter-group">
+      <select
+        [value]="filters().activo === undefined ? '' : filters().activo"
+        (change)="onActivoFilterChange($event)">
+        <option value="">Todos los estados</option>
+        <option value="true">Activos</option>
+        <option value="false">Inactivos</option>
+      </select>
+
+      <select
+        [value]="filters().destacado === undefined ? '' : filters().destacado"
+        (change)="onFilterChange('destacado', $any($event.target).value === '' ? undefined : $any($event.target).value === 'true')">
+        <option value="">Todos</option>
+        <option value="true">Destacados</option>
+        <option value="false">No destacados</option>
+      </select>
+
+      @if (hasActiveFilters()) {
+        <button class="btn-clear-filters" (click)="clearFilters()">
+          <i class="bi bi-x-lg"></i>
+          Limpiar filtros
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Loading -->
+  @if (isLoading()) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Cargando asesores...</p>
+    </div>
+  } @else if (agents().length === 0) {
+    <!-- Empty State -->
+    <app-empty-state
+      icon="bi-people"
+      [title]="hasActiveFilters() ? 'No hay resultados' : 'No hay asesores'"
+      [message]="hasActiveFilters() ? 'No se encontraron asesores con los filtros aplicados' : 'Agrega tu primer asesor para comenzar'"
+      [showClearFilters]="hasActiveFilters()"
+      (clearFilters)="clearFilters()"
+      [primaryActionText]="hasActiveFilters() ? '' : 'Nuevo Asesor'"
+      primaryActionIcon="bi-plus-lg"
+      primaryActionRoute="/member-area/asesores/nuevo">
+    </app-empty-state>
+  } @else {
+    <!-- Agents List -->
+    <div class="agents-list">
+      @for (agent of agents(); track agent.id) {
+        <div class="agent-item" [class.inactive]="!agent.activo">
+          <!-- Photo -->
+          <div class="agent-photo">
+            <img [src]="agent.fotoUrl" [alt]="getFullName(agent)">
+            @if (agent.destacado) {
+              <span class="badge-destacado" title="Destacado">
+                <i class="bi bi-star-fill"></i>
+              </span>
+            }
+          </div>
+
+          <!-- Info Section -->
+          <div class="agent-info-section">
+            <!-- Name & Status -->
+            <div class="agent-name-row">
+              <h3>{{ getFullName(agent) }}</h3>
+              @if (!agent.activo) {
+                <span class="badge-status inactive">Inactivo</span>
+              } @else {
+                <span class="badge-status active">Activo</span>
+              }
+            </div>
+            
+            <!-- Details Row -->
+            <div class="agent-details-row">
+              <span class="detail-item">
+                <i class="bi bi-briefcase"></i>
+                {{ agent.cargo }}
+              </span>
+              <span class="detail-separator">•</span>
+              <span class="detail-item">
+                <i class="bi bi-award"></i>
+                {{ agent.especialidad }}
+              </span>
+            </div>
+
+            <!-- Contact Row -->
+            <div class="agent-contact-row">
+              <a [href]="'mailto:' + agent.email" class="contact-item">
+                <i class="bi bi-envelope"></i>
+                {{ agent.email }}
+              </a>
+              <span class="detail-separator">•</span>
+              <a [href]="'tel:' + agent.telefono" class="contact-item">
+                <i class="bi bi-telephone"></i>
+                {{ agent.telefono }}
+              </a>
+            </div>
+          </div>
+
+          <!-- Stats -->
+          <div class="agent-stats">
+            <div class="stat-item">
+              <i class="bi bi-house-check"></i>
+              <div class="stat-content">
+                <strong>{{ agent.propiedadesVendidas || 0 }}</strong>
+                <span>Vendidas</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <i class="bi bi-house"></i>
+              <div class="stat-content">
+                <strong>{{ agent.propiedadesActivas || 0 }}</strong>
+                <span>Activas</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <i class="bi bi-calendar-check"></i>
+              <div class="stat-content">
+                <strong>{{ agent.experienciaAnios || 0 }}</strong>
+                <span>Años</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="agent-actions">
+            <a [routerLink]="['/member-area/asesores/editar', agent.id]" class="btn-action edit" title="Editar">
+              <i class="bi bi-pencil"></i>
+            </a>
+            <button
+              class="btn-action"
+              [class.active]="agent.destacado"
+              (click)="toggleDestacado(agent)"
+              [title]="agent.destacado ? 'Quitar destacado' : 'Marcar como destacado'">
+              <i class="bi" [class.bi-star-fill]="agent.destacado" [class.bi-star]="!agent.destacado"></i>
+            </button>
+            <button
+              class="btn-action"
+              [class.active]="agent.activo"
+              (click)="toggleActivo(agent)"
+              [title]="agent.activo ? 'Desactivar' : 'Activar'">
+              <i class="bi" [class.bi-toggle-on]="agent.activo" [class.bi-toggle-off]="!agent.activo"></i>
+            </button>
+            <button class="btn-action danger" (click)="confirmDelete(agent)" title="Eliminar">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Delete Confirmation Modal -->
+  <app-confirm-modal
+    [isOpen]="!!agentToDelete()"
+    [isLoading]="isDeleting()"
+    variant="danger"
+    title="Eliminar Asesor"
+    [itemName]="agentToDeleteName()"
+    messagePrefix="¿Estás seguro de eliminar a"
+    messageSuffix="?"
+    warningText="Esta acción no se puede deshacer. Se eliminarán todos los datos del asesor."
+    confirmText="Eliminar"
+    (confirm)="deleteAgent()"
+    (cancel)="cancelDelete()">
+  </app-confirm-modal>
+</div>
