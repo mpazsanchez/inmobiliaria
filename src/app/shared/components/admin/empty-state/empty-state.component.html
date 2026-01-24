@@ -1,0 +1,32 @@
+<div class="empty-state" [class.compact]="compact">
+  <i class="bi" [ngClass]="icon"></i>
+  <h3>{{ title }}</h3>
+  @if (message) {
+    <p>{{ message }}</p>
+  }
+
+  <div class="empty-actions">
+    @if (showClearFilters) {
+      <button type="button" class="btn-secondary" (click)="clearFilters.emit()">
+        <i class="bi bi-x-lg"></i>
+        {{ clearFiltersText }}
+      </button>
+    }
+
+    @if (primaryActionText && primaryActionRoute) {
+      <a [routerLink]="primaryActionRoute" class="btn-primary">
+        @if (primaryActionIcon) {
+          <i class="bi" [ngClass]="primaryActionIcon"></i>
+        }
+        {{ primaryActionText }}
+      </a>
+    } @else if (primaryActionText) {
+      <button type="button" class="btn-primary" (click)="primaryAction.emit()">
+        @if (primaryActionIcon) {
+          <i class="bi" [ngClass]="primaryActionIcon"></i>
+        }
+        {{ primaryActionText }}
+      </button>
+    }
+  </div>
+</div>
