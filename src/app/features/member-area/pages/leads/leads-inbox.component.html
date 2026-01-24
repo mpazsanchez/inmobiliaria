@@ -1,0 +1,196 @@
+<div class="leads-inbox-page">
+  <!-- Header -->
+  <app-page-header
+    [title]="pageTitle()"
+    subtitle="Gestiona las consultas de clientes interesados"
+    icon="bi-chat-dots">
+  </app-page-header>
+
+  <!-- Stats Cards -->
+  @if (stats()) {
+    <app-stats-grid [stats]="statsCards()" minCardWidth="180px"></app-stats-grid>
+  }
+
+  <!-- Main Content -->
+  <div class="inbox-container">
+    <!-- Filters -->
+    <div class="filters-bar">
+      <div class="search-box">
+        <i class="bi bi-search"></i>
+        <input
+          type="text"
+          placeholder="Buscar por nombre, email o mensaje..."
+          [value]="filters().busqueda || ''"
+          (input)="onSearchChange($event)">
+      </div>
+
+      <div class="filter-group">
+        <select
+          [value]="filters().respondida === undefined ? '' : filters().respondida"
+          (change)="onRespondidaFilterChange($event)">
+          <option value="">Todas</option>
+          <option value="false">Pendientes</option>
+          <option value="true">Respondidas</option>
+        </select>
+
+        @if (hasActiveFilters()) {
+          <button class="btn-clear-filters" (click)="clearFilters()">
+            <i class="bi bi-x-lg"></i>
+            Limpiar
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Two Column Layout -->
+    <div class="inbox-layout" [class.with-detail]="selectedLead()">
+      <!-- List Column -->
+      <div class="leads-list-column">
+        @if (isLoading()) {
+          <div class="loading-state">
+            <div class="spinner"></div>
+            <p>Cargando consultas...</p>
+          </div>
+        } @else if (leads().length === 0) {
+          <app-empty-state
+            icon="bi-inbox"
+            [title]="hasActiveFilters() ? 'Sin resultados' : 'Sin consultas'"
+            [message]="hasActiveFilters() ? 'No se encontraron consultas con los filtros aplicados' : 'No hay consultas pendientes por el momento'"
+            [showClearFilters]="hasActiveFilters()"
+            (clearFilters)="clearFilters()"
+            [compact]="true">
+          </app-empty-state>
+        } @else {
+          <div class="leads-list">
+            @for (lead of leads(); track lead.id) {
+              <div
+                class="lead-item"
+                [class.unread]="!lead.respondida"
+                [class.selected]="selectedLead()?.id === lead.id"
+                (click)="selectLead(lead)">
+                <div class="lead-avatar" [class.unread]="!lead.respondida">
+                  {{ getInitials(lead.nombreContacto) }}
+                </div>
+                <div class="lead-content">
+                  <div class="lead-header">
+                    <span class="lead-name">{{ lead.nombreContacto }}</span>
+                    <span class="lead-time">{{ getTimeAgo(lead.fechaEnvio) }}</span>
+                  </div>
+                  <div class="lead-email">{{ lead.emailContacto }}</div>
+                  <div class="lead-preview">{{ lead.mensaje }}</div>
+                </div>
+                @if (!lead.respondida) {
+                  <span class="unread-badge"></span>
+                }
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Detail Column -->
+      @if (selectedLead()) {
+        <div class="lead-detail-column">
+          <div class="detail-header">
+            <button class="btn-close-detail" (click)="closeLead()">
+              <i class="bi bi-x-lg"></i>
+            </button>
+            <div class="detail-status" [class.respondida]="selectedLead()!.respondida">
+              @if (selectedLead()!.respondida) {
+                <i class="bi bi-check-circle"></i>
+                Respondida
+              } @else {
+                <i class="bi bi-clock"></i>
+                Pendiente
+              }
+            </div>
+          </div>
+
+          <div class="detail-content">
+            <!-- Contact Header Compact -->
+            <div class="contact-header-compact">
+              <div class="contact-avatar-small">
+                {{ getInitials(selectedLead()!.nombreContacto) }}
+              </div>
+              <div class="contact-info-compact">
+                <h2>{{ selectedLead()!.nombreContacto }}</h2>
+                <span class="contact-date">{{ formatDate(selectedLead()!.fechaEnvio) }}</span>
+              </div>
+              <div class="property-badge">
+                <i class="bi bi-house"></i>
+                {{ selectedLead()!.propiedadId }}
+              </div>
+            </div>
+
+            <!-- Quick Contact Actions (horizontal) -->
+            <div class="quick-actions">
+              <button class="quick-btn email" (click)="sendEmail(selectedLead()!.emailContacto)" title="Enviar email">
+                <i class="bi bi-envelope"></i>
+              </button>
+              <button class="quick-btn phone" (click)="callPhone(selectedLead()!.telefonoContacto)" title="Llamar">
+                <i class="bi bi-telephone"></i>
+              </button>
+              <button class="quick-btn whatsapp" (click)="sendWhatsApp(selectedLead()!.telefonoContacto)" title="WhatsApp">
+                <i class="bi bi-whatsapp"></i>
+              </button>
+              <div class="contact-details">
+                <span class="contact-email">{{ selectedLead()!.emailContacto }}</span>
+                <span class="contact-phone">{{ selectedLead()!.telefonoContacto }}</span>
+              </div>
+            </div>
+
+            <!-- Message (prominente) -->
+            <div class="message-section-large">
+              <h3>Mensaje</h3>
+              <div class="message-content-large">
+                {{ selectedLead()!.mensaje }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Detail Actions -->
+          <div class="detail-actions">
+            @if (selectedLead()!.respondida) {
+              <button class="btn-secondary" (click)="markAsPending(selectedLead()!)">
+                <i class="bi bi-clock"></i>
+                Marcar pendiente
+              </button>
+            } @else {
+              <button class="btn-primary" (click)="markAsResponded(selectedLead()!)">
+                <i class="bi bi-check-lg"></i>
+                Marcar respondida
+              </button>
+            }
+            <button class="btn-danger-outline" (click)="confirmDelete(selectedLead()!)">
+              <i class="bi bi-trash"></i>
+              Eliminar
+            </button>
+          </div>
+        </div>
+      } @else {
+        <!-- Empty Detail State -->
+        <div class="lead-detail-column empty">
+          <div class="empty-detail">
+            <i class="bi bi-envelope-open"></i>
+            <p>Selecciona una consulta para ver los detalles</p>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <app-confirm-modal
+    [isOpen]="!!leadToDelete()"
+    [isLoading]="isDeleting()"
+    variant="danger"
+    title="Eliminar Consulta"
+    [itemName]="leadToDeleteName()"
+    messagePrefix="¿Estás seguro de eliminar la consulta de"
+    messageSuffix="?"
+    warningText="Esta acción no se puede deshacer."
+    confirmText="Eliminar"
+    (confirm)="deleteLead()"
+    (cancel)="cancelDelete()">
+  </app-confirm-modal>
+</div>

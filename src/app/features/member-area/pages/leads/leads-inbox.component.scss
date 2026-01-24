@@ -1,0 +1,631 @@
+// Variables
+$primary-green: #1a4d2e;
+$primary-orange: #e6962e;
+$text-dark: #1a1a1a;
+$text-muted: #666;
+$border-color: #e0e0e0;
+$bg-light: #f8f9fa;
+$success: #28a745;
+$danger: #dc3545;
+$warning: #ffc107;
+$whatsapp: #25d366;
+
+.leads-inbox-page {
+  padding: 0;
+}
+
+// ============ INBOX CONTAINER ============
+.inbox-container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+// ============ FILTERS ============
+.filters-bar {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid $border-color;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.search-box {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: $bg-light;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+
+  &:focus-within {
+    border-color: $primary-green;
+    background: white;
+  }
+
+  i {
+    color: $text-muted;
+  }
+
+  input {
+    flex: 1;
+    border: none;
+    background: none;
+    font-size: 0.875rem;
+    color: $text-dark;
+    outline: none;
+
+    &::placeholder {
+      color: $text-muted;
+    }
+  }
+}
+
+.filter-group {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+
+  select {
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E") no-repeat right 0.75rem center;
+    font-size: 0.875rem;
+    color: $text-dark;
+    cursor: pointer;
+    appearance: none;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-green;
+    }
+  }
+}
+
+.btn-clear-filters {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  background: transparent;
+  color: $danger;
+  border: none;
+  font-size: 0.813rem;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: lighten($danger, 40%);
+    border-radius: 4px;
+  }
+}
+
+// ============ INBOX LAYOUT ============
+.inbox-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 600px; // Altura mínima para que el panel de detalle tenga espacio
+
+  &.with-detail {
+    grid-template-columns: 380px 1fr;
+
+    @media (max-width: 992px) {
+      grid-template-columns: 1fr;
+
+      .leads-list-column {
+        display: none;
+      }
+    }
+  }
+}
+
+// ============ LEADS LIST ============
+.leads-list-column {
+  border-right: 1px solid $border-color;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.leads-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.lead-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  border-bottom: 1px solid lighten($border-color, 5%);
+  position: relative;
+
+  &:hover {
+    background: $bg-light;
+  }
+
+  &.selected {
+    background: rgba($primary-green, 0.08);
+    border-left: 3px solid $primary-green;
+    padding-left: calc(1.25rem - 3px);
+  }
+
+  &.unread {
+    .lead-name {
+      font-weight: 700;
+    }
+
+    .lead-preview {
+      color: $text-dark;
+    }
+  }
+}
+
+.lead-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: lighten($primary-green, 50%);
+  color: $primary-green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+
+  &.unread {
+    background: $primary-orange;
+    color: white;
+  }
+}
+
+.lead-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.lead-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+
+  .lead-name {
+    font-size: 0.875rem;
+    color: $text-dark;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .lead-time {
+    font-size: 0.75rem;
+    color: $text-muted;
+    white-space: nowrap;
+  }
+}
+
+.lead-email {
+  font-size: 0.75rem;
+  color: $text-muted;
+  margin-bottom: 0.375rem;
+}
+
+.lead-preview {
+  font-size: 0.813rem;
+  color: $text-muted;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.unread-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 10px;
+  height: 10px;
+  background: $primary-orange;
+  border-radius: 50%;
+}
+
+// ============ LEAD DETAIL ============
+.lead-detail-column {
+  display: flex;
+  flex-direction: column;
+  height: 600px; // Altura fija igual que la lista
+
+  &.empty {
+    justify-content: center;
+    align-items: center;
+    background: $bg-light;
+  }
+}
+
+.empty-detail {
+  text-align: center;
+  color: $text-muted;
+
+  i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.3;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid $border-color;
+}
+
+.btn-close-detail {
+  display: none;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  background: $bg-light;
+  border: none;
+  border-radius: 8px;
+  color: $text-muted;
+  cursor: pointer;
+
+  &:hover {
+    background: $border-color;
+  }
+
+  @media (max-width: 992px) {
+    display: flex;
+  }
+}
+
+.detail-status {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: rgba($primary-orange, 0.1);
+  color: $primary-orange;
+
+  &.respondida {
+    background: rgba($success, 0.1);
+    color: $success;
+  }
+}
+
+.detail-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+// ============ COMPACT CONTACT HEADER ============
+.contact-header-compact {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $border-color;
+}
+
+.contact-avatar-small {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, $primary-green, darken($primary-green, 10%));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.contact-info-compact {
+  flex: 1;
+  min-width: 0;
+
+  h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: $text-dark;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .contact-date {
+    font-size: 0.75rem;
+    color: $text-muted;
+  }
+}
+
+.property-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.625rem;
+  background: rgba($primary-orange, 0.1);
+  color: $primary-orange;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+// ============ QUICK ACTIONS (HORIZONTAL) ============
+.quick-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: $bg-light;
+  border-radius: 10px;
+}
+
+.quick-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+
+  i {
+    font-size: 1.125rem;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &.email {
+    i { color: $primary-green; }
+    &:hover {
+      background: $primary-green;
+      border-color: $primary-green;
+      i { color: white; }
+    }
+  }
+
+  &.phone {
+    i { color: $primary-orange; }
+    &:hover {
+      background: $primary-orange;
+      border-color: $primary-orange;
+      i { color: white; }
+    }
+  }
+
+  &.whatsapp {
+    i { color: $whatsapp; }
+    &:hover {
+      background: $whatsapp;
+      border-color: $whatsapp;
+      i { color: white; }
+    }
+  }
+}
+
+.contact-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  min-width: 0;
+  margin-left: 0.5rem;
+
+  .contact-email,
+  .contact-phone {
+    font-size: 0.75rem;
+    color: $text-muted;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .contact-email {
+    color: $text-dark;
+    font-weight: 500;
+  }
+}
+
+// ============ MESSAGE SECTION (PROMINENT) ============
+.message-section-large {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  h3 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 0.75rem;
+  }
+}
+
+.message-content-large {
+  flex: 1;
+  padding: 1.25rem;
+  background: white;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: $text-dark;
+  overflow-y: auto;
+  min-height: 150px;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid $border-color;
+  background: $bg-light;
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+  }
+}
+
+// ============ BUTTONS ============
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: $primary-green;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+
+  &:hover {
+    background: darken($primary-green, 8%);
+  }
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: white;
+  color: $text-dark;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+
+  &:hover {
+    background: $bg-light;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: $danger;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+
+  &:hover:not(:disabled) {
+    background: darken($danger, 8%);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.btn-danger-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: white;
+  color: $danger;
+  border: 1px solid $danger;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: lighten($danger, 40%);
+  }
+}
+
+// ============ LOADING ============
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+
+  p {
+    color: $text-muted;
+    margin: 0;
+  }
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid $border-color;
+  border-top-color: $primary-green;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
