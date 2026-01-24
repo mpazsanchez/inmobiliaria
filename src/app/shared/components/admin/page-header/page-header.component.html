@@ -1,0 +1,56 @@
+<header class="page-header">
+  <div class="header-content">
+    <div class="header-title">
+      <h1>
+        @if (icon) {
+          <i class="bi" [ngClass]="icon"></i>
+        }
+        {{ title }}
+        @if (badge) {
+          <span class="header-badge" [class]="badgeVariant">{{ badge }}</span>
+        }
+      </h1>
+      @if (subtitle) {
+        <p class="subtitle">{{ subtitle }}</p>
+      }
+    </div>
+
+    <div class="header-actions">
+      @if (primaryAction) {
+        @if (primaryAction.route) {
+          <a [routerLink]="primaryAction.route" class="btn-action primary">
+            @if (primaryAction.icon) {
+              <i class="bi" [ngClass]="primaryAction.icon"></i>
+            }
+            {{ primaryAction.label }}
+          </a>
+        } @else {
+          <button type="button" class="btn-action primary" (click)="primaryClick.emit()">
+            @if (primaryAction.icon) {
+              <i class="bi" [ngClass]="primaryAction.icon"></i>
+            }
+            {{ primaryAction.label }}
+          </button>
+        }
+      }
+
+      @for (action of secondaryActions; track action.label) {
+        @if (action.route) {
+          <a [routerLink]="action.route" class="btn-action" [class]="action.variant || 'secondary'">
+            @if (action.icon) {
+              <i class="bi" [ngClass]="action.icon"></i>
+            }
+            {{ action.label }}
+          </a>
+        } @else {
+          <button type="button" class="btn-action" [class]="action.variant || 'secondary'" (click)="actionClick.emit(action)">
+            @if (action.icon) {
+              <i class="bi" [ngClass]="action.icon"></i>
+            }
+            {{ action.label }}
+          </button>
+        }
+      }
+    </div>
+  </div>
+</header>
