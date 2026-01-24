@@ -1,0 +1,15 @@
+<div class="stats-grid" [style.--min-card-width]="minCardWidth">
+  @for (stat of stats; track stat.label) {
+    <app-stats-card
+      [value]="stat.value"
+      [label]="stat.label"
+      [icon]="stat.icon"
+      [variant]="stat.variant || 'primary'"
+      [trend]="stat.trend"
+      [subInfo]="stat.subInfo"
+      [active]="stat.active || false"
+      [clickable]="stat.clickable || false"
+      (cardClick)="onStatClick(stat)">
+    </app-stats-card>
+  }
+</div>

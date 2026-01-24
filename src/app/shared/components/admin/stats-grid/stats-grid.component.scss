@@ -1,0 +1,6 @@
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--min-card-width, 200px), 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
