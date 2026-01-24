@@ -1,0 +1,192 @@
+// Variables - Fairway Brand
+$primary-green: #1a4d2e;
+$success: #10b981;
+$warning: #f59e0b;
+$danger: #ef4444;
+$info: #3b82f6;
+$text-dark: #1f2937;
+$text-muted: #6b7280;
+$border-color: #e5e7eb;
+$bg-light: #f9fafb;
+$white: #ffffff;
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background: $white;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+  font-size: 1.75rem;
+
+  &.danger {
+    background: rgba($danger, 0.1);
+    color: $danger;
+  }
+
+  &.warning {
+    background: rgba($warning, 0.1);
+    color: $warning;
+  }
+
+  &.info {
+    background: rgba($info, 0.1);
+    color: $info;
+  }
+
+  &.success {
+    background: rgba($success, 0.1);
+    color: $success;
+  }
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0 0 0.75rem;
+}
+
+.modal-message {
+  font-size: 0.9375rem;
+  color: $text-muted;
+  margin: 0 0 0.75rem;
+  line-height: 1.5;
+
+  strong {
+    color: $text-dark;
+  }
+}
+
+.modal-warning {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: $danger;
+  margin: 0 0 1.5rem;
+  padding: 0.75rem;
+  background: rgba($danger, 0.05);
+  border-radius: 8px;
+
+  i {
+    font-size: 1rem;
+  }
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.btn-secondary,
+.btn-confirm {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 100px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.btn-secondary {
+  background: $bg-light;
+  border: 1px solid $border-color;
+  color: $text-dark;
+
+  &:hover:not(:disabled) {
+    background: darken($bg-light, 3%);
+  }
+}
+
+.btn-confirm {
+  border: none;
+  color: $white;
+
+  &.danger {
+    background: $danger;
+    &:hover:not(:disabled) { background: darken($danger, 8%); }
+  }
+
+  &.warning {
+    background: $warning;
+    &:hover:not(:disabled) { background: darken($warning, 8%); }
+  }
+
+  &.info {
+    background: $info;
+    &:hover:not(:disabled) { background: darken($info, 8%); }
+  }
+
+  &.success {
+    background: $success;
+    &:hover:not(:disabled) { background: darken($success, 8%); }
+  }
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba($white, 0.3);
+  border-top-color: $white;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

@@ -1,0 +1,47 @@
+@if (isOpen) {
+  <div class="modal-overlay" (click)="onCancel()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-icon" [class]="variant">
+        <i class="bi" [ngClass]="getIcon()"></i>
+      </div>
+
+      <h3 class="modal-title">{{ title }}</h3>
+
+      <p class="modal-message">
+        @if (itemName) {
+          {{ messagePrefix }} <strong>{{ itemName }}</strong>{{ messageSuffix }}
+        } @else {
+          {{ message }}
+        }
+      </p>
+
+      @if (warningText) {
+        <p class="modal-warning">
+          <i class="bi bi-exclamation-circle"></i>
+          {{ warningText }}
+        </p>
+      }
+
+      <div class="modal-actions">
+        <button
+          type="button"
+          class="btn-secondary"
+          (click)="onCancel()"
+          [disabled]="isLoading">
+          {{ cancelText }}
+        </button>
+        <button
+          type="button"
+          class="btn-confirm"
+          [class]="variant"
+          (click)="onConfirm()"
+          [disabled]="isLoading">
+          @if (isLoading) {
+            <span class="spinner"></span>
+          }
+          {{ confirmText }}
+        </button>
+      </div>
+    </div>
+  </div>
+}
