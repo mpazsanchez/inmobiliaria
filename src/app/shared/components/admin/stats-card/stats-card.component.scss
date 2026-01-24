@@ -1,0 +1,127 @@
+// Variables - Fairway Brand
+$primary-green: #1a4d2e;
+$accent-orange: #e6962e;
+$success: #10b981;
+$warning: #f59e0b;
+$danger: #ef4444;
+$info: #3b82f6;
+$text-dark: #1f2937;
+$text-muted: #6b7280;
+$border-color: #e5e7eb;
+$bg-light: #f9fafb;
+$white: #ffffff;
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: $white;
+  border-radius: 12px;
+  border: 1px solid $border-color;
+  transition: all 0.2s ease;
+
+  &.clickable {
+    cursor: pointer;
+
+    &:hover {
+      border-color: $primary-green;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  &.active {
+    border-color: $primary-green;
+    background: rgba($primary-green, 0.02);
+  }
+}
+
+.stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+
+  &.primary {
+    background: rgba($primary-green, 0.1);
+    color: $primary-green;
+  }
+
+  &.success {
+    background: rgba($success, 0.1);
+    color: $success;
+  }
+
+  &.warning {
+    background: rgba($warning, 0.1);
+    color: $warning;
+  }
+
+  &.danger {
+    background: rgba($danger, 0.1);
+    color: $danger;
+  }
+
+  &.info {
+    background: rgba($info, 0.1);
+    color: $info;
+  }
+
+  &.default {
+    background: $bg-light;
+    color: $text-muted;
+  }
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $text-dark;
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: $text-muted;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stat-sub {
+  font-size: 0.7rem;
+  color: $text-muted;
+  opacity: 0.8;
+  margin-top: 2px;
+}
+
+.stat-trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-top: 0.25rem;
+
+  &.up {
+    color: $success;
+  }
+
+  &.down {
+    color: $danger;
+  }
+
+  &.neutral {
+    color: $text-muted;
+  }
+}

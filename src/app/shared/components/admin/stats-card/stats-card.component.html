@@ -1,0 +1,23 @@
+<div
+  class="stat-card"
+  [class]="variant"
+  [class.active]="active"
+  [class.clickable]="clickable"
+  (click)="onClick()">
+  <div class="stat-icon" [class]="variant">
+    <i class="bi" [ngClass]="icon"></i>
+  </div>
+  <div class="stat-info">
+    <span class="stat-value">{{ value }}</span>
+    <span class="stat-label">{{ label }}</span>
+    @if (subInfo) {
+      <span class="stat-sub">{{ subInfo }}</span>
+    }
+    @if (trend) {
+      <span class="stat-trend" [class]="trend.direction">
+        <i class="bi" [ngClass]="getTrendIcon()"></i>
+        {{ trend.value }}%
+      </span>
+    }
+  </div>
+</div>
