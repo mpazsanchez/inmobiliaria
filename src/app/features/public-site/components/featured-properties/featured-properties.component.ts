@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { PropertyService } from '../../../../core/services/property.service';
@@ -20,8 +20,11 @@ interface PropiedadConAgente extends Propiedad {
 export class FeaturedPropertiesComponent implements OnInit {
   private propertyService = inject(PropertyService);
 
-  propiedadesDestacadas: PropiedadConAgente[] = [];
-  isLoading = true;
+  propiedadesDestacadas = signal<PropiedadConAgente[]>([]);
+  isLoading = signal(true);
+
+  // Array para skeleton cards (6 cards mientras carga)
+  skeletonCards = Array(6).fill(0);
 
   ngOnInit(): void {
     this.cargarPropiedadesDestacadas();
@@ -31,15 +34,16 @@ export class FeaturedPropertiesComponent implements OnInit {
     this.propertyService.getPropiedadesDestacadas(6).subscribe({
       next: (propiedades) => {
         // Agregar info del agente a cada propiedad
-        this.propiedadesDestacadas = propiedades.map(prop => ({
+        const propiedadesConAgente = propiedades.map(prop => ({
           ...prop,
           agente: MOCK_ASESORES.find(a => a.id === prop.asesorId)
         }));
-        this.isLoading = false;
+        this.propiedadesDestacadas.set(propiedadesConAgente);
+        this.isLoading.set(false);
       },
       error: (error) => {
         console.error('Error al cargar propiedades destacadas:', error);
-        this.isLoading = false;
+        this.isLoading.set(false);
       }
     });
   }
