@@ -1,0 +1,107 @@
+<div class="static-pages-list-page">
+  <!-- Header -->
+  <app-page-header
+    title="Páginas Estáticas"
+    subtitle="Gestiona el contenido de las páginas informativas del sitio"
+    icon="bi-file-text">
+  </app-page-header>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="bi bi-file-text"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">{{ pages().length }}</span>
+        <span class="stat-label">Páginas totales</span>
+        <span class="stat-activos">{{ getPublishedCount() }} publicadas</span>
+      </div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="bi bi-check-circle"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">{{ getPublishedCount() }}</span>
+        <span class="stat-label">Páginas publicadas</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="bi bi-eye-slash"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">{{ pages().length - getPublishedCount() }}</span>
+        <span class="stat-label">Páginas ocultas</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content-container">
+    @if (loading()) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Cargando páginas...</p>
+      </div>
+    } @else if (errorMessage()) {
+      <div class="empty-state">
+        <i class="bi bi-exclamation-triangle"></i>
+        <h3>Error al cargar páginas</h3>
+        <p>{{ errorMessage() }}</p>
+      </div>
+    } @else {
+      <div class="pages-grid">
+        @for (page of pages(); track page.id) {
+          <div class="page-card" [class.published]="page.publicada">
+            <div class="page-icon">
+              <i class="bi {{ page.icono }}"></i>
+            </div>
+            
+            <div class="page-header">
+              <h3>{{ page.titulo }}</h3>
+              @if (page.publicada) {
+                <span class="badge badge-success">
+                  <i class="bi bi-check-circle"></i> Publicada
+                </span>
+              } @else {
+                <span class="badge badge-secondary">
+                  <i class="bi bi-eye-slash"></i> Oculta
+                </span>
+              }
+            </div>
+
+            <p class="page-description">{{ page.descripcion }}</p>
+
+            @if (page.ultimaActualizacion) {
+              <div class="page-meta">
+                <i class="bi bi-clock"></i>
+                <span>Última actualización: {{ page.ultimaActualizacion | date:'dd/MM/yyyy HH:mm' }}</span>
+              </div>
+            }
+
+            <div class="page-actions">
+              <a 
+                [routerLink]="['/member-area/paginas-estaticas/editar', page.id]" 
+                class="btn btn-primary"
+              >
+                <i class="bi bi-pencil"></i> Editar
+              </a>
+              <a 
+                [href]="getPublicUrl(page.id)" 
+                target="_blank"
+                class="btn btn-outline-secondary"
+                title="Ver página pública"
+              >
+                <i class="bi bi-eye"></i> Ver
+              </a>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>
