@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { PropertyService } from '../../../../core/services';
 import { Propiedad, FiltrosBusqueda, RespuestaPaginada, OrdenBusqueda } from '../../../../core/models';
 import { PropertyCardComponent } from '../../components/property-card/property-card.component';
@@ -18,7 +19,7 @@ import { ShareModalComponent } from '../../../../shared/components/share-modal/s
   templateUrl: './property-listing.component.html',
   styleUrl: './property-listing.component.scss'
 })
-export class PropertyListingComponent implements OnInit {
+export class PropertyListingComponent implements OnInit, OnDestroy {
   propiedades: Propiedad[] = [];
   totalResultados = 0;
   isLoading = true;
@@ -30,6 +31,9 @@ export class PropertyListingComponent implements OnInit {
   // Modal de compartir
   showShareModal = false;
   selectedPropertyToShare: Propiedad | null = null;
+  
+  // Suscripciones
+  private subscriptions = new Subscription();
   
   filtros: FiltrosBusqueda = {
     pagina: 1,
@@ -51,35 +55,48 @@ export class PropertyListingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Leer operación desde la configuración de la ruta (para /buy y /rent)
-    const operacionRuta = this.route.snapshot.data['operacion'];
-    
-    // Configurar breadcrumbs
-    this.setupBreadcrumbs(operacionRuta);
-    
-    // Leer parámetros de la URL (nombres normalizados con la interfaz FiltrosBusqueda)
-    this.route.queryParams.subscribe(params => {
-      this.filtros = {
-        ...this.filtros,
-        operacion: operacionRuta || params['operacion'] || undefined,
-        tipoPropiedad: params['tipoPropiedad'] || undefined,
-        ubicacion: params['ubicacion'] || undefined,
-        precioMinimo: params['precioMinimo'] ? +params['precioMinimo'] : undefined,
-        precioMaximo: params['precioMaximo'] ? +params['precioMaximo'] : undefined,
-        moneda: (params['moneda'] as 'USD' | 'ARS') || undefined,
-        ambientes: params['ambientes'] ? +params['ambientes'] : undefined,
-        dormitorios: params['dormitorios'] ? +params['dormitorios'] : undefined,
-        banos: params['banos'] ? +params['banos'] : undefined,
-        superficieMinima: params['superficieMinima'] ? +params['superficieMinima'] : undefined,
-        superficieMaxima: params['superficieMaxima'] ? +params['superficieMaxima'] : undefined,
-        garageMinimo: params['garageMinimo'] ? +params['garageMinimo'] : undefined,
-        amenidades: params['amenidades'] ? params['amenidades'].split(',') : undefined,
-        ordenarPor: (params['ordenarPor'] as OrdenBusqueda) || 'reciente',
-        pagina: params['pagina'] ? +params['pagina'] : 1
-      };
+    // Suscribirse a cambios en queryParams - única fuente de verdad
+    this.subscriptions.add(
+      this.route.queryParams.subscribe(params => {
+        // Construir filtros desde queryParams
+        this.filtros = this.buildFiltrosFromParams(params);
+        
+        // Configurar breadcrumbs según operación
+        this.setupBreadcrumbs(this.filtros.operacion);
+        
+        // Cargar propiedades con los nuevos filtros
+        this.cargarPropiedades();
+      })
+    );
+  }
 
-      this.cargarPropiedades();
-    });
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
+  /**
+   * Construye objeto FiltrosBusqueda desde queryParams
+   * Resetea completamente los filtros en cada llamada (no preserva estado previo)
+   */
+  private buildFiltrosFromParams(params: any): FiltrosBusqueda {
+    return {
+      pagina: params['pagina'] ? +params['pagina'] : 1,
+      limite: 12,
+      ordenarPor: (params['ordenarPor'] as OrdenBusqueda) || 'reciente',
+      operacion: params['operacion'] || undefined,
+      tipoPropiedad: params['tipoPropiedad'] || undefined,
+      ubicacion: params['ubicacion'] || undefined,
+      precioMinimo: params['precioMinimo'] ? +params['precioMinimo'] : undefined,
+      precioMaximo: params['precioMaximo'] ? +params['precioMaximo'] : undefined,
+      moneda: (params['moneda'] as 'USD' | 'ARS') || undefined,
+      ambientes: params['ambientes'] ? +params['ambientes'] : undefined,
+      dormitorios: params['dormitorios'] ? +params['dormitorios'] : undefined,
+      banos: params['banos'] ? +params['banos'] : undefined,
+      superficieMinima: params['superficieMinima'] ? +params['superficieMinima'] : undefined,
+      superficieMaxima: params['superficieMaxima'] ? +params['superficieMaxima'] : undefined,
+      garageMinimo: params['garageMinimo'] ? +params['garageMinimo'] : undefined,
+      amenidades: params['amenidades'] ? params['amenidades'].split(',') : undefined
+    };
   }
 
   private setupBreadcrumbs(operacion?: string): void {
@@ -102,20 +119,27 @@ export class PropertyListingComponent implements OnInit {
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error al cargar propiedades:', error);
+        console.error('❌ Error al cargar propiedades:', error);
         this.isLoading = false;
       }
     });
   }
 
   onFiltrosChange(nuevosFiltros: FiltrosBusqueda): void {
+    // NO mergear con filtros anteriores - usar directamente los nuevos
+    // Solo preservar operacion si no viene en nuevosFiltros
+    const operacion = nuevosFiltros.operacion || this.filtros.operacion;
+    
     this.filtros = {
-      ...this.filtros,
       ...nuevosFiltros,
-      pagina: 1 // Reset página al cambiar filtros
+      operacion,
+      pagina: 1, // Siempre resetear página
+      limite: 12,
+      ordenarPor: nuevosFiltros.ordenarPor || 'reciente'
     };
+    
+    // Actualizar URL - esto triggereará queryParams.subscribe que cargará las propiedades
     this.actualizarURL();
-    this.cargarPropiedades();
   }
 
   onOrdenChange(orden: OrdenBusqueda): void {
@@ -124,25 +148,31 @@ export class PropertyListingComponent implements OnInit {
       ordenarPor: orden,
       pagina: 1
     };
+    // Actualizar URL - esto triggereará queryParams.subscribe que cargará las propiedades
     this.actualizarURL();
-    this.cargarPropiedades();
   }
 
   onPaginaChange(pagina: number): void {
     this.filtros.pagina = pagina;
+    // Actualizar URL - esto triggereará queryParams.subscribe que cargará las propiedades
     this.actualizarURL();
-    this.cargarPropiedades();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   limpiarFiltros(): void {
+    // Preservar solo la operación actual
+    const operacion = this.filtros.operacion;
+    
+    // Resetear filtros a valores por defecto
     this.filtros = {
       pagina: 1,
       limite: 12,
-      ordenarPor: 'reciente'
+      ordenarPor: 'reciente',
+      operacion: operacion
     };
+    
+    // Actualizar URL - esto triggereará queryParams.subscribe que cargará las propiedades
     this.actualizarURL();
-    this.cargarPropiedades();
   }
 
   toggleFilters(): void {
@@ -155,7 +185,6 @@ export class PropertyListingComponent implements OnInit {
 
   onFavoriteToggle(propertyId: string): void {
     // TODO: Implementar lógica de favoritos (requiere autenticación)
-    console.log('Toggle favorite:', propertyId);
   }
 
   onShare(data: { propertyId: string, platform: string }): void {
@@ -179,35 +208,57 @@ export class PropertyListingComponent implements OnInit {
     this.selectedPropertyToShare = null;
   }
 
+  /**
+   * Actualiza la URL con los filtros actuales
+   * Omite valores por defecto para mantener URLs limpias
+   */
   private actualizarURL(): void {
-    const queryParams: Record<string, string | number> = {};
-
-    // Nombres normalizados con la interfaz FiltrosBusqueda
-    if (this.filtros.operacion) queryParams['operacion'] = this.filtros.operacion;
-    if (this.filtros.tipoPropiedad) {
-      queryParams['tipoPropiedad'] = Array.isArray(this.filtros.tipoPropiedad)
-        ? this.filtros.tipoPropiedad.join(',')
-        : this.filtros.tipoPropiedad;
-    }
-    if (this.filtros.ubicacion) queryParams['ubicacion'] = this.filtros.ubicacion;
-    if (this.filtros.precioMinimo) queryParams['precioMinimo'] = this.filtros.precioMinimo;
-    if (this.filtros.precioMaximo) queryParams['precioMaximo'] = this.filtros.precioMaximo;
-    if (this.filtros.moneda) queryParams['moneda'] = this.filtros.moneda;
-    if (this.filtros.ambientes) queryParams['ambientes'] = this.filtros.ambientes;
-    if (this.filtros.dormitorios) queryParams['dormitorios'] = this.filtros.dormitorios;
-    if (this.filtros.banos) queryParams['banos'] = this.filtros.banos;
-    if (this.filtros.superficieMinima) queryParams['superficieMinima'] = this.filtros.superficieMinima;
-    if (this.filtros.superficieMaxima) queryParams['superficieMaxima'] = this.filtros.superficieMaxima;
-    if (this.filtros.garageMinimo) queryParams['garageMinimo'] = this.filtros.garageMinimo;
-    if (this.filtros.amenidades?.length) queryParams['amenidades'] = this.filtros.amenidades.join(',');
-    if (this.filtros.ordenarPor && this.filtros.ordenarPor !== 'reciente') queryParams['ordenarPor'] = this.filtros.ordenarPor;
-    if (this.filtros.pagina && this.filtros.pagina > 1) queryParams['pagina'] = this.filtros.pagina;
-
+    const queryParams = this.filtrosToQueryParams(this.filtros);
+    
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams,
       replaceUrl: true
     });
+  }
+
+  /**
+   * Convierte filtros a queryParams, omitiendo valores vacíos y por defecto
+   */
+  private filtrosToQueryParams(filtros: FiltrosBusqueda): Record<string, string | number> {
+    const params: Record<string, string | number> = {};
+
+    if (filtros.operacion) params['operacion'] = filtros.operacion;
+    
+    if (filtros.tipoPropiedad) {
+      params['tipoPropiedad'] = Array.isArray(filtros.tipoPropiedad)
+        ? filtros.tipoPropiedad.join(',')
+        : filtros.tipoPropiedad;
+    }
+    
+    if (filtros.ubicacion) params['ubicacion'] = filtros.ubicacion;
+    if (filtros.precioMinimo) params['precioMinimo'] = filtros.precioMinimo;
+    if (filtros.precioMaximo) params['precioMaximo'] = filtros.precioMaximo;
+    if (filtros.moneda) params['moneda'] = filtros.moneda;
+    if (filtros.ambientes) params['ambientes'] = filtros.ambientes;
+    if (filtros.dormitorios) params['dormitorios'] = filtros.dormitorios;
+    if (filtros.banos) params['banos'] = filtros.banos;
+    if (filtros.superficieMinima) params['superficieMinima'] = filtros.superficieMinima;
+    if (filtros.superficieMaxima) params['superficieMaxima'] = filtros.superficieMaxima;
+    if (filtros.garageMinimo) params['garageMinimo'] = filtros.garageMinimo;
+    if (filtros.amenidades?.length) params['amenidades'] = filtros.amenidades.join(',');
+    
+    // Solo incluir ordenarPor si no es el valor por defecto
+    if (filtros.ordenarPor && filtros.ordenarPor !== 'reciente') {
+      params['ordenarPor'] = filtros.ordenarPor;
+    }
+    
+    // Solo incluir pagina si es mayor a 1
+    if (filtros.pagina && filtros.pagina > 1) {
+      params['pagina'] = filtros.pagina;
+    }
+
+    return params;
   }
 
   get totalPaginas(): number {
