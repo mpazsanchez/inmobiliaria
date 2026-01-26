@@ -1,0 +1,166 @@
+<div class="static-page-editor">
+  <app-page-header
+    [title]="getTitle()"
+    [subtitle]="'Edita el contenido de la página ' + pageId()"
+    icon="bi-pencil-square"
+    [showBackButton]="true"
+    backRoute="/member-area/paginas-estaticas"
+  />
+
+  @if (loading()) {
+    <div class="loading-container">
+      <div class="spinner"></div>
+      <p>Cargando contenido...</p>
+    </div>
+  } @else {
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="editor-layout">
+        <!-- Columna principal con el formulario -->
+        <div class="editor-main">
+          <!-- Card de contenido -->
+          <div class="editor-card">
+            <div class="card-header">
+              <i class="bi bi-file-text"></i>
+              <h3>Contenido de la Página</h3>
+            </div>
+            
+            <div class="card-body">
+              <!-- Título -->
+              <div class="form-group">
+                <label>
+                  Título de la Página <span class="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="titulo"
+                  [class.invalid]="hasError('titulo')"
+                  placeholder="Ej: Quiénes Somos"
+                />
+                @if (hasError('titulo')) {
+                  <span class="error-message">
+                    <i class="bi bi-exclamation-circle"></i>
+                    El título es obligatorio (mínimo 2 caracteres)
+                  </span>
+                }
+              </div>
+
+              <!-- Contenido HTML -->
+              <div class="form-group">
+                <label>
+                  Contenido HTML <span class="required">*</span>
+                </label>
+                <small class="help-text">
+                  Puedes usar HTML para dar formato al contenido
+                </small>
+                
+                <textarea
+                  class="form-control code-editor"
+                  formControlName="contenidoHtml"
+                  rows="18"
+                  [class.invalid]="hasError('contenidoHtml')"
+                  placeholder="<h2>Título</h2><p>Contenido...</p>"
+                ></textarea>
+                
+                @if (hasError('contenidoHtml')) {
+                  <span class="error-message">
+                    <i class="bi bi-exclamation-circle"></i>
+                    El contenido es obligatorio
+                  </span>
+                }
+                
+                <small class="help-text">
+                  <i class="bi bi-info-circle"></i>
+                  Puedes usar etiquetas HTML como h2, h3, p, ul, li, strong, em, a, etc.
+                </small>
+              </div>
+
+              <!-- Publicada -->
+              <div class="form-group">
+                <label class="switch-label">
+                  <input
+                    type="checkbox"
+                    class="switch-input"
+                    formControlName="publicada"
+                  />
+                  <span class="switch-slider"></span>
+                  <span class="switch-text">Página publicada (visible en el sitio público)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mensajes -->
+          @if (successMessage()) {
+            <div class="alert alert-success">
+              <i class="bi bi-check-circle"></i>
+              {{ successMessage() }}
+              <button class="alert-close" (click)="successMessage.set(null)">
+                <i class="bi bi-x"></i>
+              </button>
+            </div>
+          }
+
+          @if (errorMessage()) {
+            <div class="alert alert-error">
+              <i class="bi bi-exclamation-triangle"></i>
+              {{ errorMessage() }}
+              <button class="alert-close" (click)="errorMessage.set(null)">
+                <i class="bi bi-x"></i>
+              </button>
+            </div>
+          }
+
+          <!-- Botones -->
+          <div class="editor-actions">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="onCancel()"
+              [disabled]="saving()"
+            >
+              <i class="bi bi-x-lg"></i>
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="form.invalid || saving()"
+            >
+              @if (saving()) {
+                <span class="spinner-sm"></span>
+                Guardando...
+              } @else {
+                <i class="bi bi-save"></i>
+                Guardar Cambios
+              }
+            </button>
+          </div>
+        </div>
+
+        <!-- Panel lateral con vista previa -->
+        <div class="editor-sidebar">
+          <div class="preview-card">
+            <div class="preview-header">
+              <i class="bi bi-eye"></i>
+              <h4>Vista Previa</h4>
+            </div>
+            
+            <div class="preview-body">
+              <div class="preview-content">
+                <h2>{{ form.get('titulo')?.value || 'Sin título' }}</h2>
+                <div class="preview-divider"></div>
+                <div class="preview-html" [innerHTML]="getPreviewContent()"></div>
+              </div>
+            </div>
+            
+            <div class="preview-footer">
+              <i class="bi bi-info-circle"></i>
+              Así se verá en el sitio público
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  }
+</div>
