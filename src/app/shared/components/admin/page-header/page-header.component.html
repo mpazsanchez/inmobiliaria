@@ -2,6 +2,11 @@
   <div class="header-content">
     <div class="header-title">
       <h1>
+        @if (showBackButton && backRoute) {
+          <a [routerLink]="backRoute" class="btn btn-sm btn-outline-secondary me-2">
+            <i class="bi bi-arrow-left"></i>
+          </a>
+        }
         @if (icon) {
           <i class="bi" [ngClass]="icon"></i>
         }

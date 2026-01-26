@@ -22,6 +22,8 @@ export class PageHeaderComponent {
   @Input() icon = '';
   @Input() badge = '';
   @Input() badgeVariant: 'admin' | 'asesor' | 'info' = 'info';
+  @Input() showBackButton = false;
+  @Input() backRoute = '';
   @Input() primaryAction: HeaderAction | null = null;
   @Input() secondaryActions: HeaderAction[] = [];
 
