@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { ContenidoEstaticoService } from '../../../../core/services/contenido-estatico.service';
+import { ContenidoDinamicoService } from '../../../../core/services/contenido-dinamico.service';
 import { Testimonio, Beneficio } from '../../../../core/models/testimonio.interface';
 
 @Component({
@@ -12,7 +12,7 @@ import { Testimonio, Beneficio } from '../../../../core/models/testimonio.interf
   styleUrl: './why-fairway.component.scss'
 })
 export class WhyFairwayComponent implements OnInit {
-  private contenidoService = inject(ContenidoEstaticoService);
+  private contenidoService = inject(ContenidoDinamicoService);
 
   beneficios: Beneficio[] = [];
   testimonios: Testimonio[] = [];
@@ -25,13 +25,13 @@ export class WhyFairwayComponent implements OnInit {
   private cargarContenido(): void {
     // Cargar beneficios y testimonios en paralelo
     this.contenidoService.getBeneficios().subscribe({
-      next: (beneficios) => {
+      next: (beneficios: Beneficio[]) => {
         this.beneficios = beneficios;
       }
     });
 
     this.contenidoService.getTestimoniosDestacados(3).subscribe({
-      next: (testimonios) => {
+      next: (testimonios: Testimonio[]) => {
         this.testimonios = testimonios;
         this.isLoading = false;
       },

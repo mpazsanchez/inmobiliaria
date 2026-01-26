@@ -6,7 +6,7 @@ import { FeaturedPropertiesComponent } from '../../components/featured-propertie
 import { ExclusivePropertiesCtaComponent } from '../../components/exclusive-properties-cta/exclusive-properties-cta.component';
 import { WhyFairwayComponent } from '../../components/why-fairway/why-fairway.component';
 import { FairwayFaqSectionComponent } from '../../components/fairway-faq-section/fairway-faq-section.component';
-import { ContenidoEstaticoService } from '../../../../core/services/contenido-estatico.service';
+import { ContenidoDinamicoService } from '../../../../core/services/contenido-dinamico.service';
 import { Banner } from '../../../../core/models/testimonio.interface';
 
 // NOTA: El slider está disponible en HeroBannerSliderComponent
@@ -29,7 +29,7 @@ import { Banner } from '../../../../core/models/testimonio.interface';
   styleUrl: './fairway-home.component.scss'
 })
 export class FairwayHomeComponent implements OnInit {
-  private contenidoService = inject(ContenidoEstaticoService);
+  private contenidoService = inject(ContenidoDinamicoService);
 
   // Hero data desde API/JSON
   heroBanner = signal<Banner | null>(null);
@@ -48,7 +48,7 @@ export class FairwayHomeComponent implements OnInit {
 
   private loadHeroBanner(): void {
     this.contenidoService.getBannersByPosicion('hero').subscribe({
-      next: (banners) => {
+      next: (banners: Banner[]) => {
         // Tomar el primer banner activo
         if (banners.length > 0) {
           this.heroBanner.set(banners[0]);

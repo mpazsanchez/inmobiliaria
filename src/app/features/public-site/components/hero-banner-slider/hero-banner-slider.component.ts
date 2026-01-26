@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NgbCarouselModule, NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
-import { ContenidoEstaticoService } from '../../../../core/services/contenido-estatico.service';
+import { ContenidoDinamicoService } from '../../../../core/services/contenido-dinamico.service';
 import type { Banner } from '../../../../core/models';
 
 @Component({
@@ -15,7 +15,7 @@ import type { Banner } from '../../../../core/models';
 export class HeroBannerSliderComponent implements OnInit {
   @ViewChild(NgbCarousel) carousel!: NgbCarousel;
 
-  private contenidoService = inject(ContenidoEstaticoService);
+  private contenidoService = inject(ContenidoDinamicoService);
 
   banners = signal<Banner[]>([]);
   isLoading = signal(true);
