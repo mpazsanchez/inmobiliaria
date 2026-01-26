@@ -1,31 +1,278 @@
-<div class="dashboard-wrapper col-10 mx-auto">
-  <div class="dashboard-header">
-    <img src="assets/images/logos/logotipo.png" alt="Logo" class="logo" />
-    <h1>¡Bienvenido, Amadeo {{ user?.name }}!</h1>
-    <span class="user-role">Rol: Instalador certificado {{ user?.role }}</span>
-    <p class="subtitle">Accede a todas las herramientas y recursos de tu área de miembro.</p>
-  </div>
-  <div class="dashboard-cards">
-    <app-dashboard-card
-      [title]="'Capacitación'"
-      [description]="'Accede a cursos, formación técnica y recursos exclusivos.'"
-      [link]="'/member-area/training'"
-      [icon]="'bi bi-mortarboard'"
-      [buttonText]="'Ir a capacitación'"
-    ></app-dashboard-card>
-    <app-dashboard-card
-      [title]="'Certificación'"
-      [description]="'Gestiona tu estado como instalador certificado y accede a beneficios.'"
-  [link]="'/member-area/certificaciones'"
-      [icon]="'bi bi-patch-check'"
-      [buttonText]="'Ver estado'"
-    ></app-dashboard-card>
-    <app-dashboard-card
-      [title]="'E-commerce'"
-      [description]="'Compra productos, herramientas y accede a precios exclusivos.'"
-      [link]="'/e-commerce'"
-      [icon]="'bi bi-cart4'"
-      [buttonText]="'Ir a tienda'"
-    ></app-dashboard-card>
-  </div>
+<div class="dashboard-wrapper">
+  <!-- Dashboard para ASESOR -->
+  @if (isAsesor()) {
+    <div class="dashboard-container">
+      <!-- Header -->
+      <div class="dashboard-header">
+        <div class="header-content">
+          <div class="welcome-section">
+            <h1>¡Bienvenido/a, {{ user?.nombre }}!</h1>
+            <p class="subtitle">Aquí está el resumen de tu actividad</p>
+          </div>
+          <div class="header-actions">
+            <span class="user-badge">
+              <i class="bi bi-person-badge"></i>
+              Asesor
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        @for (stat of asesorStats(); track stat.title) {
+          <div class="stat-card" [style.border-left-color]="stat.color">
+            <div class="stat-icon" [style.color]="stat.color">
+              <i class="bi" [class]="stat.icon"></i>
+            </div>
+            <div class="stat-content">
+              <h3>{{ stat.title }}</h3>
+              <div class="stat-value">{{ stat.value }}</div>
+              @if (stat.trend) {
+                <div class="stat-trend" [class.trend-up]="stat.trendUp">
+                  <i class="bi" [class.bi-arrow-up]="stat.trendUp" [class.bi-info-circle]="!stat.trendUp"></i>
+                  {{ stat.trend }}
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Main Content Grid -->
+      <div class="content-grid">
+        <!-- Leads Pendientes -->
+        <div class="dashboard-section">
+          <div class="section-header">
+            <h2>
+              <i class="bi bi-person-lines-fill"></i>
+              Leads Pendientes
+            </h2>
+            <a routerLink="/member-area/leads" class="view-all">Ver todos <i class="bi bi-arrow-right"></i></a>
+          </div>
+          <div class="leads-list">
+            @for (lead of recentLeads(); track lead.id) {
+              <div class="lead-item">
+                <div class="lead-info">
+                  <div class="lead-header">
+                    <strong>{{ lead.nombre }}</strong>
+                    <span class="lead-badge" [class]="getLeadStatusClass(lead.estado)">
+                      {{ getLeadStatusText(lead.estado) }}
+                    </span>
+                  </div>
+                  <p class="lead-property">{{ lead.propiedad }}</p>
+                  <div class="lead-meta">
+                    <span><i class="bi bi-tag"></i> {{ lead.tipo }}</span>
+                    <span><i class="bi bi-clock"></i> {{ lead.fecha }}</span>
+                  </div>
+                </div>
+                <button class="btn-respond" [disabled]="lead.estado !== 'pendiente'">
+                  <i class="bi bi-reply"></i>
+                  Responder
+                </button>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Actividad Reciente -->
+        <div class="dashboard-section">
+          <div class="section-header">
+            <h2>
+              <i class="bi bi-activity"></i>
+              Actividad Reciente
+            </h2>
+          </div>
+          <div class="activity-timeline">
+            @for (activity of recentActivity(); track activity.title) {
+              <div class="activity-item">
+                <div class="activity-icon" [style.background-color]="activity.color">
+                  <i class="bi" [class]="activity.icon"></i>
+                </div>
+                <div class="activity-content">
+                  <strong>{{ activity.title }}</strong>
+                  <p>{{ activity.description }}</p>
+                  <span class="activity-time">{{ activity.time }}</span>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <h2>Acciones Rápidas</h2>
+        <div class="actions-grid">
+          <a routerLink="/member-area/properties" class="action-card">
+            <i class="bi bi-building"></i>
+            <span>Mis Propiedades</span>
+          </a>
+          <a routerLink="/member-area/leads" class="action-card">
+            <i class="bi bi-people"></i>
+            <span>Gestionar Leads</span>
+          </a>
+          <a routerLink="/member-area/calendar" class="action-card">
+            <i class="bi bi-calendar"></i>
+            <span>Calendario</span>
+          </a>
+          <a routerLink="/member-area/reports" class="action-card">
+            <i class="bi bi-graph-up"></i>
+            <span>Mis Reportes</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Dashboard para ADMINISTRADOR -->
+  @if (isAdmin()) {
+    <div class="dashboard-container">
+      <!-- Header -->
+      <div class="dashboard-header">
+        <div class="header-content">
+          <div class="welcome-section">
+            <h1>Panel de Administración</h1>
+            <p class="subtitle">Vista general del sistema</p>
+          </div>
+          <div class="header-actions">
+            <span class="user-badge admin">
+              <i class="bi bi-shield-check"></i>
+              Administrador
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        @for (stat of adminStats(); track stat.title) {
+          <div class="stat-card" [style.border-left-color]="stat.color">
+            <div class="stat-icon" [style.color]="stat.color">
+              <i class="bi" [class]="stat.icon"></i>
+            </div>
+            <div class="stat-content">
+              <h3>{{ stat.title }}</h3>
+              <div class="stat-value">{{ stat.value }}</div>
+              @if (stat.trend) {
+                <div class="stat-trend" [class.trend-up]="stat.trendUp">
+                  <i class="bi" [class.bi-arrow-up]="stat.trendUp" [class.bi-info-circle]="!stat.trendUp"></i>
+                  {{ stat.trend }}
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Main Content Grid -->
+      <div class="content-grid admin-grid">
+        <!-- Leads Sin Asignar -->
+        <div class="dashboard-section">
+          <div class="section-header">
+            <h2>
+              <i class="bi bi-person-x"></i>
+              Leads Sin Asignar
+            </h2>
+            <a routerLink="/member-area/leads" class="view-all">Ver todos <i class="bi bi-arrow-right"></i></a>
+          </div>
+          <div class="leads-list">
+            @for (lead of unassignedLeads(); track lead.id) {
+              <div class="lead-item">
+                <div class="lead-info">
+                  <div class="lead-header">
+                    <strong>{{ lead.nombre }}</strong>
+                    <span class="lead-badge status-unassigned">Sin asignar</span>
+                  </div>
+                  <p class="lead-property">{{ lead.propiedad }}</p>
+                  <div class="lead-meta">
+                    <span><i class="bi bi-tag"></i> {{ lead.tipo }}</span>
+                    <span><i class="bi bi-clock"></i> {{ lead.fecha }}</span>
+                  </div>
+                </div>
+                <button class="btn-assign">
+                  <i class="bi bi-person-plus"></i>
+                  Asignar
+                </button>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Performance del Equipo -->
+        <div class="dashboard-section">
+          <div class="section-header">
+            <h2>
+              <i class="bi bi-people-fill"></i>
+              Performance del Equipo
+            </h2>
+            <a routerLink="/member-area/team" class="view-all">Ver equipo <i class="bi bi-arrow-right"></i></a>
+          </div>
+          <div class="team-performance">
+            <div class="performance-item">
+              <div class="agent-info">
+                <div class="agent-avatar">MG</div>
+                <div>
+                  <strong>María González</strong>
+                  <span class="agent-metric">12 propiedades • 8 leads</span>
+                </div>
+              </div>
+              <div class="performance-badge success">Excelente</div>
+            </div>
+            <div class="performance-item">
+              <div class="agent-info">
+                <div class="agent-avatar">CR</div>
+                <div>
+                  <strong>Carlos Rodríguez</strong>
+                  <span class="agent-metric">15 propiedades • 5 leads</span>
+                </div>
+              </div>
+              <div class="performance-badge success">Excelente</div>
+            </div>
+            <div class="performance-item">
+              <div class="agent-info">
+                <div class="agent-avatar">LM</div>
+                <div>
+                  <strong>Laura Martínez</strong>
+                  <span class="agent-metric">10 propiedades • 12 leads</span>
+                </div>
+              </div>
+              <div class="performance-badge good">Bueno</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin Actions -->
+      <div class="quick-actions">
+        <h2>Panel de Control</h2>
+        <div class="actions-grid admin-actions">
+          <a routerLink="/member-area/properties/all" class="action-card">
+            <i class="bi bi-building"></i>
+            <span>Todas las Propiedades</span>
+          </a>
+          <a routerLink="/member-area/leads/all" class="action-card">
+            <i class="bi bi-people"></i>
+            <span>Todos los Leads</span>
+          </a>
+          <a routerLink="/member-area/team" class="action-card">
+            <i class="bi bi-person-badge"></i>
+            <span>Gestión de Equipo</span>
+          </a>
+          <a routerLink="/member-area/content" class="action-card">
+            <i class="bi bi-file-text"></i>
+            <span>Contenido (FAQs, etc)</span>
+          </a>
+          <a routerLink="/member-area/reports" class="action-card">
+            <i class="bi bi-graph-up"></i>
+            <span>Reportes Generales</span>
+          </a>
+          <a routerLink="/member-area/settings" class="action-card">
+            <i class="bi bi-gear"></i>
+            <span>Configuración</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  }
 </div>
