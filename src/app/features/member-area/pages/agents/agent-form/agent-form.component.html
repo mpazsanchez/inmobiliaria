@@ -193,7 +193,7 @@
             </div>
 
             <div class="form-group full-width">
-              <label for="biografia">Biografia</label>
+              <label for="biografia">Biografía</label>
               <textarea
                 id="biografia"
                 formControlName="biografia"
@@ -228,7 +228,7 @@
       <!-- Tab: Contact -->
       @if (activeTab() === 'contact') {
         <div class="form-section">
-          <h2>Informacion de Contacto</h2>
+          <h2>Información de Contacto</h2>
 
           <div class="form-grid">
             <div class="form-group">
@@ -243,12 +243,12 @@
                   [class.invalid]="form.get('email')?.invalid && form.get('email')?.touched">
               </div>
               @if (form.get('email')?.invalid && form.get('email')?.touched) {
-                <span class="field-error">Ingresa un email valido</span>
+                <span class="field-error">Ingresa un email válido</span>
               }
             </div>
 
             <div class="form-group">
-              <label for="telefono">Telefono <span class="required">*</span></label>
+              <label for="telefono">Teléfono <span class="required">*</span></label>
               <div class="input-with-icon">
                 <i class="bi bi-telephone"></i>
                 <input
@@ -259,7 +259,7 @@
                   [class.invalid]="form.get('telefono')?.invalid && form.get('telefono')?.touched">
               </div>
               @if (form.get('telefono')?.invalid && form.get('telefono')?.touched) {
-                <span class="field-error">Ingresa un telefono valido</span>
+                <span class="field-error">Ingresa un teléfono válido</span>
               }
             </div>
 
@@ -273,7 +273,7 @@
                   formControlName="whatsapp"
                   placeholder="5491112345678">
               </div>
-              <span class="field-hint">Solo numeros, sin espacios ni guiones</span>
+              <span class="field-hint">Solo números, sin espacios ni guiones</span>
             </div>
           </div>
 
