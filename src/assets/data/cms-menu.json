@@ -44,18 +44,25 @@
         "orden": 6
       },
       {
+        "id": "paginas-estaticas",
+        "label": "Páginas Estáticas",
+        "icon": "bi-file-text",
+        "route": "/member-area/paginas-estaticas",
+        "orden": 7
+      },
+      {
         "id": "estadisticas",
         "label": "Estadisticas",
         "icon": "bi-bar-chart-line",
         "route": "/member-area/estadisticas",
-        "orden": 7
+        "orden": 8
       },
       {
         "id": "configuracion",
         "label": "Configuracion",
         "icon": "bi-gear",
         "route": "/member-area/configuracion",
-        "orden": 8
+        "orden": 9
       }
     ],
     "asesor": [

@@ -13,7 +13,10 @@ export class MemberSidebarComponent {
   menuItems = signal([
     { label: 'Dashboard', route: '/member-area/dashboard', icon: 'bi bi-house' },
     { label: 'Mi Perfil', route: '/member-area/profile', icon: 'bi bi-person' },
-    { label: 'Capacitacion', route: '/member-area/training', icon: 'bi bi-mortarboard' },
-    { label: 'Certificaciones', route: '/member-area/certificaciones', icon: 'bi bi-patch-check' },
+    { label: 'Propiedades', route: '/member-area/propiedades', icon: 'bi bi-building' },
+    { label: 'Asesores', route: '/member-area/asesores', icon: 'bi bi-people' },
+    { label: 'Consultas', route: '/member-area/consultas', icon: 'bi bi-envelope' },
+    { label: 'Contenido Dinámico', route: '/member-area/contenido', icon: 'bi bi-layout-text-sidebar' },
+    { label: 'Páginas Estáticas', route: '/member-area/paginas-estaticas', icon: 'bi bi-file-text' }
   ]);
 }
