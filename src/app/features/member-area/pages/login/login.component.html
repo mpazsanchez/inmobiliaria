@@ -60,7 +60,7 @@
             <div class="stat-divider"></div>
             <div class="stat">
               <span class="stat-number">15</span>
-              <span class="stat-label">Anos</span>
+              <span class="stat-label">Años</span>
             </div>
           </div>
         </div>
@@ -102,7 +102,7 @@
             @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
               <span class="field-error">
                 <i class="bi bi-exclamation-circle"></i>
-                Ingresa un email valido
+                Ingresa un email válido
               </span>
             }
           </div>
@@ -110,14 +110,14 @@
           <div class="form-group">
             <label for="password">
               <i class="bi bi-lock"></i>
-              Contrasena
+              Contraseña
             </label>
             <div class="password-input">
               <input
                 id="password"
                 [type]="showPassword ? 'text' : 'password'"
                 formControlName="password"
-                placeholder="Tu contrasena"
+                placeholder="Tu contraseña"
                 autocomplete="current-password"
                 [class.invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
               <button type="button" class="toggle-password" (click)="showPassword = !showPassword">
@@ -127,7 +127,7 @@
             @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
               <span class="field-error">
                 <i class="bi bi-exclamation-circle"></i>
-                La contrasena es requerida
+                La contraseña es requerida
               </span>
             }
           </div>
@@ -138,7 +138,7 @@
               <span class="checkbox-custom"></span>
               Recordarme
             </label>
-            <a href="#" class="forgot-link">Olvide mi contrasena</a>
+            <a href="#" class="forgot-link">Olvidé mi contraseña</a>
           </div>
 
           @if (error()) {
