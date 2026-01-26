@@ -1,6 +1,6 @@
 <div class="property-card" [class.compact]="compactMode">
-  <a [routerLink]="['/property', propiedad.id]" class="card-link">
-    <!-- Image Container -->
+  <!-- Image Container -->
+  <a [routerLink]="['/property', propiedad.id]" class="image-link">
     <div class="card-image">
       <img [src]="propiedad.imagenes[0].url" [alt]="propiedad.titulo" loading="lazy" />
       
@@ -26,18 +26,21 @@
         </svg>
       </button>
     </div>
+  </a>
 
-    <!-- Card Content -->
-    <div class="card-content">
+  <!-- Card Content -->
+  <div class="card-content">
       <!-- Price -->
       <div class="card-price">
         {{ formatearPrecio(propiedad.precio, propiedad.moneda) }}
       </div>
 
       <!-- Title -->
-      <h3 class="card-title">
-        {{ getTipoPropiedadLabel() }} en {{ propiedad.ubicacion.barrio || propiedad.ubicacion.ciudad }}
-      </h3>
+      <a [routerLink]="['/property', propiedad.id]" class="title-link">
+        <h3 class="card-title">
+          {{ getTipoPropiedadLabel() }} en {{ propiedad.ubicacion.barrio || propiedad.ubicacion.ciudad }}
+        </h3>
+      </a>
 
       <!-- Location -->
       <p class="card-location">
@@ -89,13 +92,13 @@
       <!-- Agent Info -->
       @if (propiedad.agente) {
       <div class="card-agent">
-        <div class="agent-info">
+        <a [routerLink]="['/team', propiedad.agente.id]" class="agent-info agent-link">
           <img [src]="propiedad.agente.fotoUrl" [alt]="propiedad.agente.nombre" class="agent-photo" />
           <div class="agent-details">
             <div class="agent-name">{{ propiedad.agente.nombre }}</div>
             <div class="agent-role">Asesor Inmobiliario</div>
           </div>
-        </div>
+        </a>
         <div class="agent-actions">
           <button 
             type="button"
@@ -118,6 +121,5 @@
         </div>
       </div>
       }
-    </div>
-  </a>
+  </div>
 </div>
