@@ -1,0 +1,47 @@
+<div class="admin-layout"
+     [class.sidebar-collapsed]="sidebarCollapsed"
+     [class.sidebar-mobile-open]="sidebarMobileOpen">
+
+  <!-- Overlay para cerrar sidebar en móvil -->
+  @if (sidebarMobileOpen) {
+    <div class="sidebar-overlay" (click)="closeMobileSidebar()"></div>
+  }
+
+  <app-admin-sidebar
+    [collapsed]="sidebarCollapsed"
+    [mobileOpen]="sidebarMobileOpen"
+    (toggleCollapse)="toggleSidebarCollapse()"
+    (closeMobile)="closeMobileSidebar()">
+  </app-admin-sidebar>
+
+  <div class="admin-main">
+    <header class="admin-header">
+      <button class="btn-toggle-sidebar" (click)="toggleMobileSidebar()" aria-label="Abrir menú">
+        <i class="bi bi-list"></i>
+      </button>
+
+      <div class="header-right">
+        <div class="user-menu">
+          <img [src]="usuario?.fotoUrl || 'assets/images/agents/default-avatar.jpg'" alt="Avatar" class="user-avatar">
+          <div class="user-info">
+            <span class="user-name">{{ usuario?.nombre }}</span>
+            <span class="user-role">{{ usuario?.rol | titlecase }}</span>
+          </div>
+          <div class="dropdown-menu">
+            <a routerLink="/member-area/profile" class="dropdown-item">
+              <i class="bi bi-person"></i> Mi Perfil
+            </a>
+            <hr>
+            <button (click)="logout()" class="dropdown-item logout">
+              <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="admin-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
