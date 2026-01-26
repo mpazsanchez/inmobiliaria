@@ -1,17 +1,4 @@
-// Variables - Fairway Brand
-$primary: #1a4d2e;
-$primary-dark: #0f3820;
-$primary-light: #e8f5e9;
-$accent: #e6962e;
-$accent-light: #fff8f0;
-$success: #2b8b52;
-$warning: #f59e0b;
-$danger: #dc2626;
-$text-dark: #1f2937;
-$text-muted: #6b7280;
-$border-color: #e5e7eb;
-$bg-light: #f9fafb;
-$white: #ffffff;
+@use 'admin-variables' as v;
 
 // ========================================
 // Page Layout
@@ -31,9 +18,9 @@ $white: #ffffff;
   gap: 1rem;
   margin-bottom: 1.5rem;
   padding: 1rem;
-  background: $white;
+  background: v.$bg-white;
   border-radius: 10px;
-  border: 1px solid $border-color;
+  border: 1px solid v.$border-color;
 }
 
 .search-box {
@@ -43,12 +30,12 @@ $white: #ffffff;
   min-width: 280px;
   gap: 0.5rem;
   padding: 0 0.75rem;
-  background: $bg-light;
-  border: 1px solid $border-color;
+  background: v.$bg-light;
+  border: 1px solid v.$border-color;
   border-radius: 8px;
 
   i {
-    color: $text-muted;
+    color: v.$text-muted;
   }
 
   input {
@@ -57,10 +44,10 @@ $white: #ffffff;
     border: none;
     background: transparent;
     font-size: 0.9rem;
-    color: $text-dark;
+    color: v.$text-dark;
 
     &::placeholder {
-      color: $text-muted;
+      color: v.$text-muted;
     }
 
     &:focus {
@@ -70,8 +57,8 @@ $white: #ffffff;
 
   .btn-search {
     padding: 0.5rem 1rem;
-    background: $primary;
-    color: $white;
+    background: v.$primary-green;
+    color: v.$bg-white;
     border: none;
     border-radius: 6px;
     font-size: 0.8rem;
@@ -80,7 +67,7 @@ $white: #ffffff;
     transition: background 0.2s;
 
     &:hover {
-      background: $primary-dark;
+      background: v.$primary-green-dark;
     }
   }
 }
@@ -92,17 +79,17 @@ $white: #ffffff;
 
   select {
     padding: 0.625rem 2rem 0.625rem 0.875rem;
-    border: 1px solid $border-color;
+    border: 1px solid v.$border-color;
     border-radius: 8px;
     font-size: 0.875rem;
-    color: $text-dark;
-    background: $white url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") right 0.5rem center/1.25rem no-repeat;
+    color: v.$text-dark;
+    background: v.$bg-white url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") right 0.5rem center/1.25rem no-repeat;
     cursor: pointer;
     appearance: none;
 
     &:focus {
       outline: none;
-      border-color: $primary;
+      border-color: v.$primary-green;
     }
   }
 
@@ -112,16 +99,16 @@ $white: #ffffff;
     gap: 0.35rem;
     padding: 0.625rem 0.875rem;
     background: transparent;
-    color: $text-muted;
-    border: 1px solid $border-color;
+    color: v.$text-muted;
+    border: 1px solid v.$border-color;
     border-radius: 8px;
     font-size: 0.875rem;
     cursor: pointer;
     transition: all 0.2s;
 
     &:hover {
-      color: $danger;
-      border-color: $danger;
+      color: v.$danger;
+      border-color: v.$danger;
     }
   }
 }
@@ -130,19 +117,19 @@ $white: #ffffff;
 // Properties Section
 // ========================================
 .properties-section {
-  background: $white;
+  background: v.$bg-white;
   border-radius: 10px;
-  border: 1px solid $border-color;
+  border: 1px solid v.$border-color;
   overflow: hidden;
 }
 
 .results-header {
   padding: 1rem;
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid v.$border-color;
 
   .results-count {
     font-size: 0.875rem;
-    color: $text-muted;
+    color: v.$text-muted;
   }
 }
 
@@ -167,11 +154,11 @@ $white: #ffffff;
     text-align: left;
     font-size: 0.75rem;
     font-weight: 600;
-    color: $text-muted;
+    color: v.$text-muted;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    background: $bg-light;
-    border-bottom: 1px solid $border-color;
+    background: v.$bg-light;
+    border-bottom: 1px solid v.$border-color;
 
     &.th-image {
       width: 80px;
@@ -196,7 +183,7 @@ $white: #ffffff;
 
   td {
     padding: 0.875rem 1rem;
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid v.$border-color;
     vertical-align: middle;
   }
 
@@ -205,7 +192,7 @@ $white: #ffffff;
   }
 
   tr:hover {
-    background: rgba($primary, 0.02);
+    background: rgba(v.$primary-green, 0.02);
   }
 }
 
@@ -230,8 +217,8 @@ $white: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: $bg-light;
-      color: $text-muted;
+      background: v.$bg-light;
+      color: v.$text-muted;
     }
 
     .featured-badge {
@@ -243,8 +230,8 @@ $white: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: $accent;
-      color: $white;
+      background: v.$accent-orange;
+      color: v.$bg-white;
       border-radius: 4px;
       font-size: 0.6rem;
     }
@@ -256,7 +243,7 @@ $white: #ffffff;
     h4 {
       font-size: 0.9rem;
       font-weight: 600;
-      color: $text-dark;
+      color: v.$text-dark;
       margin: 0 0 0.25rem 0;
       line-height: 1.3;
     }
@@ -266,7 +253,7 @@ $white: #ffffff;
       align-items: center;
       gap: 0.35rem;
       font-size: 0.8rem;
-      color: $text-muted;
+      color: v.$text-muted;
       margin: 0 0 0.35rem 0;
 
       i {
@@ -278,7 +265,7 @@ $white: #ffffff;
       display: flex;
       gap: 0.75rem;
       font-size: 0.75rem;
-      color: $text-muted;
+      color: v.$text-muted;
 
       span {
         display: flex;
@@ -294,23 +281,23 @@ $white: #ffffff;
     display: block;
     font-size: 0.95rem;
     font-weight: 700;
-    color: $primary;
+    color: v.$primary-green;
     margin-bottom: 0.25rem;
   }
 
   .operation-badge {
     display: inline-block;
     padding: 0.2rem 0.5rem;
-    background: $primary-light;
-    color: $primary;
+    background: v.$primary-green-light;
+    color: v.$primary-green;
     font-size: 0.7rem;
     font-weight: 600;
     border-radius: 4px;
     text-transform: uppercase;
 
     &.alquiler {
-      background: $accent-light;
-      color: $accent;
+      background: v.$accent-orange-light;
+      color: v.$accent-orange;
     }
   }
 }
@@ -319,12 +306,12 @@ $white: #ffffff;
   .type-badge {
     display: inline-block;
     padding: 0.35rem 0.65rem;
-    background: $bg-light;
-    color: $text-dark;
+    background: v.$bg-light;
+    color: v.$text-dark;
     font-size: 0.8rem;
     font-weight: 500;
     border-radius: 6px;
-    border: 1px solid $border-color;
+    border: 1px solid v.$border-color;
   }
 }
 
@@ -348,16 +335,16 @@ $white: #ffffff;
     cursor: pointer;
 
     &.status-available {
-      background: rgba($success, 0.1);
-      color: $success;
+      background: rgba(v.$success, 0.1);
+      color: v.$success;
     }
     &.status-reserved {
-      background: rgba($warning, 0.1);
-      color: $warning;
+      background: rgba(v.$warning, 0.1);
+      color: v.$warning;
     }
     &.status-sold, &.status-rented {
-      background: rgba($text-muted, 0.1);
-      color: $text-muted;
+      background: rgba(v.$text-muted, 0.1);
+      color: v.$text-muted;
     }
   }
 
@@ -367,10 +354,10 @@ $white: #ffffff;
     left: 0;
     margin-top: 0.25rem;
     padding: 0.5rem;
-    background: $white;
-    border: 1px solid $border-color;
+    background: v.$bg-white;
+    border: 1px solid v.$border-color;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: v.$shadow-md;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-5px);
@@ -386,17 +373,17 @@ $white: #ffffff;
       border: none;
       border-radius: 4px;
       font-size: 0.8rem;
-      color: $text-dark;
+      color: v.$text-dark;
       cursor: pointer;
       white-space: nowrap;
 
       &:hover {
-        background: $bg-light;
+        background: v.$bg-light;
       }
 
       &.active {
-        background: $primary-light;
-        color: $primary;
+        background: v.$primary-green-light;
+        color: v.$primary-green;
         font-weight: 600;
       }
     }
@@ -424,45 +411,45 @@ $white: #ffffff;
     text-decoration: none;
 
     &.view {
-      background: rgba($primary, 0.1);
-      color: $primary;
+      background: rgba(v.$primary-green, 0.1);
+      color: v.$primary-green;
 
       &:hover {
-        background: $primary;
-        color: $white;
+        background: v.$primary-green;
+        color: v.$bg-white;
       }
     }
 
     &.edit {
-      background: rgba($accent, 0.1);
-      color: $accent;
+      background: rgba(v.$accent-orange, 0.1);
+      color: v.$accent-orange;
 
       &:hover {
-        background: $accent;
-        color: $white;
+        background: v.$accent-orange;
+        color: v.$bg-white;
       }
     }
 
     &.star {
       background: transparent;
-      color: $text-muted;
+      color: v.$text-muted;
 
       &:hover, &.active {
-        color: $accent;
+        color: v.$accent-orange;
       }
 
       &.active {
-        background: rgba($accent, 0.1);
+        background: rgba(v.$accent-orange, 0.1);
       }
     }
 
     &.delete {
       background: transparent;
-      color: $text-muted;
+      color: v.$text-muted;
 
       &:hover {
-        background: rgba($danger, 0.1);
-        color: $danger;
+        background: rgba(v.$danger, 0.1);
+        color: v.$danger;
       }
     }
   }
@@ -483,8 +470,8 @@ $white: #ffffff;
 
 .property-card {
   display: flex;
-  background: $white;
-  border: 1px solid $border-color;
+  background: v.$bg-white;
+  border: 1px solid v.$border-color;
   border-radius: 10px;
   overflow: hidden;
 
@@ -505,8 +492,8 @@ $white: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: $bg-light;
-      color: $text-muted;
+      background: v.$bg-light;
+      color: v.$text-muted;
       font-size: 1.5rem;
     }
 
@@ -519,8 +506,8 @@ $white: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: $accent;
-      color: $white;
+      background: v.$accent-orange;
+      color: v.$bg-white;
       border-radius: 6px;
       font-size: 0.7rem;
     }
@@ -535,16 +522,16 @@ $white: #ffffff;
       border-radius: 4px;
 
       &.status-available {
-        background: $success;
-        color: $white;
+        background: v.$success;
+        color: v.$bg-white;
       }
       &.status-reserved {
-        background: $warning;
-        color: $white;
+        background: v.$warning;
+        color: v.$bg-white;
       }
       &.status-sold, &.status-rented {
-        background: $text-muted;
-        color: $white;
+        background: v.$text-muted;
+        color: v.$bg-white;
       }
     }
   }
@@ -559,7 +546,7 @@ $white: #ffffff;
     h4 {
       font-size: 0.9rem;
       font-weight: 600;
-      color: $text-dark;
+      color: v.$text-dark;
       margin: 0;
       line-height: 1.3;
       display: -webkit-box;
@@ -573,7 +560,7 @@ $white: #ffffff;
       align-items: center;
       gap: 0.25rem;
       font-size: 0.75rem;
-      color: $text-muted;
+      color: v.$text-muted;
       margin: 0;
 
       i {
@@ -590,21 +577,21 @@ $white: #ffffff;
       .price {
         font-size: 0.9rem;
         font-weight: 700;
-        color: $primary;
+        color: v.$primary-green;
       }
 
       .operation-badge {
         padding: 0.15rem 0.4rem;
-        background: $primary-light;
-        color: $primary;
+        background: v.$primary-green-light;
+        color: v.$primary-green;
         font-size: 0.6rem;
         font-weight: 600;
         border-radius: 3px;
         text-transform: uppercase;
 
         &.alquiler {
-          background: $accent-light;
-          color: $accent;
+          background: v.$accent-orange-light;
+          color: v.$accent-orange;
         }
       }
     }
@@ -621,8 +608,8 @@ $white: #ffffff;
         justify-content: center;
         gap: 0.35rem;
         padding: 0.5rem;
-        background: $primary;
-        color: $white;
+        background: v.$primary-green;
+        color: v.$bg-white;
         border: none;
         border-radius: 6px;
         font-size: 0.8rem;
@@ -638,14 +625,14 @@ $white: #ffffff;
         width: 36px;
         padding: 0.5rem;
         background: transparent;
-        color: $text-muted;
-        border: 1px solid $border-color;
+        color: v.$text-muted;
+        border: 1px solid v.$border-color;
         border-radius: 6px;
         cursor: pointer;
 
         &:hover {
-          color: $danger;
-          border-color: $danger;
+          color: v.$danger;
+          border-color: v.$danger;
         }
       }
     }
@@ -664,7 +651,7 @@ $white: #ffffff;
   text-align: center;
 
   p {
-    color: $text-muted;
+    color: v.$text-muted;
     margin: 0;
     font-size: 0.9rem;
   }
@@ -672,8 +659,8 @@ $white: #ffffff;
   .spinner {
     width: 40px;
     height: 40px;
-    border: 3px solid $border-color;
-    border-top-color: $primary;
+    border: 3px solid v.$border-color;
+    border-top-color: v.$primary-green;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
     margin-bottom: 1rem;

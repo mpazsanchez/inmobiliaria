@@ -1,17 +1,4 @@
-// Variables - Fairway Brand
-$primary: #1a4d2e;
-$primary-dark: #0f3820;
-$primary-light: #e8f5e9;
-$accent: #e6962e;
-$accent-light: #fff8f0;
-$success: #2b8b52;
-$warning: #f59e0b;
-$danger: #dc2626;
-$text-dark: #1f2937;
-$text-muted: #6b7280;
-$border-color: #e5e7eb;
-$bg-light: #f9fafb;
-$white: #ffffff;
+@use 'admin-variables' as v;
 
 // ========================================
 // Page Layout
@@ -38,13 +25,13 @@ $white: #ffffff;
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    color: $text-muted;
+    color: v.$text-muted;
     text-decoration: none;
     font-size: 0.875rem;
     transition: color 0.2s;
 
     &:hover {
-      color: $primary;
+      color: v.$primary-green;
     }
   }
 
@@ -54,11 +41,11 @@ $white: #ffffff;
     gap: 0.75rem;
     font-size: 1.5rem;
     font-weight: 700;
-    color: $text-dark;
+    color: v.$text-dark;
     margin: 0;
 
     i {
-      color: $primary;
+      color: v.$primary-green;
     }
   }
 }
@@ -71,9 +58,9 @@ $white: #ffffff;
   gap: 0.5rem;
   margin-bottom: 1.5rem;
   padding: 0.5rem;
-  background: $white;
+  background: v.$bg-white;
   border-radius: 10px;
-  border: 1px solid $border-color;
+  border: 1px solid v.$border-color;
   overflow-x: auto;
 
   button {
@@ -86,7 +73,7 @@ $white: #ffffff;
     border-radius: 8px;
     font-size: 0.875rem;
     font-weight: 500;
-    color: $text-muted;
+    color: v.$text-muted;
     cursor: pointer;
     transition: all 0.2s;
     white-space: nowrap;
@@ -97,13 +84,13 @@ $white: #ffffff;
     }
 
     &:hover {
-      background: $bg-light;
-      color: $text-dark;
+      background: v.$bg-light;
+      color: v.$text-dark;
     }
 
     &.active {
-      background: $primary;
-      color: $white;
+      background: v.$primary-green;
+      color: v.$bg-white;
     }
 
     &.valid:not(.active)::after {
@@ -113,7 +100,7 @@ $white: #ffffff;
       right: 8px;
       width: 6px;
       height: 6px;
-      background: $success;
+      background: v.$success;
       border-radius: 50%;
     }
   }
@@ -139,22 +126,22 @@ $white: #ffffff;
 }
 
 .form-section {
-  background: $white;
+  background: v.$bg-white;
   border-radius: 12px;
-  border: 1px solid $border-color;
+  border: 1px solid v.$border-color;
   padding: 1.5rem;
 
   h2 {
     font-size: 1.1rem;
     font-weight: 600;
-    color: $text-dark;
+    color: v.$text-dark;
     margin: 0 0 1.25rem 0;
     padding-bottom: 0.75rem;
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid v.$border-color;
   }
 
   .section-description {
-    color: $text-muted;
+    color: v.$text-muted;
     font-size: 0.875rem;
     margin: -0.5rem 0 1.25rem 0;
   }
@@ -192,20 +179,20 @@ $white: #ffffff;
   label {
     font-size: 0.875rem;
     font-weight: 500;
-    color: $text-dark;
+    color: v.$text-dark;
 
     .required {
-      color: $danger;
+      color: v.$danger;
     }
   }
 
   input, select, textarea {
     padding: 0.75rem;
-    border: 1.5px solid $border-color;
+    border: 1.5px solid v.$border-color;
     border-radius: 8px;
     font-size: 0.9rem;
-    color: $text-dark;
-    background: $white;
+    color: v.$text-dark;
+    background: v.$bg-white;
     transition: all 0.2s;
 
     &::placeholder {
@@ -214,17 +201,17 @@ $white: #ffffff;
 
     &:focus {
       outline: none;
-      border-color: $primary;
-      box-shadow: 0 0 0 3px rgba($primary, 0.1);
+      border-color: v.$primary-green;
+      box-shadow: 0 0 0 3px rgba(v.$primary-green, 0.1);
     }
 
     &.invalid {
-      border-color: $danger;
+      border-color: v.$danger;
     }
 
     &[readonly] {
-      background: $bg-light;
-      color: $text-muted;
+      background: v.$bg-light;
+      color: v.$text-muted;
     }
   }
 
@@ -245,12 +232,12 @@ $white: #ffffff;
 
   .field-error {
     font-size: 0.75rem;
-    color: $danger;
+    color: v.$danger;
   }
 
   .char-count {
     font-size: 0.75rem;
-    color: $text-muted;
+    color: v.$text-muted;
     text-align: right;
   }
 }
@@ -289,8 +276,8 @@ $white: #ffffff;
     justify-content: center;
     gap: 0.5rem;
     padding: 0.75rem;
-    background: $bg-light;
-    border: 1.5px solid $border-color;
+    background: v.$bg-light;
+    border: 1.5px solid v.$border-color;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s;
@@ -301,20 +288,20 @@ $white: #ffffff;
 
     i {
       font-size: 1rem;
-      color: $text-muted;
+      color: v.$text-muted;
     }
 
     &:hover {
-      border-color: $primary;
+      border-color: v.$primary-green;
     }
 
     &.selected {
-      background: $primary-light;
-      border-color: $primary;
-      color: $primary;
+      background: v.$primary-green-light;
+      border-color: v.$primary-green;
+      color: v.$primary-green;
 
       i {
-        color: $primary;
+        color: v.$primary-green;
       }
     }
   }
@@ -329,8 +316,8 @@ $white: #ffffff;
   gap: 0.75rem;
   cursor: pointer;
   padding: 0.75rem;
-  background: $bg-light;
-  border: 1.5px solid $border-color;
+  background: v.$bg-light;
+  border: 1.5px solid v.$border-color;
   border-radius: 8px;
   transition: all 0.2s;
 
@@ -341,9 +328,9 @@ $white: #ffffff;
   .checkbox-custom {
     width: 20px;
     height: 20px;
-    border: 2px solid $border-color;
+    border: 2px solid v.$border-color;
     border-radius: 4px;
-    background: $white;
+    background: v.$bg-white;
     transition: all 0.2s;
     position: relative;
     flex-shrink: 0;
@@ -354,7 +341,7 @@ $white: #ffffff;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) scale(0);
-      color: $white;
+      color: v.$bg-white;
       font-size: 0.75rem;
       font-weight: bold;
       transition: transform 0.2s;
@@ -362,8 +349,8 @@ $white: #ffffff;
   }
 
   input:checked ~ .checkbox-custom {
-    background: $primary;
-    border-color: $primary;
+    background: v.$primary-green;
+    border-color: v.$primary-green;
 
     &::after {
       transform: translate(-50%, -50%) scale(1);
@@ -377,12 +364,12 @@ $white: #ffffff;
     font-size: 0.9rem;
 
     i {
-      color: $accent;
+      color: v.$accent-orange;
     }
   }
 
   &:hover {
-    border-color: $primary;
+    border-color: v.$primary-green;
   }
 }
 
@@ -400,11 +387,11 @@ $white: #ffffff;
     justify-content: center;
     width: 40px;
     height: 40px;
-    background: $bg-light;
-    border: 1.5px solid $border-color;
+    background: v.$bg-light;
+    border: 1.5px solid v.$border-color;
     cursor: pointer;
     transition: all 0.2s;
-    color: $text-dark;
+    color: v.$text-dark;
 
     &:first-child {
       border-radius: 8px 0 0 8px;
@@ -415,9 +402,9 @@ $white: #ffffff;
     }
 
     &:hover {
-      background: $primary-light;
-      border-color: $primary;
-      color: $primary;
+      background: v.$primary-green-light;
+      border-color: v.$primary-green;
+      color: v.$primary-green;
     }
   }
 
@@ -443,11 +430,11 @@ $white: #ffffff;
 .map-placeholder {
   margin-top: 1.5rem;
   padding: 2rem;
-  background: $bg-light;
-  border: 2px dashed $border-color;
+  background: v.$bg-light;
+  border: 2px dashed v.$border-color;
   border-radius: 12px;
   text-align: center;
-  color: $text-muted;
+  color: v.$text-muted;
 
   i {
     font-size: 2rem;
@@ -471,12 +458,12 @@ $white: #ffffff;
 .amenidades-section {
   margin-top: 1.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid $border-color;
+  border-top: 1px solid v.$border-color;
 
   h3 {
     font-size: 0.95rem;
     font-weight: 600;
-    color: $text-dark;
+    color: v.$text-dark;
     margin: 0 0 1rem 0;
   }
 }
@@ -492,11 +479,11 @@ $white: #ffffff;
   align-items: center;
   gap: 0.35rem;
   padding: 0.5rem 0.875rem;
-  background: $bg-light;
-  border: 1.5px solid $border-color;
+  background: v.$bg-light;
+  border: 1.5px solid v.$border-color;
   border-radius: 20px;
   font-size: 0.8rem;
-  color: $text-dark;
+  color: v.$text-dark;
   cursor: pointer;
   transition: all 0.2s;
 
@@ -505,13 +492,13 @@ $white: #ffffff;
   }
 
   &:hover {
-    border-color: $primary;
+    border-color: v.$primary-green;
   }
 
   &.selected {
-    background: $primary-light;
-    border-color: $primary;
-    color: $primary;
+    background: v.$primary-green-light;
+    border-color: v.$primary-green;
+    color: v.$primary-green;
   }
 }
 
@@ -529,9 +516,9 @@ $white: #ffffff;
   display: flex;
   gap: 1rem;
   padding: 1rem;
-  background: $bg-light;
+  background: v.$bg-light;
   border-radius: 10px;
-  border: 1px solid $border-color;
+  border: 1px solid v.$border-color;
 
   @media (max-width: 640px) {
     flex-direction: column;
@@ -562,8 +549,8 @@ $white: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: $white;
-      color: $text-muted;
+      background: v.$bg-white;
+      color: v.$text-muted;
       font-size: 1.5rem;
     }
 
@@ -572,8 +559,8 @@ $white: #ffffff;
       top: 6px;
       left: 6px;
       padding: 0.2rem 0.5rem;
-      background: $accent;
-      color: $white;
+      background: v.$accent-orange;
+      color: v.$bg-white;
       font-size: 0.65rem;
       font-weight: 600;
       border-radius: 4px;
@@ -607,17 +594,17 @@ $white: #ffffff;
     width: 36px;
     height: 36px;
     background: transparent;
-    border: 1px solid $border-color;
+    border: 1px solid v.$border-color;
     border-radius: 8px;
-    color: $text-muted;
+    color: v.$text-muted;
     cursor: pointer;
     transition: all 0.2s;
     align-self: flex-start;
 
     &:hover {
-      background: rgba($danger, 0.1);
-      border-color: $danger;
-      color: $danger;
+      background: rgba(v.$danger, 0.1);
+      border-color: v.$danger;
+      color: v.$danger;
     }
   }
 }
@@ -630,17 +617,17 @@ $white: #ffffff;
   width: 100%;
   padding: 1rem;
   background: transparent;
-  border: 2px dashed $border-color;
+  border: 2px dashed v.$border-color;
   border-radius: 10px;
-  color: $text-muted;
+  color: v.$text-muted;
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s;
 
   &:hover {
-    border-color: $primary;
-    color: $primary;
-    background: rgba($primary, 0.02);
+    border-color: v.$primary-green;
+    color: v.$primary-green;
+    background: rgba(v.$primary-green, 0.02);
   }
 }
 
@@ -650,9 +637,9 @@ $white: #ffffff;
   gap: 0.75rem;
   margin-top: 1rem;
   padding: 1rem;
-  background: $accent-light;
+  background: v.$accent-orange-light;
   border-radius: 8px;
-  color: $accent;
+  color: v.$accent-orange;
   font-size: 0.85rem;
 
   i {
@@ -672,7 +659,7 @@ $white: #ffffff;
   justify-content: flex-end;
   gap: 0.75rem;
   padding-top: 1rem;
-  border-top: 1px solid $border-color;
+  border-top: 1px solid v.$border-color;
 
   @media (max-width: 480px) {
     flex-direction: column;
@@ -697,37 +684,37 @@ $white: #ffffff;
 }
 
 .btn-primary {
-  background: $primary;
-  color: $white;
+  background: v.$primary-green;
+  color: v.$bg-white;
   border: none;
 
   &:hover:not(:disabled) {
-    background: $primary-dark;
+    background: v.$primary-green-dark;
   }
 
   &:disabled {
-    background: $text-muted;
+    background: v.$text-muted;
     cursor: not-allowed;
   }
 
   .spinner-small {
     width: 16px;
     height: 16px;
-    border: 2px solid rgba($white, 0.3);
-    border-top-color: $white;
+    border: 2px solid rgba(v.$bg-white, 0.3);
+    border-top-color: v.$bg-white;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
   }
 }
 
 .btn-secondary {
-  background: $white;
-  color: $text-dark;
-  border: 1px solid $border-color;
+  background: v.$bg-white;
+  color: v.$text-dark;
+  border: 1px solid v.$border-color;
 
   &:hover {
-    background: $bg-light;
-    border-color: $text-muted;
+    background: v.$bg-light;
+    border-color: v.$text-muted;
   }
 }
 
@@ -748,7 +735,7 @@ $white: #ffffff;
   background: #fef2f2;
   border: 1px solid #fecaca;
   border-radius: 10px;
-  color: $danger;
+  color: v.$danger;
 
   i {
     font-size: 1.1rem;
@@ -770,10 +757,10 @@ $white: #ffffff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    color: $danger;
+    color: v.$danger;
 
     &:hover {
-      background: rgba($danger, 0.1);
+      background: rgba(v.$danger, 0.1);
     }
   }
 }
@@ -787,22 +774,22 @@ $white: #ffffff;
   align-items: center;
   justify-content: center;
   padding: 4rem 2rem;
-  background: $white;
+  background: v.$bg-white;
   border-radius: 12px;
-  border: 1px solid $border-color;
+  border: 1px solid v.$border-color;
 
   .spinner {
     width: 40px;
     height: 40px;
-    border: 3px solid $border-color;
-    border-top-color: $primary;
+    border: 3px solid v.$border-color;
+    border-top-color: v.$primary-green;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
     margin-bottom: 1rem;
   }
 
   p {
-    color: $text-muted;
+    color: v.$text-muted;
     margin: 0;
     font-size: 0.9rem;
   }

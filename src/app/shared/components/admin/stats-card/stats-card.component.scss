@@ -1,38 +1,27 @@
-// Variables - Fairway Brand
-$primary-green: #1a4d2e;
-$accent-orange: #e6962e;
-$success: #10b981;
-$warning: #f59e0b;
-$danger: #ef4444;
-$info: #3b82f6;
-$text-dark: #1f2937;
-$text-muted: #6b7280;
-$border-color: #e5e7eb;
-$bg-light: #f9fafb;
-$white: #ffffff;
+@use 'admin-variables' as v;
 
 .stat-card {
   display: flex;
   align-items: center;
   gap: 1rem;
   padding: 1.25rem;
-  background: $white;
-  border-radius: 12px;
-  border: 1px solid $border-color;
-  transition: all 0.2s ease;
+  background: v.$bg-white;
+  border-radius: v.$radius-lg;
+  border: 1px solid v.$border-color;
+  transition: all v.$transition-base;
 
   &.clickable {
     cursor: pointer;
 
     &:hover {
-      border-color: $primary-green;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      border-color: v.$primary-green;
+      box-shadow: v.$shadow-md;
     }
   }
 
   &.active {
-    border-color: $primary-green;
-    background: rgba($primary-green, 0.02);
+    border-color: v.$primary-green;
+    background: rgba(v.$primary-green, 0.02);
   }
 }
 
@@ -42,38 +31,38 @@ $white: #ffffff;
   justify-content: center;
   width: 48px;
   height: 48px;
-  border-radius: 10px;
+  border-radius: v.$radius-md;
   font-size: 1.25rem;
   flex-shrink: 0;
 
   &.primary {
-    background: rgba($primary-green, 0.1);
-    color: $primary-green;
+    background: rgba(v.$primary-green, 0.1);
+    color: v.$primary-green;
   }
 
   &.success {
-    background: rgba($success, 0.1);
-    color: $success;
+    background: rgba(v.$success, 0.1);
+    color: v.$success;
   }
 
   &.warning {
-    background: rgba($warning, 0.1);
-    color: $warning;
+    background: rgba(v.$warning, 0.1);
+    color: v.$warning;
   }
 
   &.danger {
-    background: rgba($danger, 0.1);
-    color: $danger;
+    background: rgba(v.$danger, 0.1);
+    color: v.$danger;
   }
 
   &.info {
-    background: rgba($info, 0.1);
-    color: $info;
+    background: rgba(v.$info, 0.1);
+    color: v.$info;
   }
 
   &.default {
-    background: $bg-light;
-    color: $text-muted;
+    background: v.$bg-light;
+    color: v.$text-muted;
   }
 }
 
@@ -84,15 +73,15 @@ $white: #ffffff;
 }
 
 .stat-value {
-  font-size: 1.5rem;
+  font-size: v.$font-size-2xl;
   font-weight: 700;
-  color: $text-dark;
+  color: v.$text-dark;
   line-height: 1.2;
 }
 
 .stat-label {
   font-size: 0.8rem;
-  color: $text-muted;
+  color: v.$text-muted;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -100,7 +89,7 @@ $white: #ffffff;
 
 .stat-sub {
   font-size: 0.7rem;
-  color: $text-muted;
+  color: v.$text-muted;
   opacity: 0.8;
   margin-top: 2px;
 }
@@ -108,20 +97,20 @@ $white: #ffffff;
 .stat-trend {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
-  font-size: 0.75rem;
+  gap: v.$spacing-xs;
+  font-size: v.$font-size-xs;
   font-weight: 500;
-  margin-top: 0.25rem;
+  margin-top: v.$spacing-xs;
 
   &.up {
-    color: $success;
+    color: v.$success;
   }
 
   &.down {
-    color: $danger;
+    color: v.$danger;
   }
 
   &.neutral {
-    color: $text-muted;
+    color: v.$text-muted;
   }
 }

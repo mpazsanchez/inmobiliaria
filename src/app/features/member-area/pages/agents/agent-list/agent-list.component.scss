@@ -1,13 +1,4 @@
-// Variables
-$primary-green: #1a4d2e;
-$primary-orange: #e6962e;
-$text-dark: #1a1a1a;
-$text-muted: #666;
-$border-color: #e0e0e0;
-$bg-light: #f8f9fa;
-$success: #28a745;
-$danger: #dc3545;
-$warning: #ffc107;
+@use 'admin-variables' as v;
 
 .agent-list-page {
   padding: 0;
@@ -20,21 +11,21 @@ $warning: #ffc107;
   gap: 0.25rem;
   padding: 0.5rem 0.75rem;
   background: transparent;
-  color: $danger;
+  color: v.$danger;
   border: none;
   font-size: 0.813rem;
   cursor: pointer;
   transition: all 0.2s;
 
   &:hover {
-    background: lighten($danger, 40%);
+    background: lighten(#dc3545, 40%);
     border-radius: 4px;
   }
 }
 
 // ============ FILTERS ============
 .filters-section {
-  background: white;
+  background: v.$bg-white;
   border-radius: 12px;
   padding: 1rem 1.25rem;
   margin-bottom: 1.5rem;
@@ -56,19 +47,19 @@ $warning: #ffc107;
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: $bg-light;
+  background: v.$bg-light;
   padding: 0.625rem 1rem;
   border-radius: 8px;
   border: 1px solid transparent;
   transition: all 0.2s;
 
   &:focus-within {
-    border-color: $primary-green;
-    background: white;
+    border-color: v.$primary-green;
+    background: v.$bg-white;
   }
 
   i {
-    color: $text-muted;
+    color: v.$text-muted;
   }
 
   input {
@@ -76,11 +67,11 @@ $warning: #ffc107;
     border: none;
     background: none;
     font-size: 0.875rem;
-    color: $text-dark;
+    color: v.$text-dark;
     outline: none;
 
     &::placeholder {
-      color: $text-muted;
+      color: v.$text-muted;
     }
   }
 }
@@ -93,18 +84,18 @@ $warning: #ffc107;
 
   select {
     padding: 0.625rem 2rem 0.625rem 1rem;
-    border: 1px solid $border-color;
+    border: 1px solid v.$border-color;
     border-radius: 8px;
-    background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E") no-repeat right 0.75rem center;
+    background: v.$bg-white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E") no-repeat right 0.75rem center;
     font-size: 0.875rem;
-    color: $text-dark;
+    color: v.$text-dark;
     cursor: pointer;
     appearance: none;
     min-width: 140px;
 
     &:focus {
       outline: none;
-      border-color: $primary-green;
+      border-color: v.$primary-green;
     }
   }
 }
@@ -116,12 +107,12 @@ $warning: #ffc107;
   align-items: center;
   justify-content: center;
   padding: 4rem 2rem;
-  background: white;
+  background: v.$bg-white;
   border-radius: 12px;
   text-align: center;
 
   p {
-    color: $text-muted;
+    color: v.$text-muted;
     margin: 0;
   }
 }
@@ -129,8 +120,8 @@ $warning: #ffc107;
 .spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid $border-color;
-  border-top-color: $primary-green;
+  border: 3px solid v.$border-color;
+  border-top-color: v.$primary-green;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
   margin-bottom: 1rem;
@@ -150,7 +141,7 @@ $warning: #ffc107;
 }
 
 .agent-item {
-  background: white;
+  background: v.$bg-white;
   border-radius: 12px;
   padding: 1.25rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
@@ -167,7 +158,7 @@ $warning: #ffc107;
 
   &.inactive {
     opacity: 0.65;
-    
+
     .agent-photo img {
       filter: grayscale(40%);
     }
@@ -175,11 +166,11 @@ $warning: #ffc107;
 
   @media (max-width: 1024px) {
     grid-template-columns: 70px 1fr;
-    
+
     .agent-stats,
     .agent-actions {
       grid-column: 1 / -1;
-      border-top: 1px solid $border-color;
+      border-top: 1px solid v.$border-color;
       padding-top: 1rem;
       margin-top: 0.5rem;
     }
@@ -234,15 +225,15 @@ $warning: #ffc107;
     right: -6px;
     width: 24px;
     height: 24px;
-    background: $primary-orange;
-    color: white;
+    background: v.$accent-orange;
+    color: v.$bg-white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.75rem;
-    box-shadow: 0 2px 6px rgba($primary-orange, 0.4);
-    border: 2px solid white;
+    box-shadow: 0 2px 6px rgba(v.$accent-orange, 0.4);
+    border: 2px solid v.$bg-white;
   }
 }
 
@@ -263,7 +254,7 @@ $warning: #ffc107;
     h3 {
       font-size: 1.125rem;
       font-weight: 700;
-      color: $text-dark;
+      color: v.$text-dark;
       margin: 0;
       white-space: nowrap;
       overflow: hidden;
@@ -284,13 +275,13 @@ $warning: #ffc107;
       white-space: nowrap;
 
       &.active {
-        background: rgba($success, 0.1);
-        color: $success;
+        background: rgba(v.$success, 0.1);
+        color: v.$success;
       }
 
       &.inactive {
-        background: rgba($text-muted, 0.1);
-        color: $text-muted;
+        background: rgba(v.$text-muted, 0.1);
+        color: v.$text-muted;
       }
     }
   }
@@ -301,7 +292,7 @@ $warning: #ffc107;
     gap: 0.75rem;
     flex-wrap: wrap;
     font-size: 0.875rem;
-    color: $text-muted;
+    color: v.$text-muted;
 
     @media (max-width: 768px) {
       font-size: 0.8rem;
@@ -313,13 +304,13 @@ $warning: #ffc107;
       gap: 0.4rem;
 
       i {
-        color: $primary-green;
+        color: v.$primary-green;
         font-size: 0.875rem;
       }
     }
 
     .detail-separator {
-      color: lighten($text-muted, 20%);
+      color: lighten(#666, 20%);
     }
   }
 
@@ -338,7 +329,7 @@ $warning: #ffc107;
       display: flex;
       align-items: center;
       gap: 0.4rem;
-      color: $text-muted;
+      color: v.$text-muted;
       text-decoration: none;
       transition: color 0.2s;
       white-space: nowrap;
@@ -346,18 +337,18 @@ $warning: #ffc107;
       text-overflow: ellipsis;
 
       i {
-        color: $primary-green;
+        color: v.$primary-green;
         font-size: 0.8rem;
         flex-shrink: 0;
       }
 
       &:hover {
-        color: $primary-green;
+        color: v.$primary-green;
       }
     }
 
     .detail-separator {
-      color: lighten($text-muted, 20%);
+      color: lighten(#666, 20%);
     }
   }
 }
@@ -367,8 +358,8 @@ $warning: #ffc107;
   display: flex;
   gap: 1.5rem;
   padding: 0 1rem;
-  border-left: 1px solid $border-color;
-  border-right: 1px solid $border-color;
+  border-left: 1px solid v.$border-color;
+  border-right: 1px solid v.$border-color;
 
   @media (max-width: 1024px) {
     border-left: none;
@@ -384,7 +375,7 @@ $warning: #ffc107;
 
     i {
       font-size: 1.25rem;
-      color: $primary-green;
+      color: v.$primary-green;
 
       @media (max-width: 768px) {
         font-size: 1.1rem;
@@ -399,12 +390,12 @@ $warning: #ffc107;
       strong {
         font-size: 1.1rem;
         font-weight: 700;
-        color: $text-dark;
+        color: v.$text-dark;
       }
 
       span {
         font-size: 0.75rem;
-        color: $text-muted;
+        color: v.$text-muted;
       }
     }
   }
@@ -422,41 +413,40 @@ $warning: #ffc107;
     justify-content: center;
     width: 36px;
     height: 36px;
-    background: white;
-    border: 1px solid $border-color;
+    background: v.$bg-white;
+    border: 1px solid v.$border-color;
     border-radius: 8px;
-    color: $text-muted;
+    color: v.$text-muted;
     font-size: 1rem;
     cursor: pointer;
     text-decoration: none;
     transition: all 0.2s;
 
     &:hover {
-      background: $bg-light;
-      border-color: darken($border-color, 10%);
+      background: v.$bg-light;
+      border-color: darken(#e0e0e0, 10%);
     }
 
     &.edit:hover {
-      color: $primary-green;
-      border-color: $primary-green;
-      background: rgba($primary-green, 0.05);
+      color: v.$primary-green;
+      border-color: v.$primary-green;
+      background: rgba(v.$primary-green, 0.05);
     }
 
     &.active {
-      color: $primary-orange;
-      border-color: $primary-orange;
-      background: rgba($primary-orange, 0.05);
+      color: v.$accent-orange;
+      border-color: v.$accent-orange;
+      background: rgba(v.$accent-orange, 0.05);
 
       &:hover {
-        background: rgba($primary-orange, 0.1);
+        background: rgba(v.$accent-orange, 0.1);
       }
     }
 
     &.danger:hover {
-      background: lighten($danger, 40%);
-      color: $danger;
-      border-color: $danger;
+      background: lighten(#dc3545, 40%);
+      color: v.$danger;
+      border-color: v.$danger;
     }
   }
 }
-

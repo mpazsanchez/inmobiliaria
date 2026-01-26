@@ -1,24 +1,18 @@
-// Variables - Fairway Brand
-$primary-green: #1a4d2e;
-$text-dark: #1f2937;
-$text-muted: #6b7280;
-$border-color: #e5e7eb;
-$bg-light: #f9fafb;
-$white: #ffffff;
+@use 'admin-variables' as v;
 
 .empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 4rem 2rem;
+  padding: v.$spacing-xl * 2 v.$spacing-xl;
   text-align: center;
-  background: $white;
-  border-radius: 12px;
-  border: 1px solid $border-color;
+  background: v.$bg-white;
+  border-radius: v.$radius-lg;
+  border: 1px solid v.$border-color;
 
   &.compact {
-    padding: 2rem 1.5rem;
+    padding: v.$spacing-xl v.$spacing-lg;
 
     > i {
       font-size: 2rem;
@@ -26,7 +20,7 @@ $white: #ffffff;
     }
 
     h3 {
-      font-size: 1rem;
+      font-size: v.$font-size-base;
     }
 
     p {
@@ -36,22 +30,22 @@ $white: #ffffff;
 
   > i {
     font-size: 3rem;
-    color: $text-muted;
-    margin-bottom: 1rem;
+    color: v.$text-muted;
+    margin-bottom: v.$spacing-md;
     opacity: 0.5;
   }
 
   h3 {
-    font-size: 1.125rem;
+    font-size: v.$font-size-lg;
     font-weight: 600;
-    color: $text-dark;
-    margin: 0 0 0.5rem;
+    color: v.$text-dark;
+    margin: 0 0 v.$spacing-sm;
   }
 
   p {
-    font-size: 0.875rem;
-    color: $text-muted;
-    margin: 0 0 1.5rem;
+    font-size: v.$font-size-sm;
+    color: v.$text-muted;
+    margin: 0 0 v.$spacing-lg;
     max-width: 300px;
   }
 }
@@ -67,32 +61,32 @@ $white: #ffffff;
 .btn-secondary {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: v.$spacing-sm;
   padding: 0.75rem 1.25rem;
-  border-radius: 8px;
-  font-size: 0.875rem;
+  border-radius: v.$radius-md;
+  font-size: v.$font-size-sm;
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all v.$transition-base;
 }
 
 .btn-primary {
-  background: $primary-green;
-  color: $white;
+  background: v.$primary-green;
+  color: v.$bg-white;
   border: none;
 
   &:hover {
-    background: darken($primary-green, 8%);
+    background: v.$primary-green-dark;
   }
 }
 
 .btn-secondary {
-  background: $bg-light;
-  color: $text-dark;
-  border: 1px solid $border-color;
+  background: v.$bg-light;
+  color: v.$text-dark;
+  border: 1px solid v.$border-color;
 
   &:hover {
-    background: darken($bg-light, 3%);
+    background: darken(#f9fafb, 3%);
   }
 }

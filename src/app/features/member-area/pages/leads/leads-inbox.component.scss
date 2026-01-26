@@ -1,14 +1,4 @@
-// Variables
-$primary-green: #1a4d2e;
-$primary-orange: #e6962e;
-$text-dark: #1a1a1a;
-$text-muted: #666;
-$border-color: #e0e0e0;
-$bg-light: #f8f9fa;
-$success: #28a745;
-$danger: #dc3545;
-$warning: #ffc107;
-$whatsapp: #25d366;
+@use 'admin-variables' as v;
 
 .leads-inbox-page {
   padding: 0;
@@ -16,16 +6,16 @@ $whatsapp: #25d366;
 
 // ============ INBOX CONTAINER ============
 .inbox-container {
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  background: v.$bg-white;
+  border-radius: v.$radius-lg;
+  box-shadow: v.$shadow-sm;
   overflow: hidden;
 }
 
 // ============ FILTERS ============
 .filters-bar {
   padding: 1rem 1.25rem;
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid v.$border-color;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -43,19 +33,19 @@ $whatsapp: #25d366;
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: $bg-light;
+  background: v.$bg-light;
   padding: 0.5rem 1rem;
   border-radius: 8px;
   border: 1px solid transparent;
   transition: all 0.2s;
 
   &:focus-within {
-    border-color: $primary-green;
-    background: white;
+    border-color: v.$primary-green;
+    background: v.$bg-white;
   }
 
   i {
-    color: $text-muted;
+    color: v.$text-muted;
   }
 
   input {
@@ -63,11 +53,11 @@ $whatsapp: #25d366;
     border: none;
     background: none;
     font-size: 0.875rem;
-    color: $text-dark;
+    color: v.$text-dark;
     outline: none;
 
     &::placeholder {
-      color: $text-muted;
+      color: v.$text-muted;
     }
   }
 }
@@ -79,17 +69,17 @@ $whatsapp: #25d366;
 
   select {
     padding: 0.5rem 2rem 0.5rem 1rem;
-    border: 1px solid $border-color;
+    border: 1px solid v.$border-color;
     border-radius: 8px;
-    background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E") no-repeat right 0.75rem center;
+    background: v.$bg-white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E") no-repeat right 0.75rem center;
     font-size: 0.875rem;
-    color: $text-dark;
+    color: v.$text-dark;
     cursor: pointer;
     appearance: none;
 
     &:focus {
       outline: none;
-      border-color: $primary-green;
+      border-color: v.$primary-green;
     }
   }
 }
@@ -100,14 +90,14 @@ $whatsapp: #25d366;
   gap: 0.25rem;
   padding: 0.5rem 0.75rem;
   background: transparent;
-  color: $danger;
+  color: v.$danger;
   border: none;
   font-size: 0.813rem;
   cursor: pointer;
   transition: all 0.2s;
 
   &:hover {
-    background: lighten($danger, 40%);
+    background: lighten(#ef4444, 40%);
     border-radius: 4px;
   }
 }
@@ -116,7 +106,7 @@ $whatsapp: #25d366;
 .inbox-layout {
   display: grid;
   grid-template-columns: 1fr;
-  min-height: 600px; // Altura mínima para que el panel de detalle tenga espacio
+  min-height: 600px;
 
   &.with-detail {
     grid-template-columns: 380px 1fr;
@@ -133,7 +123,7 @@ $whatsapp: #25d366;
 
 // ============ LEADS LIST ============
 .leads-list-column {
-  border-right: 1px solid $border-color;
+  border-right: 1px solid v.$border-color;
   max-height: 600px;
   overflow-y: auto;
 }
@@ -150,16 +140,16 @@ $whatsapp: #25d366;
   padding: 1rem 1.25rem;
   cursor: pointer;
   transition: background 0.2s;
-  border-bottom: 1px solid lighten($border-color, 5%);
+  border-bottom: 1px solid lighten(#e0e0e0, 5%);
   position: relative;
 
   &:hover {
-    background: $bg-light;
+    background: v.$bg-light;
   }
 
   &.selected {
-    background: rgba($primary-green, 0.08);
-    border-left: 3px solid $primary-green;
+    background: rgba(v.$primary-green, 0.08);
+    border-left: 3px solid v.$primary-green;
     padding-left: calc(1.25rem - 3px);
   }
 
@@ -169,7 +159,7 @@ $whatsapp: #25d366;
     }
 
     .lead-preview {
-      color: $text-dark;
+      color: v.$text-dark;
     }
   }
 }
@@ -178,8 +168,8 @@ $whatsapp: #25d366;
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: lighten($primary-green, 50%);
-  color: $primary-green;
+  background: lighten(#1a4d2e, 50%);
+  color: v.$primary-green;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -188,8 +178,8 @@ $whatsapp: #25d366;
   flex-shrink: 0;
 
   &.unread {
-    background: $primary-orange;
-    color: white;
+    background: v.$accent-orange;
+    color: v.$bg-white;
   }
 }
 
@@ -207,7 +197,7 @@ $whatsapp: #25d366;
 
   .lead-name {
     font-size: 0.875rem;
-    color: $text-dark;
+    color: v.$text-dark;
     font-weight: 500;
     white-space: nowrap;
     overflow: hidden;
@@ -216,20 +206,20 @@ $whatsapp: #25d366;
 
   .lead-time {
     font-size: 0.75rem;
-    color: $text-muted;
+    color: v.$text-muted;
     white-space: nowrap;
   }
 }
 
 .lead-email {
   font-size: 0.75rem;
-  color: $text-muted;
+  color: v.$text-muted;
   margin-bottom: 0.375rem;
 }
 
 .lead-preview {
   font-size: 0.813rem;
-  color: $text-muted;
+  color: v.$text-muted;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -241,7 +231,7 @@ $whatsapp: #25d366;
   right: 1rem;
   width: 10px;
   height: 10px;
-  background: $primary-orange;
+  background: v.$accent-orange;
   border-radius: 50%;
 }
 
@@ -249,18 +239,18 @@ $whatsapp: #25d366;
 .lead-detail-column {
   display: flex;
   flex-direction: column;
-  height: 600px; // Altura fija igual que la lista
+  height: 600px;
 
   &.empty {
     justify-content: center;
     align-items: center;
-    background: $bg-light;
+    background: v.$bg-light;
   }
 }
 
 .empty-detail {
   text-align: center;
-  color: $text-muted;
+  color: v.$text-muted;
 
   i {
     font-size: 3rem;
@@ -278,7 +268,7 @@ $whatsapp: #25d366;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid v.$border-color;
 }
 
 .btn-close-detail {
@@ -287,14 +277,14 @@ $whatsapp: #25d366;
   height: 36px;
   align-items: center;
   justify-content: center;
-  background: $bg-light;
+  background: v.$bg-light;
   border: none;
   border-radius: 8px;
-  color: $text-muted;
+  color: v.$text-muted;
   cursor: pointer;
 
   &:hover {
-    background: $border-color;
+    background: v.$border-color;
   }
 
   @media (max-width: 992px) {
@@ -310,12 +300,12 @@ $whatsapp: #25d366;
   border-radius: 20px;
   font-size: 0.75rem;
   font-weight: 500;
-  background: rgba($primary-orange, 0.1);
-  color: $primary-orange;
+  background: rgba(v.$accent-orange, 0.1);
+  color: v.$accent-orange;
 
   &.respondida {
-    background: rgba($success, 0.1);
-    color: $success;
+    background: rgba(v.$success, 0.1);
+    color: v.$success;
   }
 }
 
@@ -334,15 +324,15 @@ $whatsapp: #25d366;
   gap: 0.75rem;
   margin-bottom: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid v.$border-color;
 }
 
 .contact-avatar-small {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: linear-gradient(135deg, $primary-green, darken($primary-green, 10%));
-  color: white;
+  background: linear-gradient(135deg, v.$primary-green, v.$primary-green-dark);
+  color: v.$bg-white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -358,7 +348,7 @@ $whatsapp: #25d366;
   h2 {
     font-size: 1rem;
     font-weight: 700;
-    color: $text-dark;
+    color: v.$text-dark;
     margin: 0;
     white-space: nowrap;
     overflow: hidden;
@@ -367,7 +357,7 @@ $whatsapp: #25d366;
 
   .contact-date {
     font-size: 0.75rem;
-    color: $text-muted;
+    color: v.$text-muted;
   }
 }
 
@@ -376,8 +366,8 @@ $whatsapp: #25d366;
   align-items: center;
   gap: 0.375rem;
   padding: 0.375rem 0.625rem;
-  background: rgba($primary-orange, 0.1);
-  color: $primary-orange;
+  background: rgba(v.$accent-orange, 0.1);
+  color: v.$accent-orange;
   border-radius: 6px;
   font-size: 0.75rem;
   font-weight: 600;
@@ -391,7 +381,7 @@ $whatsapp: #25d366;
   gap: 0.5rem;
   margin-bottom: 1rem;
   padding: 0.75rem;
-  background: $bg-light;
+  background: v.$bg-light;
   border-radius: 10px;
 }
 
@@ -401,8 +391,8 @@ $whatsapp: #25d366;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: white;
-  border: 1px solid $border-color;
+  background: v.$bg-white;
+  border: 1px solid v.$border-color;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;
@@ -414,33 +404,33 @@ $whatsapp: #25d366;
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: v.$shadow-sm;
   }
 
   &.email {
-    i { color: $primary-green; }
+    i { color: v.$primary-green; }
     &:hover {
-      background: $primary-green;
-      border-color: $primary-green;
-      i { color: white; }
+      background: v.$primary-green;
+      border-color: v.$primary-green;
+      i { color: v.$bg-white; }
     }
   }
 
   &.phone {
-    i { color: $primary-orange; }
+    i { color: v.$accent-orange; }
     &:hover {
-      background: $primary-orange;
-      border-color: $primary-orange;
-      i { color: white; }
+      background: v.$accent-orange;
+      border-color: v.$accent-orange;
+      i { color: v.$bg-white; }
     }
   }
 
   &.whatsapp {
-    i { color: $whatsapp; }
+    i { color: #25d366; }
     &:hover {
-      background: $whatsapp;
-      border-color: $whatsapp;
-      i { color: white; }
+      background: #25d366;
+      border-color: #25d366;
+      i { color: v.$bg-white; }
     }
   }
 }
@@ -456,14 +446,14 @@ $whatsapp: #25d366;
   .contact-email,
   .contact-phone {
     font-size: 0.75rem;
-    color: $text-muted;
+    color: v.$text-muted;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   .contact-email {
-    color: $text-dark;
+    color: v.$text-dark;
     font-weight: 500;
   }
 }
@@ -477,7 +467,7 @@ $whatsapp: #25d366;
   h3 {
     font-size: 0.75rem;
     font-weight: 600;
-    color: $text-muted;
+    color: v.$text-muted;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin: 0 0 0.75rem;
@@ -487,12 +477,12 @@ $whatsapp: #25d366;
 .message-content-large {
   flex: 1;
   padding: 1.25rem;
-  background: white;
-  border: 1px solid $border-color;
-  border-radius: 12px;
+  background: v.$bg-white;
+  border: 1px solid v.$border-color;
+  border-radius: v.$radius-md;
   font-size: 1rem;
   line-height: 1.7;
-  color: $text-dark;
+  color: v.$text-dark;
   overflow-y: auto;
   min-height: 150px;
 }
@@ -501,8 +491,8 @@ $whatsapp: #25d366;
   display: flex;
   gap: 0.75rem;
   padding: 1rem 1.5rem;
-  border-top: 1px solid $border-color;
-  background: $bg-light;
+  border-top: 1px solid v.$border-color;
+  background: v.$bg-light;
 
   @media (max-width: 576px) {
     flex-direction: column;
@@ -516,8 +506,8 @@ $whatsapp: #25d366;
   justify-content: center;
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
-  background: $primary-green;
-  color: white;
+  background: v.$primary-green;
+  color: v.$bg-white;
   border: none;
   border-radius: 8px;
   font-weight: 500;
@@ -526,7 +516,7 @@ $whatsapp: #25d366;
   flex: 1;
 
   &:hover {
-    background: darken($primary-green, 8%);
+    background: v.$primary-green-dark;
   }
 }
 
@@ -536,9 +526,9 @@ $whatsapp: #25d366;
   justify-content: center;
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
-  background: white;
-  color: $text-dark;
-  border: 1px solid $border-color;
+  background: v.$bg-white;
+  color: v.$text-dark;
+  border: 1px solid v.$border-color;
   border-radius: 8px;
   font-weight: 500;
   cursor: pointer;
@@ -546,7 +536,7 @@ $whatsapp: #25d366;
   flex: 1;
 
   &:hover {
-    background: $bg-light;
+    background: v.$bg-light;
   }
 
   &:disabled {
@@ -561,8 +551,8 @@ $whatsapp: #25d366;
   justify-content: center;
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
-  background: $danger;
-  color: white;
+  background: v.$danger;
+  color: v.$bg-white;
   border: none;
   border-radius: 8px;
   font-weight: 500;
@@ -571,7 +561,7 @@ $whatsapp: #25d366;
   flex: 1;
 
   &:hover:not(:disabled) {
-    background: darken($danger, 8%);
+    background: darken(#ef4444, 8%);
   }
 
   &:disabled {
@@ -586,16 +576,16 @@ $whatsapp: #25d366;
   justify-content: center;
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
-  background: white;
-  color: $danger;
-  border: 1px solid $danger;
+  background: v.$bg-white;
+  color: v.$danger;
+  border: 1px solid v.$danger;
   border-radius: 8px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
 
   &:hover {
-    background: lighten($danger, 40%);
+    background: lighten(#ef4444, 40%);
   }
 }
 
@@ -609,7 +599,7 @@ $whatsapp: #25d366;
   text-align: center;
 
   p {
-    color: $text-muted;
+    color: v.$text-muted;
     margin: 0;
   }
 }
@@ -617,8 +607,8 @@ $whatsapp: #25d366;
 .spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid $border-color;
-  border-top-color: $primary-green;
+  border: 3px solid v.$border-color;
+  border-top-color: v.$primary-green;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
   margin-bottom: 1rem;
