@@ -1,0 +1,238 @@
+// Variables
+$sidebar-width: 260px;
+$sidebar-collapsed-width: 70px;
+$header-height: 64px;
+$primary: #1a56db;
+$primary-dark: #1e40af;
+$text-dark: #1f2937;
+$text-muted: #6b7280;
+$border-color: #e5e7eb;
+$bg-light: #f3f4f6;
+$white: #ffffff;
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: $bg-light;
+}
+
+.admin-main {
+  flex: 1;
+  margin-left: $sidebar-width;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s ease;
+
+  .sidebar-collapsed & {
+    margin-left: $sidebar-collapsed-width;
+  }
+
+  @media (max-width: 1024px) {
+    margin-left: 0;
+  }
+}
+
+// ========================================
+// Header
+// ========================================
+.admin-header {
+  height: $header-height;
+  background: $white;
+  border-bottom: 1px solid $border-color;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.btn-toggle-sidebar {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  color: $text-dark;
+  font-size: 1.25rem;
+  transition: background 0.2s;
+
+  &:hover {
+    background: $bg-light;
+  }
+
+  @media (max-width: 1024px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: auto;
+}
+
+.user-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: $bg-light;
+
+    .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+
+  .user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .user-info {
+    display: none;
+
+    @media (min-width: 640px) {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: $text-dark;
+    }
+
+    .user-role {
+      font-size: 0.75rem;
+      color: $text-muted;
+    }
+  }
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 200px;
+  background: $white;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+
+  hr {
+    margin: 0.5rem 0;
+    border: none;
+    border-top: 1px solid $border-color;
+  }
+
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: none;
+    background: none;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    color: $text-dark;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    i {
+      font-size: 1rem;
+      color: $text-muted;
+    }
+
+    &:hover {
+      background: $bg-light;
+    }
+
+    &.logout {
+      color: #dc2626;
+
+      i {
+        color: #dc2626;
+      }
+
+      &:hover {
+        background: #fef2f2;
+      }
+    }
+  }
+}
+
+// ========================================
+// Content
+// ========================================
+.admin-content {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+
+  @media (min-width: 768px) {
+    padding: 1.25rem;
+  }
+
+  @media (min-width: 1200px) {
+    padding: 1.5rem;
+  }
+}
+
+// ========================================
+// Mobile Overlay
+// ========================================
+.sidebar-overlay {
+  display: none;
+
+  @media (max-width: 1024px) {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    animation: fadeIn 0.2s ease;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Prevenir scroll del body cuando sidebar móvil está abierto
+.admin-layout.sidebar-mobile-open {
+  @media (max-width: 1024px) {
+    overflow: hidden;
+  }
+}
