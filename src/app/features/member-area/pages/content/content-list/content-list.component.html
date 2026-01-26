@@ -1,0 +1,327 @@
+<div class="content-list-page">
+  <!-- Header -->
+  <app-page-header
+    title="Administrar Contenido"
+    subtitle="Gestiona testimonios, beneficios, FAQs y banners del sitio"
+    icon="bi-grid-1x2"
+    [primaryAction]="primaryAction()">
+  </app-page-header>
+
+  <!-- Stats Cards -->
+  @if (stats()) {
+    <div class="stats-grid">
+      @for (tab of tabs; track tab.key) {
+        <div
+          class="stat-card"
+          [class.active]="activeTab() === tab.key"
+          (click)="setActiveTab(tab.key)">
+          <div class="stat-icon" [class]="tab.key">
+            <i [class]="tab.icon"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-value">{{ getStatForTab(tab.key)?.total || 0 }}</span>
+            <span class="stat-label">{{ tab.label }}</span>
+            <span class="stat-activos">{{ getStatForTab(tab.key)?.activos || 0 }} activos</span>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Tabs -->
+  <div class="tabs-container">
+    <div class="tabs">
+      @for (tab of tabs; track tab.key) {
+        <button
+          class="tab-btn"
+          [class.active]="activeTab() === tab.key"
+          (click)="setActiveTab(tab.key)">
+          <i [class]="tab.icon"></i>
+          {{ tab.label }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-section">
+    <div class="search-box">
+      <i class="bi bi-search"></i>
+      <input
+        type="text"
+        placeholder="Buscar..."
+        [value]="searchTerm()"
+        (input)="searchTerm.set($any($event.target).value)"
+        (keyup.enter)="onSearch()">
+    </div>
+    <div class="filter-group">
+      <select
+        [value]="filterActivo() === undefined ? 'all' : filterActivo() ? 'true' : 'false'"
+        (change)="onFilterActivoChange($any($event.target).value)">
+        <option value="all">Todos los estados</option>
+        <option value="true">Activos</option>
+        <option value="false">Inactivos</option>
+      </select>
+      @if (searchTerm() || filterActivo() !== undefined) {
+        <button class="btn-clear-filters" (click)="clearFilters()">
+          <i class="bi bi-x-lg"></i>
+          Limpiar
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content-container">
+    @if (loading()) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Cargando contenido...</p>
+      </div>
+    } @else {
+      <!-- Testimonios -->
+      @if (activeTab() === 'testimonios') {
+        @if (testimonios().length === 0) {
+          <app-empty-state
+            icon="bi-chat-quote"
+            title="No hay testimonios"
+            message="Agrega testimonios de clientes para mostrar en el sitio"
+            primaryActionText="Nuevo Testimonio"
+            primaryActionIcon="bi-plus-lg"
+            [primaryActionRoute]="getNewRoute()">
+          </app-empty-state>
+        } @else {
+          <div class="items-list">
+            @for (item of testimonios(); track item.id) {
+              <div class="content-item" [class.inactive]="!item.activo">
+                <div class="item-photo">
+                  <img [src]="item.fotoUrl" [alt]="item.nombre">
+                </div>
+                <div class="item-info">
+                  <div class="item-header">
+                    <h3>{{ item.nombre }}</h3>
+                    <span class="badge-status" [class.active]="item.activo" [class.inactive]="!item.activo">
+                      {{ item.activo ? 'Activo' : 'Inactivo' }}
+                    </span>
+                  </div>
+                  <p class="item-location">
+                    <i class="bi bi-geo-alt"></i>
+                    {{ item.ubicacion }}
+                  </p>
+                  <p class="item-text">{{ truncateText(item.texto, 120) }}</p>
+                  <div class="item-rating">
+                    @for (star of getRatingStars(item.calificacion); track $index) {
+                      <i class="bi bi-star-fill"></i>
+                    }
+                  </div>
+                </div>
+                <div class="item-actions">
+                  <a [routerLink]="getEditRoute(item.id)" class="btn-action edit" title="Editar">
+                    <i class="bi bi-pencil"></i>
+                  </a>
+                  <button
+                    class="btn-action"
+                    [class.active]="item.activo"
+                    (click)="toggleActivo('testimonios', item.id)"
+                    [title]="item.activo ? 'Desactivar' : 'Activar'">
+                    <i class="bi" [class.bi-toggle-on]="item.activo" [class.bi-toggle-off]="!item.activo"></i>
+                  </button>
+                  <button class="btn-action danger" (click)="confirmDelete('testimonios', item.id, item.nombre)" title="Eliminar">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      }
+
+      <!-- Beneficios -->
+      @if (activeTab() === 'beneficios') {
+        @if (beneficios().length === 0) {
+          <app-empty-state
+            icon="bi-star"
+            title="No hay beneficios"
+            message="Agrega los beneficios de tu servicio para la sección 'Por qué elegirnos'"
+            primaryActionText="Nuevo Beneficio"
+            primaryActionIcon="bi-plus-lg"
+            [primaryActionRoute]="getNewRoute()">
+          </app-empty-state>
+        } @else {
+          <div class="items-grid beneficios-grid">
+            @for (item of beneficios(); track item.id) {
+              <div class="beneficio-card" [class.inactive]="!item.activo">
+                <div class="beneficio-icon">
+                  <i [class]="item.icono"></i>
+                </div>
+                <div class="beneficio-content">
+                  <div class="beneficio-header">
+                    <h3>{{ item.titulo }}</h3>
+                    <span class="badge-orden">#{{ item.orden }}</span>
+                  </div>
+                  <p>{{ item.descripcion }}</p>
+                </div>
+                <div class="beneficio-status">
+                  <span class="badge-status" [class.active]="item.activo" [class.inactive]="!item.activo">
+                    {{ item.activo ? 'Activo' : 'Inactivo' }}
+                  </span>
+                </div>
+                <div class="item-actions">
+                  <a [routerLink]="getEditRoute(item.id)" class="btn-action edit" title="Editar">
+                    <i class="bi bi-pencil"></i>
+                  </a>
+                  <button
+                    class="btn-action"
+                    [class.active]="item.activo"
+                    (click)="toggleActivo('beneficios', item.id)"
+                    [title]="item.activo ? 'Desactivar' : 'Activar'">
+                    <i class="bi" [class.bi-toggle-on]="item.activo" [class.bi-toggle-off]="!item.activo"></i>
+                  </button>
+                  <button class="btn-action danger" (click)="confirmDelete('beneficios', item.id, item.titulo)" title="Eliminar">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      }
+
+      <!-- FAQs -->
+      @if (activeTab() === 'faqs') {
+        @if (faqs().length === 0) {
+          <app-empty-state
+            icon="bi-question-circle"
+            title="No hay FAQs"
+            message="Agrega preguntas frecuentes para ayudar a tus visitantes"
+            primaryActionText="Nueva FAQ"
+            primaryActionIcon="bi-plus-lg"
+            [primaryActionRoute]="getNewRoute()">
+          </app-empty-state>
+        } @else {
+          <div class="items-list faqs-list">
+            @for (item of faqs(); track item.id) {
+              <div class="faq-item" [class.inactive]="!item.activo">
+                <div class="faq-number">#{{ item.orden }}</div>
+                <div class="faq-content">
+                  <div class="faq-header">
+                    <h3>{{ item.pregunta }}</h3>
+                    <div class="faq-badges">
+                      @if (item.categoria) {
+                        <span class="badge-categoria">{{ item.categoria }}</span>
+                      }
+                      <span class="badge-status" [class.active]="item.activo" [class.inactive]="!item.activo">
+                        {{ item.activo ? 'Activo' : 'Inactivo' }}
+                      </span>
+                    </div>
+                  </div>
+                  <p class="faq-answer">{{ truncateText(item.respuesta, 200) }}</p>
+                </div>
+                <div class="item-actions">
+                  <a [routerLink]="getEditRoute(item.id)" class="btn-action edit" title="Editar">
+                    <i class="bi bi-pencil"></i>
+                  </a>
+                  <button
+                    class="btn-action"
+                    [class.active]="item.activo"
+                    (click)="toggleActivo('faqs', item.id)"
+                    [title]="item.activo ? 'Desactivar' : 'Activar'">
+                    <i class="bi" [class.bi-toggle-on]="item.activo" [class.bi-toggle-off]="!item.activo"></i>
+                  </button>
+                  <button class="btn-action danger" (click)="confirmDelete('faqs', item.id, item.pregunta)" title="Eliminar">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      }
+
+      <!-- Banners -->
+      @if (activeTab() === 'banners') {
+        @if (banners().length === 0) {
+          <app-empty-state
+            icon="bi-image"
+            title="No hay banners"
+            message="Agrega banners promocionales para el sitio"
+            primaryActionText="Nuevo Banner"
+            primaryActionIcon="bi-plus-lg"
+            [primaryActionRoute]="getNewRoute()">
+          </app-empty-state>
+        } @else {
+          <div class="items-grid banners-grid">
+            @for (item of banners(); track item.id) {
+              <div class="banner-card" [class.inactive]="!item.activo">
+                <div class="banner-preview">
+                  <img [src]="item.imagenUrl" [alt]="item.titulo">
+                  <div class="banner-overlay">
+                    <span class="badge-posicion">{{ item.posicion | titlecase }}</span>
+                  </div>
+                </div>
+                <div class="banner-content">
+                  <div class="banner-header">
+                    <h3>{{ item.titulo }}</h3>
+                    <span class="badge-orden">#{{ item.orden }}</span>
+                  </div>
+                  @if (item.subtitulo) {
+                    <p class="banner-subtitle">{{ item.subtitulo }}</p>
+                  }
+                  <div class="banner-meta">
+                    @if (item.enlace) {
+                      <span class="meta-item">
+                        <i class="bi bi-link-45deg"></i>
+                        {{ item.enlace }}
+                      </span>
+                    }
+                    @if (item.fechaInicio || item.fechaFin) {
+                      <span class="meta-item">
+                        <i class="bi bi-calendar"></i>
+                        {{ item.fechaInicio || '...' }} - {{ item.fechaFin || '...' }}
+                      </span>
+                    }
+                  </div>
+                </div>
+                <div class="banner-footer">
+                  <span class="badge-status" [class.active]="item.activo" [class.inactive]="!item.activo">
+                    {{ item.activo ? 'Activo' : 'Inactivo' }}
+                  </span>
+                  <div class="item-actions">
+                    <a [routerLink]="getEditRoute(item.id)" class="btn-action edit" title="Editar">
+                      <i class="bi bi-pencil"></i>
+                    </a>
+                    <button
+                      class="btn-action"
+                      [class.active]="item.activo"
+                      (click)="toggleActivo('banners', item.id)"
+                      [title]="item.activo ? 'Desactivar' : 'Activar'">
+                      <i class="bi" [class.bi-toggle-on]="item.activo" [class.bi-toggle-off]="!item.activo"></i>
+                    </button>
+                    <button class="btn-action danger" (click)="confirmDelete('banners', item.id, item.titulo)" title="Eliminar">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      }
+    }
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<app-confirm-modal
+  [isOpen]="showDeleteModal()"
+  [isLoading]="deleting()"
+  variant="danger"
+  title="Confirmar eliminación"
+  [itemName]="itemToDeleteName()"
+  messagePrefix="¿Estás seguro de que deseas eliminar"
+  messageSuffix="?"
+  warningText="Esta acción no se puede deshacer."
+  confirmText="Eliminar"
+  (confirm)="executeDelete()"
+  (cancel)="cancelDelete()">
+</app-confirm-modal>
