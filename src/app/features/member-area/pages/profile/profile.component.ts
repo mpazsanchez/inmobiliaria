@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule, Validators, FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ProfileService } from '../../services/profile.service';
 import { AuthService } from '../../services/auth.service';
@@ -9,7 +9,7 @@ import type { Agente } from '../../../../core/models/agent.interface';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
@@ -28,9 +28,9 @@ export class ProfileComponent implements OnInit {
   selectedPhotoFile: File | null = null;
 
   // Para agregar nuevos items a arrays
-  newIdioma = '';
-  newCertificacion = '';
-  newPremio = '';
+  newIdioma = signal('');
+  newCertificacion = signal('');
+  newPremio = signal('');
 
   ngOnInit(): void {
     this.initForm();
@@ -139,9 +139,10 @@ export class ProfileComponent implements OnInit {
 
   // Metodos para agregar items a arrays
   addIdioma(): void {
-    if (this.newIdioma.trim()) {
-      this.idiomas.push(this.fb.control(this.newIdioma.trim()));
-      this.newIdioma = '';
+    const value = this.newIdioma().trim();
+    if (value) {
+      this.idiomas.push(this.fb.control(value));
+      this.newIdioma.set('');
     }
   }
 
@@ -150,9 +151,10 @@ export class ProfileComponent implements OnInit {
   }
 
   addCertificacion(): void {
-    if (this.newCertificacion.trim()) {
-      this.certificaciones.push(this.fb.control(this.newCertificacion.trim()));
-      this.newCertificacion = '';
+    const value = this.newCertificacion().trim();
+    if (value) {
+      this.certificaciones.push(this.fb.control(value));
+      this.newCertificacion.set('');
     }
   }
 
@@ -161,9 +163,10 @@ export class ProfileComponent implements OnInit {
   }
 
   addPremio(): void {
-    if (this.newPremio.trim()) {
-      this.premios.push(this.fb.control(this.newPremio.trim()));
-      this.newPremio = '';
+    const value = this.newPremio().trim();
+    if (value) {
+      this.premios.push(this.fb.control(value));
+      this.newPremio.set('');
     }
   }
 

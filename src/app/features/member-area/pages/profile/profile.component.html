@@ -87,7 +87,7 @@
       <form [formGroup]="profileForm" (ngSubmit)="onSave()" class="profile-form">
         <!-- Seccion: Informacion Personal -->
         <section class="form-section">
-          <h2><i class="bi bi-person"></i> Informacion Personal</h2>
+          <h2><i class="bi bi-person"></i> Información Personal</h2>
           <div class="form-grid">
             <div class="form-group">
               <label for="nombre">Nombre *</label>
@@ -122,7 +122,7 @@
             </div>
 
             <div class="form-group">
-              <label for="telefono">Telefono *</label>
+              <label for="telefono">Teléfono *</label>
               <input id="telefono" type="tel" formControlName="telefono" placeholder="+54 11 1234-5678">
               @if (getFieldError('telefono')) {
                 <span class="field-error">{{ getFieldError('telefono') }}</span>
@@ -157,8 +157,8 @@
             </div>
 
             <div class="form-group full-width">
-              <label for="biografia">Biografia</label>
-              <textarea id="biografia" formControlName="biografia" rows="4" placeholder="Cuentanos sobre ti, tu experiencia y lo que te diferencia..."></textarea>
+              <label for="biografia">Biografía</label>
+              <textarea id="biografia" formControlName="biografia" rows="4" placeholder="Cuéntanos sobre ti, tu experiencia y lo que te diferencia..."></textarea>
               <span class="char-count">{{ profileForm.get('biografia')?.value?.length || 0 }}/1000</span>
               @if (getFieldError('biografia')) {
                 <span class="field-error">{{ getFieldError('biografia') }}</span>
@@ -181,7 +181,7 @@
             }
           </div>
           <div class="add-item-row">
-            <input type="text" [(ngModel)]="newIdioma" [ngModelOptions]="{standalone: true}" placeholder="Agregar idioma" (keyup.enter)="addIdioma()">
+            <input type="text" [value]="newIdioma()" (input)="newIdioma.set($any($event.target).value)" placeholder="Agregar idioma" (keyup.enter)="addIdioma()">
             <button type="button" class="btn-add" (click)="addIdioma()">
               <i class="bi bi-plus"></i>
             </button>
@@ -231,7 +231,7 @@
             <p class="empty-list">No has agregado certificaciones</p>
           }
           <div class="add-item-row">
-            <input type="text" [(ngModel)]="newCertificacion" [ngModelOptions]="{standalone: true}" placeholder="Agregar certificacion" (keyup.enter)="addCertificacion()">
+            <input type="text" [value]="newCertificacion()" (input)="newCertificacion.set($any($event.target).value)" placeholder="Agregar certificacion" (keyup.enter)="addCertificacion()">
             <button type="button" class="btn-add" (click)="addCertificacion()">
               <i class="bi bi-plus"></i>
             </button>
@@ -255,7 +255,7 @@
             <p class="empty-list">No has agregado premios</p>
           }
           <div class="add-item-row">
-            <input type="text" [(ngModel)]="newPremio" [ngModelOptions]="{standalone: true}" placeholder="Agregar premio" (keyup.enter)="addPremio()">
+            <input type="text" [value]="newPremio()" (input)="newPremio.set($any($event.target).value)" placeholder="Agregar premio" (keyup.enter)="addPremio()">
             <button type="button" class="btn-add" (click)="addPremio()">
               <i class="bi bi-plus"></i>
             </button>
