@@ -31,7 +31,7 @@
         [class.valid]="isTabValid('basic')"
         (click)="setTab('basic')">
         <i class="bi bi-info-circle"></i>
-        <span>Informacion Basica</span>
+        <span>Información Básica</span>
       </button>
       <button
         [class.active]="activeTab() === 'location'"
@@ -45,14 +45,14 @@
         [class.valid]="isTabValid('features')"
         (click)="setTab('features')">
         <i class="bi bi-list-check"></i>
-        <span>Caracteristicas</span>
+        <span>Características</span>
       </button>
       <button
         [class.active]="activeTab() === 'images'"
         [class.valid]="isTabValid('images')"
         (click)="setTab('images')">
         <i class="bi bi-images"></i>
-        <span>Imagenes</span>
+        <span>Imágenes</span>
       </button>
     </nav>
 
@@ -72,27 +72,27 @@
       <!-- Tab: Basic Info -->
       @if (activeTab() === 'basic') {
         <div class="form-section">
-          <h2>Informacion Basica</h2>
+          <h2>Información Básica</h2>
 
           <div class="form-grid">
             <div class="form-group full-width">
               <label for="titulo">
-                Titulo de la Propiedad <span class="required">*</span>
+                Título de la Propiedad <span class="required">*</span>
               </label>
               <input
                 id="titulo"
                 type="text"
                 formControlName="titulo"
-                placeholder="Ej: Departamento 3 ambientes con balcon en Palermo"
+                placeholder="Ej: Departamento 3 ambientes con balcón en Palermo"
                 [class.invalid]="form.get('titulo')?.invalid && form.get('titulo')?.touched">
               @if (form.get('titulo')?.invalid && form.get('titulo')?.touched) {
-                <span class="field-error">Minimo 10 caracteres</span>
+                <span class="field-error">Mínimo 10 caracteres</span>
               }
             </div>
 
             <div class="form-group full-width">
               <label for="descripcion">
-                Descripcion <span class="required">*</span>
+                Descripción <span class="required">*</span>
               </label>
               <textarea
                 id="descripcion"
@@ -102,7 +102,7 @@
                 [class.invalid]="form.get('descripcion')?.invalid && form.get('descripcion')?.touched">
               </textarea>
               @if (form.get('descripcion')?.invalid && form.get('descripcion')?.touched) {
-                <span class="field-error">Minimo 50 caracteres</span>
+                <span class="field-error">Mínimo 50 caracteres</span>
               }
               <span class="char-count">{{ form.get('descripcion')?.value?.length || 0 }} caracteres</span>
             </div>
@@ -117,7 +117,7 @@
             </div>
 
             <div class="form-group">
-              <label for="operacion">Operacion <span class="required">*</span></label>
+              <label for="operacion">Operación <span class="required">*</span></label>
               <div class="radio-group">
                 <label class="radio-option" [class.selected]="form.get('operacion')?.value === 'venta'">
                   <input type="radio" formControlName="operacion" value="venta">
@@ -147,7 +147,7 @@
                   [class.invalid]="form.get('precio')?.invalid && form.get('precio')?.touched">
               </div>
               @if (form.get('precio')?.invalid && form.get('precio')?.touched) {
-                <span class="field-error">Ingresa un precio valido</span>
+                <span class="field-error">Ingresa un precio válido</span>
               }
             </div>
 
@@ -177,11 +177,11 @@
       <!-- Tab: Location -->
       @if (activeTab() === 'location') {
         <div class="form-section" formGroupName="ubicacion">
-          <h2>Ubicacion</h2>
+          <h2>Ubicación</h2>
 
           <div class="form-grid">
             <div class="form-group full-width">
-              <label for="direccion">Direccion <span class="required">*</span></label>
+              <label for="direccion">Dirección <span class="required">*</span></label>
               <input
                 id="direccion"
                 type="text"
@@ -236,7 +236,7 @@
       <!-- Tab: Features -->
       @if (activeTab() === 'features') {
         <div class="form-section" formGroupName="caracteristicas">
-          <h2>Caracteristicas</h2>
+          <h2>Características</h2>
 
           <div class="form-grid features-grid">
             <div class="form-group">
@@ -266,7 +266,7 @@
             </div>
 
             <div class="form-group">
-              <label for="banos">Banos <span class="required">*</span></label>
+              <label for="banos">Baños <span class="required">*</span></label>
               <div class="number-input">
                 <button type="button" (click)="form.get('caracteristicas.banos')?.setValue(Math.max(0, form.get('caracteristicas.banos')?.value - 1))">
                   <i class="bi bi-dash"></i>
@@ -312,7 +312,7 @@
             </div>
 
             <div class="form-group">
-              <label for="antiguedad">Antiguedad (años)</label>
+              <label for="antiguedad">Antigüedad (años)</label>
               <input
                 id="antiguedad"
                 type="number"
@@ -345,8 +345,8 @@
       <!-- Tab: Images -->
       @if (activeTab() === 'images') {
         <div class="form-section">
-          <h2>Imagenes</h2>
-          <p class="section-description">Agrega las fotos de la propiedad. La primera imagen sera la principal.</p>
+          <h2>Imágenes</h2>
+          <p class="section-description">Agrega las fotos de la propiedad. La primera imagen será la principal.</p>
 
           <div class="images-list">
             @for (imagen of imagenesArray.controls; track $index; let i = $index) {
