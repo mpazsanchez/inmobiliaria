@@ -30,6 +30,8 @@ import { AgentFormComponent } from './features/member-area/pages/agents/agent-fo
 import { LeadsInboxComponent } from './features/member-area/pages/leads/leads-inbox.component';
 import { ContentListComponent } from './features/member-area/pages/content/content-list/content-list.component';
 import { ContentFormComponent } from './features/member-area/pages/content/content-form/content-form.component';
+import { StaticPagesListComponent } from './features/member-area/pages/static-pages/static-pages-list/static-pages-list.component';
+import { StaticPageEditorComponent } from './features/member-area/pages/static-pages/static-page-editor/static-page-editor.component';
 
 // Guards
 import { authGuard } from './features/member-area/guards/auth.guard';
@@ -163,6 +165,17 @@ export const routes: Routes = [
         path: 'contenido/banners/editar/:id',
         component: ContentFormComponent,
         data: { title: 'Editar Banner - Fairway' }
+      },
+      // ============ PÁGINAS ESTÁTICAS (Admin) ============
+      {
+        path: 'paginas-estaticas',
+        component: StaticPagesListComponent,
+        data: { title: 'Páginas Estáticas - Fairway' }
+      },
+      {
+        path: 'paginas-estaticas/editar/:id',
+        component: StaticPageEditorComponent,
+        data: { title: 'Editar Página - Fairway' }
       },
       {
         path: '',
