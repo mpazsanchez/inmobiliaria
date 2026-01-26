@@ -7,3 +7,4 @@ export * from './property-search.service';
 export * from './agent.service';
 export * from './lead.service';
 export * from './contenido-estatico.service';
+export * from './contenido-dinamico.service';
