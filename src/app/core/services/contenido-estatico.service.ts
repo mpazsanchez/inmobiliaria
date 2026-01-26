@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, delay, map, forkJoin, shareReplay, catchError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ContenidoEstatico, TipoPaginaEstatica } from '../models/static-content/contenido-estatico.interface';
-import { Testimonio, Beneficio, ContenidoResponse } from '../models/testimonio.interface';
+import { Testimonio, Beneficio, FAQ, Banner, ContenidoResponse } from '../models/testimonio.interface';
 
 /**
  * Service for managing static page content
@@ -190,5 +190,110 @@ export class ContenidoEstaticoService {
    */
   clearTestimoniosCache(): void {
     this.testimoniosCache$ = null;
+  }
+
+  // ============================================
+  // FAQS
+  // ============================================
+
+  private faqsCache$: Observable<FAQ[]> | null = null;
+
+  /**
+   * Obtiene todas las FAQs activas ordenadas
+   */
+  getFaqs(): Observable<FAQ[]> {
+    if (this.faqsCache$) {
+      return this.faqsCache$;
+    }
+
+    const source$ = this.useMockData
+      ? this.http.get<{ faqs: FAQ[] }>('/assets/data/static-content/faqs-list.json').pipe(
+          map(data => data.faqs)
+        )
+      : this.http.get<FAQ[]>(`${this.apiUrl}/faqs`);
+
+    this.faqsCache$ = source$.pipe(
+      map(faqs => faqs.filter(f => f.activo).sort((a, b) => a.orden - b.orden)),
+      catchError(error => {
+        console.error('Error cargando FAQs:', error);
+        return of([]);
+      }),
+      shareReplay(1)
+    );
+
+    return this.faqsCache$;
+  }
+
+  /**
+   * Obtiene FAQs por categoría
+   */
+  getFaqsByCategoria(categoria: string): Observable<FAQ[]> {
+    return this.getFaqs().pipe(
+      map(faqs => faqs.filter(f => f.categoria === categoria))
+    );
+  }
+
+  /**
+   * Limpia el cache de FAQs
+   */
+  clearFaqsCache(): void {
+    this.faqsCache$ = null;
+  }
+
+  // ============================================
+  // BANNERS
+  // ============================================
+
+  private bannersCache$: Observable<Banner[]> | null = null;
+
+  /**
+   * Obtiene todos los banners activos ordenados
+   */
+  getBanners(): Observable<Banner[]> {
+    if (this.bannersCache$) {
+      return this.bannersCache$;
+    }
+
+    const source$ = this.useMockData
+      ? this.http.get<{ banners: Banner[] }>('/assets/data/static-content/banners.json').pipe(
+          map(data => data.banners)
+        )
+      : this.http.get<Banner[]>(`${this.apiUrl}/banners`);
+
+    this.bannersCache$ = source$.pipe(
+      map(banners => banners.filter(b => b.activo).sort((a, b) => a.orden - b.orden)),
+      catchError(error => {
+        console.error('Error cargando banners:', error);
+        return of([]);
+      }),
+      shareReplay(1)
+    );
+
+    return this.bannersCache$;
+  }
+
+  /**
+   * Obtiene banners por posición (hero, secundario, promocional)
+   */
+  getBannersByPosicion(posicion: 'hero' | 'secundario' | 'promocional'): Observable<Banner[]> {
+    return this.getBanners().pipe(
+      map(banners => banners.filter(b => b.posicion === posicion))
+    );
+  }
+
+  /**
+   * Limpia el cache de banners
+   */
+  clearBannersCache(): void {
+    this.bannersCache$ = null;
+  }
+
+  /**
+   * Limpia todos los caches
+   */
+  clearAllCaches(): void {
+    this.testimoniosCache$ = null;
+    this.faqsCache$ = null;
+    this.bannersCache$ = null;
   }
 }

@@ -13,35 +13,59 @@
     </div>
     
     <!-- Testimonials Grid -->
-    <div class="row g-4">
-      <div class="col-lg-4 col-md-6" *ngFor="let testimonial of testimonials">
-        <div class="testimonial-card">
-          
-          <!-- Quote Icon -->
-          <div class="quote-icon">
-            <i class="fas fa-quote-right"></i>
-          </div>
-          
-          <!-- Testimonial Content -->
-          <div class="testimonial-content">
-            <p>{{ testimonial.content }}</p>
-          </div>
-          
-          <!-- Client Info -->
-          <div class="client-info">
-            <div class="client-avatar">
-              <img [src]="testimonial.avatar" [alt]="testimonial.name" />
-            </div>
-            <div class="client-details">
-              <h4 class="client-name">{{ testimonial.name }}</h4>
-              <p class="client-position">{{ testimonial.position }}</p>
-              <p class="client-company">{{ testimonial.company }}</p>
-            </div>
-          </div>
-          
+    @if (isLoading()) {
+      <div class="text-center py-5">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Cargando testimonios...</span>
         </div>
       </div>
-    </div>
+    } @else if (testimonials().length === 0) {
+      <div class="text-center py-5">
+        <p class="text-muted">No hay testimonios disponibles en este momento.</p>
+      </div>
+    } @else {
+      <div class="row g-4">
+        @for (testimonial of testimonials(); track testimonial.id) {
+          <div class="col-lg-4 col-md-6">
+            <div class="testimonial-card">
+              
+              <!-- Quote Icon -->
+              <div class="quote-icon">
+                <i class="fas fa-quote-right"></i>
+              </div>
+              
+              <!-- Testimonial Content -->
+              <div class="testimonial-content">
+                <p>{{ testimonial.texto }}</p>
+              </div>
+              
+              <!-- Client Info -->
+              <div class="client-info">
+                @if (testimonial.fotoUrl) {
+                  <div class="client-avatar">
+                    <img [src]="testimonial.fotoUrl" [alt]="testimonial.nombre" />
+                  </div>
+                }
+                <div class="client-details">
+                  <h4 class="client-name">{{ testimonial.nombre }}</h4>
+                  @if (testimonial.ubicacion) {
+                    <p class="client-position">{{ testimonial.ubicacion }}</p>
+                  }
+                  @if (testimonial.calificacion) {
+                    <div class="client-rating">
+                      @for (star of [1,2,3,4,5]; track $index) {
+                        <i class="fas fa-star" [class.active]="star <= testimonial.calificacion!"></i>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        }
+      </div>
+    }
     
   </div>
 </section>
