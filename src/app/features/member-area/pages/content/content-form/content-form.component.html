@@ -1,0 +1,321 @@
+<div class="content-form-page">
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <div class="header-title">
+        <button class="btn-back" (click)="onCancel()">
+          <i class="bi bi-arrow-left"></i>
+        </button>
+        <div>
+          <h1><i [class]="getIcon()"></i> {{ getTitle() }}</h1>
+          <p class="subtitle">
+            @if (isEditMode()) {
+              Modifica los datos del contenido
+            } @else {
+              Completa los datos para crear nuevo contenido
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  @if (loading()) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Cargando datos...</p>
+    </div>
+  } @else {
+    <!-- Alerts -->
+    @if (errorMessage()) {
+      <div class="alert alert-error">
+        <i class="bi bi-exclamation-circle"></i>
+        {{ errorMessage() }}
+      </div>
+    }
+
+    @if (successMessage()) {
+      <div class="alert alert-success">
+        <i class="bi bi-check-circle"></i>
+        {{ successMessage() }}
+      </div>
+    }
+
+    <!-- Form -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="content-form">
+
+      <!-- TESTIMONIOS FORM -->
+      @if (contentType() === 'testimonios') {
+        <div class="form-section">
+          <h2><i class="bi bi-person"></i> Información del cliente</h2>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="nombre">Nombre completo *</label>
+              <input type="text" id="nombre" formControlName="nombre" placeholder="Ej: María García">
+              @if (hasError('nombre')) {
+                <span class="field-error"><i class="bi bi-exclamation-circle"></i> Nombre requerido (mín. 2 caracteres)</span>
+              }
+            </div>
+            <div class="form-group">
+              <label for="ubicacion">Ubicación *</label>
+              <input type="text" id="ubicacion" formControlName="ubicacion" placeholder="Ej: Palermo, Buenos Aires">
+              @if (hasError('ubicacion')) {
+                <span class="field-error"><i class="bi bi-exclamation-circle"></i> Ubicación requerida</span>
+              }
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="texto">Testimonio *</label>
+            <textarea id="texto" formControlName="texto" rows="4" placeholder="Escribe el testimonio del cliente..."></textarea>
+            <div class="char-count">{{ getCharCount('texto') }}/500 caracteres</div>
+            @if (hasError('texto')) {
+              <span class="field-error"><i class="bi bi-exclamation-circle"></i> Testimonio requerido (20-500 caracteres)</span>
+            }
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="calificacion">Calificación *</label>
+              <select id="calificacion" formControlName="calificacion">
+                <option [value]="5">5 estrellas</option>
+                <option [value]="4">4 estrellas</option>
+                <option [value]="3">3 estrellas</option>
+                <option [value]="2">2 estrellas</option>
+                <option [value]="1">1 estrella</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="orden">Orden de aparición *</label>
+              <input type="number" id="orden" formControlName="orden" min="1">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Foto del cliente</label>
+            <div class="photo-upload-section">
+              @if (photoPreview()) {
+                <div class="photo-preview">
+                  <img [src]="photoPreview()" alt="Preview">
+                </div>
+              }
+              <div class="photo-input">
+                <input type="text" formControlName="fotoUrl" placeholder="URL de la imagen" (input)="onImageUrlChange($event)">
+                <span class="hint">O sube una imagen:</span>
+                <label class="btn-upload">
+                  <i class="bi bi-upload"></i> Subir foto
+                  <input type="file" accept="image/*" (change)="onPhotoChange($event)" hidden>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" formControlName="activo">
+              <span>Activo (visible en el sitio)</span>
+            </label>
+          </div>
+        </div>
+      }
+
+      <!-- BENEFICIOS FORM -->
+      @if (contentType() === 'beneficios') {
+        <div class="form-section">
+          <h2><i class="bi bi-star"></i> Información del beneficio</h2>
+
+          <div class="form-group">
+            <label>Icono *</label>
+            <div class="icon-selector">
+              @for (icono of iconosDisponibles; track icono) {
+                <button
+                  type="button"
+                  class="icon-option"
+                  [class.selected]="form.get('icono')?.value === icono"
+                  (click)="form.patchValue({ icono: icono })">
+                  <i [class]="icono"></i>
+                </button>
+              }
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="titulo">Título *</label>
+            <input type="text" id="titulo" formControlName="titulo" placeholder="Ej: Confianza Garantizada">
+            @if (hasError('titulo')) {
+              <span class="field-error"><i class="bi bi-exclamation-circle"></i> Título requerido (mín. 2 caracteres)</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="descripcion">Descripción *</label>
+            <textarea id="descripcion" formControlName="descripcion" rows="3" placeholder="Describe el beneficio..."></textarea>
+            <div class="char-count">{{ getCharCount('descripcion') }}/300 caracteres</div>
+            @if (hasError('descripcion')) {
+              <span class="field-error"><i class="bi bi-exclamation-circle"></i> Descripción requerida (10-300 caracteres)</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="orden">Orden de aparición *</label>
+            <input type="number" id="orden" formControlName="orden" min="1">
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" formControlName="activo">
+              <span>Activo (visible en el sitio)</span>
+            </label>
+          </div>
+        </div>
+      }
+
+      <!-- FAQS FORM -->
+      @if (contentType() === 'faqs') {
+        <div class="form-section">
+          <h2><i class="bi bi-question-circle"></i> Pregunta frecuente</h2>
+
+          <div class="form-group">
+            <label for="pregunta">Pregunta *</label>
+            <input type="text" id="pregunta" formControlName="pregunta" placeholder="Ej: ¿Cuál es la comisión por venta?">
+            @if (hasError('pregunta')) {
+              <span class="field-error"><i class="bi bi-exclamation-circle"></i> Pregunta requerida (mín. 10 caracteres)</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="respuesta">Respuesta *</label>
+            <textarea id="respuesta" formControlName="respuesta" rows="5" placeholder="Escribe la respuesta detallada..."></textarea>
+            <div class="char-count">{{ getCharCount('respuesta') }}/1000 caracteres</div>
+            @if (hasError('respuesta')) {
+              <span class="field-error"><i class="bi bi-exclamation-circle"></i> Respuesta requerida (20-1000 caracteres)</span>
+            }
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="categoria">Categoría</label>
+              <select id="categoria" formControlName="categoria">
+                @for (cat of categoriasFaq; track cat) {
+                  <option [value]="cat">{{ cat }}</option>
+                }
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="orden">Orden de aparición *</label>
+              <input type="number" id="orden" formControlName="orden" min="1">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" formControlName="activo">
+              <span>Activo (visible en el sitio)</span>
+            </label>
+          </div>
+        </div>
+      }
+
+      <!-- BANNERS FORM -->
+      @if (contentType() === 'banners') {
+        <div class="form-section">
+          <h2><i class="bi bi-image"></i> Información del banner</h2>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="titulo">Título *</label>
+              <input type="text" id="titulo" formControlName="titulo" placeholder="Ej: Encontrá tu hogar ideal">
+              @if (hasError('titulo')) {
+                <span class="field-error"><i class="bi bi-exclamation-circle"></i> Título requerido</span>
+              }
+            </div>
+            <div class="form-group">
+              <label for="subtitulo">Subtítulo</label>
+              <input type="text" id="subtitulo" formControlName="subtitulo" placeholder="Texto secundario opcional">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="imagenUrl">URL de imagen principal *</label>
+            <input type="text" id="imagenUrl" formControlName="imagenUrl" placeholder="https://ejemplo.com/imagen.jpg" (input)="onImageUrlChange($event)">
+            @if (hasError('imagenUrl')) {
+              <span class="field-error"><i class="bi bi-exclamation-circle"></i> URL de imagen requerida</span>
+            }
+          </div>
+
+          @if (photoPreview()) {
+            <div class="banner-preview-container">
+              <img [src]="photoPreview()" alt="Preview del banner">
+            </div>
+          }
+
+          <div class="form-group">
+            <label for="imagenMovilUrl">URL de imagen móvil (opcional)</label>
+            <input type="text" id="imagenMovilUrl" formControlName="imagenMovilUrl" placeholder="Imagen optimizada para móviles">
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="enlace">Enlace (URL destino)</label>
+              <input type="text" id="enlace" formControlName="enlace" placeholder="/propiedades">
+            </div>
+            <div class="form-group">
+              <label for="textoBoton">Texto del botón</label>
+              <input type="text" id="textoBoton" formControlName="textoBoton" placeholder="Ver más">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="posicion">Posición *</label>
+              <select id="posicion" formControlName="posicion">
+                @for (pos of posicionesBanner; track pos.value) {
+                  <option [value]="pos.value">{{ pos.label }}</option>
+                }
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="orden">Orden *</label>
+              <input type="number" id="orden" formControlName="orden" min="1">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="fechaInicio">Fecha inicio (opcional)</label>
+              <input type="date" id="fechaInicio" formControlName="fechaInicio">
+            </div>
+            <div class="form-group">
+              <label for="fechaFin">Fecha fin (opcional)</label>
+              <input type="date" id="fechaFin" formControlName="fechaFin">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" formControlName="activo">
+              <span>Activo (visible en el sitio)</span>
+            </label>
+          </div>
+        </div>
+      }
+
+      <!-- Actions -->
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="onCancel()" [disabled]="saving()">
+          Cancelar
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="saving() || form.invalid">
+          @if (saving()) {
+            <span class="spinner-small"></span>
+            Guardando...
+          } @else {
+            <i class="bi bi-check-lg"></i>
+            {{ isEditMode() ? 'Guardar cambios' : 'Crear' }}
+          }
+        </button>
+      </div>
+    </form>
+  }
+</div>
