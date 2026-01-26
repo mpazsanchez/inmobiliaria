@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { ContenidoEstaticoService } from '../../../../core/services/contenido-estatico.service';
+import { ContenidoDinamicoService } from '../../../../core/services/contenido-dinamico.service';
 import { FAQ } from '../../../../core/models/testimonio.interface';
 
 @Component({
@@ -12,7 +12,7 @@ import { FAQ } from '../../../../core/models/testimonio.interface';
   styleUrl: './fairway-faq-section.component.scss'
 })
 export class FairwayFaqSectionComponent implements OnInit {
-  private contenidoService = inject(ContenidoEstaticoService);
+  private contenidoService = inject(ContenidoDinamicoService);
 
   // Estado
   faqs = signal<FAQ[]>([]);
@@ -29,11 +29,11 @@ export class FairwayFaqSectionComponent implements OnInit {
 
   private loadFaqs(): void {
     this.contenidoService.getFaqs().subscribe({
-      next: (faqs) => {
+      next: (faqs: FAQ[]) => {
         this.faqs.set(faqs);
 
         // Extraer categorías únicas
-        const cats = [...new Set(faqs.map(f => f.categoria).filter(Boolean))] as string[];
+        const cats = [...new Set(faqs.map((f: FAQ) => f.categoria).filter(Boolean))] as string[];
         this.categorias.set(cats);
 
         // Abrir primera pregunta por defecto
@@ -43,7 +43,7 @@ export class FairwayFaqSectionComponent implements OnInit {
 
         this.isLoading.set(false);
       },
-      error: (error) => {
+      error: (error: any) => {
         console.error('Error cargando FAQs:', error);
         this.isLoading.set(false);
       }
