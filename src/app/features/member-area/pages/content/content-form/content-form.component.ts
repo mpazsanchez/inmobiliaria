@@ -2,7 +2,7 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ContentAdminService, ContentType } from '../../../services/content-admin.service';
+import { ContenidoDinamicoService, ContentType } from '../../../../../core/services/contenido-dinamico.service';
 import type { Testimonio, Beneficio, FAQ, Banner } from '../../../../../core/models';
 
 @Component({
@@ -16,7 +16,7 @@ export class ContentFormComponent implements OnInit {
   private fb = inject(FormBuilder);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private contentService = inject(ContentAdminService);
+  private contentService = inject(ContenidoDinamicoService);
 
   // Tipo de contenido y modo
   contentType = signal<ContentType>('testimonios');

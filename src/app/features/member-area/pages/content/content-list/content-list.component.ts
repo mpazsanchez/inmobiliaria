@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ContentAdminService, ContentType, ContentStats } from '../../../services/content-admin.service';
+import { ContenidoDinamicoService, ContentType, ContentStats } from '../../../../../core/services/contenido-dinamico.service';
 import type { Testimonio, Beneficio, FAQ, Banner } from '../../../../../core/models';
 import {
   PageHeaderComponent,
@@ -26,7 +26,7 @@ type TabType = 'testimonios' | 'beneficios' | 'faqs' | 'banners';
   styleUrl: './content-list.component.scss'
 })
 export class ContentListComponent implements OnInit {
-  private contentService = inject(ContentAdminService);
+  private contentService = inject(ContenidoDinamicoService);
 
   // Estado
   loading = signal(true);
