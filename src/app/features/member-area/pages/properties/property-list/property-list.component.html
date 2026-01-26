@@ -18,15 +18,16 @@
       <i class="bi bi-search"></i>
       <input
         type="text"
-        [(ngModel)]="searchTerm"
+        [value]="searchTerm()"
+        (input)="searchTerm.set($any($event.target).value)"
         (keyup.enter)="onSearch()"
-        placeholder="Buscar por titulo, direccion o ciudad...">
+        placeholder="Buscar por título, dirección o ciudad...">
       <button class="btn-search" (click)="onSearch()">Buscar</button>
     </div>
 
     <div class="filter-selects">
       <select (change)="onFilterChange('operacion', $any($event.target).value)">
-        <option value="">Operacion</option>
+        <option value="">Operación</option>
         @for (op of operaciones; track op) {
           <option [value]="op">{{ getOperacionLabel(op) }}</option>
         }

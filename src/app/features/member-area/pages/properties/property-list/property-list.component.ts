@@ -1,7 +1,6 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { PropertiesAdminService, PropertyFilters, PropertyStats } from '../../../services/properties-admin.service';
 import { AuthService } from '../../../services/auth.service';
 import { Propiedad } from '../../../../../core/models/property.interface';
@@ -20,7 +19,6 @@ import {
   imports: [
     CommonModule,
     RouterLink,
-    FormsModule,
     PageHeaderComponent,
     StatsGridComponent,
     EmptyStateComponent,
@@ -42,7 +40,7 @@ export class PropertyListComponent implements OnInit {
 
   // Filtros
   filters = signal<PropertyFilters>({});
-  searchTerm = '';
+  searchTerm = signal('');
 
   // Usuario y permisos
   currentUser = computed(() => this.authService.getUsuario());
@@ -114,7 +112,7 @@ export class PropertyListComponent implements OnInit {
   }
 
   onSearch(): void {
-    this.filters.update(f => ({ ...f, search: this.searchTerm }));
+    this.filters.update(f => ({ ...f, search: this.searchTerm() }));
     this.loadProperties();
   }
 
@@ -127,7 +125,7 @@ export class PropertyListComponent implements OnInit {
   }
 
   clearFilters(): void {
-    this.searchTerm = '';
+    this.searchTerm.set('');
     this.filters.set({});
     this.loadProperties();
   }
