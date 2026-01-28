@@ -4,21 +4,8 @@
     subtitle="Mantente informado de todos los eventos importantes"
     icon="bi-bell"/>
 
-
   <!-- Stats -->
-  <div class="stats-grid">
-    @for (stat of stats; track stat.label) {
-      <div class="stat-card">
-        <div class="stat-icon" [class]="stat.class">
-          <i [class]="stat.icon"></i>
-        </div>
-        <div class="stat-info">
-          <span class="stat-value">{{ stat.getValue() }}</span>
-          <span class="stat-label">{{ stat.label }}</span>
-        </div>
-      </div>
-    }
-  </div>
+  <app-stats-grid [stats]="stats"/>
 
   <!-- Filters -->
   <div class="filters-section">
@@ -58,62 +45,13 @@
     } @else {
       <div class="notifications-list">
         @for (notif of notificacionesFiltradas(); track notif.id) {
-          <a
-            class="notification-card"
-            [class.unread]="!notif.leida"
-            [routerLink]="notif.enlace || null"
-            (click)="onNotificacionClick(notif)">
-            
-            <!-- Barra de prioridad -->
-            <div class="priority-bar" [class]="getColorPrioridad(notif.prioridad)"></div>
-            
-            <!-- Icono -->
-            <div class="notif-icon" [class]="getColorPrioridad(notif.prioridad)">
-              <i [class]="getIconoClase(notif)"></i>
-            </div>
-            
-            <!-- Contenido -->
-            <div class="notif-content">
-              <div class="notif-header">
-                <h3>{{ notif.titulo }}</h3>
-                <div class="notif-badges">
-                  <span class="badge-prioridad" [class]="getColorPrioridad(notif.prioridad)">
-                    {{ notif.prioridad | titlecase }}
-                  </span>
-                  @if (!notif.leida) {
-                    <span class="badge-unread">Sin leer</span>
-                  }
-                </div>
-              </div>
-              
-              <p class="notif-message">{{ notif.mensaje }}</p>
-              
-              <div class="notif-footer">
-                <span class="notif-time">
-                  <i class="bi bi-clock"></i>
-                  {{ getTiempoTranscurrido(notif.fechaCreacion) }}
-                </span>
-                <span class="notif-date" [title]="getFechaCompleta(notif.fechaCreacion)">
-                  {{ getFechaCompleta(notif.fechaCreacion) }}
-                </span>
-              </div>
-            </div>
-            
-            <!-- Acciones -->
-            <div class="notif-actions">
-              @if (notif.enlace) {
-                <button class="btn-action" title="Ver detalles">
-                  <i class="bi bi-arrow-right"></i>
-                </button>
-              }
-              <button 
-                class="btn-action delete" 
-                (click)="$event.preventDefault(); $event.stopPropagation(); eliminarNotificacion(notif.id)"
-                title="Eliminar">
-                <i class="bi bi-trash"></i>
-              </button>
-            </div>
-          </a>
+          <app-notification-card
+            [notification]="notif"
+            [clickable]="true"
+            [showActions]="true"
+            (notificationClick)="onNotificacionClick($event)"
+            (deleteClick)="eliminarNotificacion($event)">
+          </app-notification-card>
         }
       </div>
     }

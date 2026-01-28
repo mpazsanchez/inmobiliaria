@@ -27,10 +27,11 @@
             <div class="card-body">
               <!-- Título -->
               <div class="form-group">
-                <label>
+                <label for="titulo">
                   Título de la Página <span class="required">*</span>
                 </label>
                 <input
+                  id="titulo"
                   type="text"
                   class="form-control"
                   formControlName="titulo"
@@ -45,33 +46,34 @@
                 }
               </div>
 
-              <!-- Contenido HTML -->
+              <!-- Contenido - Editor Visual WYSIWYG -->
               <div class="form-group">
-                <label>
-                  Contenido HTML <span class="required">*</span>
+                <label for="contenidoHtml">
+                  Contenido <span class="required">*</span>
                 </label>
                 <small class="help-text">
-                  Puedes usar HTML para dar formato al contenido
+                  Usa el editor visual para dar formato al contenido (negritas, títulos, listas, enlaces)
                 </small>
-                
-                <textarea
-                  class="form-control code-editor"
+
+                <quill-editor
+                  id="contenidoHtml"
                   formControlName="contenidoHtml"
-                  rows="18"
+                  [modules]="quillModules"
+                  [styles]="{ height: '350px' }"
+                  placeholder="Escribe el contenido de la página aquí..."
                   [class.invalid]="hasError('contenidoHtml')"
-                  placeholder="<h2>Título</h2><p>Contenido...</p>"
-                ></textarea>
-                
+                ></quill-editor>
+
                 @if (hasError('contenidoHtml')) {
                   <span class="error-message">
                     <i class="bi bi-exclamation-circle"></i>
                     El contenido es obligatorio
                   </span>
                 }
-                
+
                 <small class="help-text">
-                  <i class="bi bi-info-circle"></i>
-                  Puedes usar etiquetas HTML como h2, h3, p, ul, li, strong, em, a, etc.
+                  <i class="bi bi-lightbulb"></i>
+                  Selecciona texto y usa la barra de herramientas para aplicar formato
                 </small>
               </div>
 
@@ -86,6 +88,68 @@
                   <span class="switch-slider"></span>
                   <span class="switch-text">Página publicada (visible en el sitio público)</span>
                 </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card de SEO Metadata -->
+          <div class="editor-card">
+            <div class="card-header">
+              <i class="bi bi-search"></i>
+              <h3>SEO Metadata</h3>
+              <span class="badge-optional">Opcional</span>
+            </div>
+            
+            <div class="card-body">
+              <p class="help-text-block">
+                <i class="bi bi-info-circle"></i>
+                Estos campos ayudan a mejorar el posicionamiento en buscadores (Google, Bing, etc.)
+              </p>
+
+              <!-- Meta Description -->
+              <div class="form-group">
+                <label for="metaDescripcion">
+                  Meta Description
+                  <span class="char-count">{{ form.get('metaDescripcion')?.value?.length || 0 }}/160</span>
+                </label>
+                <small class="help-text">
+                  Descripción que aparece en resultados de búsqueda (máx. 160 caracteres)
+                </small>
+                <textarea
+                  id="metaDescripcion"
+                  class="form-control"
+                  formControlName="metaDescripcion"
+                  rows="3"
+                  maxlength="160"
+                  placeholder="Breve descripción de la página para motores de búsqueda"
+                ></textarea>
+                <small class="help-text">
+                  <i class="bi bi-lightbulb"></i>
+                  Ejemplo: "Conoce Fairway Inmobiliaria, 12 años conectando personas con sus hogares soñados en Buenos Aires."
+                </small>
+              </div>
+
+              <!-- Meta Keywords -->
+              <div class="form-group">
+                <label for="metaKeywords">
+                  Meta Keywords
+                  <span class="char-count">{{ form.get('metaKeywords')?.value?.length || 0 }}/255</span>
+                </label>
+                <small class="help-text">
+                  Palabras clave separadas por comas (máx. 255 caracteres)
+                </small>
+                <input
+                  id="metaKeywords"
+                  type="text"
+                  class="form-control"
+                  formControlName="metaKeywords"
+                  maxlength="255"
+                  placeholder="inmobiliaria, propiedades, venta, alquiler, Buenos Aires"
+                />
+                <small class="help-text">
+                  <i class="bi bi-lightbulb"></i>
+                  Usa términos que la gente buscaría para encontrar esta página
+                </small>
               </div>
             </div>
           </div>
