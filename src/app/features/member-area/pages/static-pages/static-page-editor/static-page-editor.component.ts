@@ -2,12 +2,28 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { SafeHtml } from '@angular/platform-browser';
 import { ContenidoEstaticoService } from '../../../../../core/services/contenido-estatico.service';
+import { SanitizerService } from '../../../../../core/services/sanitizer.service';
 import { ContenidoEstatico, TipoPaginaEstatica } from '../../../../../core/models/static-content/contenido-estatico.interface';
 import { PageHeaderComponent } from '../../../../../shared/components/admin/page-header/page-header.component';
+import { QuillModule } from 'ngx-quill';
 
-// Importar editor WYSIWYG si lo tienes, sino usar textarea simple
-// import { QuillModule } from 'ngx-quill';
+/**
+ * Configuración de la barra de herramientas de Quill
+ * Permite: encabezados, formato de texto, listas, links e imágenes
+ */
+const QUILL_MODULES = {
+  toolbar: [
+    [{ 'header': [2, 3, 4, false] }],
+    ['bold', 'italic', 'underline', 'strike'],
+    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+    [{ 'indent': '-1'}, { 'indent': '+1' }],
+    ['link'],
+    [{ 'align': [] }],
+    ['clean']
+  ]
+};
 
 @Component({
   selector: 'app-static-page-editor',
@@ -16,7 +32,8 @@ import { PageHeaderComponent } from '../../../../../shared/components/admin/page
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    PageHeaderComponent
+    PageHeaderComponent,
+    QuillModule
   ],
   templateUrl: './static-page-editor.component.html',
   styleUrl: './static-page-editor.component.scss'
@@ -26,6 +43,7 @@ export class StaticPageEditorComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private contentService = inject(ContenidoEstaticoService);
+  private sanitizerService = inject(SanitizerService);
 
   pageId = signal<TipoPaginaEstatica>('nosotros');
   loading = signal(true);
@@ -34,6 +52,9 @@ export class StaticPageEditorComponent implements OnInit {
   successMessage = signal<string | null>(null);
 
   form!: FormGroup;
+
+  // Configuración del editor Quill WYSIWYG
+  quillModules = QUILL_MODULES;
 
   private pageTitles: Record<TipoPaginaEstatica, string> = {
     nosotros: 'Quiénes Somos',
@@ -59,6 +80,8 @@ export class StaticPageEditorComponent implements OnInit {
     this.form = this.fb.group({
       titulo: ['', [Validators.required, Validators.minLength(2)]],
       contenidoHtml: ['', [Validators.required]],
+      metaDescripcion: ['', [Validators.maxLength(160)]],
+      metaKeywords: ['', [Validators.maxLength(255)]],
       publicada: [true]
     });
   }
@@ -71,6 +94,8 @@ export class StaticPageEditorComponent implements OnInit {
         this.form.patchValue({
           titulo: content.titulo,
           contenidoHtml: content.contenidoHtml,
+          metaDescripcion: content.metaDescripcion || '',
+          metaKeywords: content.metaKeywords || '',
           publicada: content.publicada ?? true
         });
         this.loading.set(false);
@@ -135,7 +160,12 @@ export class StaticPageEditorComponent implements OnInit {
     return !!(control && control.invalid && control.touched);
   }
 
-  getPreviewContent(): string {
-    return this.form.get('contenidoHtml')?.value || '<p class="text-muted">Sin contenido</p>';
+  /**
+   * Retorna el contenido HTML sanitizado para la vista previa
+   * Previene XSS en el preview del editor
+   */
+  getPreviewContent(): SafeHtml {
+    const html = this.form.get('contenidoHtml')?.value || '<p class="text-muted">Sin contenido</p>';
+    return this.sanitizerService.sanitizeHtml(html);
   }
 }

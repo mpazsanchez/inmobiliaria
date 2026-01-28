@@ -74,6 +74,16 @@
         font-size: 1.125rem;
         font-weight: 600;
         color: v.$text-dark;
+        flex: 1;
+      }
+
+      .badge-optional {
+        padding: 0.25rem 0.75rem;
+        background: rgba(v.$text-muted, 0.1);
+        color: v.$text-muted;
+        font-size: 0.75rem;
+        font-weight: 500;
+        border-radius: 12px;
       }
     }
 
@@ -98,9 +108,39 @@
       font-weight: 500;
       color: v.$text-dark;
       margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
 
       .required {
         color: v.$danger;
+      }
+
+      .char-count {
+        font-size: 0.75rem;
+        font-weight: 400;
+        color: v.$text-muted;
+      }
+    }
+
+    .help-text-block {
+      margin: 0;
+      padding: 0.875rem;
+      background: rgba(v.$info, 0.05);
+      border-left: 3px solid v.$info;
+      border-radius: v.$radius-sm;
+      font-size: 0.813rem;
+      color: v.$text-dark;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      line-height: 1.5;
+
+      i {
+        color: v.$info;
+        flex-shrink: 0;
+        margin-top: 0.125rem;
       }
     }
 
@@ -433,6 +473,89 @@
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+// =============================================
+// QUILL EDITOR WYSIWYG
+// =============================================
+.static-page-editor {
+  // Contenedor del editor Quill
+  quill-editor {
+    display: block;
+
+    .ql-toolbar {
+      background: v.$bg-light;
+      border: 1px solid v.$border-color;
+      border-radius: v.$radius-sm v.$radius-sm 0 0;
+
+      .ql-formats {
+        margin-right: 0.75rem;
+      }
+
+      button {
+        width: 28px;
+        height: 28px;
+        padding: 3px;
+
+        &:hover {
+          color: v.$primary-green;
+        }
+
+        &.ql-active {
+          color: v.$primary-green;
+        }
+      }
+
+      .ql-picker-label {
+        &:hover {
+          color: v.$primary-green;
+        }
+      }
+    }
+
+    .ql-container {
+      border: 1px solid v.$border-color;
+      border-top: none;
+      border-radius: 0 0 v.$radius-sm v.$radius-sm;
+      font-size: 0.875rem;
+      font-family: inherit;
+
+      .ql-editor {
+        min-height: 350px;
+        line-height: 1.7;
+        padding: 1rem;
+
+        &.ql-blank::before {
+          color: v.$text-light;
+          font-style: normal;
+        }
+
+        h2, h3, h4 {
+          margin: 1rem 0 0.5rem;
+          color: v.$text-dark;
+        }
+
+        p {
+          margin: 0 0 0.75rem;
+        }
+
+        ul, ol {
+          padding-left: 1.5rem;
+        }
+
+        a {
+          color: v.$primary-green;
+        }
+      }
+    }
+
+    &.invalid {
+      .ql-toolbar,
+      .ql-container {
+        border-color: v.$danger;
+      }
+    }
   }
 }
 
