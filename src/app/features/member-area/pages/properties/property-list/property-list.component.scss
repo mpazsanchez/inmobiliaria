@@ -7,6 +7,10 @@
   padding: 0;
   max-width: 1400px;
   margin: 0 auto;
+  // Prevenir overflow
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 // ========================================
@@ -21,18 +25,31 @@
   background: v.$bg-white;
   border-radius: 10px;
   border: 1px solid v.$border-color;
+  // Prevenir overflow
+  box-sizing: border-box;
+  width: 100%;
+
+  @media (max-width: 640px) {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
 }
 
 .search-box {
   display: flex;
   align-items: center;
   flex: 1;
-  min-width: 280px;
+  min-width: 200px;  // Reducido para móvil
   gap: 0.5rem;
   padding: 0 0.75rem;
   background: v.$bg-light;
   border: 1px solid v.$border-color;
   border-radius: 8px;
+
+  @media (max-width: 480px) {
+    min-width: 100%;  // Full width en móvil pequeño
+    flex-basis: 100%;
+  }
 
   i {
     color: v.$text-muted;
@@ -76,6 +93,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+  width: 100%;
+
+  @media (max-width: 640px) {
+    gap: 0.5rem;
+  }
 
   select {
     padding: 0.625rem 2rem 0.625rem 0.875rem;
@@ -86,10 +108,20 @@
     background: v.$bg-white url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") right 0.5rem center/1.25rem no-repeat;
     cursor: pointer;
     appearance: none;
+    // Prevenir overflow del texto
+    max-width: 100%;
+    text-overflow: ellipsis;
 
     &:focus {
       outline: none;
       border-color: v.$primary-green;
+    }
+
+    @media (max-width: 480px) {
+      flex: 1;
+      min-width: calc(50% - 0.25rem);
+      font-size: 0.8rem;
+      padding: 0.5rem 1.75rem 0.5rem 0.625rem;
     }
   }
 
@@ -109,6 +141,13 @@
     &:hover {
       color: v.$danger;
       border-color: v.$danger;
+    }
+
+    @media (max-width: 480px) {
+      width: 100%;
+      justify-content: center;
+      font-size: 0.8rem;
+      padding: 0.5rem;
     }
   }
 }
@@ -466,6 +505,11 @@
   @media (max-width: 900px) {
     display: grid;
   }
+
+  @media (max-width: 480px) {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
 }
 
 .property-card {
@@ -475,10 +519,20 @@
   border-radius: 10px;
   overflow: hidden;
 
+  // Stack vertical en móviles muy pequeños
+  @media (max-width: 400px) {
+    flex-direction: column;
+  }
+
   .card-image {
     position: relative;
     width: 120px;
     flex-shrink: 0;
+
+    @media (max-width: 400px) {
+      width: 100%;
+      height: 140px;
+    }
 
     img {
       width: 100%;
