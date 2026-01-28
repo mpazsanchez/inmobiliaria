@@ -24,3 +24,9 @@ export * from './static-content/contact.interface';
 
 // Testimonios y Beneficios
 export * from './testimonio.interface';
+
+// Notificaciones
+export * from './notificacion.interface';
+
+// Geocoding y Mapas
+export * from './geocoding.interface';
