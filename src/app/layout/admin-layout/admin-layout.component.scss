@@ -14,6 +14,9 @@ $white: #ffffff;
   display: flex;
   min-height: 100vh;
   background: $bg-light;
+  // Prevenir overflow horizontal en todo el layout
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .admin-main {
@@ -22,6 +25,10 @@ $white: #ffffff;
   display: flex;
   flex-direction: column;
   transition: margin-left 0.3s ease;
+  // Crítico: prevenir overflow en flex children
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: hidden;
 
   .sidebar-collapsed & {
     margin-left: $sidebar-collapsed-width;
@@ -29,6 +36,7 @@ $white: #ffffff;
 
   @media (max-width: 1024px) {
     margin-left: 0;
+    width: 100%;
   }
 }
 
@@ -46,6 +54,14 @@ $white: #ffffff;
   position: sticky;
   top: 0;
   z-index: 100;
+  // Prevenir overflow
+  min-width: 0;
+  box-sizing: border-box;
+
+  @media (max-width: 480px) {
+    padding: 0 0.75rem;
+    height: 56px;
+  }
 }
 
 .btn-toggle-sidebar {
@@ -192,6 +208,16 @@ $white: #ffffff;
   flex: 1;
   padding: 1rem;
   overflow-y: auto;
+  overflow-x: hidden;
+  // Crítico para prevenir overflow
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+
+  // Móvil pequeño
+  @media (max-width: 480px) {
+    padding: 0.75rem;
+  }
 
   @media (min-width: 768px) {
     padding: 1.25rem;
@@ -199,6 +225,12 @@ $white: #ffffff;
 
   @media (min-width: 1200px) {
     padding: 1.5rem;
+  }
+
+  // Asegurar que los hijos no desborden
+  > * {
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }
 

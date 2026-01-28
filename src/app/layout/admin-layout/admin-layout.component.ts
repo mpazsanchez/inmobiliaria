@@ -4,11 +4,12 @@ import { RouterModule, NavigationEnd, Router } from '@angular/router';
 import { AuthService } from '../../features/member-area/services/auth.service';
 import { filter } from 'rxjs/operators';
 import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.component';
+import { NotificationsBellComponent } from './components/notifications-bell/notifications-bell.component';
 
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
-  imports: [CommonModule, RouterModule, AdminSidebarComponent],
+  imports: [CommonModule, RouterModule, AdminSidebarComponent, NotificationsBellComponent],
   templateUrl: './admin-layout.component.html',
   styleUrl: './admin-layout.component.scss'
 })
