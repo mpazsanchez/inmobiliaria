@@ -1,0 +1,121 @@
+<div class="notifications-page">
+  <app-page-header
+    title="Notificaciones"
+    subtitle="Mantente informado de todos los eventos importantes"
+    icon="bi-bell"/>
+
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    @for (stat of stats; track stat.label) {
+      <div class="stat-card">
+        <div class="stat-icon" [class]="stat.class">
+          <i [class]="stat.icon"></i>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value">{{ stat.getValue() }}</span>
+          <span class="stat-label">{{ stat.label }}</span>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Filters -->
+  <div class="filters-section">
+    <div class="filters-group">
+      @for (filter of filters; track filter.model) {
+        <select [ngModel]="filter.getValue()" (ngModelChange)="filter.setValue($event)" class="filter-select">
+          @for (option of filter.options; track option.value) {
+            <option [value]="option.value">{{ option.label }}</option>
+          }
+        </select>
+      }
+
+      @if (filtroTipo() !== 'todas' || filtroLeida() !== 'todas' || filtroPrioridad() !== 'todas') {
+        <button class="btn-clear" (click)="limpiarFiltros()">
+          <i class="bi bi-x-lg"></i>
+          Limpiar
+        </button>
+      }
+    </div>
+
+    @if (resumen().noLeidas > 0) {
+      <button class="btn-mark-all" (click)="marcarTodasLeidas()">
+        <i class="bi bi-check-all"></i>
+        Marcar todas como leídas
+      </button>
+    }
+  </div>
+
+  <!-- Notifications List -->
+  <div class="notifications-container">
+    @if (notificacionesFiltradas().length === 0) {
+      <div class="empty-state">
+        <i class="bi bi-bell-slash"></i>
+        <h3>No hay notificaciones</h3>
+        <p>No tienes notificaciones que coincidan con los filtros seleccionados</p>
+      </div>
+    } @else {
+      <div class="notifications-list">
+        @for (notif of notificacionesFiltradas(); track notif.id) {
+          <a
+            class="notification-card"
+            [class.unread]="!notif.leida"
+            [routerLink]="notif.enlace || null"
+            (click)="onNotificacionClick(notif)">
+            
+            <!-- Barra de prioridad -->
+            <div class="priority-bar" [class]="getColorPrioridad(notif.prioridad)"></div>
+            
+            <!-- Icono -->
+            <div class="notif-icon" [class]="getColorPrioridad(notif.prioridad)">
+              <i [class]="getIconoClase(notif)"></i>
+            </div>
+            
+            <!-- Contenido -->
+            <div class="notif-content">
+              <div class="notif-header">
+                <h3>{{ notif.titulo }}</h3>
+                <div class="notif-badges">
+                  <span class="badge-prioridad" [class]="getColorPrioridad(notif.prioridad)">
+                    {{ notif.prioridad | titlecase }}
+                  </span>
+                  @if (!notif.leida) {
+                    <span class="badge-unread">Sin leer</span>
+                  }
+                </div>
+              </div>
+              
+              <p class="notif-message">{{ notif.mensaje }}</p>
+              
+              <div class="notif-footer">
+                <span class="notif-time">
+                  <i class="bi bi-clock"></i>
+                  {{ getTiempoTranscurrido(notif.fechaCreacion) }}
+                </span>
+                <span class="notif-date" [title]="getFechaCompleta(notif.fechaCreacion)">
+                  {{ getFechaCompleta(notif.fechaCreacion) }}
+                </span>
+              </div>
+            </div>
+            
+            <!-- Acciones -->
+            <div class="notif-actions">
+              @if (notif.enlace) {
+                <button class="btn-action" title="Ver detalles">
+                  <i class="bi bi-arrow-right"></i>
+                </button>
+              }
+              <button 
+                class="btn-action delete" 
+                (click)="$event.preventDefault(); $event.stopPropagation(); eliminarNotificacion(notif.id)"
+                title="Eliminar">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </a>
+        }
+      </div>
+    }
+  </div>
+</div>
