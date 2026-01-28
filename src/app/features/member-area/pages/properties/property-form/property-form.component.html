@@ -177,7 +177,7 @@
       <!-- Tab: Location -->
       @if (activeTab() === 'location') {
         <div class="form-section" formGroupName="ubicacion">
-          <h2>Ubicación</h2>
+          <h2>📍 Ubicación y Geocodificación</h2>
 
           <div class="form-grid">
             <div class="form-group full-width">
@@ -225,11 +225,47 @@
             </div>
           </div>
 
-          <div class="map-placeholder">
-            <i class="bi bi-geo-alt"></i>
-            <p>El mapa se mostrara aqui cuando se integre la API de Google Maps</p>
-            <small>Las coordenadas se asignaran automaticamente</small>
+          <!-- Botón Geocoding -->
+          <div class="geocoding-section">
+            <button 
+              type="button" 
+              class="btn-geocoding" 
+              (click)="geocodificarDireccion()"
+              [disabled]="isGeocoding() || !form.get('ubicacion.direccion')?.value || !form.get('ubicacion.ciudad')?.value">
+              @if (isGeocoding()) {
+                <i class="bi bi-hourglass-split spin"></i>
+                Geocodificando...
+              } @else if (geocodingSuccess()) {
+                <i class="bi bi-check-circle-fill"></i>
+                Coordenadas obtenidas
+              } @else {
+                <i class="bi bi-geo-alt-fill"></i>
+                Obtener coordenadas
+              }
+            </button>
+            <small class="geocoding-hint">
+              <i class="bi bi-info-circle"></i>
+              Haz clic para obtener las coordenadas GPS de la dirección ingresada
+            </small>
           </div>
+
+          <!-- Vista previa del mapa -->
+          @if (propiedadParaMapa.length > 0) {
+            <div class="map-preview-section">
+              <h3>Vista previa de ubicación</h3>
+              <app-property-map [propiedades]="propiedadParaMapa"></app-property-map>
+              <p class="coords-info">
+                <i class="bi bi-pin-map"></i>
+                Coordenadas: {{ form.get('ubicacion.coordenadas.lat')?.value | number:'1.6-6' }}, {{ form.get('ubicacion.coordenadas.lng')?.value | number:'1.6-6' }}
+              </p>
+            </div>
+          } @else {
+            <div class="map-placeholder">
+              <i class="bi bi-geo-alt"></i>
+              <p>Obtén las coordenadas para ver la vista previa del mapa</p>
+              <small>Las coordenadas actuales son el centro por defecto</small>
+            </div>
+          }
         </div>
       }
 
@@ -346,14 +382,39 @@
       @if (activeTab() === 'images') {
         <div class="form-section">
           <h2>Imágenes</h2>
-          <p class="section-description">Agrega las fotos de la propiedad. La primera imagen será la principal.</p>
+          <p class="section-description">Sube las fotos de la propiedad desde tu ordenador o agrega URLs. La primera imagen será la principal.</p>
 
+          <!-- Componente de carga de imágenes -->
+          <div class="upload-section">
+            <app-image-uploader
+              [maxFiles]="20"
+              [folder]="'properties'"
+              [showPreview]="true"
+              (uploadComplete)="onImageUploaded($event)"
+              (uploadError)="onImageUploadError($event)">
+            </app-image-uploader>
+          </div>
+
+          <!-- Mensaje de error -->
+          @if (error()) {
+            <div class="error-message">
+              <i class="bi bi-exclamation-triangle"></i>
+              {{ error() }}
+            </div>
+          }
+
+          <!-- Divider -->
+          <div class="divider">
+            <span>o agrega URLs manualmente</span>
+          </div>
+
+          <!-- Lista de imágenes agregadas -->
           <div class="images-list">
             @for (imagen of imagenesArray.controls; track $index; let i = $index) {
               <div class="image-item" [formGroupName]="i">
                 <div class="image-preview">
                   @if (imagen.get('url')?.value) {
-                    <img [src]="imagen.get('url')?.value" alt="Preview">
+                    <img [src]="getImageVersions(imagen.get('url')?.value).thumbnail" [alt]="imagen.get('descripcion')?.value || 'Imagen de propiedad'">
                   } @else {
                     <div class="no-image">
                       <i class="bi bi-image"></i>
@@ -370,32 +431,35 @@
                       type="text"
                       formControlName="url"
                       placeholder="https://..."
+                      readonly
                       [class.invalid]="imagen.get('url')?.invalid && imagen.get('url')?.touched">
                   </div>
                   <div class="form-group">
-                    <label>Descripcion</label>
+                    <label>Descripción</label>
                     <input
                       type="text"
                       formControlName="descripcion"
                       placeholder="Ej: Living, Dormitorio...">
                   </div>
                 </div>
-                <button type="button" class="btn-remove" (click)="removeImage(i)">
+                <button type="button" class="btn-remove" (click)="removeImage(i)" title="Eliminar imagen">
                   <i class="bi bi-trash"></i>
                 </button>
               </div>
             }
           </div>
 
-          <button type="button" class="btn-add-image" (click)="addImage()">
-            <i class="bi bi-plus-lg"></i>
-            Agregar Imagen
+          <!-- Botón para agregar URL manual -->
+          <button type="button" class="btn-add-url" (click)="addImageByUrl()">
+            <i class="bi bi-link-45deg"></i>
+            Agregar URL manualmente
           </button>
 
           @if (imagenesArray.length === 0) {
             <div class="images-hint">
               <i class="bi bi-lightbulb"></i>
-              <p>Agrega al menos una imagen para publicar la propiedad</p>
+              <p>Sube al menos una imagen para publicar la propiedad</p>
+              <small>Las imágenes se optimizan automáticamente para mejorar el rendimiento</small>
             </div>
           }
         </div>

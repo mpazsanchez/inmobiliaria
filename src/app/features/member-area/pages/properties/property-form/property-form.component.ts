@@ -4,12 +4,16 @@ import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PropertiesAdminService } from '../../../services/properties-admin.service';
 import { AuthService } from '../../../services/auth.service';
+import { GeocodingService } from '../../../../../core/services';
+import { ImageUploadService, ImageUploadResult } from '../../../../../core/services/image-upload.service';
 import { Propiedad, Imagen } from '../../../../../core/models/property.interface';
+import { PropertyMapComponent } from '../../../../public-site/components/property-map/property-map.component';
+import { ImageUploaderComponent } from '../../../../../shared/components/image-uploader/image-uploader.component';
 
 @Component({
   selector: 'app-property-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, PropertyMapComponent, ImageUploaderComponent],
   templateUrl: './property-form.component.html',
   styleUrls: ['./property-form.component.scss']
 })
@@ -19,6 +23,8 @@ export class PropertyFormComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private propertiesService = inject(PropertiesAdminService);
   private authService = inject(AuthService);
+  private geocodingService = inject(GeocodingService);
+  private imageUploadService = inject(ImageUploadService);
 
   // Exponer Math para el template
   Math = Math;
@@ -30,6 +36,8 @@ export class PropertyFormComponent implements OnInit {
   isSaving = signal(false);
   error = signal<string | null>(null);
   activeTab = signal<'basic' | 'location' | 'features' | 'images'>('basic');
+  isGeocoding = signal(false);
+  geocodingSuccess = signal(false);
 
   // Opciones
   tiposPropiedad = this.propertiesService.getTiposPropiedad();
@@ -87,6 +95,51 @@ export class PropertyFormComponent implements OnInit {
 
   get amenidadesSeleccionadas(): string[] {
     return this.form.get('caracteristicas.amenidades')?.value || [];
+  }
+
+  // Propiedad para vista previa del mapa
+  get propiedadParaMapa(): Propiedad[] {
+    const coords = this.form.get('ubicacion.coordenadas')?.value;
+    
+    // Si no hay coordenadas válidas, retornar array vacío
+    if (!coords || coords.lat === 0 || coords.lng === 0) {
+      return [];
+    }
+
+    // Crear objeto de propiedad parcial para el mapa
+    return [{
+      id: this.propertyId() || 0,
+      titulo: this.form.get('titulo')?.value || 'Vista previa de ubicación',
+      descripcion: '',
+      tipoPropiedad: this.form.get('tipoPropiedad')?.value || '',
+      operacion: this.form.get('operacion')?.value || 'venta',
+      precio: this.form.get('precio')?.value || 0,
+      moneda: this.form.get('moneda')?.value || 'USD',
+      ubicacion: {
+        direccion: this.form.get('ubicacion.direccion')?.value || '',
+        barrio: this.form.get('ubicacion.barrio')?.value,
+        ciudad: this.form.get('ubicacion.ciudad')?.value || '',
+        provincia: this.form.get('ubicacion.provincia')?.value || '',
+        pais: this.form.get('ubicacion.pais')?.value || '',
+        coordenadas: coords
+      },
+      caracteristicas: {
+        ambientes: 0,
+        dormitorios: 0,
+        banos: 0,
+        superficie_cubierta: 0,
+        superficie_total: 0,
+        antiguedad: 0,
+        garage: 0,
+        amenidades: []
+      },
+      imagenes: [],
+      estado: 'disponible',
+      destacada: false,
+      asesorId: 0,
+      fechaPublicacion: new Date().toISOString(),
+      ultimaActualizacion: new Date().toISOString()
+    }];
   }
 
   ngOnInit(): void {
@@ -214,19 +267,86 @@ export class PropertyFormComponent implements OnInit {
     this.imagenesArray.removeAt(index);
   }
 
-  onFileSelected(event: Event, index: number): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-      this.propertiesService.uploadImage(file).subscribe({
-        next: (imagen) => {
-          this.imagenesArray.at(index).patchValue({
-            url: imagen.url,
-            descripcion: imagen.descripcion
-          });
-        }
-      });
+  // Manejo de uploads desde el componente ImageUploader
+  onImageUploaded(result: ImageUploadResult): void {
+    // Agregar la imagen cargada al formulario
+    this.imagenesArray.push(this.fb.group({
+      url: [result.url, Validators.required],
+      descripcion: ['']
+    }));
+  }
+
+  onImageUploadError(error: string): void {
+    console.error('Error al subir imagen:', error);
+    this.error.set(error);
+    // Limpiar error después de 5 segundos
+    setTimeout(() => {
+      if (this.error() === error) {
+        this.error.set(null);
+      }
+    }, 5000);
+  }
+
+  // Método para agregar imagen manualmente por URL (mantener compatibilidad)
+  addImageByUrl(): void {
+    this.imagenesArray.push(this.fb.group({
+      url: ['', Validators.required],
+      descripcion: ['']
+    }));
+  }
+
+  // Obtener versiones optimizadas de una imagen
+  getImageVersions(url: string) {
+    return this.imageUploadService.getImageVersions(url);
+  }
+
+  // Geocoding
+  geocodificarDireccion(): void {
+    const ubicacion = this.form.get('ubicacion')?.value;
+    
+    if (!ubicacion.direccion || !ubicacion.ciudad) {
+      this.error.set('Ingresa dirección y ciudad para geocodificar');
+      return;
     }
+
+    this.isGeocoding.set(true);
+    this.geocodingSuccess.set(false);
+    this.error.set(null);
+
+    // Construir dirección completa
+    const direccionCompleta = `${ubicacion.direccion}, ${ubicacion.ciudad}, ${ubicacion.provincia || ''}, ${ubicacion.pais}`.trim();
+
+    this.geocodingService.geocodificar(direccionCompleta).subscribe({
+      next: (resultado) => {
+        this.isGeocoding.set(false);
+        
+        if (resultado && resultado.coordenadas) {
+          // Actualizar coordenadas en el formulario
+          this.form.get('ubicacion.coordenadas')?.patchValue({
+            lat: resultado.coordenadas.lat,
+            lng: resultado.coordenadas.lng
+          });
+
+          // Opcional: Actualizar campos de ubicación con la info geocodificada
+          if (resultado.ciudad && !ubicacion.ciudad) {
+            this.form.get('ubicacion.ciudad')?.setValue(resultado.ciudad);
+          }
+          if (resultado.departamento && !ubicacion.provincia) {
+            this.form.get('ubicacion.provincia')?.setValue(resultado.departamento);
+          }
+
+          this.geocodingSuccess.set(true);
+          setTimeout(() => this.geocodingSuccess.set(false), 3000);
+        } else {
+          this.error.set('No se pudo geocodificar la dirección. Verifica que sea correcta.');
+        }
+      },
+      error: (err) => {
+        this.isGeocoding.set(false);
+        this.error.set('Error al geocodificar la dirección');
+        console.error('Error geocoding:', err);
+      }
+    });
   }
 
   // Submit
