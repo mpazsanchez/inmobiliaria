@@ -11,7 +11,8 @@
   @if (stats()) {
     <div class="stats-grid">
       @for (tab of tabs; track tab.key) {
-        <div
+        <button
+          type="button"
           class="stat-card"
           [class.active]="activeTab() === tab.key"
           (click)="setActiveTab(tab.key)">
@@ -23,7 +24,7 @@
             <span class="stat-label">{{ tab.label }}</span>
             <span class="stat-activos">{{ getStatForTab(tab.key)?.activos || 0 }} activos</span>
           </div>
-        </div>
+        </button>
       }
     </div>
   }
@@ -95,7 +96,10 @@
             @for (item of testimonios(); track item.id) {
               <div class="content-item" [class.inactive]="!item.activo">
                 <div class="item-photo">
-                  <img [src]="item.fotoUrl" [alt]="item.nombre">
+                  <img 
+                    [src]="item.fotoUrl | optimizeImage:'agent'" 
+                    [alt]="item.nombre"
+                    (error)="onImageError($event)">
                 </div>
                 <div class="item-info">
                   <div class="item-header">
@@ -152,7 +156,7 @@
             @for (item of beneficios(); track item.id) {
               <div class="beneficio-card" [class.inactive]="!item.activo">
                 <div class="beneficio-icon">
-                  <i [class]="item.icono"></i>
+                  <i class="bi bi-{{ item.icono }}"></i>
                 </div>
                 <div class="beneficio-content">
                   <div class="beneficio-header">
@@ -254,7 +258,10 @@
             @for (item of banners(); track item.id) {
               <div class="banner-card" [class.inactive]="!item.activo">
                 <div class="banner-preview">
-                  <img [src]="item.imagenUrl" [alt]="item.titulo">
+                  <img 
+                    [src]="item.imagenUrl | optimizeImage:'medium'" 
+                    [alt]="item.titulo"
+                    (error)="onImageError($event)">
                   <div class="banner-overlay">
                     <span class="badge-posicion">{{ item.posicion | titlecase }}</span>
                   </div>

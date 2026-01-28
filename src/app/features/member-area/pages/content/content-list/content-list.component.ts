@@ -9,6 +9,7 @@ import {
   EmptyStateComponent,
   ConfirmModalComponent
 } from '../../../../../shared/components/admin';
+import { OptimizeImagePipe } from '../../../../../core/pipes/optimize-image.pipe';
 
 type TabType = 'testimonios' | 'beneficios' | 'faqs' | 'banners';
 
@@ -20,7 +21,8 @@ type TabType = 'testimonios' | 'beneficios' | 'faqs' | 'banners';
     RouterModule,
     PageHeaderComponent,
     EmptyStateComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    OptimizeImagePipe
   ],
   templateUrl: './content-list.component.html',
   styleUrl: './content-list.component.scss'
@@ -220,5 +222,11 @@ export class ContentListComponent implements OnInit {
 
   getRatingStars(rating: number = 5): number[] {
     return Array(rating).fill(0);
+  }
+
+  onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    // Fallback: usar una imagen placeholder de Unsplash
+    img.src = 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop';
   }
 }
