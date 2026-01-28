@@ -1,0 +1,99 @@
+<div class="notifications-bell" (clickOutside)="closeDropdown()">
+  <!-- Bell Button -->
+  <button 
+    type="button"
+    class="bell-button" 
+    [class.has-notifications]="hayNoLeidas()"
+    (click)="toggleDropdown()"
+    aria-label="Notificaciones">
+    <i class="bi bi-bell"></i>
+    @if (hayNoLeidas()) {
+      <span class="badge-count">{{ resumen().noLeidas > 99 ? '99+' : resumen().noLeidas }}</span>
+    }
+  </button>
+
+  <!-- Dropdown -->
+  @if (dropdownOpen()) {
+    <div class="notifications-dropdown">
+      <!-- Header -->
+      <div class="dropdown-header">
+        <h3>
+          <i class="bi bi-bell"></i>
+          Notificaciones
+          @if (resumen().noLeidas > 0) {
+            <span class="unread-count">({{ resumen().noLeidas }})</span>
+          }
+        </h3>
+        
+        @if (hayNoLeidas()) {
+          <button 
+            type="button"
+            class="btn-mark-all" 
+            (click)="marcarTodasLeidas()"
+            title="Marcar todas como leídas">
+            <i class="bi bi-check-all"></i>
+          </button>
+        }
+      </div>
+
+      <!-- Body -->
+      <div class="dropdown-body">
+        @if (notificaciones().length === 0) {
+          <!-- Estado vacío -->
+          <div class="empty-state">
+            <i class="bi bi-bell-slash"></i>
+            <p>No tienes notificaciones</p>
+          </div>
+        } @else {
+          <!-- Lista de notificaciones -->
+          <div class="notifications-list">
+            @for (notif of notificacionesRecientes(); track notif.id) {
+              <a
+                class="notification-item"
+                [class.unread]="!notif.leida"
+                [routerLink]="notif.enlace || null"
+                (click)="onNotificacionClick(notif)">
+                
+                <!-- Indicador de prioridad -->
+                <div class="priority-bar" [class]="getColorPrioridad(notif.prioridad)"></div>
+                
+                <!-- Icono -->
+                <div class="notif-icon" [class]="getColorPrioridad(notif.prioridad)">
+                  <i [class]="getIconoClase(notif)"></i>
+                </div>
+                
+                <!-- Contenido -->
+                <div class="notif-content">
+                  <div class="notif-header">
+                    <h4>{{ notif.titulo }}</h4>
+                    <span class="notif-time">{{ getTiempoTranscurrido(notif.fechaCreacion) }}</span>
+                  </div>
+                  <p class="notif-message">{{ notif.mensaje }}</p>
+                </div>
+                
+                <!-- Botón eliminar -->
+                <button
+                  type="button"
+                  class="btn-delete"
+                  (click)="eliminarNotificacion($event, notif.id)"
+                  title="Eliminar notificación">
+                  <i class="bi bi-x"></i>
+                </button>
+              </a>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Footer -->
+      @if (notificaciones().length > 0) {
+        <div class="dropdown-footer">
+          <a routerLink="/member-area/notificaciones" class="btn-ver-todas" (click)="closeDropdown()">
+            Ver todas las notificaciones
+            <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      }
+    </div>
+  }
+</div>
