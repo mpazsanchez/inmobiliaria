@@ -3,8 +3,8 @@
     {
       "id": 1,
       "nombre": "María Fernández",
-      "ubicacion": "Palermo, Buenos Aires",
-      "texto": "Excelente experiencia con Fairway. Encontraron el departamento perfecto para mi familia en tiempo récord. El asesor fue muy profesional y atento a nuestras necesidades.",
+      "ubicacion": "Centro, Tandil",
+      "texto": "Excelente experiencia con Fairway. Encontraron la casa perfecta para mi familia en tiempo récord. El asesor fue muy profesional y atento a nuestras necesidades.",
       "fotoUrl": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
       "calificacion": 5,
       "activo": true,
@@ -13,8 +13,8 @@
     {
       "id": 2,
       "nombre": "Carlos Martínez",
-      "ubicacion": "Belgrano, Buenos Aires",
-      "texto": "Vendí mi casa en menos de un mes gracias a la gestión de Fairway. La tasación fue justa y todo el proceso fue transparente. Totalmente recomendados.",
+      "ubicacion": "Villa Italia, Tandil",
+      "texto": "Vendí mi propiedad en menos de un mes gracias a la gestión de Fairway. La tasación fue justa y todo el proceso fue transparente. Totalmente recomendados.",
       "fotoUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
       "calificacion": 5,
       "activo": true,
@@ -23,7 +23,7 @@
     {
       "id": 3,
       "nombre": "Laura González",
-      "ubicacion": "Recoleta, Buenos Aires",
+      "ubicacion": "Cerrito, Tandil",
       "texto": "Como primera compradora estaba nerviosa, pero el equipo de Fairway me guió en cada paso. Ahora tengo mi primer hogar propio y no podría estar más feliz.",
       "fotoUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face",
       "calificacion": 5,
@@ -33,8 +33,8 @@
     {
       "id": 4,
       "nombre": "Roberto Sánchez",
-      "ubicacion": "Núñez, Buenos Aires",
-      "texto": "Buscaba una propiedad para inversión y el equipo me asesoró perfectamente. En menos de dos semanas ya tenía inquilinos. Muy profesionales.",
+      "ubicacion": "Zona Sierras, Tandil",
+      "texto": "Buscaba una propiedad para inversión y el equipo me asesoró perfectamente. El conocimiento del mercado local es impresionante. Muy profesionales.",
       "fotoUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
       "calificacion": 5,
       "activo": true,
@@ -43,7 +43,7 @@
     {
       "id": 5,
       "nombre": "Ana Lucía Torres",
-      "ubicacion": "Villa Crespo, Buenos Aires",
+      "ubicacion": "La Movediza, Tandil",
       "texto": "Después de meses buscando sin éxito, Fairway encontró exactamente lo que necesitaba en mi presupuesto. Atención personalizada de principio a fin.",
       "fotoUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face",
       "calificacion": 5,
@@ -54,15 +54,15 @@
   "beneficios": [
     {
       "id": 1,
-      "icono": "shield-check",
+      "icono": "bi-shield-check",
       "titulo": "Confianza y Seguridad",
-      "descripcion": "Más de 12 años de experiencia en el mercado inmobiliario garantizan operaciones seguras y transparentes.",
+      "descripcion": "Más de 20 años de experiencia en el mercado inmobiliario de Tandil garantizan operaciones seguras y transparentes.",
       "orden": 1,
       "activo": true
     },
     {
       "id": 2,
-      "icono": "users",
+      "icono": "bi-people",
       "titulo": "Equipo Profesional",
       "descripcion": "Asesores especializados comprometidos en encontrar la propiedad perfecta para cada cliente.",
       "orden": 2,
@@ -70,15 +70,15 @@
     },
     {
       "id": 3,
-      "icono": "home",
+      "icono": "bi-house",
       "titulo": "Amplio Portfolio",
-      "descripcion": "Miles de propiedades en venta y alquiler en las mejores ubicaciones de la región.",
+      "descripcion": "Gran variedad de propiedades en venta y alquiler en Tandil y la zona serrana.",
       "orden": 3,
       "activo": true
     },
     {
       "id": 4,
-      "icono": "headset",
+      "icono": "bi-headset",
       "titulo": "Atención Personalizada",
       "descripcion": "Acompañamiento en cada paso del proceso, desde la búsqueda hasta la firma del contrato.",
       "orden": 4,
@@ -86,15 +86,15 @@
     },
     {
       "id": 5,
-      "icono": "trending-up",
-      "titulo": "Mejor Valorización",
-      "descripcion": "Tasaciones precisas basadas en estudios de mercado para maximizar tu inversión.",
+      "icono": "bi-geo-alt",
+      "titulo": "Conocimiento Local",
+      "descripcion": "Profundo conocimiento del mercado inmobiliario de Tandil y sus diferentes barrios.",
       "orden": 5,
       "activo": true
     },
     {
       "id": 6,
-      "icono": "clock",
+      "icono": "bi-clock",
       "titulo": "Respuesta Rápida",
       "descripcion": "Atención inmediata a consultas y coordinación ágil de visitas a propiedades.",
       "orden": 6,
