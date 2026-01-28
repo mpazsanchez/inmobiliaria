@@ -176,7 +176,7 @@ export class NotificacionesService {
         leida: false,
         fechaCreacion: new Date(Date.now() - 5 * 60000).toISOString(), // 5 min ago
         usuarioId: 1,
-        enlace: '/member-area/consultas/1',
+        enlace: '/member-area/notificaciones',
         icono: 'bi-envelope',
         entidadId: 1,
         entidadTipo: 'lead'
@@ -190,7 +190,7 @@ export class NotificacionesService {
         leida: false,
         fechaCreacion: new Date(Date.now() - 30 * 60000).toISOString(), // 30 min ago
         usuarioId: 1,
-        enlace: '/member-area/consultas/2',
+        enlace: '/member-area/notificaciones',
         icono: 'bi-person-check',
         entidadId: 2,
         entidadTipo: 'lead'
