@@ -1,0 +1,59 @@
+<a
+  class="notification-card"
+  [class.unread]="!notification.leida"
+  [class.clickable]="clickable"
+  [routerLink]="clickable && notification.enlace ? notification.enlace : null"
+  (click)="onCardClick()">
+  
+  <!-- Barra de prioridad -->
+  <div class="priority-bar" [class]="getColorPrioridad(notification.prioridad)"></div>
+  
+  <!-- Icono -->
+  <div class="notif-icon" [class]="getColorPrioridad(notification.prioridad)">
+    <i [class]="getIconoClase()"></i>
+  </div>
+  
+  <!-- Contenido -->
+  <div class="notif-content">
+    <div class="notif-header">
+      <h3>{{ notification.titulo }}</h3>
+      <div class="notif-badges">
+        <span class="badge-prioridad" [class]="getColorPrioridad(notification.prioridad)">
+          {{ notification.prioridad | titlecase }}
+        </span>
+        @if (!notification.leida) {
+          <span class="badge-unread">Sin leer</span>
+        }
+      </div>
+    </div>
+    
+    <p class="notif-message">{{ notification.mensaje }}</p>
+    
+    <div class="notif-footer">
+      <span class="notif-time">
+        <i class="bi bi-clock"></i>
+        {{ getTiempoTranscurrido(notification.fechaCreacion) }}
+      </span>
+      <span class="notif-date" [title]="getFechaCompleta(notification.fechaCreacion)">
+        {{ getFechaCompleta(notification.fechaCreacion) }}
+      </span>
+    </div>
+  </div>
+  
+  <!-- Acciones -->
+  @if (showActions) {
+    <div class="notif-actions">
+      @if (notification.enlace) {
+        <button class="btn-action" title="Ver detalles">
+          <i class="bi bi-arrow-right"></i>
+        </button>
+      }
+      <button 
+        class="btn-action delete" 
+        (click)="onDeleteClick($event)"
+        title="Eliminar">
+        <i class="bi bi-trash"></i>
+      </button>
+    </div>
+  }
+</a>

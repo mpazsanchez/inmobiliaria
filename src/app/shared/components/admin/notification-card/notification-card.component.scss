@@ -1,0 +1,241 @@
+@use 'admin-variables' as v;
+
+.notification-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: v.$bg-white;
+  border: 1px solid v.$border-color;
+  border-radius: 12px;
+  transition: all 0.2s;
+  text-decoration: none;
+  color: inherit;
+
+  &.clickable {
+    cursor: pointer;
+
+    &:hover {
+      border-color: v.$primary-green;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+  }
+
+  &.unread {
+    background: linear-gradient(to right, rgba(v.$primary-green, 0.02), v.$bg-white);
+    border-left: 3px solid v.$primary-green;
+  }
+
+  .priority-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    border-radius: 12px 0 0 12px;
+
+    &.urgente {
+      background: #ef4444;
+    }
+
+    &.alta {
+      background: #f97316;
+    }
+
+    &.media {
+      background: #eab308;
+    }
+
+    &.baja {
+      background: #22c55e;
+    }
+  }
+
+  .notif-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+
+    &.urgente {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+
+    &.alta {
+      background: rgba(249, 115, 22, 0.1);
+      color: #f97316;
+    }
+
+    &.media {
+      background: rgba(234, 179, 8, 0.1);
+      color: #eab308;
+    }
+
+    &.baja {
+      background: rgba(34, 197, 94, 0.1);
+      color: #22c55e;
+    }
+  }
+
+  .notif-content {
+    flex: 1;
+    min-width: 0;
+
+    .notif-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+
+      h3 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+        color: v.$text-dark;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .notif-badges {
+        display: flex;
+        gap: 0.5rem;
+        flex-shrink: 0;
+
+        .badge-prioridad,
+        .badge-unread {
+          padding: 0.25rem 0.75rem;
+          border-radius: 12px;
+          font-size: 0.75rem;
+          font-weight: 600;
+          white-space: nowrap;
+        }
+
+        .badge-prioridad {
+          &.urgente {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+          }
+
+          &.alta {
+            background: rgba(249, 115, 22, 0.1);
+            color: #ea580c;
+          }
+
+          &.media {
+            background: rgba(234, 179, 8, 0.1);
+            color: #ca8a04;
+          }
+
+          &.baja {
+            background: rgba(34, 197, 94, 0.1);
+            color: #16a34a;
+          }
+        }
+
+        .badge-unread {
+          background: rgba(v.$primary-green, 0.1);
+          color: v.$primary-green;
+        }
+      }
+    }
+
+    .notif-message {
+      margin: 0 0 0.75rem 0;
+      color: v.$text-muted;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .notif-footer {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: v.$text-light;
+
+      .notif-time {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        font-weight: 500;
+      }
+
+      .notif-date {
+        color: v.$text-light;
+      }
+    }
+  }
+
+  .notif-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+
+    .btn-action {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1px solid v.$border-color;
+      background: transparent;
+      color: v.$text-muted;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover {
+        background: v.$bg-light;
+        border-color: v.$primary-green;
+        color: v.$primary-green;
+      }
+
+      &.delete:hover {
+        background: rgba(v.$danger, 0.1);
+        border-color: v.$danger;
+        color: v.$danger;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+    padding: 1rem;
+
+    .notif-content {
+      .notif-header {
+        flex-direction: column;
+        align-items: flex-start;
+
+        .notif-badges {
+          width: 100%;
+          justify-content: flex-start;
+        }
+      }
+
+      .notif-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+      }
+    }
+
+    .notif-actions {
+      width: 100%;
+      justify-content: flex-end;
+    }
+  }
+}
