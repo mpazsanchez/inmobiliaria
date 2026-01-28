@@ -1,8 +1,9 @@
-
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { SafeHtml } from '@angular/platform-browser';
 import { ContenidoEstaticoService } from '../../../../core/services/contenido-estatico.service';
+import { SeoService } from '../../../../core/services/seo.service';
+import { SanitizerService } from '../../../../core/services/sanitizer.service';
 import { ContenidoEstatico } from '../../../../core/models/static-content/contenido-estatico.interface';
 
 @Component({
@@ -19,7 +20,8 @@ export class AboutUsComponent implements OnInit {
   error: string | null = null;
 
   private readonly contenidoService = inject(ContenidoEstaticoService);
-  private readonly sanitizer = inject(DomSanitizer);
+  private readonly sanitizerService = inject(SanitizerService);
+  private readonly seoService = inject(SeoService);
 
   ngOnInit(): void {
     this.loadContent();
@@ -30,8 +32,16 @@ export class AboutUsComponent implements OnInit {
     this.contenidoService.getPageContent('nosotros').subscribe({
       next: (content: ContenidoEstatico) => {
         this.content = content;
-        this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(content.contenidoHtml);
+        // Usar servicio de sanitización para prevenir XSS
+        this.safeHtml = this.sanitizerService.sanitizeHtml(content.contenidoHtml);
         this.loading = false;
+
+        // Aplicar SEO metadata desde el CMS
+        this.seoService.updateMetaTags({
+          title: content.titulo,
+          description: content.metaDescripcion,
+          keywords: content.metaKeywords
+        });
       },
       error: (err: Error) => {
         console.error('Error loading content:', err);
