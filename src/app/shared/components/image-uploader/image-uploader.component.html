@@ -1,0 +1,111 @@
+<div class="image-uploader">
+  <!-- Zona de drag & drop -->
+  <div
+    class="drop-zone"
+    [class.dragging]="isDragging()"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)">
+    
+    <div class="drop-zone-content">
+      <i class="bi bi-cloud-upload"></i>
+      <h3>Arrastra imágenes aquí</h3>
+      <p>o haz clic para seleccionar archivos</p>
+      <input
+        type="file"
+        #fileInput
+        accept="image/*"
+        multiple
+        (change)="onFileSelected($event)"
+        style="display: none">
+      <button type="button" class="btn-select" (click)="fileInput.click()">
+        <i class="bi bi-folder2-open"></i>
+        Seleccionar Imágenes
+      </button>
+      <small class="file-hint">JPG, PNG, WEBP o GIF • Máximo 10MB por imagen</small>
+    </div>
+  </div>
+
+  <!-- Lista de archivos en proceso de carga -->
+  @if (uploadQueue().length > 0) {
+    <div class="upload-queue">
+      <div class="queue-header">
+        <h4>Imágenes ({{ uploadQueue().length }}/{{ maxFiles }})</h4>
+        <button type="button" class="btn-clear" (click)="clearCompleted()">
+          <i class="bi bi-x-circle"></i>
+          Limpiar completadas
+        </button>
+      </div>
+
+      <div class="queue-items">
+        @for (item of uploadQueue(); track item.file.name) {
+          <div class="queue-item" [class]="item.status">
+            <!-- Preview -->
+            @if (showPreview) {
+              <div class="item-preview">
+                <img [src]="getPreviewUrl(item)" [alt]="item.file.name">
+              </div>
+            }
+
+            <!-- Info -->
+            <div class="item-info">
+              <div class="item-name">{{ item.file.name }}</div>
+              <div class="item-size">{{ formatFileSize(item.file.size) }}</div>
+              
+              <!-- Status -->
+              <div class="item-status">
+                @switch (item.status) {
+                  @case ('pending') {
+                    <span class="status-badge pending">
+                      <i class="bi bi-clock"></i>
+                      Pendiente
+                    </span>
+                  }
+                  @case ('uploading') {
+                    <span class="status-badge uploading">
+                      <i class="bi bi-arrow-up-circle spin"></i>
+                      Subiendo...
+                    </span>
+                  }
+                  @case ('success') {
+                    <span class="status-badge success">
+                      <i class="bi bi-check-circle-fill"></i>
+                      Completado
+                    </span>
+                  }
+                  @case ('error') {
+                    <span class="status-badge error">
+                      <i class="bi bi-exclamation-circle-fill"></i>
+                      {{ item.error }}
+                    </span>
+                  }
+                }
+              </div>
+
+              <!-- Progress bar -->
+              @if (item.status === 'uploading') {
+                <div class="progress-bar">
+                  <div class="progress-fill" [style.width.%]="item.progress"></div>
+                </div>
+              }
+            </div>
+
+            <!-- Actions -->
+            <div class="item-actions">
+              @if (item.status === 'error' || item.status === 'pending') {
+                <button type="button" class="btn-icon" (click)="removeUpload(item)" title="Eliminar">
+                  <i class="bi bi-trash"></i>
+                </button>
+              }
+              @if (item.status === 'success' && item.result) {
+                <button type="button" class="btn-icon success" title="Subido exitosamente">
+                  <i class="bi bi-check-lg"></i>
+                </button>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>
