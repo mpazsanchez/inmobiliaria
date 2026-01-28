@@ -4,6 +4,7 @@ import { Observable, of, BehaviorSubject } from 'rxjs';
 import { map, delay, tap } from 'rxjs/operators';
 import { Propiedad, Imagen } from '../../../core/models/property.interface';
 import { MOCK_PROPIEDADES } from '../../../core/services/mock-data/properties.mock';
+import { CloudinaryService } from '../../../core/services/cloudinary.service';
 
 // =============================================
 // INTERFACES
@@ -31,6 +32,7 @@ export interface PropertyStats {
 @Injectable({ providedIn: 'root' })
 export class PropertiesAdminService {
   private http = inject(HttpClient);
+  private cloudinary = inject(CloudinaryService);
 
   // Flag para cambiar entre mock y API real
   private useMockData = true;
@@ -250,23 +252,15 @@ export class PropertiesAdminService {
   }
 
   /**
-   * Simula upload de imagen (retorna URL mock)
+   * Sube imagen de propiedad usando Cloudinary
    */
   uploadImage(file: File): Observable<Imagen> {
-    // En producción: subir a Cloudinary/S3 y retornar URL real
-    const mockUrls = [
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop',
-      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop'
-    ];
-
-    const randomUrl = mockUrls[Math.floor(Math.random() * mockUrls.length)];
-
-    return of({
-      url: randomUrl,
-      descripcion: file.name.replace(/\.[^/.]+$/, '')
-    }).pipe(delay(1000));
+    return this.cloudinary.uploadPropertyImage(file).pipe(
+      map(result => ({
+        url: result.secureUrl,
+        descripcion: result.originalFilename
+      }))
+    );
   }
 
   /**
