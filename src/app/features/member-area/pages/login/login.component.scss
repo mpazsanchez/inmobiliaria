@@ -420,6 +420,18 @@
     font-size: 1rem;
     flex-shrink: 0;
   }
+
+  .countdown {
+    font-weight: 600;
+    margin-left: auto;
+  }
+
+  // Rate limiting warning style
+  &.alert-warning {
+    background: #fffbeb;
+    border-color: #fcd34d;
+    color: #92400e;
+  }
 }
 
 // Submit Button

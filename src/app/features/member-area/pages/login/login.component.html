@@ -142,13 +142,16 @@
           </div>
 
           @if (error()) {
-            <div class="alert-error">
-              <i class="bi bi-exclamation-triangle"></i>
+            <div class="alert-error" [class.alert-warning]="isBlocked()">
+              <i class="bi" [class.bi-exclamation-triangle]="!isBlocked()" [class.bi-clock-history]="isBlocked()"></i>
               <span>{{ error() }}</span>
+              @if (isBlocked() && blockTimeRemaining() > 0) {
+                <span class="countdown">({{ blockTimeRemaining() }}s)</span>
+              }
             </div>
           }
 
-          <button type="submit" class="btn-submit" [disabled]="loginForm.invalid || isLoading">
+          <button type="submit" class="btn-submit" [disabled]="loginForm.invalid || isLoading || isBlocked()">
             @if (isLoading) {
               <span class="spinner"></span>
               Ingresando...
