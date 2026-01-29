@@ -1,11 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
 import type { Agente } from '../../../core/models/agent.interface';
 import { AGENTES_MOCK } from '../../../core/services/mock-data/agents.mock';
+import { CloudinaryService } from '../../../core/services/cloudinary.service';
 
 @Injectable({ providedIn: 'root' })
 export class ProfileService {
+  private cloudinary = inject(CloudinaryService);
   private useMockData = true;
 
   /**
@@ -48,21 +50,14 @@ export class ProfileService {
   }
 
   /**
-   * Sube una foto de perfil (preparado para API)
-   * Por ahora retorna una URL de preview local
+   * Sube una foto de perfil usando Cloudinary
+   * Retorna URL persistente que funciona despues de refresh
    */
   uploadPhoto(file: File): Observable<{ url: string }> {
-    if (this.useMockData) {
-      // Crear URL temporal para preview
-      const url = URL.createObjectURL(file);
-      return of({ url }).pipe(delay(300));
-    }
-
-    // TODO: Implementar subida a Cloudinary/S3
-    // const formData = new FormData();
-    // formData.append('photo', file);
-    // return this.http.post<{ url: string }>(`${this.apiUrl}/upload-photo`, formData);
-    return throwError(() => new Error('Upload no implementado'));
+    // Usar Cloudinary para upload real (funciona en mock y produccion)
+    return this.cloudinary.uploadAgentPhoto(file).pipe(
+      map(result => ({ url: result.secureUrl }))
+    );
   }
 
   /**
