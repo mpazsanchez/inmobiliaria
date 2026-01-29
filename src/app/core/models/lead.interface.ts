@@ -8,4 +8,6 @@ export interface Contacto {
   mensaje: string;
   fechaEnvio: string;
   respondida: boolean;
+  /** Token de reCAPTCHA Enterprise (opcional, solo en envío) */
+  recaptchaToken?: string;
 }
