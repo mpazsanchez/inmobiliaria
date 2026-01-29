@@ -7,3 +7,4 @@ export type { ModalVariant } from './confirm-modal/confirm-modal.component';
 export { EmptyStateComponent } from './empty-state/empty-state.component';
 export { PageHeaderComponent } from './page-header/page-header.component';
 export type { HeaderAction } from './page-header/page-header.component';
+export { NotificationCardComponent } from './notification-card/notification-card.component';
