@@ -1,0 +1,354 @@
+<div class="statistics-wrapper">
+  <div class="statistics-container">
+    <!-- Header -->
+    <div class="statistics-header">
+      <div class="header-content">
+        <div class="header-info">
+          <h1>
+            <i class="bi bi-graph-up-arrow"></i>
+            Estadísticas y Reportes
+          </h1>
+          <p class="subtitle">Métricas de rendimiento del sistema</p>
+        </div>
+        <div class="header-actions">
+          <select
+            class="periodo-select"
+            [ngModel]="periodoSeleccionado()"
+            (ngModelChange)="onPeriodoChange($event)">
+            @for (periodo of periodos; track periodo.value) {
+              <option [value]="periodo.value">{{ periodo.label }}</option>
+            }
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    @if (isLoading()) {
+      <div class="loading-container">
+        <div class="loading-spinner"></div>
+        <p>Cargando estadísticas...</p>
+      </div>
+    } @else {
+      <!-- Stats Cards - Propiedades -->
+      @if (propiedadesStats()) {
+        <div class="section-title">
+          <h2><i class="bi bi-building"></i> Propiedades</h2>
+          <button class="btn-export" (click)="exportarPropiedades()" [disabled]="exportando()">
+            <i class="bi bi-download"></i>
+            Exportar CSV
+          </button>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card" style="border-left-color: #1a4d2e">
+            <div class="stat-icon" style="color: #1a4d2e">
+              <i class="bi bi-house-check"></i>
+            </div>
+            <div class="stat-content">
+              <h3>Activas</h3>
+              <div class="stat-value">{{ propiedadesStats()!.totalActivas }}</div>
+              <div class="stat-trend">
+                <i class="bi bi-arrow-up"></i>
+                {{ propiedadesStats()!.nuevasEsteMes }} nuevas este mes
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card" style="border-left-color: #2b8b52">
+            <div class="stat-icon" style="color: #2b8b52">
+              <i class="bi bi-tag"></i>
+            </div>
+            <div class="stat-content">
+              <h3>En Venta</h3>
+              <div class="stat-value">{{ propiedadesStats()!.enVenta }}</div>
+            </div>
+          </div>
+
+          <div class="stat-card" style="border-left-color: #3498db">
+            <div class="stat-icon" style="color: #3498db">
+              <i class="bi bi-key"></i>
+            </div>
+            <div class="stat-content">
+              <h3>En Alquiler</h3>
+              <div class="stat-value">{{ propiedadesStats()!.enAlquiler }}</div>
+            </div>
+          </div>
+
+          <div class="stat-card" style="border-left-color: #e6962e">
+            <div class="stat-icon" style="color: #e6962e">
+              <i class="bi bi-check-circle"></i>
+            </div>
+            <div class="stat-content">
+              <h3>Vendidas</h3>
+              <div class="stat-value">{{ propiedadesStats()!.vendidas }}</div>
+              <div class="stat-trend trend-up">
+                <i class="bi bi-arrow-up"></i>
+                {{ propiedadesStats()!.vendidasEsteMes }} este mes
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card" style="border-left-color: #9b59b6">
+            <div class="stat-icon" style="color: #9b59b6">
+              <i class="bi bi-house-door"></i>
+            </div>
+            <div class="stat-content">
+              <h3>Alquiladas</h3>
+              <div class="stat-value">{{ propiedadesStats()!.alquiladas }}</div>
+              <div class="stat-trend trend-up">
+                <i class="bi bi-arrow-up"></i>
+                {{ propiedadesStats()!.alquiladasEsteMes }} este mes
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card" style="border-left-color: #f39c12">
+            <div class="stat-icon" style="color: #f39c12">
+              <i class="bi bi-hourglass-split"></i>
+            </div>
+            <div class="stat-content">
+              <h3>Reservadas</h3>
+              <div class="stat-value">{{ propiedadesStats()!.reservadas }}</div>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Propiedades por Tipo -->
+      @if (propiedadesPorTipo().length > 0) {
+        <div class="content-grid">
+          <div class="statistics-section">
+            <div class="section-header">
+              <h2><i class="bi bi-pie-chart"></i> Distribución por Tipo</h2>
+            </div>
+            <div class="tipo-list">
+              @for (tipo of propiedadesPorTipo(); track tipo.tipo) {
+                <div class="tipo-item">
+                  <div class="tipo-info">
+                    <span class="tipo-label">{{ tipo.label }}</span>
+                    <span class="tipo-cantidad">{{ tipo.cantidad }}</span>
+                  </div>
+                  <div class="tipo-bar">
+                    <div class="tipo-bar-fill" [style.width.%]="tipo.porcentaje"></div>
+                  </div>
+                  <span class="tipo-porcentaje">{{ tipo.porcentaje }}%</span>
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Propiedades más vistas -->
+          <div class="statistics-section">
+            <div class="section-header">
+              <h2><i class="bi bi-eye"></i> Propiedades Más Vistas</h2>
+            </div>
+            <div class="vistas-list">
+              @for (prop of propiedadesMasVistas(); track prop.propiedadId; let i = $index) {
+                <div class="vistas-item">
+                  <div class="vistas-rank">{{ i + 1 }}</div>
+                  <div class="vistas-info">
+                    <strong>{{ prop.titulo }}</strong>
+                    <div class="vistas-meta">
+                      <span><i class="bi bi-eye"></i> {{ prop.visitas }} visitas</span>
+                      <span><i class="bi bi-share"></i> {{ prop.compartidos }} compartidos</span>
+                    </div>
+                  </div>
+                  <div class="vistas-conversion">
+                    <span class="conversion-value">{{ prop.tasaConversion }}%</span>
+                    <span class="conversion-label">conversión</span>
+                  </div>
+                </div>
+              }
+              @if (propiedadesMasVistas().length === 0) {
+                <div class="empty-state">
+                  <i class="bi bi-bar-chart"></i>
+                  <p>Las estadísticas de visitas estarán disponibles cuando se implemente el tracking</p>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Stats Cards - Consultas -->
+      @if (consultasStats()) {
+        <div class="section-title">
+          <h2><i class="bi bi-chat-dots"></i> Consultas / Leads</h2>
+          <button class="btn-export" (click)="exportarConsultas()" [disabled]="exportando()">
+            <i class="bi bi-download"></i>
+            Exportar CSV
+          </button>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card" style="border-left-color: #1a4d2e">
+            <div class="stat-icon" style="color: #1a4d2e">
+              <i class="bi bi-chat-square-text"></i>
+            </div>
+            <div class="stat-content">
+              <h3>Total Consultas</h3>
+              <div class="stat-value">{{ consultasStats()!.totalConsultas }}</div>
+              <div class="stat-trend">
+                {{ consultasStats()!.consultasEsteMes }} este mes
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card" style="border-left-color: #e6962e">
+            <div class="stat-icon" style="color: #e6962e">
+              <i class="bi bi-clock-history"></i>
+            </div>
+            <div class="stat-content">
+              <h3>Pendientes</h3>
+              <div class="stat-value">{{ consultasStats()!.pendientes }}</div>
+            </div>
+          </div>
+
+          <div class="stat-card" style="border-left-color: #2b8b52">
+            <div class="stat-icon" style="color: #2b8b52">
+              <i class="bi bi-check2-all"></i>
+            </div>
+            <div class="stat-content">
+              <h3>Respondidas</h3>
+              <div class="stat-value">{{ consultasStats()!.respondidas }}</div>
+              <div class="stat-trend trend-up">
+                {{ consultasStats()!.tasaRespuesta }}% tasa respuesta
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card" style="border-left-color: #9b59b6">
+            <div class="stat-icon" style="color: #9b59b6">
+              <i class="bi bi-trophy"></i>
+            </div>
+            <div class="stat-content">
+              <h3>Convertidas</h3>
+              <div class="stat-value">{{ consultasStats()!.convertidas }}</div>
+              <div class="stat-trend trend-up">
+                {{ consultasStats()!.tasaConversion }}% conversión
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card" style="border-left-color: #3498db">
+            <div class="stat-icon" style="color: #3498db">
+              <i class="bi bi-stopwatch"></i>
+            </div>
+            <div class="stat-content">
+              <h3>Tiempo Promedio Resp.</h3>
+              <div class="stat-value">{{ consultasStats()!.tiempoPromedioRespuesta }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Consultas por Mes -->
+        @if (consultasPorMes().length > 0) {
+          <div class="statistics-section chart-section">
+            <div class="section-header">
+              <h2><i class="bi bi-bar-chart-line"></i> Consultas por Mes</h2>
+            </div>
+            <div class="chart-container">
+              @for (mes of consultasPorMes(); track mes.mes + mes.anio) {
+                <div class="chart-bar-container">
+                  <div class="chart-bar" [style.height.%]="getBarWidth(mes.cantidad)">
+                    <span class="chart-value">{{ mes.cantidad }}</span>
+                  </div>
+                  <span class="chart-label">{{ mes.mes }}</span>
+                </div>
+              }
+            </div>
+            <div class="chart-legend">
+              <span class="legend-item">
+                <span class="legend-color" style="background: #1a4d2e"></span>
+                Consultas recibidas
+              </span>
+            </div>
+          </div>
+        }
+      }
+
+      <!-- Desempeño de Asesores (Solo Admin) -->
+      @if (isAdmin() && asesoresStats().length > 0) {
+        <div class="section-title">
+          <h2><i class="bi bi-people"></i> Desempeño de Asesores</h2>
+          <button class="btn-export" (click)="exportarAsesores()" [disabled]="exportando()">
+            <i class="bi bi-download"></i>
+            Exportar CSV
+          </button>
+        </div>
+        <div class="asesores-table-container">
+          <table class="asesores-table">
+            <thead>
+              <tr>
+                <th class="col-rank">#</th>
+                <th class="col-asesor">Asesor</th>
+                <th class="col-props">Propiedades</th>
+                <th class="col-ventas">Vendidas</th>
+                <th class="col-alquiladas">Alquiladas</th>
+                <th class="col-consultas">Consultas</th>
+                <th class="col-conversion">Conversión</th>
+                <th class="col-tiempo">T. Resp.</th>
+                <th class="col-performance">Performance</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (asesor of asesoresStats(); track asesor.asesorId) {
+                <tr>
+                  <td class="col-rank">
+                    <span class="rank-badge" [class.top-3]="asesor.ranking! <= 3">
+                      {{ asesor.ranking }}
+                    </span>
+                  </td>
+                  <td class="col-asesor">
+                    <div class="asesor-cell">
+                      @if (asesor.fotoUrl) {
+                        <img [src]="asesor.fotoUrl" [alt]="asesor.nombre" class="asesor-avatar">
+                      } @else {
+                        <div class="asesor-avatar-initials">{{ getInitials(asesor.nombre) }}</div>
+                      }
+                      <span>{{ asesor.nombre }}</span>
+                    </div>
+                  </td>
+                  <td class="col-props">{{ asesor.propiedadesActivas }}</td>
+                  <td class="col-ventas">{{ asesor.propiedadesVendidas }}</td>
+                  <td class="col-alquiladas">{{ asesor.propiedadesAlquiladas }}</td>
+                  <td class="col-consultas">
+                    <div class="consultas-cell">
+                      <span>{{ asesor.consultasRespondidas }}/{{ asesor.consultasRecibidas }}</span>
+                      <span class="consultas-convertidas">({{ asesor.consultasConvertidas }} conv.)</span>
+                    </div>
+                  </td>
+                  <td class="col-conversion">
+                    <div class="conversion-cell">
+                      <div class="conversion-bar">
+                        <div class="conversion-fill" [style.width.%]="asesor.tasaConversion"></div>
+                      </div>
+                      <span>{{ asesor.tasaConversion }}%</span>
+                    </div>
+                  </td>
+                  <td class="col-tiempo">{{ asesor.tiempoPromedioRespuesta }}</td>
+                  <td class="col-performance">
+                    <span class="performance-badge" [class]="getPerformanceClass(asesor.performanceScore)">
+                      {{ getPerformanceLabel(asesor.performanceScore) }}
+                    </span>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+
+      <!-- Info sobre Google Analytics -->
+      <div class="analytics-info">
+        <div class="analytics-info-content">
+          <i class="bi bi-info-circle"></i>
+          <div>
+            <strong>Integración con Google Analytics</strong>
+            <p>Para estadísticas de tráfico del sitio más detalladas (visitantes únicos, páginas vistas, fuentes de tráfico),
+              se puede integrar Google Analytics. Contacta al administrador del sistema para habilitar esta funcionalidad.</p>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
