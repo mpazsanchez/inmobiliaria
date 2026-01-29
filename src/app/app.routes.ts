@@ -36,6 +36,7 @@ import { StaticPageEditorComponent } from './features/member-area/pages/static-p
 // Guards
 import { authGuard } from './features/member-area/guards/auth.guard';
 import { NotificationsPageComponent } from './features/member-area/pages/notifications/notifications-page.component';
+import { StatisticsComponent } from './features/member-area/pages/statistics/statistics.component';
 
 export const routes: Routes = [
   // ============ ÁREA DE MIEMBROS ============
@@ -126,6 +127,17 @@ export const routes: Routes = [
         path: 'notificaciones',
         component: NotificationsPageComponent,
         data: { title: 'Notificaciones - Fairway' }
+      },
+      // ============ ESTADÍSTICAS Y REPORTES ============
+      {
+        path: 'estadisticas',
+        component: StatisticsComponent,
+        data: { title: 'Estadísticas - Fairway' }
+      },
+      {
+        path: 'reportes',
+        redirectTo: 'estadisticas',
+        pathMatch: 'full'
       },
       // ============ CONTENIDO (Admin) ============
       {

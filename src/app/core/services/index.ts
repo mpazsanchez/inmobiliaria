@@ -15,3 +15,4 @@ export * from './cloudinary.service';
 export * from './seo.service';
 export * from './sanitizer.service';
 export * from './recaptcha.service';
+export * from './statistics.service';

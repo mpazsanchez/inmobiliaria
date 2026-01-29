@@ -30,3 +30,6 @@ export * from './notificacion.interface';
 
 // Geocoding y Mapas
 export * from './geocoding.interface';
+
+// Estadísticas y Reportes
+export * from './statistics.interface';
