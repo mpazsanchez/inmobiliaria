@@ -1,0 +1,27 @@
+<div class="chart-section">
+  <div class="section-header">
+    <h2><i [class]="'bi bi-' + icon()"></i> {{ title() }}</h2>
+  </div>
+  
+  @if (data().length > 0) {
+    <div class="chart-container">
+      @for (item of data(); track $index) {
+        <div class="chart-item">
+          <div class="chart-label-container">
+            <span class="chart-label">{{ item.label }}</span>
+          </div>
+          <div class="chart-bar-wrapper">
+            <div class="chart-bar" [style.width.%]="getBarWidth(item.value)" [style.background-color]="getColor(item)">
+              <span class="chart-value">{{ item.value }}</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="empty-state">
+      <i class="bi bi-bar-chart"></i>
+      <p>No hay datos disponibles</p>
+    </div>
+  }
+</div>
