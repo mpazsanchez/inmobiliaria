@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LeadService } from '../../../../core/services/lead.service';
@@ -31,12 +31,13 @@ export class PropertyContactFormComponent {
   @Output() formSubmit = new EventEmitter<PropertyContactData>();
 
   contactForm: FormGroup;
-  isSubmitting = false;
-  submitSuccess = false;
-  submitError = false;
+  isSubmitting = signal(false);
+  submitSuccess = signal(false);
+  submitError = signal<string | null>(null);
 
   private readonly fb = inject(FormBuilder);
   private readonly leadService = inject(LeadService);
+  private readonly recaptchaService = inject(RecaptchaService);
 
   constructor() {
     this.contactForm = this.fb.group({
@@ -58,7 +59,7 @@ export class PropertyContactFormComponent {
     return this.contactForm.controls;
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.contactForm.invalid) {
       Object.keys(this.f).forEach(key => {
         this.f[key].markAsTouched();
@@ -66,9 +67,19 @@ export class PropertyContactFormComponent {
       return;
     }
 
-    this.isSubmitting = true;
-    this.submitError = false;
-    this.submitSuccess = false;
+    this.isSubmitting.set(true);
+    this.submitError.set(null);
+    this.submitSuccess.set(false);
+
+    // Ejecutar reCAPTCHA antes de enviar
+    const recaptchaToken = await this.recaptchaService.executeRecaptcha('PROPERTY_INQUIRY');
+
+    // Si reCAPTCHA falla y está habilitado, mostrar error
+    if (!recaptchaToken && this.recaptchaService.isAvailable) {
+      this.isSubmitting.set(false);
+      this.submitError.set('Error de verificación. Por favor, intente nuevamente.');
+      return;
+    }
 
     const formData: PropertyContactData = {
       ...this.contactForm.value,
@@ -89,11 +100,12 @@ export class PropertyContactFormComponent {
       nombreContacto: this.contactForm.value.nombre,
       emailContacto: this.contactForm.value.email,
       telefonoContacto: this.contactForm.value.telefono,
-      mensaje: mensajeCompleto
+      mensaje: mensajeCompleto,
+      recaptchaToken: recaptchaToken || undefined
     }).subscribe({
       next: () => {
-        this.isSubmitting = false;
-        this.submitSuccess = true;
+        this.isSubmitting.set(false);
+        this.submitSuccess.set(true);
         this.formSubmit.emit(formData);
         this.contactForm.reset();
 
@@ -104,17 +116,17 @@ export class PropertyContactFormComponent {
 
         // Ocultar mensaje de éxito después de 5 segundos
         setTimeout(() => {
-          this.submitSuccess = false;
+          this.submitSuccess.set(false);
         }, 5000);
       },
       error: (err: Error) => {
         console.error('Error al enviar consulta:', err);
-        this.isSubmitting = false;
-        this.submitError = true;
+        this.isSubmitting.set(false);
+        this.submitError.set('Hubo un error al enviar la consulta. Por favor intente nuevamente.');
 
         // Ocultar mensaje de error después de 5 segundos
         setTimeout(() => {
-          this.submitError = false;
+          this.submitError.set(null);
         }, 5000);
       }
     });

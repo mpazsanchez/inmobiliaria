@@ -8,7 +8,7 @@
   </h3>
 
   <!-- Success Message -->
-  <div class="success-message" *ngIf="submitSuccess">
+  <div class="success-message" *ngIf="submitSuccess()">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
       <polyline points="22 4 12 14.01 9 11.01"/>
@@ -19,8 +19,21 @@
     </div>
   </div>
 
+  <!-- Error Message -->
+  <div class="error-message" *ngIf="submitError()">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    <div>
+      <strong>Error</strong>
+      <p>{{ submitError() }}</p>
+    </div>
+  </div>
+
   <!-- Form -->
-  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" *ngIf="!submitSuccess">
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" *ngIf="!submitSuccess()">
     <div class="form-group">
       <label for="nombre">Nombre completo *</label>
       <input
@@ -82,15 +95,15 @@
       </span>
     </div>
 
-    <button type="submit" class="btn-submit" [disabled]="isSubmitting">
-      <span *ngIf="!isSubmitting">
+    <button type="submit" class="btn-submit" [disabled]="isSubmitting()">
+      <span *ngIf="!isSubmitting()">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <line x1="22" y1="2" x2="11" y2="13"/>
           <polygon points="22 2 15 22 11 13 2 9 22 2"/>
         </svg>
         Enviar Consulta
       </span>
-      <span *ngIf="isSubmitting" class="loading">
+      <span *ngIf="isSubmitting()" class="loading">
         <svg class="spinner" viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="30 70"/>
         </svg>

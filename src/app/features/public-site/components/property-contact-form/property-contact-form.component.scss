@@ -29,6 +29,7 @@
   background: #ecfdf5;
   border: 1px solid #10b981;
   border-radius: 12px;
+  margin-bottom: 20px;
 
   svg {
     width: 28px;
@@ -46,6 +47,37 @@
 
   p {
     color: #047857;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+}
+
+.error-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  background: #fef2f2;
+  border: 1px solid #ef4444;
+  border-radius: 12px;
+  margin-bottom: 20px;
+
+  svg {
+    width: 28px;
+    height: 28px;
+    color: #ef4444;
+    flex-shrink: 0;
+  }
+
+  strong {
+    display: block;
+    color: #991b1b;
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  p {
+    color: #dc2626;
     font-size: 0.9rem;
     margin: 0;
   }
