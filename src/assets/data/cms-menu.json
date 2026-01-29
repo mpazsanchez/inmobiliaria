@@ -93,6 +93,13 @@
         "icon": "bi-chat-dots",
         "route": "/member-area/consultas",
         "orden": 4
+      },
+      {
+        "id": "estadisticas",
+        "label": "Mis Estadísticas",
+        "icon": "bi-bar-chart-line",
+        "route": "/member-area/estadisticas",
+        "orden": 5
       }
     ]
   }
