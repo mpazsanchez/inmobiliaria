@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LeadService } from '../../../../core/services/lead.service';
+import { RecaptchaService } from '../../../../core/services/recaptcha.service';
 
 export interface PropertyContactData {
   nombre: string;
