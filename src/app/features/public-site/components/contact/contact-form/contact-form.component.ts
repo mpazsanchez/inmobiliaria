@@ -2,6 +2,7 @@ import { Component, inject, Inject, PLATFORM_ID, signal } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LeadService } from '../../../../../core/services/lead.service';
+import { RecaptchaService } from '../../../../../core/services/recaptcha.service';
 
 @Component({
   selector: 'app-contact-form',
@@ -19,6 +20,7 @@ export class ContactFormComponent {
 
   private readonly fb = inject(FormBuilder);
   private readonly leadService = inject(LeadService);
+  private readonly recaptchaService = inject(RecaptchaService);
 
   constructor(
     @Inject(PLATFORM_ID) private readonly platformId: Object) {
@@ -41,9 +43,9 @@ export class ContactFormComponent {
   }
 
   /**
-   * Maneja el envío del formulario
+   * Maneja el envío del formulario con verificación reCAPTCHA
    */
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.contactForm.invalid) {
       // Marcar todos los campos como tocados para mostrar errores
       Object.keys(this.contactForm.controls).forEach(key => {
@@ -59,6 +61,16 @@ export class ContactFormComponent {
     this.error.set(null);
     this.success.set(false);
 
+    // Ejecutar reCAPTCHA antes de enviar
+    const recaptchaToken = await this.recaptchaService.executeRecaptcha('CONTACT');
+
+    // Si reCAPTCHA falla y está habilitado, mostrar error
+    if (!recaptchaToken && this.recaptchaService.isAvailable) {
+      this.loading.set(false);
+      this.error.set('Error de verificación. Por favor, intente nuevamente.');
+      return;
+    }
+
     const mensaje = `Asunto: ${this.contactForm.value.subject}\n\n${this.contactForm.value.message}`;
 
     this.leadService.submitInquiry({
@@ -67,7 +79,8 @@ export class ContactFormComponent {
       nombreContacto: this.contactForm.value.name,
       emailContacto: this.contactForm.value.email,
       telefonoContacto: this.contactForm.value.phone,
-      mensaje: mensaje
+      mensaje: mensaje,
+      recaptchaToken: recaptchaToken || undefined // Enviar token al backend
     }).subscribe({
       next: () => {
         this.loading.set(false);
