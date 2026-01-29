@@ -44,25 +44,26 @@ export interface ContentStats {
 export type ContentType = 'testimonios' | 'beneficios' | 'faqs' | 'banners';
 
 // =============================================
-// DATOS MOCK INICIALES
+// DATOS FALLBACK (coinciden con los JSON en /assets/data/static-content/)
+// Solo se usan si falla la carga de los archivos JSON
 // =============================================
 
-const TESTIMONIOS_INICIAL: Testimonio[] = [
+const TESTIMONIOS_FALLBACK: Testimonio[] = [
   {
     id: 1,
-    nombre: 'María García',
-    ubicacion: 'Palermo, Buenos Aires',
-    texto: 'Excelente atención de parte del equipo de Fairway. Encontramos nuestra casa ideal en tiempo récord.',
-    fotoUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face',
+    nombre: 'María Fernández',
+    ubicacion: 'Centro, Tandil',
+    texto: 'Excelente experiencia con Fairway. Encontraron la casa perfecta para mi familia en tiempo récord. El asesor fue muy profesional y atento a nuestras necesidades.',
+    fotoUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
     calificacion: 5,
     activo: true,
     orden: 1
   },
   {
     id: 2,
-    nombre: 'Carlos Rodríguez',
-    ubicacion: 'Nordelta, Tigre',
-    texto: 'Vendimos nuestra propiedad en menos de un mes gracias a la estrategia de marketing de Fairway.',
+    nombre: 'Carlos Martínez',
+    ubicacion: 'Villa Italia, Tandil',
+    texto: 'Vendí mi propiedad en menos de un mes gracias a la gestión de Fairway. La tasación fue justa y todo el proceso fue transparente. Totalmente recomendados.',
     fotoUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
     calificacion: 5,
     activo: true,
@@ -70,22 +71,42 @@ const TESTIMONIOS_INICIAL: Testimonio[] = [
   },
   {
     id: 3,
-    nombre: 'Ana Martínez',
-    ubicacion: 'Recoleta, Buenos Aires',
-    texto: 'Como inversora, valoro mucho el conocimiento del mercado que tiene el equipo.',
-    fotoUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
+    nombre: 'Laura González',
+    ubicacion: 'Cerrito, Tandil',
+    texto: 'Como primera compradora estaba nerviosa, pero el equipo de Fairway me guió en cada paso. Ahora tengo mi primer hogar propio y no podría estar más feliz.',
+    fotoUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face',
     calificacion: 5,
     activo: true,
     orden: 3
+  },
+  {
+    id: 4,
+    nombre: 'Roberto Sánchez',
+    ubicacion: 'Zona Sierras, Tandil',
+    texto: 'Buscaba una propiedad para inversión y el equipo me asesoró perfectamente. El conocimiento del mercado local es impresionante. Muy profesionales.',
+    fotoUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
+    calificacion: 5,
+    activo: true,
+    orden: 4
+  },
+  {
+    id: 5,
+    nombre: 'Ana Lucía Torres',
+    ubicacion: 'La Movediza, Tandil',
+    texto: 'Después de meses buscando sin éxito, Fairway encontró exactamente lo que necesitaba en mi presupuesto. Atención personalizada de principio a fin.',
+    fotoUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face',
+    calificacion: 5,
+    activo: true,
+    orden: 5
   }
 ];
 
-const BENEFICIOS_INICIAL: Beneficio[] = [
+const BENEFICIOS_FALLBACK: Beneficio[] = [
   {
     id: 1,
     icono: 'bi-shield-check',
-    titulo: 'Confianza Garantizada',
-    descripcion: 'Más de 15 años de experiencia en el mercado inmobiliario.',
+    titulo: 'Confianza y Seguridad',
+    descripcion: 'Más de 20 años de experiencia en el mercado inmobiliario de Tandil garantizan operaciones seguras y transparentes.',
     orden: 1,
     activo: true
   },
@@ -93,15 +114,15 @@ const BENEFICIOS_INICIAL: Beneficio[] = [
     id: 2,
     icono: 'bi-people',
     titulo: 'Equipo Profesional',
-    descripcion: 'Asesores certificados y especializados en diferentes segmentos.',
+    descripcion: 'Asesores especializados comprometidos en encontrar la propiedad perfecta para cada cliente.',
     orden: 2,
     activo: true
   },
   {
     id: 3,
-    icono: 'bi-graph-up-arrow',
-    titulo: 'Máximo Retorno',
-    descripcion: 'Estrategias de pricing y marketing para obtener el mejor valor.',
+    icono: 'bi-house',
+    titulo: 'Amplio Portfolio',
+    descripcion: 'Gran variedad de propiedades en venta y alquiler en Tandil y la zona serrana.',
     orden: 3,
     activo: true
   },
@@ -109,41 +130,57 @@ const BENEFICIOS_INICIAL: Beneficio[] = [
     id: 4,
     icono: 'bi-headset',
     titulo: 'Atención Personalizada',
-    descripcion: 'Acompañamiento durante todo el proceso.',
+    descripcion: 'Acompañamiento en cada paso del proceso, desde la búsqueda hasta la firma del contrato.',
     orden: 4,
+    activo: true
+  },
+  {
+    id: 5,
+    icono: 'bi-geo-alt',
+    titulo: 'Conocimiento Local',
+    descripcion: 'Profundo conocimiento del mercado inmobiliario de Tandil y sus diferentes barrios.',
+    orden: 5,
+    activo: true
+  },
+  {
+    id: 6,
+    icono: 'bi-clock',
+    titulo: 'Respuesta Rápida',
+    descripcion: 'Atención inmediata a consultas y coordinación ágil de visitas a propiedades.',
+    orden: 6,
     activo: true
   }
 ];
 
-const FAQS_INICIAL: FAQ[] = [
+const FAQS_FALLBACK: FAQ[] = [
   {
     id: 1,
-    pregunta: '¿Cuál es la comisión por venta de una propiedad?',
-    respuesta: 'Nuestra comisión es del 3% + IVA sobre el valor de venta.',
+    pregunta: '¿Cuánto cobran por sus servicios?',
+    respuesta: 'Nuestros honorarios varían según el tipo de operación. En ventas, cobramos un porcentaje del valor de la transacción. En alquileres, un mes de alquiler. Contactanos para un presupuesto personalizado.',
     categoria: 'Comisiones',
     orden: 1,
     activo: true
   },
   {
     id: 2,
-    pregunta: '¿Cómo puedo publicar mi propiedad con ustedes?',
-    respuesta: 'Puedes contactarnos a través de nuestro formulario web, WhatsApp o llamarnos directamente.',
+    pregunta: '¿Cuánto demora vender una propiedad?',
+    respuesta: 'El tiempo de venta depende de varios factores: precio, ubicación, estado de la propiedad y condiciones del mercado. En promedio, una propiedad bien tasada se vende entre 3 y 6 meses.',
     categoria: 'Proceso',
     orden: 2,
     activo: true
   },
   {
     id: 3,
-    pregunta: '¿Cuánto tiempo toma vender una propiedad?',
-    respuesta: 'El tiempo promedio es de 60-90 días gracias a nuestras estrategias de marketing.',
-    categoria: 'Proceso',
+    pregunta: '¿Necesito ser el propietario para publicar?',
+    respuesta: 'Sí, debes ser el propietario o tener autorización expresa del mismo mediante poder o contrato de intermediación.',
+    categoria: 'Legal',
     orden: 3,
     activo: true
   },
   {
     id: 4,
-    pregunta: '¿Realizan tasaciones gratuitas?',
-    respuesta: 'Sí, ofrecemos tasaciones gratuitas sin compromiso.',
+    pregunta: '¿Hacen tasaciones gratuitas?',
+    respuesta: 'Ofrecemos una valoración orientativa sin cargo. Para tasaciones oficiales con informe técnico, se cobra un honorario según la complejidad.',
     categoria: 'Servicios',
     orden: 4,
     activo: true
@@ -151,21 +188,45 @@ const FAQS_INICIAL: FAQ[] = [
   {
     id: 5,
     pregunta: '¿Trabajan con créditos hipotecarios?',
-    respuesta: 'Sí, tenemos alianzas con los principales bancos.',
+    respuesta: 'Sí, te asesoramos en el proceso de solicitud de crédito hipotecario y trabajamos con las principales entidades bancarias.',
     categoria: 'Financiamiento',
     orden: 5,
+    activo: true
+  },
+  {
+    id: 6,
+    pregunta: '¿Qué documentación necesito para vender?',
+    respuesta: 'Título de propiedad, DNI del titular, último impuesto inmobiliario y expensas al día, certificado de libre deuda, y planos aprobados.',
+    categoria: 'Legal',
+    orden: 6,
+    activo: true
+  },
+  {
+    id: 7,
+    pregunta: '¿Hacen contratos de alquiler?',
+    respuesta: 'Sí, gestionamos contratos de alquiler conforme a la Ley de Alquileres vigente, con asesoramiento legal incluido.',
+    categoria: 'Servicios',
+    orden: 7,
+    activo: true
+  },
+  {
+    id: 8,
+    pregunta: '¿Puedo visitar propiedades los fines de semana?',
+    respuesta: 'Sí, coordinamos visitas de lunes a sábados. Contactá a tu asesor para programar un horario conveniente.',
+    categoria: 'Proceso',
+    orden: 8,
     activo: true
   }
 ];
 
-const BANNERS_INICIAL: Banner[] = [
+const BANNERS_FALLBACK: Banner[] = [
   {
     id: 1,
     titulo: 'Encontrá tu hogar ideal',
-    subtitulo: 'Las mejores propiedades en las zonas más exclusivas',
-    imagenUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&h=800&fit=crop',
-    imagenMovilUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop',
-    enlace: '/propiedades',
+    subtitulo: 'Miles de propiedades en venta y alquiler te esperan',
+    imagenUrl: 'assets/images/backgrounds/fairway/hero-home-3.jpg',
+    imagenMovilUrl: 'assets/images/backgrounds/fairway/hero-home-3.jpg',
+    enlace: '/properties',
     textoBoton: 'Ver propiedades',
     posicion: 'hero',
     orden: 1,
@@ -175,12 +236,24 @@ const BANNERS_INICIAL: Banner[] = [
     id: 2,
     titulo: 'Vendé tu propiedad con nosotros',
     subtitulo: 'Tasación gratuita y el mejor asesoramiento del mercado',
-    imagenUrl: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&h=800&fit=crop',
-    imagenMovilUrl: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop',
-    enlace: '/contacto',
+    imagenUrl: 'assets/images/backgrounds/fairway/hero-home-2.webp',
+    imagenMovilUrl: 'assets/images/backgrounds/fairway/hero-home-2.webp',
+    enlace: '/contact',
     textoBoton: 'Solicitar tasación',
     posicion: 'hero',
     orden: 2,
+    activo: true
+  },
+  {
+    id: 3,
+    titulo: 'Equipo de profesionales a tu servicio',
+    subtitulo: 'Más de 20 años de experiencia en el mercado inmobiliario de Tandil',
+    imagenUrl: 'assets/images/backgrounds/fairway/hero-home.webp',
+    imagenMovilUrl: 'assets/images/backgrounds/fairway/hero-home.webp',
+    enlace: '/team',
+    textoBoton: 'Conocer equipo',
+    posicion: 'hero',
+    orden: 3,
     activo: true
   }
 ];
@@ -244,7 +317,7 @@ export class ContenidoDinamicoService {
     // Cargar testimonios
     this.http.get<{ testimonios: Testimonio[] }>('/assets/data/static-content/testimonios.json')
       .pipe(
-        catchError(() => of({ testimonios: TESTIMONIOS_INICIAL })),
+        catchError(() => of({ testimonios: TESTIMONIOS_FALLBACK })),
         tap(data => this.testimoniosSubject.next(data.testimonios))
       )
       .subscribe();
@@ -252,7 +325,7 @@ export class ContenidoDinamicoService {
     // Cargar beneficios (del mismo archivo de testimonios)
     this.http.get<{ beneficios: Beneficio[] }>('/assets/data/static-content/testimonios.json')
       .pipe(
-        catchError(() => of({ beneficios: BENEFICIOS_INICIAL })),
+        catchError(() => of({ beneficios: BENEFICIOS_FALLBACK })),
         tap(data => this.beneficiosSubject.next(data.beneficios))
       )
       .subscribe();
@@ -260,7 +333,7 @@ export class ContenidoDinamicoService {
     // Cargar FAQs
     this.http.get<{ faqs: FAQ[] }>('/assets/data/static-content/faqs-list.json')
       .pipe(
-        catchError(() => of({ faqs: FAQS_INICIAL })),
+        catchError(() => of({ faqs: FAQS_FALLBACK })),
         tap(data => this.faqsSubject.next(data.faqs))
       )
       .subscribe();
@@ -268,7 +341,7 @@ export class ContenidoDinamicoService {
     // Cargar Banners
     this.http.get<{ banners: Banner[] }>('/assets/data/static-content/banners.json')
       .pipe(
-        catchError(() => of({ banners: BANNERS_INICIAL })),
+        catchError(() => of({ banners: BANNERS_FALLBACK })),
         tap(data => this.bannersSubject.next(data.banners))
       )
       .subscribe();
