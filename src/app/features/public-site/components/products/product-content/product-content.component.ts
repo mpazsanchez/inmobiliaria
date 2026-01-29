@@ -1,6 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SafeHtml } from '@angular/platform-browser';
 import { ProductContent, ProductNavigationItem } from '../../../models';
+import { SanitizerService } from '../../../../../core/services/sanitizer.service';
 
 /**
  * Componente para mostrar el contenido principal del producto
@@ -16,4 +18,16 @@ import { ProductContent, ProductNavigationItem } from '../../../models';
 export class ProductContentComponent {
   @Input({ required: true }) content!: ProductContent;
   @Input() relatedProducts: ProductNavigationItem[] = [];
+
+  private sanitizerService = inject(SanitizerService);
+
+  /**
+   * Sanitiza la descripción HTML para prevenir XSS
+   */
+  get safeDescription(): SafeHtml {
+    if (typeof this.content?.description === 'string') {
+      return this.sanitizerService.sanitizeHtml(this.content.description);
+    }
+    return '';
+  }
 }

@@ -31,7 +31,7 @@
                             </ng-template>
                     </ng-container>
                     <ng-container *ngIf="!content.blocks">
-                        <p class="text-description text-left" [innerHTML]="content.description"></p>
+                        <p class="text-description text-left" [innerHTML]="safeDescription"></p>
                     </ng-container>
 
                     <!-- @if (content.highlightedFeatures.length > 0) {
