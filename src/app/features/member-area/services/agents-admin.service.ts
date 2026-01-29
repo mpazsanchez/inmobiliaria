@@ -4,6 +4,7 @@ import { Observable, of, BehaviorSubject } from 'rxjs';
 import { delay, map, tap } from 'rxjs/operators';
 import type { Agente } from '../../../core/models/agent.interface';
 import { AGENTES_MOCK } from '../../../core/services/mock-data/agents.mock';
+import { CloudinaryService } from '../../../core/services/cloudinary.service';
 
 // Interfaces para el admin
 export interface AgentFilters {
@@ -23,6 +24,7 @@ export interface AgentStats {
 @Injectable({ providedIn: 'root' })
 export class AgentsAdminService {
   private http = inject(HttpClient);
+  private cloudinary = inject(CloudinaryService);
 
   // ⚠️ CAMBIAR A FALSE CUANDO HAYA API REAL
   private useMockData = true;
@@ -244,18 +246,13 @@ export class AgentsAdminService {
   }
 
   // =============================================
-  // UPLOAD DE FOTO (MOCK)
+  // UPLOAD DE FOTO (CLOUDINARY)
   // =============================================
   uploadPhoto(file: File): Observable<{ url: string }> {
-    if (this.useMockData) {
-      // Simular upload - en producción usar Cloudinary/S3
-      const fakeUrl = `https://images.unsplash.com/photo-${Date.now()}?w=400&h=400&fit=crop&crop=face`;
-      return of({ url: fakeUrl }).pipe(delay(1000));
-    }
-
-    const formData = new FormData();
-    formData.append('photo', file);
-    return this.http.post<{ url: string }>(`${this.API_URL}/upload-photo`, formData);
+    // Usar Cloudinary para todos los uploads (mock y produccion)
+    return this.cloudinary.uploadAgentPhoto(file).pipe(
+      map(result => ({ url: result.secureUrl }))
+    );
   }
 
   // =============================================
