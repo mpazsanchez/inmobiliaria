@@ -5,19 +5,32 @@
 }
 
 .section-header {
-  margin-bottom: 1.5rem;
-  
+  margin-bottom: 1.25rem;
+
+  @media (max-width: 1366px) {
+    margin-bottom: 1rem;
+  }
+
   h2 {
     font-size: 1.125rem;
     font-weight: 600;
-    color: #1a4d2e;
+    color: #3d5a4c;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     margin: 0;
 
+    @media (max-width: 1366px) {
+      font-size: 1rem;
+    }
+
     i {
       font-size: 1.25rem;
+      color: #5b9a8b;
+
+      @media (max-width: 1366px) {
+        font-size: 1.125rem;
+      }
     }
   }
 }
@@ -26,13 +39,22 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  @media (max-width: 1366px) {
+    gap: 0.75rem;
+  }
 }
 
 .chart-item {
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: 150px 1fr;
   gap: 1rem;
   align-items: center;
+
+  @media (max-width: 1366px) {
+    grid-template-columns: 130px 1fr;
+    gap: 0.75rem;
+  }
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -41,11 +63,26 @@
 }
 
 .chart-label-container {
+  min-width: 0;
+  overflow: hidden;
+
   .chart-label {
     font-size: 0.9rem;
     font-weight: 500;
     color: #333;
     word-break: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @media (max-width: 1366px) {
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      white-space: normal;
+      font-size: 0.9rem;
+    }
   }
 }
 
@@ -56,6 +93,15 @@
   overflow: hidden;
   height: 40px;
   position: relative;
+  min-width: 0;
+
+  @media (max-width: 1366px) {
+    height: 34px;
+  }
+
+  @media (max-width: 768px) {
+    height: 32px;
+  }
 }
 
 .chart-bar {
@@ -67,13 +113,13 @@
   border-radius: 8px;
   transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   min-width: 40px;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
 
   .chart-value {
     font-size: 0.875rem;
     font-weight: 600;
     color: white;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   }
 }
 
