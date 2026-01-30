@@ -1,6 +1,5 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { StatisticsService } from '../../../../core/services/statistics.service';
 import { AuthService } from '../../services/auth.service';
@@ -14,11 +13,23 @@ import {
   PeriodoReporte,
   ExportConfig
 } from '../../../../core/models';
+import { StatsGridComponent } from '../../../../shared/components/admin/stats-grid/stats-grid.component';
+import { StatCardConfig } from '../../../../shared/components/admin/stats-card/stats-card.component';
+import { ChartBarComponent, ChartBarData } from '../../components/chart-bar/chart-bar.component';
+import { PropertyRankingComponent } from '../../components/property-ranking/property-ranking.component';
+import { AdvisorsTableComponent } from '../../components/advisors-table/advisors-table.component';
 
 @Component({
   selector: 'app-statistics',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    StatsGridComponent,
+    ChartBarComponent,
+    PropertyRankingComponent,
+    AdvisorsTableComponent
+  ],
   templateUrl: './statistics.component.html',
   styleUrl: './statistics.component.scss'
 })
@@ -44,6 +55,138 @@ export class StatisticsComponent implements OnInit {
   // Computed
   currentUser = computed(() => this.authService.getUsuario());
   isAdmin = computed(() => this.currentUser()?.rol === 'administrador');
+
+  // Computed para formato StatsGridComponent - Propiedades
+  propiedadesCardsFormatted = computed((): StatCardConfig[] => {
+    const stats = this.propiedadesStats();
+    if (!stats) return [];
+
+    const total = stats.totalActivas + stats.vendidas + stats.alquiladas + stats.reservadas;
+    const porcentajeActivas = total > 0 ? Math.round((stats.totalActivas / total) * 100) : 0;
+
+    return [
+      {
+        value: stats.totalActivas || 0,
+        label: 'Activas',
+        icon: 'bi-house-check',
+        variant: 'primary',
+        subInfo: `${porcentajeActivas}% del total`
+      },
+      {
+        value: stats.enVenta || 0,
+        label: 'En Venta',
+        icon: 'bi-tag',
+        variant: 'success'
+      },
+      {
+        value: stats.enAlquiler || 0,
+        label: 'En Alquiler',
+        icon: 'bi-key',
+        variant: 'info'
+      },
+      {
+        value: stats.vendidas || 0,
+        label: 'Vendidas',
+        icon: 'bi-check-circle',
+        variant: 'success',
+        trend: {
+          value: stats.vendidasEsteMes || 0,
+          direction: 'up'
+        },
+        subInfo: `${stats.vendidasEsteMes || 0} este mes`
+      },
+      {
+        value: stats.alquiladas || 0,
+        label: 'Alquiladas',
+        icon: 'bi-check-square',
+        variant: 'info',
+        trend: {
+          value: stats.alquiladasEsteMes || 0,
+          direction: 'up'
+        },
+        subInfo: `${stats.alquiladasEsteMes || 0} este mes`
+      },
+      {
+        value: stats.reservadas || 0,
+        label: 'Reservadas',
+        icon: 'bi-bookmark',
+        variant: 'warning'
+      }
+    ];
+  });
+
+  // Computed para formato StatsGridComponent - Consultas
+  consultasCardsFormatted = computed((): StatCardConfig[] => {
+    const stats = this.consultasStats();
+    if (!stats) return [];
+
+    return [
+      {
+        value: stats.totalConsultas || 0,
+        label: 'Total Consultas',
+        icon: 'bi-chat-square-text',
+        variant: 'primary',
+        subInfo: `${stats.consultasEsteMes || 0} este mes`
+      },
+      {
+        value: stats.pendientes || 0,
+        label: 'Pendientes',
+        icon: 'bi-clock-history',
+        variant: 'warning'
+      },
+      {
+        value: stats.respondidas || 0,
+        label: 'Respondidas',
+        icon: 'bi-check2-all',
+        variant: 'success',
+        subInfo: `${stats.tasaRespuesta || 0}% tasa`
+      },
+      {
+        value: stats.convertidas || 0,
+        label: 'Convertidas',
+        icon: 'bi-trophy',
+        variant: 'success',
+        trend: {
+          value: stats.tasaConversion || 0,
+          direction: 'up'
+        },
+        subInfo: `${stats.tasaConversion || 0}% conversión`
+      },
+      {
+        value: stats.tiempoPromedioRespuesta || '0h',
+        label: 'Tiempo Resp.',
+        icon: 'bi-stopwatch',
+        variant: 'info'
+      }
+    ];
+  });
+
+  // Computed para chart de consultas por mes
+  consultasPorMesChart = computed((): ChartBarData[] => {
+    return this.consultasPorMes().map(mes => ({
+      label: mes.mes,
+      value: mes.cantidad,
+      color: '#5b9a8b' // Verde suave
+    }));
+  });
+
+  // Computed para chart de propiedades por tipo
+  propiedadesPorTipoChart = computed((): ChartBarData[] => {
+    // Paleta de colores suaves y armoniosos
+    const colors: Record<string, string> = {
+      'Casa': '#5b9a8b',        // Verde suave
+      'Departamento': '#7eb8a8', // Verde menta
+      'Terreno': '#7cafc4',      // Azul suave
+      'Local Comercial': '#d4a574', // Naranja suave
+      'Oficina': '#a8a4ce'       // Lavanda suave
+    };
+
+    return this.propiedadesPorTipo().map(tipo => ({
+      label: tipo.tipo,
+      value: tipo.cantidad,
+      color: colors[tipo.tipo] || '#5b9a8b'
+    }));
+  });
 
   // Opciones de período
   periodos: { value: PeriodoReporte; label: string }[] = [
@@ -142,50 +285,5 @@ export class StatisticsComponent implements OnInit {
       next: () => this.exportando.set(false),
       error: () => this.exportando.set(false)
     });
-  }
-
-  // =============================================
-  // HELPERS
-  // =============================================
-
-  getPerformanceClass(score: string): string {
-    const classes: Record<string, string> = {
-      'excelente': 'performance-excelente',
-      'bueno': 'performance-bueno',
-      'regular': 'performance-regular',
-      'bajo': 'performance-bajo'
-    };
-    return classes[score] || '';
-  }
-
-  getPerformanceLabel(score: string): string {
-    const labels: Record<string, string> = {
-      'excelente': 'Excelente',
-      'bueno': 'Bueno',
-      'regular': 'Regular',
-      'bajo': 'Necesita Mejorar'
-    };
-    return labels[score] || score;
-  }
-
-  getInitials(nombre: string): string {
-    return nombre
-      .split(' ')
-      .map(n => n.charAt(0))
-      .slice(0, 2)
-      .join('')
-      .toUpperCase();
-  }
-
-  // Calcular el máximo para la barra de progreso
-  getMaxConsultas(): number {
-    const meses = this.consultasPorMes();
-    if (meses.length === 0) return 100;
-    return Math.max(...meses.map(m => m.cantidad));
-  }
-
-  getBarWidth(cantidad: number): number {
-    const max = this.getMaxConsultas();
-    return max > 0 ? (cantidad / max) * 100 : 0;
   }
 }

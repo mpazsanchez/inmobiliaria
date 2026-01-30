@@ -3,21 +3,25 @@
 .statistics-wrapper {
   min-height: 100vh;
   background: v.$bg-light;
-  padding: 0.5rem;
+  padding: 1rem;
   width: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
 
+  @media (max-width: 1366px) {
+    padding: 0.75rem;
+  }
+
   @media (max-width: 768px) {
-    padding: 0.25rem;
+    padding: 0.5rem;
   }
 }
 
 .statistics-container {
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
   width: 100%;
-  box-sizing: border-box;
+  overflow: hidden;
 }
 
 // ========================================
@@ -26,13 +30,9 @@
 .statistics-header {
   background: v.$bg-white;
   border-radius: v.$radius-md;
-  padding: 1.25rem;
-  margin-bottom: 1.25rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
   box-shadow: v.$shadow-sm;
-
-  @media (min-width: 1200px) {
-    padding: 1.5rem;
-  }
 
   .header-content {
     display: flex;
@@ -51,17 +51,22 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      font-size: v.$font-size-2xl;
+      font-size: 1.75rem;
       font-weight: 700;
       color: v.$text-dark;
       margin: 0 0 0.25rem 0;
 
       i {
         color: v.$primary-green;
+        font-size: 2rem;
       }
 
       @media (max-width: 768px) {
-        font-size: v.$font-size-xl;
+        font-size: 1.5rem;
+        
+        i {
+          font-size: 1.5rem;
+        }
       }
     }
 
@@ -72,664 +77,25 @@
     }
   }
 
-  .header-actions {
-    .periodo-select {
-      padding: 0.5rem 1rem;
-      border: 1px solid v.$border-color;
-      border-radius: v.$radius-md;
-      font-size: v.$font-size-sm;
-      color: v.$text-dark;
-      background: v.$bg-white;
-      cursor: pointer;
-      min-width: 150px;
-
-      &:focus {
-        outline: none;
-        border-color: v.$primary-green;
-      }
-    }
-  }
-}
-
-// ========================================
-// Section Titles
-// ========================================
-.section-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 1.5rem 0 1rem;
-
-  h2 {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: v.$font-size-lg;
-    font-weight: 600;
-    color: v.$text-dark;
-    margin: 0;
-
-    i {
-      color: v.$primary-green;
-    }
-  }
-
-  .btn-export {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background: v.$bg-white;
+  .periodo-select {
+    padding: 0.625rem 1rem;
     border: 1px solid v.$border-color;
     border-radius: v.$radius-md;
     font-size: v.$font-size-sm;
     color: v.$text-dark;
+    background: v.$bg-white;
     cursor: pointer;
-    transition: all v.$transition-base;
+    min-width: 150px;
+    transition: all 0.3s ease;
 
-    &:hover:not(:disabled) {
+    &:focus {
+      outline: none;
       border-color: v.$primary-green;
-      color: v.$primary-green;
+      box-shadow: 0 0 0 3px rgba(26, 77, 46, 0.1);
     }
-
-    &:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    i {
-      font-size: 1rem;
-    }
-  }
-}
-
-// ========================================
-// Stats Grid (Igual que Dashboard)
-// ========================================
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1.25rem;
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
-  }
-
-  @media (max-width: 480px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.stat-card {
-  background: v.$bg-white;
-  border-radius: v.$radius-md;
-  padding: 1rem;
-  box-shadow: v.$shadow-sm;
-  border-left: 3px solid;
-  display: flex;
-  align-items: center;
-  gap: 0.875rem;
-  transition: transform v.$transition-base, box-shadow v.$transition-base;
-
-  @media (max-width: 576px) {
-    padding: 0.625rem;
-    gap: 0.5rem;
-  }
-
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: v.$shadow-md;
-  }
-
-  .stat-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    background: rgba(v.$primary-green, 0.1);
-    border-radius: v.$radius-md;
-    flex-shrink: 0;
-
-    @media (max-width: 576px) {
-      width: 32px;
-      height: 32px;
-    }
-
-    i {
-      font-size: 1.25rem;
-
-      @media (max-width: 576px) {
-        font-size: 1rem;
-      }
-    }
-  }
-
-  .stat-content {
-    flex: 1;
-    min-width: 0;
-
-    h3 {
-      font-size: 0.7rem;
-      color: v.$text-muted;
-      margin: 0 0 0.125rem 0;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-
-      @media (max-width: 576px) {
-        font-size: 0.625rem;
-      }
-    }
-
-    .stat-value {
-      font-size: 1.375rem;
-      font-weight: 700;
-      color: v.$text-dark;
-
-      @media (max-width: 576px) {
-        font-size: 1.125rem;
-      }
-    }
-
-    .stat-trend {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-      font-size: 0.7rem;
-      color: v.$text-muted;
-      margin-top: 0.125rem;
-
-      @media (max-width: 576px) {
-        display: none;
-      }
-
-      &.trend-up {
-        color: v.$success;
-      }
-
-      i {
-        font-size: 0.8rem;
-      }
-    }
-  }
-}
-
-// ========================================
-// Content Grid
-// ========================================
-.content-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 1.25rem;
-
-  @media (max-width: 992px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.statistics-section {
-  background: v.$bg-white;
-  border-radius: v.$radius-md;
-  padding: 1rem;
-  box-shadow: v.$shadow-sm;
-
-  .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid v.$border-color;
-
-    h2 {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: v.$font-size-base;
-      font-weight: 600;
-      color: v.$text-dark;
-      margin: 0;
-
-      i {
-        color: v.$primary-green;
-      }
-    }
-  }
-}
-
-// ========================================
-// Distribución por Tipo
-// ========================================
-.tipo-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.tipo-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-
-  .tipo-info {
-    width: 120px;
-    display: flex;
-    justify-content: space-between;
-    flex-shrink: 0;
-
-    .tipo-label {
-      font-size: v.$font-size-sm;
-      color: v.$text-dark;
-    }
-
-    .tipo-cantidad {
-      font-size: v.$font-size-sm;
-      font-weight: 600;
-      color: v.$text-dark;
-    }
-  }
-
-  .tipo-bar {
-    flex: 1;
-    height: 8px;
-    background: v.$bg-light;
-    border-radius: 4px;
-    overflow: hidden;
-
-    .tipo-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, v.$primary-green, v.$primary-green-dark);
-      border-radius: 4px;
-      transition: width 0.5s ease;
-    }
-  }
-
-  .tipo-porcentaje {
-    width: 40px;
-    text-align: right;
-    font-size: v.$font-size-sm;
-    color: v.$text-muted;
-  }
-}
-
-// ========================================
-// Propiedades Más Vistas
-// ========================================
-.vistas-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.vistas-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem;
-  background: v.$bg-light;
-  border-radius: v.$radius-md;
-  border: 1px solid v.$border-color;
-
-  .vistas-rank {
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: v.$primary-green;
-    color: white;
-    border-radius: 50%;
-    font-size: v.$font-size-sm;
-    font-weight: 600;
-    flex-shrink: 0;
-  }
-
-  .vistas-info {
-    flex: 1;
-    min-width: 0;
-
-    strong {
-      display: block;
-      font-size: v.$font-size-sm;
-      color: v.$text-dark;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .vistas-meta {
-      display: flex;
-      gap: 0.75rem;
-      font-size: 0.7rem;
-      color: v.$text-muted;
-      margin-top: 0.25rem;
-
-      span {
-        display: flex;
-        align-items: center;
-        gap: 0.25rem;
-      }
-    }
-  }
-
-  .vistas-conversion {
-    text-align: right;
-
-    .conversion-value {
-      display: block;
-      font-size: v.$font-size-lg;
-      font-weight: 700;
-      color: v.$primary-green;
-    }
-
-    .conversion-label {
-      font-size: 0.65rem;
-      color: v.$text-muted;
-      text-transform: uppercase;
-    }
-  }
-}
-
-// ========================================
-// Chart Section (Consultas por Mes)
-// ========================================
-.chart-section {
-  margin-bottom: 1.25rem;
-}
-
-.chart-container {
-  display: flex;
-  align-items: flex-end;
-  gap: 1rem;
-  height: 200px;
-  padding: 1rem 0;
-
-  @media (max-width: 576px) {
-    gap: 0.5rem;
-    height: 150px;
-  }
-}
-
-.chart-bar-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-
-  .chart-bar {
-    width: 100%;
-    max-width: 60px;
-    background: linear-gradient(180deg, v.$primary-green, v.$primary-green-dark);
-    border-radius: 4px 4px 0 0;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding-top: 0.5rem;
-    min-height: 20px;
-    transition: height 0.5s ease;
-
-    .chart-value {
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: white;
-    }
-  }
-
-  .chart-label {
-    margin-top: 0.5rem;
-    font-size: 0.75rem;
-    color: v.$text-muted;
-  }
-}
-
-.chart-legend {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-top: 1rem;
-
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: v.$font-size-sm;
-    color: v.$text-muted;
-
-    .legend-color {
-      width: 12px;
-      height: 12px;
-      border-radius: 2px;
-    }
-  }
-}
-
-// ========================================
-// Tabla de Asesores
-// ========================================
-.asesores-table-container {
-  background: v.$bg-white;
-  border-radius: v.$radius-md;
-  box-shadow: v.$shadow-sm;
-  overflow-x: auto;
-  margin-bottom: 1.25rem;
-}
-
-.asesores-table {
-  width: 100%;
-  border-collapse: collapse;
-
-  th, td {
-    padding: 0.875rem 1rem;
-    text-align: left;
-    border-bottom: 1px solid v.$border-color;
-  }
-
-  th {
-    background: v.$bg-light;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: v.$text-muted;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    white-space: nowrap;
-  }
-
-  td {
-    font-size: v.$font-size-sm;
-    color: v.$text-dark;
-  }
-
-  tbody tr {
-    transition: background v.$transition-base;
 
     &:hover {
-      background: rgba(v.$primary-green, 0.02);
-    }
-
-    &:last-child td {
-      border-bottom: none;
-    }
-  }
-
-  .col-rank {
-    width: 50px;
-    text-align: center;
-  }
-
-  .col-asesor {
-    min-width: 180px;
-  }
-
-  .col-props,
-  .col-ventas,
-  .col-alquiladas {
-    width: 80px;
-    text-align: center;
-  }
-
-  .col-consultas {
-    width: 120px;
-  }
-
-  .col-conversion {
-    width: 140px;
-  }
-
-  .col-tiempo {
-    width: 80px;
-  }
-
-  .col-performance {
-    width: 120px;
-  }
-}
-
-.rank-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  background: v.$bg-light;
-  border-radius: 50%;
-  font-size: v.$font-size-sm;
-  font-weight: 600;
-  color: v.$text-muted;
-
-  &.top-3 {
-    background: linear-gradient(135deg, #f7c05e, #e6962e);
-    color: white;
-  }
-}
-
-.asesor-cell {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-
-  .asesor-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-
-  .asesor-avatar-initials {
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, v.$primary-green, v.$primary-green-dark);
-    color: white;
-    border-radius: 50%;
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-}
-
-.consultas-cell {
-  .consultas-convertidas {
-    display: block;
-    font-size: 0.7rem;
-    color: v.$text-muted;
-  }
-}
-
-.conversion-cell {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-
-  .conversion-bar {
-    flex: 1;
-    height: 6px;
-    background: v.$bg-light;
-    border-radius: 3px;
-    overflow: hidden;
-
-    .conversion-fill {
-      height: 100%;
-      background: v.$primary-green;
-      border-radius: 3px;
-      transition: width 0.5s ease;
-    }
-  }
-
-  span {
-    font-size: 0.75rem;
-    font-weight: 600;
-    width: 40px;
-    text-align: right;
-  }
-}
-
-.performance-badge {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  border-radius: v.$radius-md;
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-
-  &.performance-excelente {
-    background: rgba(v.$success, 0.1);
-    color: v.$success;
-  }
-
-  &.performance-bueno {
-    background: rgba(v.$primary-green, 0.1);
-    color: v.$primary-green;
-  }
-
-  &.performance-regular {
-    background: rgba(v.$accent-orange, 0.1);
-    color: v.$accent-orange;
-  }
-
-  &.performance-bajo {
-    background: rgba(#e74c3c, 0.1);
-    color: #e74c3c;
-  }
-}
-
-// ========================================
-// Analytics Info
-// ========================================
-.analytics-info {
-  background: v.$bg-white;
-  border-radius: v.$radius-md;
-  padding: 1rem;
-  box-shadow: v.$shadow-sm;
-  border-left: 3px solid v.$primary-green;
-
-  .analytics-info-content {
-    display: flex;
-    gap: 1rem;
-
-    > i {
-      color: v.$primary-green;
-      font-size: 1.5rem;
-      flex-shrink: 0;
-    }
-
-    strong {
-      display: block;
-      color: v.$text-dark;
-      margin-bottom: 0.25rem;
-    }
-
-    p {
-      color: v.$text-muted;
-      font-size: v.$font-size-sm;
-      margin: 0;
-      line-height: 1.5;
+      border-color: v.$primary-green;
     }
   }
 }
@@ -743,23 +109,21 @@
   align-items: center;
   justify-content: center;
   padding: 4rem 2rem;
-  background: v.$bg-white;
-  border-radius: v.$radius-md;
-  box-shadow: v.$shadow-sm;
+  color: v.$text-muted;
 
   .loading-spinner {
-    width: 48px;
-    height: 48px;
-    border: 3px solid v.$bg-light;
+    width: 50px;
+    height: 50px;
+    border: 4px solid v.$border-color;
     border-top-color: v.$primary-green;
     border-radius: 50%;
     animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
   }
 
   p {
-    margin-top: 1rem;
-    color: v.$text-muted;
-    font-size: v.$font-size-sm;
+    margin: 0;
+    font-size: v.$font-size-base;
   }
 }
 
@@ -768,66 +132,274 @@
 }
 
 // ========================================
-// Empty State
+// Dashboard Grid - Modern Layout
 // ========================================
-.empty-state {
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  // Cambiar a 1 columna más temprano para notebooks con sidebar
+  @media (max-width: 1400px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.dashboard-section {
+  background: v.$bg-white;
+  border-radius: v.$radius-md;
+  padding: 1.5rem;
+  box-shadow: v.$shadow-sm;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-  text-align: center;
-  color: v.$text-muted;
+  min-height: 200px;
+  min-width: 0; // Previene overflow
+  overflow: hidden;
 
-  i {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    opacity: 0.5;
+  @media (max-width: 1366px) {
+    padding: 1.25rem;
   }
 
-  p {
-    font-size: v.$font-size-sm;
-    margin: 0;
-    max-width: 300px;
+  &.charts-section {
+    grid-column: 1 / -1;
+  }
+
+  &.ranking-section {
+    grid-column: 1 / -1;
+  }
+
+  &.advisors-section {
+    grid-column: 1 / -1;
+    overflow-x: auto; // Permite scroll horizontal en tablas si es necesario
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid v.$border-color;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: v.$text-dark;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      i {
+        color: v.$primary-green;
+        font-size: 1.5rem;
+      }
+    }
+
+    .btn-export {
+      padding: 0.5rem 1rem;
+      background: v.$primary-green;
+      color: white;
+      border: none;
+      border-radius: v.$radius-md;
+      font-size: v.$font-size-sm;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      font-weight: 500;
+
+      i {
+        font-size: 1rem;
+      }
+
+      &:hover:not(:disabled) {
+        background: darken(#1a4d2e, 8%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(26, 77, 46, 0.3);
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
   }
 }
 
 // ========================================
-// Responsive
+// Stats Grid Override - Uniform Card Sizes
 // ========================================
-@media (max-width: 768px) {
-  .section-title {
-    flex-direction: column;
-    align-items: flex-start;
+.propiedades-section,
+.consultas-section {
+  ::ng-deep .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 0.75rem;
 
-    .btn-export {
-      width: 100%;
-      justify-content: center;
+    // Laptops pequeños: 2 columnas cuando dashboard está en 1 columna
+    @media (max-width: 1400px) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+
+    // Tablets: 3 columnas (más espacio disponible)
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+
+    // Mobile: 2 columnas
+    @media (max-width: 576px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    .stat-card {
+      min-height: 90px;
+      height: 100%;
+      min-width: 0;
     }
   }
+}
 
-  .asesores-table {
-    th, td {
-      padding: 0.625rem 0.5rem;
-      font-size: 0.75rem;
-    }
+// ========================================
+// Charts Grid
+// ========================================
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
 
-    .col-tiempo,
-    .col-alquiladas {
-      display: none;
-    }
+  // Notebooks pequeños (1366px y menos)
+  @media (max-width: 1366px) {
+    gap: 1rem;
   }
 
-  .tipo-item {
-    flex-wrap: wrap;
+  // Tablets y notebooks muy pequeños
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
 
-    .tipo-info {
-      width: 100%;
-      margin-bottom: 0.25rem;
+  .chart-wrapper {
+    display: flex;
+    flex-direction: column;
+    background: v.$bg-white;
+    border: 1px solid v.$border-color;
+    border-radius: v.$radius-md;
+    padding: 1.25rem;
+    box-shadow: v.$shadow-sm;
+    transition: box-shadow 0.2s ease;
+    min-width: 0; // Previene overflow
+
+    @media (max-width: 1366px) {
+      padding: 1rem;
     }
 
-    .tipo-bar {
+    &:hover {
+      box-shadow: v.$shadow-md;
+    }
+  }
+}
+
+// ========================================
+// Analytics Info
+// ========================================
+.analytics-info {
+  margin-top: 1.5rem;
+  background: linear-gradient(135deg, #e3f2fd 0%, #e8f5e9 100%);
+  border-radius: v.$radius-md;
+  padding: 1.5rem;
+  border-left: 4px solid v.$primary-green;
+  box-shadow: v.$shadow-sm;
+
+  .analytics-info-content {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+
+    i {
+      font-size: 2rem;
+      color: v.$primary-green;
+      flex-shrink: 0;
+    }
+
+    div {
       flex: 1;
+
+      strong {
+        display: block;
+        color: v.$text-dark;
+        margin-bottom: 0.5rem;
+        font-size: v.$font-size-base;
+      }
+
+      p {
+        margin: 0;
+        color: v.$text-muted;
+        font-size: v.$font-size-sm;
+        line-height: 1.6;
+      }
+    }
+  }
+}
+
+// ========================================
+// Responsive Adjustments
+// ========================================
+
+// Notebooks pequeños (1280px - 1366px)
+@media (max-width: 1366px) {
+  .dashboard-grid {
+    gap: 1rem;
+  }
+
+  .statistics-header {
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+
+    .header-info h1 {
+      font-size: 1.5rem;
+
+      i {
+        font-size: 1.75rem;
+      }
+    }
+  }
+
+  .analytics-info {
+    padding: 1.25rem;
+  }
+}
+
+// Tablets
+@media (max-width: 768px) {
+  .dashboard-grid {
+    gap: 0.75rem;
+  }
+
+  .dashboard-section {
+    padding: 1rem;
+  }
+
+  .analytics-info {
+    padding: 1rem;
+
+    .analytics-info-content {
+      flex-direction: column;
+
+      i {
+        font-size: 1.5rem;
+      }
     }
   }
 }
