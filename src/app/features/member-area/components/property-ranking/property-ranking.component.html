@@ -1,0 +1,33 @@
+<div class="ranking-section">
+  <div class="section-header">
+    <h2><i [class]="'bi bi-' + icon()"></i> {{ title() }}</h2>
+  </div>
+  
+  @if (items().length > 0) {
+    <div class="ranking-list">
+      @for (item of items(); track $index) {
+        <div class="ranking-item">
+          <div class="ranking-rank">
+            <span class="rank-number" [class.top-3]="$index < 3">{{ $index + 1 }}</span>
+          </div>
+          <div class="ranking-info">
+            <strong>{{ item.titulo }}</strong>
+            <div class="ranking-meta">
+              <span><i class="bi bi-eye"></i> {{ item.visitas }} visitas</span>
+              <span><i class="bi bi-share"></i> {{ item.compartidos }} compartidos</span>
+            </div>
+          </div>
+          <div class="ranking-conversion">
+            <span class="conversion-value">{{ item.tasaConversion }}%</span>
+            <span class="conversion-label">conversión</span>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="empty-state">
+      <i class="bi bi-bar-chart"></i>
+      <p>Las estadísticas de visitas estarán disponibles cuando se implemente el tracking</p>
+    </div>
+  }
+</div>
