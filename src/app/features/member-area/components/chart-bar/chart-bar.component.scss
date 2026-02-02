@@ -1,3 +1,5 @@
+@use '../../../../../assets/styles/admin-variables' as admin;
+
 .chart-section {
   display: flex;
   flex-direction: column;
@@ -14,7 +16,7 @@
   h2 {
     font-size: 1.125rem;
     font-weight: 600;
-    color: #3d5a4c;
+    color: admin.$text-brand;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -26,7 +28,7 @@
 
     i {
       font-size: 1.25rem;
-      color: #5b9a8b;
+      color: admin.$text-brand-medium;
 
       @media (max-width: 1366px) {
         font-size: 1.125rem;
@@ -69,7 +71,7 @@
   .chart-label {
     font-size: 0.9rem;
     font-weight: 500;
-    color: #333;
+    color: admin.$text-gray;
     word-break: break-word;
     white-space: nowrap;
     overflow: hidden;
@@ -88,7 +90,7 @@
 
 .chart-bar-wrapper {
   width: 100%;
-  background: #f0f0f0;
+  background: admin.$bg-gray-bar;
   border-radius: 8px;
   overflow: hidden;
   height: 40px;
@@ -129,7 +131,7 @@
   align-items: center;
   justify-content: center;
   padding: 3rem 1rem;
-  color: #999;
+  color: admin.$text-gray-light;
   
   i {
     font-size: 3rem;
