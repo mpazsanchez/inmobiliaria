@@ -1,73 +1,29 @@
 <div class="agent-form-page">
   <!-- Header -->
-  <header class="page-header">
-    <div class="header-content">
-      <a routerLink="/member-area/asesores" class="back-link">
-        <i class="bi bi-arrow-left"></i>
-        Volver
-      </a>
-      <h1>
-        @if (isEditMode()) {
-          <i class="bi bi-pencil"></i>
-          Editar Asesor
-        } @else {
-          <i class="bi bi-person-plus"></i>
-          Nuevo Asesor
-        }
-      </h1>
-    </div>
-  </header>
+  <app-form-header 
+    [backLink]="'/member-area/asesores'" 
+    [title]="isEditMode() ? 'Editar Asesor' : 'Nuevo Asesor'"
+    [icon]="isEditMode() ? 'pencil' : 'person-plus'">
+  </app-form-header>
 
   @if (isLoading()) {
-    <div class="loading-state">
-      <div class="spinner"></div>
-      <p>Cargando asesor...</p>
-    </div>
+    <app-loading-state [message]="'Cargando asesor...'"></app-loading-state>
   } @else {
     <!-- Tabs Navigation -->
-    <nav class="form-tabs">
-      <button
-        [class.active]="activeTab() === 'personal'"
-        [class.valid]="isTabValid('personal')"
-        (click)="setTab('personal')">
-        <i class="bi bi-person"></i>
-        <span>Datos Personales</span>
-      </button>
-      <button
-        [class.active]="activeTab() === 'professional'"
-        [class.valid]="isTabValid('professional')"
-        (click)="setTab('professional')">
-        <i class="bi bi-briefcase"></i>
-        <span>Perfil Profesional</span>
-      </button>
-      <button
-        [class.active]="activeTab() === 'contact'"
-        [class.valid]="isTabValid('contact')"
-        (click)="setTab('contact')">
-        <i class="bi bi-telephone"></i>
-        <span>Contacto</span>
-      </button>
-      <button
-        [class.active]="activeTab() === 'achievements'"
-        [class.valid]="isTabValid('achievements')"
-        (click)="setTab('achievements')">
-        <i class="bi bi-award"></i>
-        <span>Logros</span>
-      </button>
-    </nav>
+    <app-form-tabs 
+      [tabs]="tabsConfig" 
+      [activeTab]="activeTab()"
+      (tabChange)="activeTab.set($any($event))">
+    </app-form-tabs>
 
     <!-- Form -->
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="agent-form">
       <!-- Error Alert -->
-      @if (error()) {
-        <div class="alert-error">
-          <i class="bi bi-exclamation-triangle"></i>
-          <span>{{ error() }}</span>
-          <button type="button" (click)="error.set(null)">
-            <i class="bi bi-x"></i>
-          </button>
-        </div>
-      }
+      <app-form-alert 
+        [message]="error()" 
+        [type]="'error'"
+        (dismiss)="error.set(null)">
+      </app-form-alert>
 
       <!-- Tab: Personal -->
       @if (activeTab() === 'personal') {

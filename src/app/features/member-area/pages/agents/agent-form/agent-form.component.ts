@@ -8,11 +8,27 @@ import { ImageUploadResult } from '../../../../../core/services/image-upload.ser
 import type { Agente } from '../../../../../core/models/agent.interface';
 import { CanComponentDeactivate } from '../../../../../core/guards/can-deactivate.guard';
 import { UnsavedChangesService } from '../../../../../core/services/unsaved-changes.service';
+import { 
+  FormHeaderComponent, 
+  FormTabsComponent, 
+  FormAlertComponent, 
+  LoadingStateComponent,
+  type TabConfig
+} from '../../../../../shared/components/admin';
 
 @Component({
   selector: 'app-agent-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, ImageUploaderComponent],
+  imports: [
+    CommonModule, 
+    ReactiveFormsModule, 
+    RouterLink, 
+    ImageUploaderComponent,
+    FormHeaderComponent,
+    FormTabsComponent,
+    FormAlertComponent,
+    LoadingStateComponent
+  ],
   templateUrl: './agent-form.component.html',
   styleUrls: ['./agent-form.component.scss']
 })
@@ -147,20 +163,24 @@ export class AgentFormComponent implements OnInit, CanComponentDeactivate {
     this.activeTab.set(tab);
   }
 
+  private readonly tabValidators: Record<string, () => boolean> = {
+    personal: () => !!(this.form.get('nombre')?.valid && this.form.get('apellido')?.valid),
+    professional: () => true,
+    contact: () => !!(this.form.get('email')?.valid && this.form.get('telefono')?.valid),
+    achievements: () => true
+  };
+
   isTabValid(tab: string): boolean {
-    switch (tab) {
-      case 'personal':
-        return !!(this.form.get('nombre')?.valid && this.form.get('apellido')?.valid);
-      case 'professional':
-        return true;
-      case 'contact':
-        return !!(this.form.get('email')?.valid && this.form.get('telefono')?.valid);
-      case 'achievements':
-        return true;
-      default:
-        return true;
-    }
+    return this.tabValidators[tab]?.() ?? true;
   }
+
+  // Configuración de tabs para el componente reutilizable
+  tabsConfig: TabConfig[] = [
+    { id: 'personal', label: 'Datos Personales', icon: 'person', isValid: () => this.isTabValid('personal') },
+    { id: 'professional', label: 'Perfil Profesional', icon: 'briefcase', isValid: () => this.isTabValid('professional') },
+    { id: 'contact', label: 'Contacto', icon: 'telephone', isValid: () => this.isTabValid('contact') },
+    { id: 'achievements', label: 'Logros', icon: 'award', isValid: () => this.isTabValid('achievements') }
+  ];
 
   // Idiomas
   toggleIdioma(idioma: string): void {
