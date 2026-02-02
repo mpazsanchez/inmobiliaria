@@ -576,17 +576,15 @@ export class ContentAdminService {
   // =============================================
   // TOGGLE ACTIVO (GENÉRICO)
   // =============================================
+  private readonly toggleActions: Record<ContentType, (id: number) => Observable<any>> = {
+    testimonios: (id) => this.toggleTestimonioActivo(id),
+    beneficios: (id) => this.toggleBeneficioActivo(id),
+    faqs: (id) => this.toggleFaqActivo(id),
+    banners: (id) => this.toggleBannerActivo(id)
+  };
+
   toggleActivo(type: ContentType, id: number): Observable<any> {
-    switch (type) {
-      case 'testimonios':
-        return this.toggleTestimonioActivo(id);
-      case 'beneficios':
-        return this.toggleBeneficioActivo(id);
-      case 'faqs':
-        return this.toggleFaqActivo(id);
-      case 'banners':
-        return this.toggleBannerActivo(id);
-    }
+    return this.toggleActions[type](id);
   }
 
   private toggleTestimonioActivo(id: number): Observable<Testimonio> {
