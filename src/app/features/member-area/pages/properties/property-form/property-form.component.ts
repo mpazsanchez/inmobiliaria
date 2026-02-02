@@ -25,7 +25,6 @@ import {
   imports: [
     CommonModule, 
     ReactiveFormsModule, 
-    RouterLink, 
     PropertyMapComponent, 
     ImageUploaderComponent,
     FormHeaderComponent,
