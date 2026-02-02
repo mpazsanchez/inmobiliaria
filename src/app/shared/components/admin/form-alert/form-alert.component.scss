@@ -1,0 +1,85 @@
+@use '../../../../../assets/styles/admin-variables' as admin;
+
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: admin.$radius-md;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  animation: slideDown 0.3s ease;
+  
+  i:first-child {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+  
+  span {
+    flex: 1;
+  }
+  
+  button {
+    background: transparent;
+    border: none;
+    padding: 0.25rem;
+    cursor: pointer;
+    color: inherit;
+    opacity: 0.7;
+    transition: opacity admin.$transition-base;
+    
+    &:hover {
+      opacity: 1;
+    }
+    
+    i {
+      font-size: 1.25rem;
+    }
+  }
+  
+  &.alert-error {
+    background: admin.$danger-light;
+    color: admin.$danger;
+    border: 1px solid admin.$danger;
+  }
+  
+  &.alert-success {
+    background: admin.$success-light;
+    color: admin.$success;
+    border: 1px solid admin.$success;
+  }
+  
+  &.alert-warning {
+    background: admin.$warning-light;
+    color: admin.$warning;
+    border: 1px solid admin.$warning;
+  }
+  
+  &.alert-info {
+    background: admin.$info-light;
+    color: admin.$info;
+    border: 1px solid admin.$info;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .alert {
+    padding: 0.875rem 1rem;
+    font-size: 0.875rem;
+    
+    i:first-child {
+      font-size: 1.125rem;
+    }
+  }
+}
