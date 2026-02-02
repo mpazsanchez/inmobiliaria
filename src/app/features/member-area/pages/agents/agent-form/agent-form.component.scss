@@ -183,16 +183,51 @@
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: relative;
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
+
+    .btn-remove-photo {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(220, 38, 38, 0.9);
+      border: none;
+      border-radius: 8px;
+      color: v.$bg-white;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.875rem;
+
+      &:hover {
+        background: v.$danger;
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  .photo-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 180px;
   }
 
   @media (max-width: 768px) {
     align-items: center;
+
+    .photo-upload {
+      max-width: 200px;
+    }
   }
 }
 

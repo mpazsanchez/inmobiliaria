@@ -3,20 +3,25 @@ import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AgentsAdminService } from '../../../services/agents-admin.service';
+import { ImageUploaderComponent } from '../../../../../shared/components/image-uploader/image-uploader.component';
+import { ImageUploadResult } from '../../../../../core/services/image-upload.service';
 import type { Agente } from '../../../../../core/models/agent.interface';
+import { CanComponentDeactivate } from '../../../../../core/guards/can-deactivate.guard';
+import { UnsavedChangesService } from '../../../../../core/services/unsaved-changes.service';
 
 @Component({
   selector: 'app-agent-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, ImageUploaderComponent],
   templateUrl: './agent-form.component.html',
   styleUrls: ['./agent-form.component.scss']
 })
-export class AgentFormComponent implements OnInit {
+export class AgentFormComponent implements OnInit, CanComponentDeactivate {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private agentsService = inject(AgentsAdminService);
+  private unsavedChangesService = inject(UnsavedChangesService);
 
   // Estado
   isEditMode = signal(false);
@@ -89,6 +94,8 @@ export class AgentFormComponent implements OnInit {
       next: (agent) => {
         if (agent) {
           this.patchForm(agent);
+          // Marcar como pristine después de cargar datos
+          this.form.markAsPristine();
         } else {
           this.error.set('Asesor no encontrado');
         }
@@ -209,6 +216,7 @@ export class AgentFormComponent implements OnInit {
 
     request.subscribe({
       next: () => {
+        this.form.markAsPristine(); // Marcar como sin cambios después de guardar
         this.router.navigate(['/member-area/asesores']);
       },
       error: () => {
@@ -232,5 +240,29 @@ export class AgentFormComponent implements OnInit {
   // Photo preview
   getPhotoPreview(): string {
     return this.form.get('fotoUrl')?.value || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face';
+  }
+
+  // Manejo de subida de imagen
+  onImageUploaded(result: ImageUploadResult): void {
+    this.form.get('fotoUrl')?.setValue(result.url);
+  }
+
+  onImageUploadError(errorMessage: string): void {
+    this.error.set(errorMessage);
+  }
+
+  removePhoto(): void {
+    this.form.get('fotoUrl')?.setValue('');
+  }
+
+  // Guard para prevenir salir sin guardar
+  canDeactivate(): boolean | Promise<boolean> {
+    // Si el formulario no tiene cambios, permitir salir
+    if (this.form.pristine) {
+      return true;
+    }
+
+    // Mostrar confirmación si hay cambios sin guardar
+    return this.unsavedChangesService.confirmLeave();
   }
 }

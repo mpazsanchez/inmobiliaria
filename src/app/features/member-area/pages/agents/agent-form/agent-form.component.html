@@ -75,19 +75,26 @@
           <h2>Datos Personales</h2>
 
           <div class="form-grid with-photo">
-            <!-- Photo Preview -->
+            <!-- Photo Upload -->
             <div class="photo-section">
               <div class="photo-preview">
                 <img [src]="getPhotoPreview()" alt="Foto de perfil">
+                @if (form.get('fotoUrl')?.value) {
+                  <button type="button" class="btn-remove-photo" (click)="removePhoto()" title="Eliminar foto">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                }
               </div>
-              <div class="form-group">
-                <label for="fotoUrl">URL de la Foto</label>
-                <input
-                  id="fotoUrl"
-                  type="text"
-                  formControlName="fotoUrl"
-                  placeholder="https://...">
-                <span class="field-hint">Usa una imagen cuadrada de al menos 400x400px</span>
+              <div class="photo-upload">
+                <app-image-uploader
+                  [maxFiles]="1"
+                  [folder]="'agents'"
+                  [showPreview]="false"
+                  [compact]="true"
+                  (uploadComplete)="onImageUploaded($event)"
+                  (uploadError)="onImageUploadError($event)">
+                </app-image-uploader>
+                <span class="field-hint">Imagen cuadrada de al menos 400x400px</span>
               </div>
             </div>
 
