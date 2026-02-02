@@ -1,8 +1,9 @@
-@import '../../../../../assets/styles/_variables.scss';
+@use '../../../../../assets/styles/variables';
+@use '../../../../../assets/styles/public-variables' as v;
 
 /* Public Footer - Dark Style similar to Glazing services */
 .public-footer {
-  background: #000000;
+  background: v.$bg-dark;
   color: rgba(255, 255, 255, 0.8);
   padding: 50px 0 0 0;
   position: relative;
@@ -85,7 +86,7 @@
 .brand-name {
   font-size: 1.8rem;
   font-weight: 700;
-  color: $green-accent;
+  color: v.$brand-green;
   margin: 0;
   letter-spacing: -0.02em;
   
@@ -155,7 +156,7 @@
   }
   
   i {
-    color: $green-accent;
+    color: v.$brand-green;
     width: 20px;
     margin-right: 12px;
     font-size: 0.9rem;
@@ -178,7 +179,7 @@
     }
     
     &:hover {
-      color: $green-accent;
+      color: v.$brand-green;
     }
   }
 }
@@ -217,8 +218,8 @@
   }
   
   &:hover {
-    background: $green-accent;
-    border-color: $green-accent;
+    background: v.$brand-green;
+    border-color: v.$brand-green;
     color: white;
     transform: translateY(-2px);
   }
@@ -263,7 +264,7 @@
     left: 0;
     width: 30px;
     height: 2px;
-    background: $green-accent;
+    background: v.$brand-green;
     
     @media (max-width: 767px) {
       left: 50%;
@@ -312,7 +313,7 @@
   }
   
   &:hover {
-    color: $green-accent;
+    color: v.$brand-green;
     transform: translateX(3px);
     
     @media (max-width: 767px) {
@@ -379,20 +380,20 @@
   
   &:focus {
     background: rgba(255, 255, 255, 0.15);
-    border-color: $green-accent;
+    border-color: v.$brand-green;
     box-shadow: none;
     outline: none;
     color: white;
     
     @media (max-width: 575px) {
-      border-right: 1px solid $green-accent;
+      border-right: 1px solid v.$brand-green;
     }
   }
 }
 
 .newsletter-btn {
-  background: $green-accent;
-  border: 1px solid $green-accent;
+  background: v.$brand-green;
+  border: 1px solid v.$brand-green;
   color: white;
   padding: 12px 20px;
   border-radius: 0;
@@ -406,8 +407,8 @@
   }
   
   &:hover:not(:disabled) {
-    background: $blue-two;
-    border-color: $blue-two;
+    background: v.$brand-blue-light;
+    border-color: v.$brand-blue-light;
     transform: translateY(-1px);
     
     @media (max-width: 575px) {
@@ -459,7 +460,7 @@
   }
   
   .brand-highlight {
-    color: $green-accent;
+    color: v.$brand-green;
     font-weight: 600;
   }
 }
@@ -496,7 +497,7 @@
   }
   
   &:hover {
-    color: $green-accent;
+    color: v.$brand-green;
   }
 }
 
@@ -507,7 +508,7 @@
   right: 30px;
   width: 50px;
   height: 50px;
-  background: $green-fairway;
+  background: v.$brand-green;
   color: white;
   border: none;
   border-radius: 0;
@@ -529,7 +530,7 @@
   }
   
   &:hover {
-    background: $green-dark;
+    background: v.$brand-green-dark;
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(11, 139, 7, 0.4);
   }
