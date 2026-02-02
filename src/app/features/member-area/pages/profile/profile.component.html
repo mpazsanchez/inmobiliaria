@@ -27,7 +27,11 @@
             <div class="photo-wrapper">
               <img [src]="getCurrentPhotoUrl()" [alt]="getNombreCompleto()" class="profile-photo">
               @if (photoPreview()) {
-                <button type="button" class="btn-remove-photo" (click)="removePhoto()" title="Quitar foto">
+                <button 
+                  type="button" 
+                  class="btn-remove-photo" 
+                  (click)="removePhoto()" 
+                  aria-label="Quitar foto de perfil">
                   <i class="bi bi-x"></i>
                 </button>
               }
@@ -174,7 +178,11 @@
             @for (idioma of idiomas.controls; track $index; let i = $index) {
               <span class="tag">
                 {{ idioma.value }}
-                <button type="button" class="tag-remove" (click)="removeIdioma(i)">
+                <button 
+                  type="button" 
+                  class="tag-remove" 
+                  (click)="removeIdioma(i)"
+                  [attr.aria-label]="'Eliminar idioma ' + idioma.value">
                   <i class="bi bi-x"></i>
                 </button>
               </span>
@@ -182,7 +190,11 @@
           </div>
           <div class="add-item-row">
             <input type="text" [value]="newIdioma()" (input)="newIdioma.set($any($event.target).value)" placeholder="Agregar idioma" (keyup.enter)="addIdioma()">
-            <button type="button" class="btn-add" (click)="addIdioma()">
+            <button 
+              type="button" 
+              class="btn-add" 
+              (click)="addIdioma()"
+              aria-label="Agregar idioma">
               <i class="bi bi-plus"></i>
             </button>
           </div>
@@ -221,7 +233,11 @@
             @for (cert of certificaciones.controls; track $index; let i = $index) {
               <li>
                 <span>{{ cert.value }}</span>
-                <button type="button" class="btn-remove" (click)="removeCertificacion(i)">
+                <button 
+                  type="button" 
+                  class="btn-remove" 
+                  (click)="removeCertificacion(i)"
+                  [attr.aria-label]="'Eliminar certificación ' + cert.value">
                   <i class="bi bi-trash"></i>
                 </button>
               </li>
@@ -245,7 +261,11 @@
             @for (premio of premios.controls; track $index; let i = $index) {
               <li>
                 <span>{{ premio.value }}</span>
-                <button type="button" class="btn-remove" (click)="removePremio(i)">
+                <button 
+                  type="button" 
+                  class="btn-remove" 
+                  (click)="removePremio(i)"
+                  [attr.aria-label]="'Eliminar premio ' + premio.value">
                   <i class="bi bi-trash"></i>
                 </button>
               </li>
@@ -256,7 +276,11 @@
           }
           <div class="add-item-row">
             <input type="text" [value]="newPremio()" (input)="newPremio.set($any($event.target).value)" placeholder="Agregar premio" (keyup.enter)="addPremio()">
-            <button type="button" class="btn-add" (click)="addPremio()">
+            <button 
+              type="button" 
+              class="btn-add" 
+              (click)="addPremio()"
+              aria-label="Agregar premio">
               <i class="bi bi-plus"></i>
             </button>
           </div>

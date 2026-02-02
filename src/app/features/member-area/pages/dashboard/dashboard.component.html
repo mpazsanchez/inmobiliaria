@@ -66,7 +66,10 @@
                     <span><i class="bi bi-clock"></i> {{ lead.fecha }}</span>
                   </div>
                 </div>
-                <button class="btn-respond" [disabled]="lead.estado !== 'pendiente'">
+                <button 
+                  class="btn-respond" 
+                  [disabled]="lead.estado !== 'pendiente'"
+                  aria-label="Responder consulta">
                   <i class="bi bi-reply"></i>
                   Responder
                 </button>
@@ -190,7 +193,7 @@
                     <span><i class="bi bi-clock"></i> {{ lead.fecha }}</span>
                   </div>
                 </div>
-                <button class="btn-assign">
+                <button class="btn-assign" aria-label="Asignar agente a consulta">
                   <i class="bi bi-person-plus"></i>
                   Asignar
                 </button>
