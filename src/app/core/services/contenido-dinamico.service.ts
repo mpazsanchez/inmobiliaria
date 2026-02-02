@@ -104,7 +104,7 @@ const TESTIMONIOS_FALLBACK: Testimonio[] = [
 const BENEFICIOS_FALLBACK: Beneficio[] = [
   {
     id: 1,
-    icono: 'bi-shield-check',
+    icono: 'shield-check',
     titulo: 'Confianza y Seguridad',
     descripcion: 'Más de 20 años de experiencia en el mercado inmobiliario de Tandil garantizan operaciones seguras y transparentes.',
     orden: 1,
@@ -112,7 +112,7 @@ const BENEFICIOS_FALLBACK: Beneficio[] = [
   },
   {
     id: 2,
-    icono: 'bi-people',
+    icono: 'users',
     titulo: 'Equipo Profesional',
     descripcion: 'Asesores especializados comprometidos en encontrar la propiedad perfecta para cada cliente.',
     orden: 2,
@@ -120,7 +120,7 @@ const BENEFICIOS_FALLBACK: Beneficio[] = [
   },
   {
     id: 3,
-    icono: 'bi-house',
+    icono: 'home',
     titulo: 'Amplio Portfolio',
     descripcion: 'Gran variedad de propiedades en venta y alquiler en Tandil y la zona serrana.',
     orden: 3,
@@ -128,7 +128,7 @@ const BENEFICIOS_FALLBACK: Beneficio[] = [
   },
   {
     id: 4,
-    icono: 'bi-headset',
+    icono: 'headset',
     titulo: 'Atención Personalizada',
     descripcion: 'Acompañamiento en cada paso del proceso, desde la búsqueda hasta la firma del contrato.',
     orden: 4,
@@ -136,7 +136,7 @@ const BENEFICIOS_FALLBACK: Beneficio[] = [
   },
   {
     id: 5,
-    icono: 'bi-geo-alt',
+    icono: 'trending-up',
     titulo: 'Conocimiento Local',
     descripcion: 'Profundo conocimiento del mercado inmobiliario de Tandil y sus diferentes barrios.',
     orden: 5,
@@ -144,7 +144,7 @@ const BENEFICIOS_FALLBACK: Beneficio[] = [
   },
   {
     id: 6,
-    icono: 'bi-clock',
+    icono: 'clock',
     titulo: 'Respuesta Rápida',
     descripcion: 'Atención inmediata a consultas y coordinación ágil de visitas a propiedades.',
     orden: 6,
