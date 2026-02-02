@@ -1,0 +1,11 @@
+@if (message()) {
+  <div [class]="'alert alert-' + type()">
+    <i [class]="'bi bi-' + getIcon()"></i>
+    <span>{{ message() }}</span>
+    @if (dismissible()) {
+      <button type="button" (click)="dismiss.emit()">
+        <i class="bi bi-x"></i>
+      </button>
+    }
+  </div>
+}
