@@ -3,20 +3,25 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ContenidoDinamicoService, ContentType } from '../../../../../core/services/contenido-dinamico.service';
+import { ImageUploaderComponent } from '../../../../../shared/components/image-uploader/image-uploader.component';
+import { ImageUploadResult } from '../../../../../core/services/image-upload.service';
 import type { Testimonio, Beneficio, FAQ, Banner } from '../../../../../core/models';
+import { CanComponentDeactivate } from '../../../../../core/guards/can-deactivate.guard';
+import { UnsavedChangesService } from '../../../../../core/services/unsaved-changes.service';
 
 @Component({
   selector: 'app-content-form',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, ImageUploaderComponent],
   templateUrl: './content-form.component.html',
   styleUrl: './content-form.component.scss'
 })
-export class ContentFormComponent implements OnInit {
+export class ContentFormComponent implements OnInit, CanComponentDeactivate {
   private fb = inject(FormBuilder);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private contentService = inject(ContenidoDinamicoService);
+  private unsavedChangesService = inject(UnsavedChangesService);
 
   // Tipo de contenido y modo
   contentType = signal<ContentType>('testimonios');
@@ -124,6 +129,8 @@ export class ContentFormComponent implements OnInit {
         if (this.contentType() === 'banners' && (item as Banner).imagenUrl) {
           this.photoPreview.set((item as Banner).imagenUrl);
         }
+        // Marcar como pristine después de cargar datos
+        this.form.markAsPristine();
       }
       this.loading.set(false);
     };
@@ -158,6 +165,7 @@ export class ContentFormComponent implements OnInit {
     const data = this.form.value;
 
     const handleSuccess = () => {
+      this.form.markAsPristine(); // Marcar como sin cambios después de guardar
       this.saving.set(false);
       this.successMessage.set(this.isEditMode() ? 'Actualizado correctamente' : 'Creado correctamente');
       setTimeout(() => {
@@ -216,6 +224,39 @@ export class ContentFormComponent implements OnInit {
     }
   }
 
+  // Cloudinary upload handlers
+  onTestimonioImageUploaded(result: ImageUploadResult): void {
+    this.form.get('fotoUrl')?.setValue(result.url);
+    this.photoPreview.set(result.url);
+  }
+
+  onBannerImageUploaded(result: ImageUploadResult): void {
+    this.form.get('imagenUrl')?.setValue(result.url);
+    this.photoPreview.set(result.url);
+  }
+
+  onBannerMobileImageUploaded(result: ImageUploadResult): void {
+    this.form.get('imagenMovilUrl')?.setValue(result.url);
+  }
+
+  onImageUploadError(errorMessage: string): void {
+    this.errorMessage.set(errorMessage);
+  }
+
+  removeTestimonioPhoto(): void {
+    this.form.get('fotoUrl')?.setValue('');
+    this.photoPreview.set(null);
+  }
+
+  removeBannerImage(): void {
+    this.form.get('imagenUrl')?.setValue('');
+    this.photoPreview.set(null);
+  }
+
+  removeBannerMobileImage(): void {
+    this.form.get('imagenMovilUrl')?.setValue('');
+  }
+
   getTitle(): string {
     const action = this.isEditMode() ? 'Editar' : 'Nuevo';
     const titles: Record<ContentType, string> = {
@@ -244,5 +285,16 @@ export class ContentFormComponent implements OnInit {
 
   getCharCount(field: string): number {
     return this.form.get(field)?.value?.length || 0;
+  }
+
+  // Guard para prevenir salir sin guardar
+  canDeactivate(): boolean | Promise<boolean> {
+    // Si el formulario no tiene cambios, permitir salir
+    if (this.form.pristine) {
+      return true;
+    }
+
+    // Mostrar confirmación si hay cambios sin guardar
+    return this.unsavedChangesService.confirmLeave();
   }
 }

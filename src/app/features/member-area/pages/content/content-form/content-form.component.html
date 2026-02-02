@@ -98,15 +98,21 @@
               @if (photoPreview()) {
                 <div class="photo-preview">
                   <img [src]="photoPreview()" alt="Preview">
+                  <button type="button" class="btn-remove-photo" (click)="removeTestimonioPhoto()" title="Eliminar foto">
+                    <i class="bi bi-trash"></i>
+                  </button>
                 </div>
               }
-              <div class="photo-input">
-                <input type="text" formControlName="fotoUrl" placeholder="URL de la imagen" (input)="onImageUrlChange($event)">
-                <span class="hint">O sube una imagen:</span>
-                <label class="btn-upload">
-                  <i class="bi bi-upload"></i> Subir foto
-                  <input type="file" accept="image/*" (change)="onPhotoChange($event)" hidden>
-                </label>
+              <div class="photo-uploader">
+                <app-image-uploader
+                  [maxFiles]="1"
+                  [folder]="'testimonios'"
+                  [showPreview]="false"
+                  [compact]="true"
+                  (uploadComplete)="onTestimonioImageUploaded($event)"
+                  (uploadError)="onImageUploadError($event)">
+                </app-image-uploader>
+                <span class="field-hint">Foto cuadrada recomendada (400x400px)</span>
               </div>
             </div>
           </div>
@@ -237,22 +243,56 @@
           </div>
 
           <div class="form-group">
-            <label for="imagenUrl">URL de imagen principal *</label>
-            <input type="text" id="imagenUrl" formControlName="imagenUrl" placeholder="https://ejemplo.com/imagen.jpg" (input)="onImageUrlChange($event)">
+            <label>Imagen principal *</label>
+            <div class="banner-upload-section">
+              @if (photoPreview()) {
+                <div class="banner-preview">
+                  <img [src]="photoPreview()" alt="Preview del banner">
+                  <button type="button" class="btn-remove-photo" (click)="removeBannerImage()" title="Eliminar imagen">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              }
+              <div class="banner-uploader">
+                <app-image-uploader
+                  [maxFiles]="1"
+                  [folder]="'banners'"
+                  [showPreview]="false"
+                  [compact]="true"
+                  (uploadComplete)="onBannerImageUploaded($event)"
+                  (uploadError)="onImageUploadError($event)">
+                </app-image-uploader>
+                <span class="field-hint">Tamaño recomendado: 1920x600px</span>
+              </div>
+            </div>
             @if (hasError('imagenUrl')) {
-              <span class="field-error"><i class="bi bi-exclamation-circle"></i> URL de imagen requerida</span>
+              <span class="field-error"><i class="bi bi-exclamation-circle"></i> Imagen requerida</span>
             }
           </div>
 
-          @if (photoPreview()) {
-            <div class="banner-preview-container">
-              <img [src]="photoPreview()" alt="Preview del banner">
-            </div>
-          }
-
           <div class="form-group">
-            <label for="imagenMovilUrl">URL de imagen móvil (opcional)</label>
-            <input type="text" id="imagenMovilUrl" formControlName="imagenMovilUrl" placeholder="Imagen optimizada para móviles">
+            <label>Imagen móvil (opcional)</label>
+            <div class="banner-upload-section mobile">
+              @if (form.get('imagenMovilUrl')?.value) {
+                <div class="banner-preview mobile">
+                  <img [src]="form.get('imagenMovilUrl')?.value" alt="Preview móvil">
+                  <button type="button" class="btn-remove-photo" (click)="removeBannerMobileImage()" title="Eliminar imagen">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              }
+              <div class="banner-uploader">
+                <app-image-uploader
+                  [maxFiles]="1"
+                  [folder]="'banners'"
+                  [showPreview]="false"
+                  [compact]="true"
+                  (uploadComplete)="onBannerMobileImageUploaded($event)"
+                  (uploadError)="onImageUploadError($event)">
+                </app-image-uploader>
+                <span class="field-hint">Tamaño recomendado: 640x800px (vertical)</span>
+              </div>
+            </div>
           </div>
 
           <div class="form-grid">

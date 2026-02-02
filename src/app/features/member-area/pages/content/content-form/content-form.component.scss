@@ -310,6 +310,7 @@
   width: 80px;
   height: 80px;
   flex-shrink: 0;
+  position: relative;
 
   img {
     width: 100%;
@@ -317,6 +318,41 @@
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid v.$border-color;
+  }
+
+  .btn-remove-photo {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(220, 38, 38, 0.9);
+    border: 2px solid v.$bg-white;
+    border-radius: 50%;
+    color: v.$bg-white;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.7rem;
+
+    &:hover {
+      background: v.$danger;
+      transform: scale(1.1);
+    }
+  }
+}
+
+.photo-uploader {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .field-hint {
+    font-size: 0.75rem;
+    color: v.$text-muted;
   }
 }
 
@@ -347,6 +383,96 @@
 
   &:hover {
     background: darken(#f8f9fa, 3%);
+  }
+}
+
+// ============ BANNER UPLOAD ============
+.banner-upload-section {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &.mobile {
+    .banner-preview {
+      max-width: 160px;
+      height: 200px;
+    }
+  }
+}
+
+.banner-preview {
+  flex-shrink: 0;
+  max-width: 300px;
+  height: 150px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid v.$border-color;
+  position: relative;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .btn-remove-photo {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(220, 38, 38, 0.9);
+    border: none;
+    border-radius: 6px;
+    color: v.$bg-white;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.8rem;
+
+    &:hover {
+      background: v.$danger;
+      transform: scale(1.05);
+    }
+  }
+
+  &.mobile {
+    max-width: 160px;
+    height: 200px;
+
+    @media (max-width: 768px) {
+      max-width: 160px;
+      width: auto;
+    }
+  }
+}
+
+.banner-uploader {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 200px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
+  .field-hint {
+    font-size: 0.75rem;
+    color: v.$text-muted;
   }
 }
 
