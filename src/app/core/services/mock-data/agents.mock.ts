@@ -6,6 +6,27 @@ import type { Agente } from '../../models/agent.interface';
 
 export const AGENTES_MOCK: Agente[] = [
   {
+    id: 999,
+    nombre: 'Administrador',
+    apellido: 'Fairway',
+    cargo: 'Administrador del Sistema',
+    email: 'admin@fairway.com',
+    telefono: '+54 11 4555-0000',
+    whatsapp: '541145550000',
+    fotoUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face',
+    especialidad: 'Gestión y Administración Inmobiliaria',
+    slogan: 'Liderando el equipo Fairway',
+    biografia: 'Administrador general de Fairway Real Estate, encargado de la gestión del equipo y supervisión de operaciones.',
+    experienciaAnios: 20,
+    idiomas: ['Español', 'Inglés'],
+    linkedin: 'https://linkedin.com/in/admin-fairway',
+    propiedadesVendidas: 0,
+    propiedadesActivas: 0,
+    clientesSatisfechos: 0,
+    activo: true,
+    destacado: false
+  },
+  {
     id: 1,
     nombre: 'María',
     apellido: 'González',

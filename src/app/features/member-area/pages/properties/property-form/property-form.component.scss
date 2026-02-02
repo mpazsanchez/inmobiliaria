@@ -4,21 +4,10 @@
 // Page Layout
 // ========================================
 .property-form-page {
-  padding: 1.5rem;
-  max-width: 900px;
-  margin: 0 auto;
-  // Prevenir overflow
+  padding: 0;
   width: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
-
-  @media (max-width: 640px) {
-    padding: 1rem;
-  }
-
-  @media (max-width: 480px) {
-    padding: 0.75rem;
-  }
 }
 
 // ========================================
@@ -261,16 +250,32 @@
   display: flex;
   gap: 0;
 
+  @media (max-width: 400px) {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
   .currency-select {
     width: 80px;
     border-radius: 8px 0 0 8px;
     border-right: none;
     flex-shrink: 0;
+
+    @media (max-width: 400px) {
+      width: 100%;
+      border-radius: 8px;
+      border-right: 1.5px solid v.$border-color;
+    }
   }
 
   input {
     flex: 1;
+    min-width: 0;
     border-radius: 0 8px 8px 0;
+
+    @media (max-width: 400px) {
+      border-radius: 8px;
+    }
   }
 }
 
@@ -392,18 +397,27 @@
   display: flex;
   align-items: center;
   gap: 0;
+  max-width: 100%;
 
   button {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 40px;
+    min-width: 40px;
     height: 40px;
     background: v.$bg-light;
     border: 1.5px solid v.$border-color;
     cursor: pointer;
     transition: all 0.2s;
     color: v.$text-dark;
+    flex-shrink: 0;
+
+    @media (max-width: 400px) {
+      width: 36px;
+      min-width: 36px;
+      height: 36px;
+    }
 
     &:first-child {
       border-radius: 8px 0 0 8px;
@@ -422,11 +436,18 @@
 
   input {
     width: 60px;
+    min-width: 40px;
+    flex: 1;
     text-align: center;
     border-radius: 0;
     border-left: none;
     border-right: none;
     -moz-appearance: textfield;
+
+    @media (max-width: 400px) {
+      width: 50px;
+      padding: 0.5rem;
+    }
 
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
