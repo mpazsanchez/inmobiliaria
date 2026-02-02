@@ -1,73 +1,29 @@
 <div class="property-form-page">
   <!-- Header -->
-  <header class="page-header">
-    <div class="header-content">
-      <a routerLink="/member-area/propiedades" class="back-link">
-        <i class="bi bi-arrow-left"></i>
-        Volver
-      </a>
-      <h1>
-        @if (isEditMode()) {
-          <i class="bi bi-pencil"></i>
-          Editar Propiedad
-        } @else {
-          <i class="bi bi-plus-lg"></i>
-          Nueva Propiedad
-        }
-      </h1>
-    </div>
-  </header>
+  <app-form-header 
+    [backLink]="'/member-area/propiedades'" 
+    [title]="isEditMode() ? 'Editar Propiedad' : 'Nueva Propiedad'"
+    [icon]="isEditMode() ? 'pencil' : 'plus-lg'">
+  </app-form-header>
 
   @if (isLoading()) {
-    <div class="loading-state">
-      <div class="spinner"></div>
-      <p>Cargando propiedad...</p>
-    </div>
+    <app-loading-state [message]="'Cargando propiedad...'"></app-loading-state>
   } @else {
     <!-- Tabs Navigation -->
-    <nav class="form-tabs">
-      <button
-        [class.active]="activeTab() === 'basic'"
-        [class.valid]="isTabValid('basic')"
-        (click)="setTab('basic')">
-        <i class="bi bi-info-circle"></i>
-        <span>Información Básica</span>
-      </button>
-      <button
-        [class.active]="activeTab() === 'location'"
-        [class.valid]="isTabValid('location')"
-        (click)="setTab('location')">
-        <i class="bi bi-geo-alt"></i>
-        <span>Ubicacion</span>
-      </button>
-      <button
-        [class.active]="activeTab() === 'features'"
-        [class.valid]="isTabValid('features')"
-        (click)="setTab('features')">
-        <i class="bi bi-list-check"></i>
-        <span>Características</span>
-      </button>
-      <button
-        [class.active]="activeTab() === 'images'"
-        [class.valid]="isTabValid('images')"
-        (click)="setTab('images')">
-        <i class="bi bi-images"></i>
-        <span>Imágenes</span>
-      </button>
-    </nav>
+    <app-form-tabs 
+      [tabs]="tabsConfig" 
+      [activeTab]="activeTab()"
+      (tabChange)="activeTab.set($any($event))">
+    </app-form-tabs>
 
     <!-- Form -->
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="property-form">
       <!-- Error Alert -->
-      @if (error()) {
-        <div class="alert-error">
-          <i class="bi bi-exclamation-triangle"></i>
-          <span>{{ error() }}</span>
-          <button type="button" (click)="error.set(null)">
-            <i class="bi bi-x"></i>
-          </button>
-        </div>
-      }
+      <app-form-alert 
+        [message]="error()" 
+        [type]="'error'"
+        (dismiss)="error.set(null)">
+      </app-form-alert>
 
       <!-- Tab: Basic Info -->
       @if (activeTab() === 'basic') {

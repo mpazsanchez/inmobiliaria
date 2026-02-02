@@ -11,11 +11,28 @@ import { PropertyMapComponent } from '../../../../public-site/components/propert
 import { ImageUploaderComponent } from '../../../../../shared/components/image-uploader/image-uploader.component';
 import { CanComponentDeactivate } from '../../../../../core/guards/can-deactivate.guard';
 import { UnsavedChangesService } from '../../../../../core/services/unsaved-changes.service';
+import { 
+  FormHeaderComponent, 
+  FormTabsComponent, 
+  FormAlertComponent, 
+  LoadingStateComponent,
+  type TabConfig
+} from '../../../../../shared/components/admin';
 
 @Component({
   selector: 'app-property-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, PropertyMapComponent, ImageUploaderComponent],
+  imports: [
+    CommonModule, 
+    ReactiveFormsModule, 
+    RouterLink, 
+    PropertyMapComponent, 
+    ImageUploaderComponent,
+    FormHeaderComponent,
+    FormTabsComponent,
+    FormAlertComponent,
+    LoadingStateComponent
+  ],
   templateUrl: './property-form.component.html',
   styleUrls: ['./property-form.component.scss']
 })
@@ -206,22 +223,26 @@ export class PropertyFormComponent implements OnInit, CanComponentDeactivate {
     this.activeTab.set(tab);
   }
 
-  isTabValid(tab: string): boolean {
-    switch (tab) {
-      case 'basic':
-        return !!(this.form.get('titulo')?.valid &&
+  private readonly tabValidators: Record<string, () => boolean> = {
+    basic: () => !!(this.form.get('titulo')?.valid &&
                this.form.get('descripcion')?.valid &&
-               this.form.get('precio')?.valid);
-      case 'location':
-        return !!this.form.get('ubicacion')?.valid;
-      case 'features':
-        return !!this.form.get('caracteristicas')?.valid;
-      case 'images':
-        return this.imagenesArray.length > 0;
-      default:
-        return true;
-    }
+               this.form.get('precio')?.valid),
+    location: () => !!this.form.get('ubicacion')?.valid,
+    features: () => !!this.form.get('caracteristicas')?.valid,
+    images: () => this.imagenesArray.length > 0
+  };
+
+  isTabValid(tab: string): boolean {
+    return this.tabValidators[tab]?.() ?? true;
   }
+
+  // Configuración de tabs para el componente reutilizable
+  tabsConfig: TabConfig[] = [
+    { id: 'basic', label: 'Información Básica', icon: 'info-circle', isValid: () => this.isTabValid('basic') },
+    { id: 'location', label: 'Ubicación', icon: 'geo-alt', isValid: () => this.isTabValid('location') },
+    { id: 'features', label: 'Características', icon: 'list-check', isValid: () => this.isTabValid('features') },
+    { id: 'images', label: 'Imágenes', icon: 'images', isValid: () => this.isTabValid('images') }
+  ];
 
   // Amenidades
   toggleAmenidad(amenidad: string): void {
