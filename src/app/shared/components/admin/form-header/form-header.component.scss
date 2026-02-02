@@ -7,7 +7,7 @@
   box-shadow: admin.$shadow-sm;
   position: sticky;
   top: 0;
-  z-index: admin.$z-sticky;
+  z-index: 10;
 }
 
 .header-content {
