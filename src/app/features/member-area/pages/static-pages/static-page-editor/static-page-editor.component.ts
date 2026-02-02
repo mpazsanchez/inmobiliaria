@@ -8,6 +8,8 @@ import { SanitizerService } from '../../../../../core/services/sanitizer.service
 import { ContenidoEstatico, TipoPaginaEstatica } from '../../../../../core/models/static-content/contenido-estatico.interface';
 import { PageHeaderComponent } from '../../../../../shared/components/admin/page-header/page-header.component';
 import { QuillModule } from 'ngx-quill';
+import { CanComponentDeactivate } from '../../../../../core/guards/can-deactivate.guard';
+import { UnsavedChangesService } from '../../../../../core/services/unsaved-changes.service';
 
 /**
  * Configuración de la barra de herramientas de Quill
@@ -38,12 +40,13 @@ const QUILL_MODULES = {
   templateUrl: './static-page-editor.component.html',
   styleUrl: './static-page-editor.component.scss'
 })
-export class StaticPageEditorComponent implements OnInit {
+export class StaticPageEditorComponent implements OnInit, CanComponentDeactivate {
   private fb = inject(FormBuilder);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private contentService = inject(ContenidoEstaticoService);
   private sanitizerService = inject(SanitizerService);
+  private unsavedChangesService = inject(UnsavedChangesService);
 
   pageId = signal<TipoPaginaEstatica>('nosotros');
   loading = signal(true);
@@ -98,6 +101,8 @@ export class StaticPageEditorComponent implements OnInit {
           metaKeywords: content.metaKeywords || '',
           publicada: content.publicada ?? true
         });
+        // Marcar como pristine después de cargar datos
+        this.form.markAsPristine();
         this.loading.set(false);
       },
       error: (error) => {
@@ -108,6 +113,8 @@ export class StaticPageEditorComponent implements OnInit {
           contenidoHtml: '<p>Agrega aquí el contenido de la página.</p>',
           publicada: true
         });
+        // Marcar como pristine incluso con valores por defecto
+        this.form.markAsPristine();
         this.loading.set(false);
       }
     });
@@ -132,6 +139,7 @@ export class StaticPageEditorComponent implements OnInit {
 
     this.contentService.updateContent(this.pageId(), data).subscribe({
       next: () => {
+        this.form.markAsPristine(); // Marcar como sin cambios después de guardar
         this.saving.set(false);
         this.successMessage.set('Contenido guardado correctamente');
         
@@ -167,5 +175,16 @@ export class StaticPageEditorComponent implements OnInit {
   getPreviewContent(): SafeHtml {
     const html = this.form.get('contenidoHtml')?.value || '<p class="text-muted">Sin contenido</p>';
     return this.sanitizerService.sanitizeHtml(html);
+  }
+
+  // Guard para prevenir salir sin guardar
+  canDeactivate(): boolean | Promise<boolean> {
+    // Si el formulario no tiene cambios, permitir salir
+    if (this.form.pristine) {
+      return true;
+    }
+
+    // Mostrar confirmación si hay cambios sin guardar
+    return this.unsavedChangesService.confirmLeave();
   }
 }
