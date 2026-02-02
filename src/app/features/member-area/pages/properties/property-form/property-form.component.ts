@@ -9,6 +9,8 @@ import { ImageUploadService, ImageUploadResult } from '../../../../../core/servi
 import { Propiedad, Imagen } from '../../../../../core/models/property.interface';
 import { PropertyMapComponent } from '../../../../public-site/components/property-map/property-map.component';
 import { ImageUploaderComponent } from '../../../../../shared/components/image-uploader/image-uploader.component';
+import { CanComponentDeactivate } from '../../../../../core/guards/can-deactivate.guard';
+import { UnsavedChangesService } from '../../../../../core/services/unsaved-changes.service';
 
 @Component({
   selector: 'app-property-form',
@@ -17,7 +19,7 @@ import { ImageUploaderComponent } from '../../../../../shared/components/image-u
   templateUrl: './property-form.component.html',
   styleUrls: ['./property-form.component.scss']
 })
-export class PropertyFormComponent implements OnInit {
+export class PropertyFormComponent implements OnInit, CanComponentDeactivate {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
@@ -25,6 +27,7 @@ export class PropertyFormComponent implements OnInit {
   private authService = inject(AuthService);
   private geocodingService = inject(GeocodingService);
   private imageUploadService = inject(ImageUploadService);
+  private unsavedChangesService = inject(UnsavedChangesService);
 
   // Exponer Math para el template
   Math = Math;
@@ -157,6 +160,8 @@ export class PropertyFormComponent implements OnInit {
       next: (property) => {
         if (property) {
           this.patchForm(property);
+          // Marcar como pristine después de cargar datos
+          this.form.markAsPristine();
         } else {
           this.error.set('Propiedad no encontrada');
         }
@@ -369,6 +374,7 @@ export class PropertyFormComponent implements OnInit {
 
     request.subscribe({
       next: () => {
+        this.form.markAsPristine(); // Marcar como sin cambios después de guardar
         this.router.navigate(['/member-area/propiedades']);
       },
       error: (err) => {
@@ -405,5 +411,16 @@ export class PropertyFormComponent implements OnInit {
       'terreno': 'Terreno'
     };
     return labels[tipo] || tipo;
+  }
+
+  // Guard para prevenir salir sin guardar
+  canDeactivate(): boolean | Promise<boolean> {
+    // Si el formulario no tiene cambios, permitir salir
+    if (this.form.pristine) {
+      return true;
+    }
+
+    // Mostrar confirmación si hay cambios sin guardar
+    return this.unsavedChangesService.confirmLeave();
   }
 }
