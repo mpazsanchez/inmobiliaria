@@ -16,20 +16,7 @@ export interface TabConfig {
   selector: 'app-form-tabs',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <nav class="form-tabs">
-      @for (tab of tabs(); track tab.id) {
-        <button
-          type="button"
-          [class.active]="activeTab() === tab.id"
-          [class.valid]="tab.isValid ? tab.isValid() : false"
-          (click)="tabChange.emit(tab.id)">
-          <i [class]="'bi bi-' + tab.icon"></i>
-          <span>{{ tab.label }}</span>
-        </button>
-      }
-    </nav>
-  `,
+  templateUrl: './form-tabs.component.html',
   styleUrls: ['./form-tabs.component.scss']
 })
 export class FormTabsComponent {
