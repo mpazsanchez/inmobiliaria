@@ -1,5 +1,7 @@
+@use '../../../../../assets/styles/admin-variables' as admin;
+
 .sidebar {
-  background: #f8f9fa;
+  background: admin.$bg-gray;
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
@@ -16,7 +18,7 @@ li {
   margin-bottom: 0.5rem;
 }
 a {
-  color: #007bff;
+  color: admin.$info-bootstrap;
   text-decoration: none;
   &:hover {
     text-decoration: underline;
