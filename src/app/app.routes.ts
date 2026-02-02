@@ -35,6 +35,7 @@ import { StaticPageEditorComponent } from './features/member-area/pages/static-p
 
 // Guards
 import { authGuard } from './features/member-area/guards/auth.guard';
+import { canDeactivateGuard } from './core/guards/can-deactivate.guard';
 import { NotificationsPageComponent } from './features/member-area/pages/notifications/notifications-page.component';
 import { StatisticsComponent } from './features/member-area/pages/statistics/statistics.component';
 
@@ -88,11 +89,13 @@ export const routes: Routes = [
       {
         path: 'propiedades/nueva',
         component: PropertyFormComponent,
+        canDeactivate: [canDeactivateGuard],
         data: { title: 'Nueva Propiedad - Fairway' }
       },
       {
         path: 'propiedades/editar/:id',
         component: PropertyFormComponent,
+        canDeactivate: [canDeactivateGuard],
         data: { title: 'Editar Propiedad - Fairway' }
       },
       {
@@ -109,11 +112,13 @@ export const routes: Routes = [
       {
         path: 'asesores/nuevo',
         component: AgentFormComponent,
+        canDeactivate: [canDeactivateGuard],
         data: { title: 'Nuevo Asesor - Fairway' }
       },
       {
         path: 'asesores/editar/:id',
         component: AgentFormComponent,
+        canDeactivate: [canDeactivateGuard],
         data: { title: 'Editar Asesor - Fairway' }
       },
       // ============ CONSULTAS ============
@@ -148,41 +153,49 @@ export const routes: Routes = [
       {
         path: 'contenido/testimonios/nuevo',
         component: ContentFormComponent,
+        canDeactivate: [canDeactivateGuard],
         data: { title: 'Nuevo Testimonio - Fairway' }
       },
       {
         path: 'contenido/testimonios/editar/:id',
         component: ContentFormComponent,
+        canDeactivate: [canDeactivateGuard],
         data: { title: 'Editar Testimonio - Fairway' }
       },
       {
         path: 'contenido/beneficios/nuevo',
         component: ContentFormComponent,
+        canDeactivate: [canDeactivateGuard],
         data: { title: 'Nuevo Beneficio - Fairway' }
       },
       {
         path: 'contenido/beneficios/editar/:id',
         component: ContentFormComponent,
+        canDeactivate: [canDeactivateGuard],
         data: { title: 'Editar Beneficio - Fairway' }
       },
       {
         path: 'contenido/faqs/nuevo',
         component: ContentFormComponent,
+        canDeactivate: [canDeactivateGuard],
         data: { title: 'Nueva FAQ - Fairway' }
       },
       {
         path: 'contenido/faqs/editar/:id',
         component: ContentFormComponent,
+        canDeactivate: [canDeactivateGuard],
         data: { title: 'Editar FAQ - Fairway' }
       },
       {
         path: 'contenido/banners/nuevo',
         component: ContentFormComponent,
+        canDeactivate: [canDeactivateGuard],
         data: { title: 'Nuevo Banner - Fairway' }
       },
       {
         path: 'contenido/banners/editar/:id',
         component: ContentFormComponent,
+        canDeactivate: [canDeactivateGuard],
         data: { title: 'Editar Banner - Fairway' }
       },
       // ============ PÁGINAS ESTÁTICAS (Admin) ============
@@ -194,6 +207,7 @@ export const routes: Routes = [
       {
         path: 'paginas-estaticas/editar/:id',
         component: StaticPageEditorComponent,
+        canDeactivate: [canDeactivateGuard],
         data: { title: 'Editar Página - Fairway' }
       },
       {
