@@ -1,6 +1,11 @@
 <div class="public-layout">
+  <!-- Skip Navigation Link (Accesibilidad) -->
+  <a href="#main-content" class="skip-nav">
+    Saltar al contenido principal
+  </a>
+  
   <app-public-navbar/>
-  <main class="main-content">
+  <main id="main-content" class="main-content" role="main">
     <router-outlet/>
   </main>
   <app-public-footer/>
