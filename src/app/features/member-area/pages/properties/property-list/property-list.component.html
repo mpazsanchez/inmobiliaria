@@ -146,7 +146,8 @@
                       @for (estado of estados; track estado) {
                         <button
                           [class.active]="property.estado === estado"
-                          (click)="changeStatus(property, estado)">
+                          (click)="changeStatus(property, estado)"
+                          [attr.aria-label]="'Cambiar estado a ' + getStatusLabel(estado)">
                           {{ getStatusLabel(estado) }}
                         </button>
                       }
@@ -155,20 +156,30 @@
                 </td>
                 <td class="td-actions">
                   <div class="actions">
-                    <a [routerLink]="['/property', property.id]" target="_blank" class="action-btn view" title="Ver en sitio">
+                    <a 
+                      [routerLink]="['/property', property.id]" 
+                      target="_blank" 
+                      class="action-btn view" 
+                      aria-label="Ver propiedad en el sitio público">
                       <i class="bi bi-eye"></i>
                     </a>
-                    <a [routerLink]="['/member-area/propiedades/editar', property.id]" class="action-btn edit" title="Editar">
+                    <a 
+                      [routerLink]="['/member-area/propiedades/editar', property.id]" 
+                      class="action-btn edit" 
+                      aria-label="Editar propiedad">
                       <i class="bi bi-pencil"></i>
                     </a>
                     <button
                       class="action-btn star"
                       [class.active]="property.destacada"
                       (click)="toggleDestacada(property)"
-                      title="Destacar">
+                      [attr.aria-label]="property.destacada ? 'Quitar de destacadas' : 'Marcar como destacada'">
                       <i class="bi" [class.bi-star-fill]="property.destacada" [class.bi-star]="!property.destacada"></i>
                     </button>
-                    <button class="action-btn delete" (click)="confirmDelete(property)" title="Eliminar">
+                    <button 
+                      class="action-btn delete" 
+                      (click)="confirmDelete(property)" 
+                      aria-label="Eliminar propiedad">
                       <i class="bi bi-trash"></i>
                     </button>
                   </div>
@@ -216,7 +227,10 @@
                 <a [routerLink]="['/member-area/propiedades/editar', property.id]" class="btn-edit">
                   <i class="bi bi-pencil"></i> Editar
                 </a>
-                <button class="btn-delete" (click)="confirmDelete(property)">
+                <button 
+                  class="btn-delete" 
+                  (click)="confirmDelete(property)"
+                  aria-label="Eliminar propiedad">
                   <i class="bi bi-trash"></i>
                 </button>
               </div>
