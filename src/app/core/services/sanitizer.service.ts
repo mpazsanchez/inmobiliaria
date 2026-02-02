@@ -1,5 +1,6 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, PLATFORM_ID } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 import DOMPurify from 'dompurify';
 
 /**
@@ -14,6 +15,8 @@ import DOMPurify from 'dompurify';
 @Injectable({ providedIn: 'root' })
 export class SanitizerService {
   private domSanitizer = inject(DomSanitizer);
+  private platformId = inject(PLATFORM_ID);
+  private isBrowser = isPlatformBrowser(this.platformId);
 
   /**
    * Sanitiza HTML y lo marca como seguro para Angular
@@ -24,6 +27,12 @@ export class SanitizerService {
   sanitizeHtml(html: string): SafeHtml {
     if (!html) {
       return '';
+    }
+
+    // Solo usar DOMPurify en el navegador (no en SSR)
+    if (!this.isBrowser) {
+      // En SSR, retornar el HTML sin sanitizar (Angular lo sanitizará básicamente)
+      return this.domSanitizer.sanitize(1, html) || '';
     }
 
     // Sanitizar HTML con DOMPurify para prevenir XSS
