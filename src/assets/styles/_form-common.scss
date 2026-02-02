@@ -1,0 +1,415 @@
+// ============================================
+// Estilos comunes para formularios del Admin
+// ============================================
+// Importar en componentes con:
+// @use 'form-common' as form;
+// O incluir los mixins con @include
+
+@use 'admin-variables' as v;
+
+// ============================================
+// MIXINS REUTILIZABLES
+// ============================================
+
+// Mixin para form-group base
+@mixin form-group-base {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &.full-width {
+    grid-column: 1 / -1;
+  }
+
+  label {
+    font-size: v.$font-size-sm;
+    font-weight: 600;
+    color: v.$text-dark;
+
+    .required {
+      color: v.$danger;
+    }
+
+    i {
+      color: v.$text-muted;
+      margin-right: 0.25rem;
+    }
+  }
+}
+
+// Mixin para inputs base
+@mixin input-base {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid v.$border-color;
+  border-radius: v.$radius-md;
+  font-size: v.$font-size-sm;
+  color: v.$text-dark;
+  background: v.$bg-white;
+  transition: all v.$transition-base;
+
+  &:hover {
+    border-color: darken(#e5e7eb, 5%);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: v.$primary-green;
+    box-shadow: 0 0 0 3px rgba(v.$primary-green, 0.1);
+  }
+
+  &::placeholder {
+    color: v.$text-light;
+  }
+
+  &.invalid {
+    border-color: v.$danger;
+  }
+
+  &[readonly] {
+    background: v.$bg-light;
+    color: v.$text-muted;
+  }
+}
+
+// Mixin para select base
+@mixin select-base {
+  @include input-base;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 1rem center;
+  background-repeat: no-repeat;
+  background-size: 1.25rem;
+  padding-right: 2.5rem;
+}
+
+// Mixin para textarea base
+@mixin textarea-base {
+  @include input-base;
+  resize: vertical;
+  min-height: 100px;
+}
+
+// ============================================
+// GRID LAYOUTS
+// ============================================
+
+// Form grid responsive
+@mixin form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+
+  @media (max-width: v.$breakpoint-sm) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .full-width {
+    grid-column: 1 / -1;
+  }
+}
+
+// ============================================
+// BOTONES
+// ============================================
+
+@mixin btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  border-radius: v.$radius-md;
+  font-size: v.$font-size-sm;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all v.$transition-base;
+  text-decoration: none;
+  border: none;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: v.$breakpoint-xs) {
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+}
+
+@mixin btn-primary {
+  @include btn-base;
+  background: v.$primary-green;
+  color: v.$bg-white;
+
+  &:hover:not(:disabled) {
+    background: v.$primary-green-dark;
+    transform: translateY(-1px);
+  }
+}
+
+@mixin btn-secondary {
+  @include btn-base;
+  background: v.$bg-white;
+  color: v.$text-dark;
+  border: 1px solid v.$border-color;
+
+  &:hover:not(:disabled) {
+    background: v.$bg-light;
+    border-color: v.$text-muted;
+  }
+}
+
+// ============================================
+// FORM ACTIONS
+// ============================================
+
+@mixin form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding-top: 1.25rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid v.$border-color;
+
+  @media (max-width: v.$breakpoint-xs) {
+    flex-direction: column-reverse;
+
+    button, a {
+      width: 100%;
+    }
+  }
+}
+
+// ============================================
+// ALERTS
+// ============================================
+
+@mixin alert-base {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: v.$radius-md;
+  margin-bottom: 1rem;
+  font-weight: 500;
+
+  i {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  span {
+    flex: 1;
+    font-size: v.$font-size-sm;
+  }
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@mixin alert-error {
+  @include alert-base;
+  background: v.$danger-light;
+  color: v.$danger;
+  border: 1px solid lighten(#ef4444, 30%);
+
+  button {
+    color: v.$danger;
+
+    &:hover {
+      color: darken(#ef4444, 10%);
+    }
+  }
+}
+
+@mixin alert-success {
+  @include alert-base;
+  background: v.$success-light;
+  color: v.$success;
+  border: 1px solid lighten(#10b981, 30%);
+}
+
+// ============================================
+// LOADING & SPINNERS
+// ============================================
+
+@mixin spinner($size: 40px, $border-width: 3px) {
+  width: $size;
+  height: $size;
+  border: $border-width solid v.$border-color;
+  border-top-color: v.$primary-green;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@mixin spinner-small {
+  @include spinner(16px, 2px);
+  border-color: rgba(255, 255, 255, 0.3);
+  border-top-color: v.$bg-white;
+  display: inline-block;
+}
+
+@mixin loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background: v.$bg-white;
+  border-radius: v.$radius-lg;
+  text-align: center;
+
+  .spinner {
+    @include spinner;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: v.$text-muted;
+    margin: 0;
+    font-size: v.$font-size-sm;
+  }
+}
+
+// ============================================
+// HELPERS
+// ============================================
+
+@mixin field-error {
+  font-size: v.$font-size-xs;
+  color: v.$danger;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+@mixin char-count {
+  font-size: v.$font-size-xs;
+  color: v.$text-muted;
+  text-align: right;
+}
+
+@mixin field-hint {
+  font-size: v.$font-size-xs;
+  color: v.$text-muted;
+}
+
+// ============================================
+// FORM SECTION
+// ============================================
+
+@mixin form-section {
+  background: v.$bg-white;
+  border-radius: v.$radius-lg;
+  border: 1px solid v.$border-color;
+  padding: 1.5rem;
+
+  @media (max-width: v.$breakpoint-sm) {
+    padding: 1rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: v.$text-dark;
+    margin: 0 0 1.25rem 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid v.$border-color;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    i {
+      color: v.$primary-green;
+    }
+  }
+}
+
+// ============================================
+// CHECKBOX CUSTOM
+// ============================================
+
+@mixin checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 0.75rem;
+  background: v.$bg-light;
+  border: 1.5px solid v.$border-color;
+  border-radius: v.$radius-md;
+  transition: all v.$transition-base;
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  .checkbox-custom {
+    width: 20px;
+    height: 20px;
+    border: 2px solid v.$border-color;
+    border-radius: 4px;
+    background: v.$bg-white;
+    transition: all v.$transition-base;
+    position: relative;
+    flex-shrink: 0;
+
+    &::after {
+      content: '\2713';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      color: v.$bg-white;
+      font-size: 0.75rem;
+      font-weight: bold;
+      transition: transform v.$transition-base;
+    }
+  }
+
+  input:checked ~ .checkbox-custom,
+  input:checked + .checkbox-custom {
+    background: v.$primary-green;
+    border-color: v.$primary-green;
+
+    &::after {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: v.$font-size-sm;
+
+    i {
+      color: v.$accent-orange;
+    }
+  }
+
+  &:hover {
+    border-color: v.$primary-green;
+  }
+}
+
+// ============================================
+// KEYFRAMES
+// ============================================
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
