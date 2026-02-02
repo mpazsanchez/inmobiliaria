@@ -37,6 +37,11 @@ $white: #ffffff;
   @media (max-width: 1024px) {
     margin-left: 0;
     width: 100%;
+
+    // Override también cuando está collapsed
+    .sidebar-collapsed & {
+      margin-left: 0;
+    }
   }
 }
 
