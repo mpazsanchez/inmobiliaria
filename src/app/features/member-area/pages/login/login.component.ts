@@ -1,8 +1,9 @@
-import { Component, signal, inject, OnDestroy } from '@angular/core';
+import { Component, signal, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { SeoService } from '../../../../core/services/seo.service';
 
 @Component({
   selector: 'app-login',
@@ -11,10 +12,11 @@ import { Router, RouterModule } from '@angular/router';
   styleUrls: ['./login.component.scss'],
   imports: [CommonModule, ReactiveFormsModule, RouterModule]
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy {
   private authService = inject(AuthService);
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  private seoService = inject(SeoService);
 
   loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -29,6 +31,12 @@ export class LoginComponent implements OnDestroy {
   isBlocked = signal(false);
   blockTimeRemaining = signal(0);
   private blockTimer: ReturnType<typeof setInterval> | null = null;
+
+  ngOnInit(): void {
+    this.seoService.setTitle('Iniciar Sesión | Fairway Propiedades');
+    this.seoService.setDescription('Accedé al panel de gestión de Fairway Propiedades. Administrá propiedades, contactos y tu perfil.');
+    this.seoService.setKeywords('fairway login, panel administración, área privada, gestión inmobiliaria');
+  }
 
   ngOnDestroy(): void {
     this.clearBlockTimer();
