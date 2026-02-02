@@ -1,2 +1,17 @@
 <router-outlet/>
 <app-toast-container/>
+
+<!-- Modal global para cambios sin guardar -->
+@if (unsavedChangesService.modalConfig(); as config) {
+  <app-confirm-modal
+    [isOpen]="unsavedChangesService.isModalOpen()"
+    [variant]="config.variant"
+    [title]="config.title"
+    [message]="config.message"
+    [warningText]="config.warningText || ''"
+    [confirmText]="config.confirmText || 'Confirmar'"
+    [cancelText]="config.cancelText || 'Cancelar'"
+    (confirm)="unsavedChangesService.onConfirm()"
+    (cancel)="unsavedChangesService.onCancel()">
+  </app-confirm-modal>
+}
