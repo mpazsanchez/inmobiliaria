@@ -7,6 +7,7 @@ export class AuthService {
 
   // Computed signals para acceso rapido
   readonly isLoggedIn = computed(() => !!this.usuario());
+  readonly currentUser = computed(() => this.usuario());
 
   // =============================================
   // LOGIN - TODO: Conectar con API real
@@ -80,6 +81,10 @@ export class AuthService {
   // GETTERS
   // =============================================
   getUsuario(): Usuario | null {
+    return this.usuario();
+  }
+
+  getUser(): Usuario | null {
     return this.usuario();
   }
 
