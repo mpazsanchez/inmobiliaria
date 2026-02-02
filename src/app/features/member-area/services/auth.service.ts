@@ -17,7 +17,7 @@ export class AuthService {
       // Mock temporal para desarrollo
       if (email === 'admin@fairway.com' && password === 'admin123') {
         const user: Usuario = {
-          id: 1,
+          id: 999, // ID único para admin, no debe coincidir con ningún agente
           nombre: 'Administrador Fairway',
           email,
           telefono: '+54 11 4555-0000',
