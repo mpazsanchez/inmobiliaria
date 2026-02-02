@@ -11,13 +11,13 @@
     cursor: pointer;
 
     &:hover {
-      border-color: #3b82f6;
-      background: #eff6ff;
+      border-color: #1a4d2e;
+      background: #e8f5e9;
     }
 
     &.dragging {
-      border-color: #3b82f6;
-      background: #dbeafe;
+      border-color: #1a4d2e;
+      background: #d1fae5;
       border-style: solid;
       transform: scale(1.02);
     }
@@ -30,7 +30,7 @@
 
       i.bi-cloud-upload {
         font-size: 48px;
-        color: #3b82f6;
+        color: #1a4d2e;
       }
 
       h3 {
@@ -49,7 +49,7 @@
       .btn-select {
         margin-top: 8px;
         padding: 10px 24px;
-        background: #3b82f6;
+        background: #1a4d2e;
         color: white;
         border: none;
         border-radius: 8px;
@@ -59,9 +59,10 @@
         align-items: center;
         gap: 8px;
         transition: all 0.2s;
+        font-size: 0.875rem;
 
         &:hover {
-          background: #2563eb;
+          background: #0f3820;
           transform: translateY(-1px);
         }
 
@@ -74,6 +75,80 @@
         color: #9ca3af;
         font-size: 12px;
         margin-top: 4px;
+      }
+    }
+  }
+
+  // ============ MODO COMPACTO ============
+  &.compact {
+    .drop-zone {
+      padding: 12px 16px;
+      border-radius: 8px;
+
+      .drop-zone-content {
+        gap: 0;
+
+        i.bi-cloud-upload {
+          display: none;
+        }
+
+        .btn-select {
+          margin: 0;
+          padding: 8px 16px;
+          font-size: 0.813rem;
+          gap: 6px;
+
+          i {
+            font-size: 0.875rem;
+          }
+        }
+      }
+    }
+
+    .upload-queue {
+      margin-top: 12px;
+
+      .queue-header {
+        margin-bottom: 8px;
+
+        h4 {
+          font-size: 13px;
+        }
+
+        .btn-clear {
+          padding: 4px 8px;
+          font-size: 11px;
+        }
+      }
+
+      .queue-item {
+        padding: 8px;
+
+        .item-preview {
+          width: 40px;
+          height: 40px;
+        }
+
+        .item-info {
+          .item-name {
+            font-size: 12px;
+          }
+
+          .item-size {
+            font-size: 11px;
+          }
+
+          .item-status .status-badge {
+            padding: 2px 6px;
+            font-size: 10px;
+          }
+        }
+
+        .item-actions .btn-icon {
+          width: 24px;
+          height: 24px;
+          font-size: 12px;
+        }
       }
     }
   }

@@ -21,6 +21,7 @@ export class ImageUploaderComponent {
   @Input() maxFiles: number = 10;
   @Input() folder: string = 'properties';
   @Input() showPreview: boolean = true;
+  @Input() compact: boolean = false;
   @Output() uploadComplete = new EventEmitter<ImageUploadResult>();
   @Output() uploadError = new EventEmitter<string>();
 

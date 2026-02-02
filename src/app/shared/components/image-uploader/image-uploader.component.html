@@ -1,4 +1,4 @@
-<div class="image-uploader">
+<div class="image-uploader" [class.compact]="compact">
   <!-- Zona de drag & drop -->
   <div
     class="drop-zone"
@@ -6,23 +6,27 @@
     (dragover)="onDragOver($event)"
     (dragleave)="onDragLeave($event)"
     (drop)="onDrop($event)">
-    
+
     <div class="drop-zone-content">
       <i class="bi bi-cloud-upload"></i>
-      <h3>Arrastra imágenes aquí</h3>
-      <p>o haz clic para seleccionar archivos</p>
+      @if (!compact) {
+        <h3>Arrastra imágenes aquí</h3>
+        <p>o haz clic para seleccionar archivos</p>
+      }
       <input
         type="file"
         #fileInput
         accept="image/*"
-        multiple
+        [multiple]="maxFiles > 1"
         (change)="onFileSelected($event)"
         style="display: none">
       <button type="button" class="btn-select" (click)="fileInput.click()">
-        <i class="bi bi-folder2-open"></i>
-        Seleccionar Imágenes
+        <i class="bi bi-cloud-upload"></i>
+        {{ compact ? 'Subir imagen' : 'Seleccionar Imágenes' }}
       </button>
-      <small class="file-hint">JPG, PNG, WEBP o GIF • Máximo 10MB por imagen</small>
+      @if (!compact) {
+        <small class="file-hint">JPG, PNG, WEBP o GIF • Máximo 10MB por imagen</small>
+      }
     </div>
   </div>
 
