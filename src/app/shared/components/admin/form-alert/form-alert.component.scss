@@ -9,6 +9,8 @@
   margin-bottom: 1.5rem;
   font-size: 0.95rem;
   animation: slideDown 0.3s ease;
+  box-sizing: border-box;
+  width: 100%;
   
   i:first-child {
     font-size: 1.25rem;
@@ -80,6 +82,19 @@
     
     i:first-child {
       font-size: 1.125rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .alert {
+    padding: 0.75rem;
+    font-size: 0.813rem;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    
+    i:first-child {
+      font-size: 1rem;
     }
   }
 }

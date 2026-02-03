@@ -4,9 +4,25 @@
   background: linear-gradient(120deg, #e8f1fcbd 0%, #f8f9fa 100%);
   // padding: 0;
   padding: 80px;
+  
+  @media (max-width: 1200px) {
+    padding: 40px;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 12px;
+  }
 }
 
 .main-content {
   margin-top: 80px; // igual a la altura del navbar
   // padding: 2rem 0;
+  
+  @media (max-width: 768px) {
+    margin-top: 70px;
+  }
 }

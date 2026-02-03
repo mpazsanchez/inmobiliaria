@@ -2,6 +2,13 @@
 
 .agent-form-page {
   padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  
+  * {
+    box-sizing: border-box;
+  }
 }
 
 // ============ HEADER ============
@@ -121,7 +128,11 @@
   padding: 2rem;
 
   @media (max-width: 768px) {
-    padding: 1.5rem;
+    padding: 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.75rem;
   }
 
   h2 {
@@ -225,10 +236,20 @@
   }
 
   @media (max-width: 768px) {
-    align-items: center;
+    align-items: flex-start;
+    width: 100%;
 
     .photo-upload {
-      max-width: 200px;
+      max-width: 100%;
+      width: 100%;
+      
+      ::ng-deep .image-uploader .drop-zone {
+        text-align: left;
+        
+        .drop-zone-content {
+          align-items: flex-start;
+        }
+      }
     }
   }
 }
@@ -259,6 +280,8 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
+  min-width: 0;
 
   &.full-width {
     grid-column: 1 / -1;
@@ -284,6 +307,8 @@
     color: v.$text-dark;
     background: v.$bg-white;
     transition: all 0.2s;
+    width: 100%;
+    box-sizing: border-box;
 
     &:focus {
       outline: none;
