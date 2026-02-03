@@ -205,6 +205,12 @@
   text-decoration: none;
   transition: all 0.2s;
   cursor: pointer;
+  outline: none;
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
 
   &:hover {
     background: v.$bg-light;
@@ -220,23 +226,9 @@
 
   &.unread {
     background: rgba(v.$primary-green, 0.02);
-    border-left: 3px solid v.$primary-green;
-    padding-left: calc(1.25rem - 3px);
 
     .notif-content h4 {
       font-weight: 700;
-    }
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0.5rem;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 8px;
-      height: 8px;
-      background: v.$primary-green;
-      border-radius: 50%;
     }
   }
 
