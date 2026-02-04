@@ -364,7 +364,25 @@ export class UserService {
   /**
    * Reasigna propiedades a diferentes asesores (múltiples destinos)
    * Cada propiedad puede ir a un asesor distinto
-   * TODO: En mock solo simula. Conectar con API real.
+   * 
+   * API Endpoint: POST /api/usuarios/{usuarioOrigenId}/propiedades/reasignar
+   * Request Body:
+   * {
+   *   "asignaciones": [
+   *     { "propiedadId": 1, "nuevoAsesorId": 4 },
+   *     { "propiedadId": 2, "nuevoAsesorId": 5 }
+   *   ]
+   * }
+   * 
+   * Response:
+   * {
+   *   "mensaje": "Propiedades reasignadas exitosamente",
+   *   "cantidad": 2,
+   *   "detalles": [
+   *     { "propiedadId": 1, "asesorId": 4, "success": true },
+   *     { "propiedadId": 2, "asesorId": 5, "success": true }
+   *   ]
+   * }
    *
    * @param data - Objeto con usuarioOrigenId y array de asignaciones [{propiedadId, nuevoAsesorId}]
    */
@@ -374,9 +392,21 @@ export class UserService {
   }): Observable<{ mensaje: string; cantidad: number; detalles: Array<{ propiedadId: number; asesorId: number; success: boolean }> }> {
     this.loading.set(true);
 
-    console.warn('[MOCK] reasignarPropiedadesMultiple - No se persiste:', data);
+    // TODO: Descomentar cuando el backend esté listo
+    // const url = `${this.apiUrl}/${data.usuarioOrigenId}/propiedades/reasignar`;
+    // return this.http.post<any>(url, { asignaciones: data.asignaciones }).pipe(
+    //   tap(() => this.loading.set(false)),
+    //   catchError(error => {
+    //     console.error('Error al reasignar propiedades:', error);
+    //     this.loading.set(false);
+    //     return throwError(() => error);
+    //   })
+    // );
 
-    // Mock: simular respuesta exitosa
+    // MOCK: Simular respuesta del backend
+    console.warn('[MOCK] reasignarPropiedadesMultiple - Endpoint:', `POST /api/usuarios/${data.usuarioOrigenId}/propiedades/reasignar`);
+    console.warn('[MOCK] Request Body:', { asignaciones: data.asignaciones });
+
     const detalles = data.asignaciones.map(a => ({
       propiedadId: a.propiedadId,
       asesorId: a.nuevoAsesorId,
@@ -384,7 +414,7 @@ export class UserService {
     }));
 
     return of({
-      mensaje: `Se reasignarían ${data.asignaciones.length} propiedades a diferentes asesores (mock)`,
+      mensaje: `Se reasignaron ${data.asignaciones.length} propiedades exitosamente`,
       cantidad: data.asignaciones.length,
       detalles
     }).pipe(

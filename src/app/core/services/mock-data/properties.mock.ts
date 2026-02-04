@@ -166,7 +166,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: true,
-    asesorId: 2,
+    asesorId: 3,  // Cambiado para testing
     fechaPublicacion: '2024-01-05',
     ultimaActualizacion: '2024-01-15',
     agente: {
@@ -209,7 +209,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: true,
-    asesorId: 1,
+    asesorId: 3,  // Cambiado para testing
     fechaPublicacion: '2024-01-12',
     ultimaActualizacion: '2024-01-19',
     agente: {
@@ -253,7 +253,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: true,
-    asesorId: 2,
+    asesorId: 3,  // Cambiado para testing
     fechaPublicacion: '2024-01-18',
     ultimaActualizacion: '2024-01-22',
     agente: {
@@ -295,7 +295,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: false,
-    asesorId: 1,
+    asesorId: 3,  // Cambiado para testing
     fechaPublicacion: '2024-01-22',
     ultimaActualizacion: '2024-01-22',
     agente: {
@@ -336,7 +336,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: false,
-    asesorId: 2,
+    asesorId: 3,  // Cambiado para testing
     fechaPublicacion: '2024-01-21',
     ultimaActualizacion: '2024-01-21',
     agente: {
