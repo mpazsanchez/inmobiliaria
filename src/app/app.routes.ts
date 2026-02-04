@@ -15,6 +15,8 @@ import { AgentProfileComponent } from './features/public-site/pages/agent-profil
 import { ContactComponent } from './features/public-site/pages/contact/contact.component';
 import { AboutUsComponent } from './features/public-site/pages/about-us/about-us.component';
 import { ProductDetailComponent } from './features/public-site/pages/products/product-detail/product-detail.component';
+import { ForgotPasswordComponent } from './features/public-site/pages/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './features/public-site/pages/reset-password/reset-password.component';
 
 // Member Area Pages
 import { LoginComponent } from './features/member-area/pages/login/login.component';
@@ -40,14 +42,35 @@ import { NotificationsPageComponent } from './features/member-area/pages/notific
 import { StatisticsComponent } from './features/member-area/pages/statistics/statistics.component';
 
 export const routes: Routes = [
-  // ============ ÁREA DE MIEMBROS ============
+  // ============ AUTENTICACIÓN Y PASSWORD RESET ============
 
-  // Login fuera del layout de miembros (sin guard)
+  // Login (sin layout, fuera del guard)
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: { title: 'Iniciar Sesión - Fairway' }
+  },
   {
     path: 'member-area/login',
-    component: LoginComponent,
-    data: { title: 'Iniciar Sesion' }
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
+
+  // Forgot Password (público, sin layout)
+  {
+    path: 'login/forgot-password',
+    component: ForgotPasswordComponent,
+    data: { title: '¿Olvidaste tu contraseña? - Fairway' }
+  },
+
+  // Reset Password (público, sin layout, con token en URL)
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent,
+    data: { title: 'Restablecer Contraseña - Fairway' }
+  },
+
+  // ============ ÁREA DE MIEMBROS ============
 
   // Rutas protegidas del area de miembros (con layout admin)
   {
