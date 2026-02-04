@@ -1,9 +1,6 @@
 import { Component, Input, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { MemberSidebarComponent } from '../../components/member-sidebar/member-sidebar.component';
-import { DashboardCardComponent } from '../../components/dashboard-card/dashboard-card.component';
-import { InstallerFormComponent } from '../../components/installer-form/installer-form.component';
 import { AuthService } from '../../services/auth.service';
 import { inject } from '@angular/core';
 
@@ -38,10 +35,7 @@ interface Lead {
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink,
-    MemberSidebarComponent, 
-    DashboardCardComponent, 
-    InstallerFormComponent
+    RouterLink
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
