@@ -54,7 +54,9 @@ export class MenuService {
   private getMenuFromJson(rol: string): Observable<MenuItem[]> {
     return this.http.get<MenuResponse>(this.JSON_URL).pipe(
       map(response => {
-        const normalizedRol = rol.toLowerCase();
+        // Normalizar rol: 'admin' → 'administrador'
+        const normalizedRol = rol.toLowerCase() === 'admin' ? 'administrador' : rol.toLowerCase();
+        
         if (normalizedRol === 'administrador') {
           return response.menus.administrador;
         } else if (normalizedRol === 'asesor') {
