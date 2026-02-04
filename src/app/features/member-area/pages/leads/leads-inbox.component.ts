@@ -45,7 +45,7 @@ export class LeadsInboxComponent implements OnInit {
 
   // Usuario actual
   currentUser = computed(() => this.authService.getUsuario());
-  isAdmin = computed(() => this.currentUser()?.rol === 'administrador');
+  isAdmin = computed(() => this.currentUser()?.rol === 'admin');
 
   // Título dinámico según rol
   pageTitle = computed(() => this.isAdmin() ? 'Consultas' : 'Mis Consultas');
