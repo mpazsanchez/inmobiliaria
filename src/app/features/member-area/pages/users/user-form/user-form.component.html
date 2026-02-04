@@ -1,0 +1,592 @@
+<div class="user-form-page">
+  <!-- Header -->
+  <app-form-header 
+    [backLink]="'/member-area/usuarios'" 
+    [title]="isEditMode() ? 'Editar Usuario' : 'Nuevo Usuario'"
+    [icon]="isEditMode() ? 'pencil' : 'person-plus'">
+  </app-form-header>
+
+  @if (isLoading()) {
+    <app-loading-state [message]="'Cargando usuario...'"></app-loading-state>
+  } @else {
+    <!-- Tabs Navigation -->
+    <app-form-tabs 
+      [tabs]="tabsConfig" 
+      [activeTab]="activeTab()"
+      (tabChange)="activeTab.set($any($event))">
+    </app-form-tabs>
+
+    <!-- Form -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="user-form">
+      <!-- Error Alert -->
+      <app-form-alert 
+        [message]="error()" 
+        [type]="'error'"
+        (dismiss)="error.set(null)">
+      </app-form-alert>
+
+      <!-- Success Alert -->
+      <app-form-alert 
+        [message]="success()" 
+        [type]="'success'"
+        (dismiss)="success.set(null)">
+      </app-form-alert>
+
+      <!-- TAB: DATOS BÁSICOS -->
+      @if (activeTab() === 'basico') {
+        <div class="form-section">
+          <h2>Datos Básicos</h2>
+
+          <div class="form-grid with-photo">
+            <!-- Photo Upload -->
+            <div class="photo-section">
+              <div class="photo-preview">
+                @if (form.get('fotoUrl')?.value) {
+                  <img [src]="form.get('fotoUrl')?.value" alt="Foto de perfil" class="photo-img">
+                  <button type="button" class="btn-remove-photo" (click)="removePhoto()" title="Eliminar foto">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                } @else {
+                  <div class="photo-placeholder">
+                    <i class="bi bi-person-circle"></i>
+                    <span class="placeholder-text">Sin foto</span>
+                  </div>
+                }
+              </div>
+              <div class="photo-upload">
+                <app-image-uploader
+                  [maxFiles]="1"
+                  [folder]="'users'"
+                  [showPreview]="false"
+                  [compact]="true"
+                  (uploadComplete)="onImageUploaded($event)"
+                  (uploadError)="onImageUploadError($event)">
+                </app-image-uploader>
+                <span class="field-hint">Imagen cuadrada de al menos 400x400px</span>
+              </div>
+            </div>
+
+            <!-- Fields -->
+            <div class="fields-section">
+              <!-- Rol del Usuario -->
+              <div class="form-row">
+                <div class="form-group full-width">
+                  <label for="rol">Rol en el Sistema <span class="required">*</span></label>
+                  <select
+                    id="rol"
+                    formControlName="rol"
+                    [disabled]="isEditMode()"
+                    [class.invalid]="form.get('rol')?.invalid && form.get('rol')?.touched">
+                    @for (rol of roles; track rol.value) {
+                      <option [value]="rol.value">{{ rol.label }}</option>
+                    }
+                  </select>
+                  <span class="field-hint">
+                    @if (!isEditMode()) {
+                      El rol determina los permisos y accesos del usuario
+                    } @else {
+                      El rol no puede modificarse una vez creado el usuario
+                    }
+                  </span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="nombre">Nombre <span class="required">*</span></label>
+                  <input
+                    id="nombre"
+                    type="text"
+                    formControlName="nombre"
+                    placeholder="Nombre"
+                    [class.invalid]="form.get('nombre')?.invalid && form.get('nombre')?.touched">
+                  @if (form.get('nombre')?.invalid && form.get('nombre')?.touched) {
+                    <span class="field-error">Mínimo 2 caracteres</span>
+                  }
+                </div>
+
+                <div class="form-group">
+                  <label for="apellido">Apellido <span class="required">*</span></label>
+                  <input
+                    id="apellido"
+                    type="text"
+                    formControlName="apellido"
+                    placeholder="Apellido"
+                    [class.invalid]="form.get('apellido')?.invalid && form.get('apellido')?.touched">
+                  @if (form.get('apellido')?.invalid && form.get('apellido')?.touched) {
+                    <span class="field-error">Mínimo 2 caracteres</span>
+                  }
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email">Email <span class="required">*</span></label>
+                  <input
+                    id="email"
+                    type="email"
+                    formControlName="email"
+                    placeholder="email@fairway.com"
+                    [readonly]="isEditMode()"
+                    [class.invalid]="form.get('email')?.invalid && form.get('email')?.touched">
+                  @if (form.get('email')?.invalid && form.get('email')?.touched) {
+                    <span class="field-error">Email inválido</span>
+                  }
+                  @if (isEditMode()) {
+                    <span class="field-hint">El email no puede modificarse</span>
+                  }
+                </div>
+
+                <div class="form-group">
+                  <label for="telefono">Teléfono <span class="required">*</span></label>
+                  <input
+                    id="telefono"
+                    type="tel"
+                    formControlName="telefono"
+                    placeholder="+54 11 0000-0000"
+                    [class.invalid]="form.get('telefono')?.invalid && form.get('telefono')?.touched">
+                  @if (form.get('telefono')?.invalid && form.get('telefono')?.touched) {
+                    <span class="field-error">Teléfono requerido</span>
+                  }
+                </div>
+              </div>
+
+              <!-- Estado (solo en edición) -->
+              @if (isEditMode()) {
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="checkbox-label">
+                      <input type="checkbox" formControlName="activo">
+                      Usuario Activo
+                    </label>
+                    <span class="field-hint">Los usuarios inactivos no pueden acceder al sistema</span>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- TAB: SEGURIDAD -->
+      @if (activeTab() === 'seguridad') {
+        <div class="form-section">
+          <h2>Seguridad y Acceso</h2>
+
+          @if (!isEditMode()) {
+            <!-- Crear usuario: contraseña obligatoria -->
+            <div class="form-group">
+              <label for="password">Contraseña <span class="required">*</span></label>
+              <input 
+                type="password" 
+                id="password" 
+                formControlName="password"
+                placeholder="Mínimo 8 caracteres"
+                [class.invalid]="form.get('password')?.invalid && form.get('password')?.touched">
+              @if (form.get('password')?.invalid && form.get('password')?.touched) {
+                <span class="field-error">La contraseña debe tener al menos 8 caracteres</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="confirmarPassword">Confirmar Contraseña <span class="required">*</span></label>
+              <input 
+                type="password" 
+                id="confirmarPassword" 
+                formControlName="confirmarPassword"
+                placeholder="Repite la contraseña"
+                [class.invalid]="form.get('confirmarPassword')?.invalid && form.get('confirmarPassword')?.touched">
+              @if (form.get('confirmarPassword')?.invalid && form.get('confirmarPassword')?.touched) {
+                <span class="field-error">Confirma la contraseña</span>
+              }
+            </div>
+
+            <div class="alert alert-info">
+              <i class="bi bi-info-circle"></i>
+              <span>El usuario recibirá un email con sus credenciales de acceso.</span>
+            </div>
+          } @else {
+            <!-- Editar usuario: opciones de contraseña -->
+            <div class="security-info">
+              <h3>Información de Acceso</h3>
+              <div class="info-grid">
+                <div class="info-item">
+                  <span class="info-label">Email:</span>
+                  <span class="info-value">{{ usuario()?.email }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Último acceso:</span>
+                  <span class="info-value">{{ usuario()?.ultimoAcceso || 'Nunca' }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Fecha de registro:</span>
+                  <span class="info-value">{{ usuario()?.fechaRegistro | date:'short' }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Estado:</span>
+                  <span class="info-value">
+                    <span [class]="usuario()?.activo ? 'badge-success' : 'badge-danger'">
+                      {{ usuario()?.activo ? 'Activo' : 'Inactivo' }}
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Resetear Contraseña -->
+            <div class="password-reset-section">
+              <h3>Restablecer Contraseña</h3>
+              
+              <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i>
+                <span>
+                  Por seguridad, los cambios de contraseña se realizan mediante un 
+                  link enviado al correo electrónico del usuario.
+                </span>
+              </div>
+
+              <div class="reset-card">
+                <div class="reset-info">
+                  <i class="bi bi-envelope-at"></i>
+                  <div>
+                    <strong>Enviar Link de Restablecimiento</strong>
+                    <p>
+                      Se enviará un email a <strong>{{ usuario()?.email }}</strong> con 
+                      instrucciones para establecer una nueva contraseña.
+                    </p>
+                    @if (isEditingOwnProfile()) {
+                      <p class="text-muted small">
+                        <i class="bi bi-info-circle-fill"></i>
+                        Recibirás el link en tu propio email para cambiar tu contraseña de forma segura.
+                      </p>
+                    }
+                  </div>
+                </div>
+
+                <button 
+                  type="button" 
+                  class="btn btn-warning"
+                  (click)="openResetConfirmModal()"
+                  [disabled]="sendingResetLink()">
+                  @if (sendingResetLink()) {
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                    Enviando...
+                  } @else {
+                    <i class="bi bi-send me-2"></i>
+                    Enviar Link de Restablecimiento
+                  }
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      }
+
+      <!-- TAB: PERFIL PÚBLICO (solo si rol = 'asesor') -->
+      @if (activeTab() === 'perfil' && esAsesor()) {
+        <div class="form-section">
+          <h2>Perfil Público</h2>
+          <p class="section-description">Esta información se mostrará en el sitio web público</p>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="cargo">Cargo <span class="required">*</span></label>
+              <select
+                id="cargo"
+                formControlName="cargo"
+                [class.invalid]="form.get('cargo')?.invalid && form.get('cargo')?.touched">
+                @for (cargo of cargos; track cargo) {
+                  <option [value]="cargo">{{ cargo }}</option>
+                }
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="especialidad">Especialidad</label>
+              <select
+                id="especialidad"
+                formControlName="especialidad">
+                <option value="">Seleccionar especialidad...</option>
+                @for (esp of especialidades; track esp) {
+                  <option [value]="esp">{{ esp }}</option>
+                }
+              </select>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="slogan">Eslogan / Frase Distintiva</label>
+              <input
+                id="slogan"
+                type="text"
+                formControlName="slogan"
+                placeholder="Ej: Tu socio en la búsqueda del hogar perfecto"
+                maxlength="100">
+              <span class="char-count">{{ form.get('slogan')?.value?.length || 0 }} / 100</span>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="biografia">Biografía Profesional</label>
+              <textarea
+                id="biografia"
+                formControlName="biografia"
+                rows="5"
+                placeholder="Describe tu experiencia, logros y enfoque profesional..."
+                maxlength="1000"></textarea>
+              <span class="char-count">{{ form.get('biografia')?.value?.length || 0 }} / 1000</span>
+            </div>
+
+            <div class="form-group">
+              <label for="experienciaAnios">Años de Experiencia</label>
+              <input
+                id="experienciaAnios"
+                type="number"
+                formControlName="experienciaAnios"
+                min="0"
+                max="50"
+                placeholder="0">
+            </div>
+
+            <div class="form-group full-width">
+              <label>Idiomas</label>
+              <div class="idiomas-grid">
+                @for (idioma of idiomasDisponibles; track idioma) {
+                  <label class="checkbox-label">
+                    <input 
+                      type="checkbox" 
+                      [checked]="isIdiomaSeleccionado(idioma)"
+                      (change)="toggleIdioma(idioma)">
+                    {{ idioma }}
+                  </label>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- TAB: REDES SOCIALES (solo si rol = 'asesor') -->
+      @if (activeTab() === 'redes' && esAsesor()) {
+        <div class="form-section">
+          <h2>Redes Sociales y Contacto</h2>
+          <p class="section-description">Enlaces a redes sociales profesionales (opcionales)</p>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="whatsapp">
+                <i class="bi bi-whatsapp"></i> WhatsApp
+              </label>
+              <input
+                id="whatsapp"
+                type="tel"
+                formControlName="whatsapp"
+                placeholder="+54 9 11 0000-0000">
+              <span class="field-hint">Incluye código de país</span>
+            </div>
+
+            <div class="form-group">
+              <label for="linkedin">
+                <i class="bi bi-linkedin"></i> LinkedIn
+              </label>
+              <input
+                id="linkedin"
+                type="url"
+                formControlName="linkedin"
+                placeholder="https://linkedin.com/in/usuario">
+            </div>
+
+            <div class="form-group">
+              <label for="instagram">
+                <i class="bi bi-instagram"></i> Instagram
+              </label>
+              <input
+                id="instagram"
+                type="text"
+                formControlName="instagram"
+                placeholder="@usuario">
+            </div>
+
+            <div class="form-group">
+              <label for="facebook">
+                <i class="bi bi-facebook"></i> Facebook
+              </label>
+              <input
+                id="facebook"
+                type="url"
+                formControlName="facebook"
+                placeholder="https://facebook.com/usuario">
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- TAB: LOGROS (solo si rol = 'asesor') -->
+      @if (activeTab() === 'logros' && esAsesor()) {
+        <div class="form-section">
+          <h2>Logros y Estadísticas</h2>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="propiedadesVendidas">Propiedades Vendidas</label>
+              <input
+                id="propiedadesVendidas"
+                type="number"
+                formControlName="propiedadesVendidas"
+                min="0"
+                placeholder="0">
+            </div>
+
+            <div class="form-group">
+              <label for="clientesSatisfechos">Clientes Satisfechos</label>
+              <input
+                id="clientesSatisfechos"
+                type="number"
+                formControlName="clientesSatisfechos"
+                min="0"
+                placeholder="0">
+            </div>
+
+            <div class="form-group full-width">
+              <label class="checkbox-label">
+                <input type="checkbox" formControlName="destacado">
+                Asesor Destacado
+              </label>
+              <span class="field-hint">Los asesores destacados aparecen primero en el sitio público</span>
+            </div>
+          </div>
+
+          <!-- Certificaciones -->
+          <div class="subsection">
+            <h3>
+              <i class="bi bi-award"></i>
+              Certificaciones y Títulos
+            </h3>
+            
+            @if (certificacionesArray.length === 0) {
+              <p class="empty-state">No hay certificaciones agregadas</p>
+            } @else {
+              <div class="dynamic-list">
+                @for (cert of certificacionesArray.controls; track $index) {
+                  <div class="dynamic-item">
+                    <input 
+                      type="text" 
+                      [formControl]="$any(cert)"
+                      placeholder="Ej: Agente Inmobiliario Matriculado">
+                    <button 
+                      type="button" 
+                      class="btn-remove"
+                      (click)="eliminarCertificacion($index)">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                }
+              </div>
+            }
+
+            <button 
+              type="button" 
+              class="btn-add"
+              (click)="agregarCertificacion()">
+              <i class="bi bi-plus-lg"></i>
+              Agregar Certificación
+            </button>
+          </div>
+
+          <!-- Premios -->
+          <div class="subsection">
+            <h3>
+              <i class="bi bi-trophy"></i>
+              Premios y Reconocimientos
+            </h3>
+            
+            @if (premiosArray.length === 0) {
+              <p class="empty-state">No hay premios agregados</p>
+            } @else {
+              <div class="dynamic-list">
+                @for (premio of premiosArray.controls; track $index) {
+                  <div class="dynamic-item">
+                    <input 
+                      type="text" 
+                      [formControl]="$any(premio)"
+                      placeholder="Ej: Mejor Agente del Año 2025">
+                    <button 
+                      type="button" 
+                      class="btn-remove"
+                      (click)="eliminarPremio($index)">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                }
+              </div>
+            }
+
+            <button 
+              type="button" 
+              class="btn-add"
+              (click)="agregarPremio()">
+              <i class="bi bi-plus-lg"></i>
+              Agregar Premio
+            </button>
+          </div>
+        </div>
+      }
+
+      <!-- Botones de acción -->
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="cancelar()">
+          <i class="bi bi-x-lg"></i>
+          Cancelar
+        </button>
+        <button 
+          type="submit" 
+          class="btn-primary" 
+          [disabled]="isSaving() || form.invalid">
+          @if (isSaving()) {
+            <span class="spinner"></span>
+          } @else {
+            <i class="bi" [class.bi-check-lg]="!isEditMode()" [class.bi-save]="isEditMode()"></i>
+          }
+          {{ isEditMode() ? 'Guardar Cambios' : 'Crear Usuario' }}
+        </button>
+      </div>
+    </form>
+  }
+</div>
+
+<!-- Modal de Confirmación para Reset de Contraseña -->
+<app-confirm-modal
+  [isOpen]="showResetConfirmModal()"
+  [variant]="'warning'"
+  [title]="'Enviar Link de Restablecimiento'"
+  [message]="'Se enviará un email a ' + (usuario()?.email || '') + ' con instrucciones para restablecer la contraseña.'"
+  [warningText]="isEditingOwnProfile() ? 'Recibirás el link en tu propio email.' : 'El usuario podrá establecer una nueva contraseña.'"
+  [confirmText]="'Enviar Link'"
+  [cancelText]="'Cancelar'"
+  [isLoading]="sendingResetLink()"
+  (confirm)="sendPasswordResetLink()"
+  (cancel)="showResetConfirmModal.set(false)">
+</app-confirm-modal>
+
+<!-- Modal de Cambios No Guardados -->
+<app-confirm-modal
+  [isOpen]="showUnsavedChangesModal()"
+  [variant]="'warning'"
+  [title]="'Cambios Sin Guardar'"
+  [message]="'Tienes cambios sin guardar que se perderán si sales ahora.'"
+  [warningText]="'Esta acción no se puede deshacer.'"
+  [confirmText]="'Salir Sin Guardar'"
+  [cancelText]="'Continuar Editando'"
+  (confirm)="confirmLeave()"
+  (cancel)="cancelLeave()">
+</app-confirm-modal>
+
+<!-- Modal de Confirmación para Eliminar Foto -->
+<app-confirm-modal
+  [isOpen]="showDeletePhotoModal()"
+  [variant]="'danger'"
+  [title]="'Eliminar Foto de Perfil'"
+  [message]="'¿Estás seguro de eliminar la foto de perfil? Esta acción no se puede deshacer.'"
+  [confirmText]="'Eliminar Foto'"
+  [cancelText]="'Cancelar'"
+  (confirm)="confirmDeletePhoto()"
+  (cancel)="cancelDeletePhoto()">
+</app-confirm-modal>
