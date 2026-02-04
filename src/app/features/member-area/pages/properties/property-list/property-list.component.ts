@@ -44,7 +44,7 @@ export class PropertyListComponent implements OnInit {
 
   // Usuario y permisos
   currentUser = computed(() => this.authService.getUsuario());
-  isAdmin = computed(() => this.currentUser()?.rol === 'administrador');
+  isAdmin = computed(() => this.currentUser()?.rol === 'admin');
 
   // Configuración del header
   primaryAction: HeaderAction = {
