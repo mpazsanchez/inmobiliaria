@@ -2,12 +2,14 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { PropertyService } from '../../../../core/services/property.service';
+import { AgentService } from '../../../../core/services/agent.service';
 import { Propiedad } from '../../../../core/models/property.interface';
-import { MOCK_ASESORES, Asesor } from '../../../../core/services/mock-data/agents.mock';
+import { Agente } from '../../../../core/models/agent.interface';
+import { forkJoin } from 'rxjs';
 
 // Interfaz extendida para incluir info del agente
 interface PropiedadConAgente extends Propiedad {
-  agente?: Asesor;
+  agente?: Agente;
 }
 
 @Component({
@@ -19,6 +21,7 @@ interface PropiedadConAgente extends Propiedad {
 })
 export class FeaturedPropertiesComponent implements OnInit {
   private propertyService = inject(PropertyService);
+  private agentService = inject(AgentService);
 
   propiedadesDestacadas = signal<PropiedadConAgente[]>([]);
   isLoading = signal(true);
@@ -31,12 +34,15 @@ export class FeaturedPropertiesComponent implements OnInit {
   }
 
   cargarPropiedadesDestacadas(): void {
-    this.propertyService.getPropiedadesDestacadas(6).subscribe({
-      next: (propiedades) => {
+    forkJoin({
+      propiedades: this.propertyService.getPropiedadesDestacadas(6),
+      agentes: this.agentService.getAgentes()
+    }).subscribe({
+      next: ({ propiedades, agentes }) => {
         // Agregar info del agente a cada propiedad
         const propiedadesConAgente = propiedades.map(prop => ({
           ...prop,
-          agente: MOCK_ASESORES.find(a => a.id === prop.asesorId)
+          agente: agentes.find(a => a.id === prop.asesorId)
         }));
         this.propiedadesDestacadas.set(propiedadesConAgente);
         this.isLoading.set(false);
@@ -58,7 +64,7 @@ export class FeaturedPropertiesComponent implements OnInit {
   }
 
   // Generar link de WhatsApp
-  getWhatsAppLink(agente: Asesor, propiedad: Propiedad): string {
+  getWhatsAppLink(agente: Agente, propiedad: Propiedad): string {
     const mensaje = encodeURIComponent(
       `Hola ${agente.nombre}, me interesa la propiedad "${propiedad.titulo}" publicada en Fairway. ¿Podrías darme más información?`
     );
@@ -71,7 +77,7 @@ export class FeaturedPropertiesComponent implements OnInit {
   }
 
   // Generar link de email
-  getEmailLink(agente: Asesor, propiedad: Propiedad): string {
+  getEmailLink(agente: Agente, propiedad: Propiedad): string {
     const subject = encodeURIComponent(`Consulta: ${propiedad.titulo}`);
     const body = encodeURIComponent(
       `Hola ${agente.nombre},\n\nMe interesa la propiedad "${propiedad.titulo}" ubicada en ${propiedad.ubicacion.direccion}, ${propiedad.ubicacion.ciudad}.\n\n¿Podrían contactarme para coordinar una visita?\n\nGracias.`
