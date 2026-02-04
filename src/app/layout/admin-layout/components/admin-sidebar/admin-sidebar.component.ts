@@ -36,17 +36,36 @@ export class AdminSidebarComponent implements OnInit {
    * Carga el menu desde el servicio (JSON o API segun configuracion)
    */
   private loadMenu(): void {
-    const rol = this.usuario?.rol || 'asesor';
+    const rol = this.usuario?.rol;
+    
+    if (!rol) {
+      console.warn('⚠️ Usuario sin rol, usando menú de asesor por defecto');
+      this.menuService.getMenuByRole('asesor').subscribe({
+        next: (items) => {
+          const sortedItems = items.sort((a, b) => a.orden - b.orden);
+          this.menuItems.set(sortedItems);
+          this.isLoadingMenu.set(false);
+        },
+        error: (err) => {
+          console.error('❌ Error cargando menu:', err);
+          this.isLoadingMenu.set(false);
+        }
+      });
+      return;
+    }
+
+    console.log('🔍 Cargando menú para rol:', rol);
 
     this.menuService.getMenuByRole(rol).subscribe({
       next: (items) => {
+        console.log('✅ Items de menú cargados:', items.length, items);
         // Ordenar por campo 'orden'
         const sortedItems = items.sort((a, b) => a.orden - b.orden);
         this.menuItems.set(sortedItems);
         this.isLoadingMenu.set(false);
       },
       error: (err) => {
-        console.error('Error cargando menu:', err);
+        console.error('❌ Error cargando menu:', err);
         this.isLoadingMenu.set(false);
       }
     });
