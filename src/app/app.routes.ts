@@ -25,8 +25,8 @@ import { CourseDetailComponent } from './features/member-area/pages/training/cou
 import { CertificationsComponent } from './features/member-area/pages/certifications/certifications.component';
 import { PropertyListComponent } from './features/member-area/pages/properties/property-list/property-list.component';
 import { PropertyFormComponent } from './features/member-area/pages/properties/property-form/property-form.component';
-import { AgentListComponent } from './features/member-area/pages/agents/agent-list/agent-list.component';
-import { AgentFormComponent } from './features/member-area/pages/agents/agent-form/agent-form.component';
+import { UserListComponent } from './features/member-area/pages/users/user-list/user-list.component';
+import { UserFormComponent } from './features/member-area/pages/users/user-form/user-form.component';
 import { LeadsInboxComponent } from './features/member-area/pages/leads/leads-inbox.component';
 import { ContentListComponent } from './features/member-area/pages/content/content-list/content-list.component';
 import { ContentFormComponent } from './features/member-area/pages/content/content-form/content-form.component';
@@ -103,23 +103,23 @@ export const routes: Routes = [
         component: PropertyListComponent,
         data: { title: 'Mis Propiedades - Fairway' }
       },
-      // ============ ASESORES (Admin) ============
+      // ============ USUARIOS (Admin) ============
       {
-        path: 'asesores',
-        component: AgentListComponent,
-        data: { title: 'Asesores - Fairway' }
+        path: 'usuarios',
+        component: UserListComponent,
+        data: { title: 'Usuarios - Fairway' }
       },
       {
-        path: 'asesores/nuevo',
-        component: AgentFormComponent,
+        path: 'usuarios/nuevo',
+        component: UserFormComponent,
         canDeactivate: [canDeactivateGuard],
-        data: { title: 'Nuevo Asesor - Fairway' }
+        data: { title: 'Nuevo Usuario - Fairway' }
       },
       {
-        path: 'asesores/editar/:id',
-        component: AgentFormComponent,
+        path: 'usuarios/editar/:id',
+        component: UserFormComponent,
         canDeactivate: [canDeactivateGuard],
-        data: { title: 'Editar Asesor - Fairway' }
+        data: { title: 'Editar Usuario - Fairway' }
       },
       // ============ CONSULTAS ============
       {
