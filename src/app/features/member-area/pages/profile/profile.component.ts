@@ -1,10 +1,10 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ProfileService } from '../../services/profile.service';
 import { AuthService } from '../../services/auth.service';
-import type { Agente } from '../../../../core/models/agent.interface';
+import type { Usuario, PerfilAsesor, ActualizarUsuarioDto } from '../../../../core/models/user.interface';
 
 @Component({
   selector: 'app-profile',
@@ -19,7 +19,10 @@ export class ProfileComponent implements OnInit {
   private authService = inject(AuthService);
 
   profileForm!: FormGroup;
-  agente = signal<Agente | null>(null);
+  usuario = signal<Usuario | null>(null);
+  esAsesor = computed(() => this.usuario()?.rol === 'asesor');
+  perfilAsesor = computed(() => this.usuario()?.perfilAsesor);
+  
   isLoading = signal(true);
   isSaving = signal(false);
   error = signal<string | null>(null);
@@ -39,26 +42,28 @@ export class ProfileComponent implements OnInit {
 
   private initForm(): void {
     this.profileForm = this.fb.group({
-      // Informacion personal
+      // Informacion personal (obligatoria para todos)
       nombre: ['', [Validators.required, Validators.minLength(2)]],
       apellido: ['', [Validators.required, Validators.minLength(2)]],
-      cargo: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       telefono: ['', [Validators.required]],
 
-      // Perfil profesional
+      // Cargo (obligatorio solo para asesores, opcional para admin)
+      cargo: [''],
+      
+      // Perfil profesional (opcional, solo para asesores)
       especialidad: [''],
       slogan: ['', Validators.maxLength(100)],
       biografia: ['', Validators.maxLength(1000)],
       experienciaAnios: [0, [Validators.min(0), Validators.max(50)]],
 
-      // Redes sociales
+      // Redes sociales (opcional)
       whatsapp: [''],
       linkedin: [''],
       instagram: [''],
       facebook: [''],
 
-      // Arrays
+      // Arrays (solo para asesores)
       idiomas: this.fb.array([]),
       certificaciones: this.fb.array([]),
       premios: this.fb.array([])
@@ -66,56 +71,69 @@ export class ProfileComponent implements OnInit {
   }
 
   private loadProfile(): void {
-    const usuario = this.authService.getUsuario();
-
-    if (!usuario) {
-      this.error.set('Debes iniciar sesion para ver tu perfil');
-      this.isLoading.set(false);
-      return;
-    }
-
-    this.profileService.getMyProfile(usuario.id).subscribe({
-      next: (agente) => {
-        if (agente) {
-          this.agente.set(agente);
-          this.populateForm(agente);
+    this.profileService.getMyProfile().subscribe({
+      next: (usuario) => {
+        if (usuario) {
+          this.usuario.set(usuario);
+          this.populateForm(usuario);
         } else {
-          this.error.set('No se encontro tu perfil de asesor');
+          this.error.set('No se encontró tu perfil. Por favor, inicia sesión nuevamente.');
         }
         this.isLoading.set(false);
       },
       error: (err) => {
+        console.error('Error al cargar perfil:', err);
         this.error.set('Error al cargar el perfil: ' + err.message);
         this.isLoading.set(false);
       }
     });
   }
 
-  private populateForm(agente: Agente): void {
+  private populateForm(usuario: Usuario): void {
+    const perfil = usuario.perfilAsesor;
+    const esAsesor = usuario.rol === 'asesor';
+    
+    // Datos básicos (todos los usuarios)
     this.profileForm.patchValue({
-      nombre: agente.nombre,
-      apellido: agente.apellido,
-      cargo: agente.cargo,
-      email: agente.email,
-      telefono: agente.telefono,
-      especialidad: agente.especialidad || '',
-      slogan: agente.slogan || '',
-      biografia: agente.biografia || '',
-      experienciaAnios: agente.experienciaAnios || 0,
-      whatsapp: agente.whatsapp || '',
-      linkedin: agente.linkedin || '',
-      instagram: agente.instagram || '',
-      facebook: agente.facebook || ''
+      nombre: usuario.nombre,
+      apellido: usuario.apellido,
+      email: usuario.email,
+      telefono: usuario.telefono || ''
     });
 
-    // Limpiar y rellenar arrays
-    this.clearFormArray(this.idiomas);
-    this.clearFormArray(this.certificaciones);
-    this.clearFormArray(this.premios);
+    // Cargo: para admin mostrar su rol, para asesor su cargo profesional
+    const cargoDefault = esAsesor ? 'Asesor Inmobiliario' : 'Administrador';
+    this.profileForm.patchValue({
+      cargo: perfil?.cargo || cargoDefault
+    });
+    
+    // Campos de PerfilAsesor (solo para asesores)
+    if (esAsesor && perfil) {
+      this.profileForm.patchValue({
+        especialidad: perfil.especialidad || '',
+        slogan: perfil.slogan || '',
+        biografia: perfil.biografia || '',
+        experienciaAnios: perfil.experienciaAnios || 0,
+        whatsapp: perfil.whatsapp || '',
+        linkedin: perfil.linkedin || '',
+        instagram: perfil.instagram || '',
+        facebook: perfil.facebook || ''
+      });
 
-    agente.idiomas?.forEach(idioma => this.idiomas.push(this.fb.control(idioma)));
-    agente.certificaciones?.forEach(cert => this.certificaciones.push(this.fb.control(cert)));
-    agente.premios?.forEach(premio => this.premios.push(this.fb.control(premio)));
+      // Limpiar y rellenar arrays
+      this.clearFormArray(this.idiomas);
+      this.clearFormArray(this.certificaciones);
+      this.clearFormArray(this.premios);
+
+      perfil.idiomas?.forEach(idioma => this.idiomas.push(this.fb.control(idioma)));
+      perfil.certificaciones?.forEach(cert => this.certificaciones.push(this.fb.control(cert)));
+      perfil.premios?.forEach(premio => this.premios.push(this.fb.control(premio)));
+    } else {
+      // Admin: limpiar arrays pero no llenarlos
+      this.clearFormArray(this.idiomas);
+      this.clearFormArray(this.certificaciones);
+      this.clearFormArray(this.premios);
+    }
   }
 
   private clearFormArray(formArray: FormArray): void {
@@ -229,31 +247,37 @@ export class ProfileComponent implements OnInit {
     const formData = this.profileForm.value;
 
     // Preparar datos para guardar
-    const updateData: Partial<Agente> = {
-      nombre: formData.nombre,
-      apellido: formData.apellido,
-      cargo: formData.cargo,
-      email: formData.email,
-      telefono: formData.telefono,
-      especialidad: formData.especialidad || undefined,
-      slogan: formData.slogan || undefined,
-      biografia: formData.biografia || undefined,
-      experienciaAnios: formData.experienciaAnios || undefined,
-      whatsapp: formData.whatsapp || undefined,
-      linkedin: formData.linkedin || undefined,
-      instagram: formData.instagram || undefined,
-      facebook: formData.facebook || undefined,
-      idiomas: formData.idiomas.length > 0 ? formData.idiomas : undefined,
-      certificaciones: formData.certificaciones.length > 0 ? formData.certificaciones : undefined,
-      premios: formData.premios.length > 0 ? formData.premios : undefined
+    const updateData: ActualizarUsuarioDto = {
+      nombre: formData.nombre!,
+      apellido: formData.apellido!,
+      email: formData.email!,
+      telefono: formData.telefono || undefined
     };
+
+    // Si es asesor, agregar perfilAsesor
+    if (usuario.rol === 'asesor') {
+      updateData.perfilAsesor = {
+        cargo: formData.cargo || '',
+        especialidad: formData.especialidad || '',
+        slogan: formData.slogan || '',
+        biografia: formData.biografia || '',
+        experienciaAnios: formData.experienciaAnios || 0,
+        whatsapp: formData.whatsapp || '',
+        linkedin: formData.linkedin || '',
+        instagram: formData.instagram || '',
+        facebook: formData.facebook || '',
+        idiomas: formData.idiomas?.filter((val: string) => val?.trim()) || [],
+        certificaciones: formData.certificaciones?.filter((val: string) => val?.trim()) || [],
+        premios: formData.premios?.filter((val: string) => val?.trim()) || []
+      };
+    }
 
     // Si hay foto nueva, primero subirla
     if (this.selectedPhotoFile) {
       this.profileService.uploadPhoto(this.selectedPhotoFile).subscribe({
         next: (result) => {
           updateData.fotoUrl = result.url;
-          this.saveProfile(usuario.id, updateData);
+          this.saveProfile(updateData);
         },
         error: (err) => {
           this.error.set('Error al subir la foto: ' + err.message);
@@ -261,14 +285,14 @@ export class ProfileComponent implements OnInit {
         }
       });
     } else {
-      this.saveProfile(usuario.id, updateData);
+      this.saveProfile(updateData);
     }
   }
 
-  private saveProfile(userId: number, data: Partial<Agente>): void {
-    this.profileService.updateProfile(userId, data).subscribe({
-      next: (updatedAgente) => {
-        this.agente.set(updatedAgente);
+  private saveProfile(data: ActualizarUsuarioDto): void {
+    this.profileService.updateMyProfile(data).subscribe({
+      next: (updatedUsuario) => {
+        this.usuario.set(updatedUsuario);
         this.successMessage.set('Perfil actualizado correctamente');
         this.isSaving.set(false);
         this.selectedPhotoFile = null;
@@ -299,9 +323,9 @@ export class ProfileComponent implements OnInit {
 
   // Obtener nombre completo para mostrar
   getNombreCompleto(): string {
-    const agente = this.agente();
-    if (!agente) return '';
-    return `${agente.nombre} ${agente.apellido}`;
+    const usuario = this.usuario();
+    if (!usuario) return '';
+    return `${usuario.nombre} ${usuario.apellido}`;
   }
 
   // Obtener URL de foto actual
@@ -309,7 +333,7 @@ export class ProfileComponent implements OnInit {
     const preview = this.photoPreview();
     if (preview) return preview;
 
-    const agente = this.agente();
-    return agente?.fotoUrl || 'assets/images/agents/default-avatar.jpg';
+    const usuario = this.usuario();
+    return usuario?.fotoUrl || 'assets/images/agents/default-avatar.jpg';
   }
 }

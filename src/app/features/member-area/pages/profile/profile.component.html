@@ -8,7 +8,7 @@
   }
 
   <!-- Error State (sin perfil) -->
-  @if (error() && !agente()) {
+  @if (error() && !usuario()) {
     <div class="error-state">
       <i class="bi bi-exclamation-circle"></i>
       <h2>Error</h2>
@@ -18,7 +18,7 @@
   }
 
   <!-- Content -->
-  @if (agente() && !isLoading()) {
+  @if (usuario() && !isLoading()) {
     <div class="profile-container">
       <!-- Header -->
       <header class="profile-header">
@@ -44,32 +44,41 @@
           </div>
           <div class="header-info">
             <h1>{{ getNombreCompleto() }}</h1>
-            <p class="role">{{ agente()?.cargo }}</p>
-            @if (agente()?.especialidad) {
-              <p class="specialty"><i class="bi bi-award"></i> {{ agente()?.especialidad }}</p>
+            @if (esAsesor()) {
+              @if (perfilAsesor()) {
+                <p class="role">{{ perfilAsesor()?.cargo }}</p>
+                @if (perfilAsesor()?.especialidad) {
+                  <p class="specialty"><i class="bi bi-award"></i> {{ perfilAsesor()?.especialidad }}</p>
+                }
+              }
+            } @else {
+              <p class="role">Administrador del Sistema</p>
+              <p class="specialty"><i class="bi bi-shield-check"></i> Acceso completo</p>
             }
           </div>
         </div>
 
-        <!-- Stats -->
-        <div class="stats-grid">
-          <div class="stat-card">
-            <span class="stat-value">{{ agente()?.experienciaAnios || 0 }}+</span>
-            <span class="stat-label">Años de experiencia</span>
+        <!-- Stats (solo para asesores) -->
+        @if (esAsesor() && perfilAsesor()) {
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-value">{{ perfilAsesor()?.experienciaAnios || 0 }}+</span>
+              <span class="stat-label">Años de experiencia</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">{{ perfilAsesor()?.propiedadesVendidas || 0 }}</span>
+              <span class="stat-label">Propiedades vendidas</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">{{ perfilAsesor()?.propiedadesActivas || 0 }}</span>
+              <span class="stat-label">Propiedades activas</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">{{ perfilAsesor()?.clientesSatisfechos || 0 }}+</span>
+              <span class="stat-label">Clientes satisfechos</span>
+            </div>
           </div>
-          <div class="stat-card">
-            <span class="stat-value">{{ agente()?.propiedadesVendidas || 0 }}</span>
-            <span class="stat-label">Propiedades vendidas</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-value">{{ agente()?.propiedadesActivas || 0 }}</span>
-            <span class="stat-label">Propiedades activas</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-value">{{ agente()?.clientesSatisfechos || 0 }}+</span>
-            <span class="stat-label">Clientes satisfechos</span>
-          </div>
-        </div>
+        }
       </header>
 
       <!-- Messages -->
@@ -110,14 +119,6 @@
             </div>
 
             <div class="form-group">
-              <label for="cargo">Cargo *</label>
-              <input id="cargo" type="text" formControlName="cargo" placeholder="Ej: Agente Inmobiliario">
-              @if (getFieldError('cargo')) {
-                <span class="field-error">{{ getFieldError('cargo') }}</span>
-              }
-            </div>
-
-            <div class="form-group">
               <label for="email">Email *</label>
               <input id="email" type="email" formControlName="email" placeholder="tu@email.com">
               @if (getFieldError('email')) {
@@ -135,60 +136,69 @@
           </div>
         </section>
 
-        <!-- Seccion: Perfil Profesional -->
-        <section class="form-section">
-          <h2><i class="bi bi-briefcase"></i> Perfil Profesional</h2>
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="especialidad">Especialidad</label>
-              <input id="especialidad" type="text" formControlName="especialidad" placeholder="Ej: Propiedades de Lujo">
-            </div>
+        <!-- Seccion: Perfil Profesional (solo para asesores) -->
+        @if (esAsesor()) {
+          <section class="form-section">
+            <h2><i class="bi bi-briefcase"></i> Perfil Profesional</h2>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="cargo">Cargo</label>
+                <input id="cargo" type="text" formControlName="cargo" placeholder="Ej: Agente Inmobiliario Senior">
+                @if (getFieldError('cargo')) {
+                  <span class="field-error">{{ getFieldError('cargo') }}</span>
+                }
+              </div>
 
-            <div class="form-group">
-              <label for="slogan">Slogan</label>
-              <input id="slogan" type="text" formControlName="slogan" placeholder="Una frase que te represente">
-              @if (getFieldError('slogan')) {
-                <span class="field-error">{{ getFieldError('slogan') }}</span>
+              <div class="form-group">
+                <label for="especialidad">Especialidad</label>
+                <input id="especialidad" type="text" formControlName="especialidad" placeholder="Ej: Propiedades de Lujo">
+              </div>
+
+              <div class="form-group">
+                <label for="slogan">Slogan</label>
+                <input id="slogan" type="text" formControlName="slogan" placeholder="Una frase que te represente">
+                @if (getFieldError('slogan')) {
+                  <span class="field-error">{{ getFieldError('slogan') }}</span>
+                }
+              </div>
+
+              <div class="form-group">
+                <label for="experienciaAnios">Años de experiencia</label>
+                <input id="experienciaAnios" type="number" formControlName="experienciaAnios" min="0" max="50">
+                @if (getFieldError('experienciaAnios')) {
+                  <span class="field-error">{{ getFieldError('experienciaAnios') }}</span>
+                }
+              </div>
+
+              <div class="form-group full-width">
+                <label for="biografia">Biografía</label>
+                <textarea id="biografia" formControlName="biografia" rows="4" placeholder="Cuéntanos sobre ti, tu experiencia y lo que te diferencia..."></textarea>
+                <span class="char-count">{{ profileForm.get('biografia')?.value?.length || 0 }}/1000</span>
+                @if (getFieldError('biografia')) {
+                  <span class="field-error">{{ getFieldError('biografia') }}</span>
+                }
+              </div>
+            </div>
+          </section>
+
+          <!-- Seccion: Idiomas -->
+          <section class="form-section">
+            <h2><i class="bi bi-translate"></i> Idiomas</h2>
+            <div class="tags-container">
+              @for (idioma of idiomas.controls; track $index; let i = $index) {
+                <span class="tag">
+                  {{ idioma.value }}
+                  <button 
+                    type="button" 
+                    class="tag-remove" 
+                    (click)="removeIdioma(i)"
+                    [attr.aria-label]="'Eliminar idioma ' + idioma.value">
+                    <i class="bi bi-x"></i>
+                  </button>
+                </span>
               }
             </div>
-
-            <div class="form-group">
-              <label for="experienciaAnios">Años de experiencia</label>
-              <input id="experienciaAnios" type="number" formControlName="experienciaAnios" min="0" max="50">
-              @if (getFieldError('experienciaAnios')) {
-                <span class="field-error">{{ getFieldError('experienciaAnios') }}</span>
-              }
-            </div>
-
-            <div class="form-group full-width">
-              <label for="biografia">Biografía</label>
-              <textarea id="biografia" formControlName="biografia" rows="4" placeholder="Cuéntanos sobre ti, tu experiencia y lo que te diferencia..."></textarea>
-              <span class="char-count">{{ profileForm.get('biografia')?.value?.length || 0 }}/1000</span>
-              @if (getFieldError('biografia')) {
-                <span class="field-error">{{ getFieldError('biografia') }}</span>
-              }
-            </div>
-          </div>
-        </section>
-
-        <!-- Seccion: Idiomas -->
-        <section class="form-section">
-          <h2><i class="bi bi-translate"></i> Idiomas</h2>
-          <div class="tags-container">
-            @for (idioma of idiomas.controls; track $index; let i = $index) {
-              <span class="tag">
-                {{ idioma.value }}
-                <button 
-                  type="button" 
-                  class="tag-remove" 
-                  (click)="removeIdioma(i)"
-                  [attr.aria-label]="'Eliminar idioma ' + idioma.value">
-                  <i class="bi bi-x"></i>
-                </button>
-              </span>
-            }
-          </div>
-          <div class="add-item-row">
+            <div class="add-item-row">
             <input type="text" [value]="newIdioma()" (input)="newIdioma.set($any($event.target).value)" placeholder="Agregar idioma" (keyup.enter)="addIdioma()">
             <button 
               type="button" 
@@ -197,32 +207,6 @@
               aria-label="Agregar idioma">
               <i class="bi bi-plus"></i>
             </button>
-          </div>
-        </section>
-
-        <!-- Seccion: Redes Sociales -->
-        <section class="form-section">
-          <h2><i class="bi bi-share"></i> Redes Sociales</h2>
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="whatsapp"><i class="bi bi-whatsapp"></i> WhatsApp</label>
-              <input id="whatsapp" type="text" formControlName="whatsapp" placeholder="5491123456789">
-            </div>
-
-            <div class="form-group">
-              <label for="linkedin"><i class="bi bi-linkedin"></i> LinkedIn</label>
-              <input id="linkedin" type="url" formControlName="linkedin" placeholder="https://linkedin.com/in/tu-perfil">
-            </div>
-
-            <div class="form-group">
-              <label for="instagram"><i class="bi bi-instagram"></i> Instagram</label>
-              <input id="instagram" type="url" formControlName="instagram" placeholder="https://instagram.com/tu-usuario">
-            </div>
-
-            <div class="form-group">
-              <label for="facebook"><i class="bi bi-facebook"></i> Facebook</label>
-              <input id="facebook" type="url" formControlName="facebook" placeholder="https://facebook.com/tu-pagina">
-            </div>
           </div>
         </section>
 
@@ -286,6 +270,33 @@
           </div>
         </section>
 
+        <!-- Seccion: Redes Sociales (solo para asesores) -->
+        <section class="form-section">
+          <h2><i class="bi bi-share"></i> Redes Sociales</h2>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="whatsapp"><i class="bi bi-whatsapp"></i> WhatsApp</label>
+              <input id="whatsapp" type="text" formControlName="whatsapp" placeholder="5491123456789">
+            </div>
+
+            <div class="form-group">
+              <label for="linkedin"><i class="bi bi-linkedin"></i> LinkedIn</label>
+              <input id="linkedin" type="url" formControlName="linkedin" placeholder="https://linkedin.com/in/tu-perfil">
+            </div>
+
+            <div class="form-group">
+              <label for="instagram"><i class="bi bi-instagram"></i> Instagram</label>
+              <input id="instagram" type="url" formControlName="instagram" placeholder="https://instagram.com/tu-usuario">
+            </div>
+
+            <div class="form-group">
+              <label for="facebook"><i class="bi bi-facebook"></i> Facebook</label>
+              <input id="facebook" type="url" formControlName="facebook" placeholder="https://facebook.com/tu-pagina">
+            </div>
+          </div>
+        </section>
+        } <!-- Fin de @if (esAsesor()) -->
+
         <!-- Actions -->
         <div class="form-actions">
           <a routerLink="/member-area/dashboard" class="btn btn-secondary">
@@ -305,7 +316,7 @@
       <div class="preview-section">
         <p>
           <i class="bi bi-eye"></i>
-          <a [routerLink]="['/team', agente()?.id]" target="_blank">
+          <a [routerLink]="['/team', usuario()?.id]" target="_blank">
             Ver mi perfil publico
           </a>
         </p>

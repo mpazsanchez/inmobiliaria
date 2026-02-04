@@ -251,7 +251,8 @@
     gap: 0.5rem;
   }
 
-  .stat-card {
+  .stat-card,
+  .stat-item {
     background: linear-gradient(135deg, v.$bg-light 0%, v.$bg-white 100%);
     padding: 0.875rem 0.75rem;
     border-radius: 10px;
@@ -286,6 +287,7 @@
       text-transform: uppercase;
       letter-spacing: 0.3px;
       margin-top: 0.125rem;
+      display: block;
 
       @media (min-width: 1200px) {
         font-size: 0.7rem;
