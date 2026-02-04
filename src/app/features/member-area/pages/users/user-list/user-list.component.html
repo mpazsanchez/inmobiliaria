@@ -1,0 +1,386 @@
+<div class="user-list-page">
+  <!-- Header -->
+  <app-page-header
+    title="Gestión de Usuarios"
+    [primaryAction]="primaryAction">
+  </app-page-header>
+
+  <!-- Stats Grid -->
+  <app-stats-grid [stats]="statsCards()"></app-stats-grid>
+
+  <!-- Filtros -->
+  <div class="filters-section">
+    <div class="filters-grid">
+      <!-- Búsqueda -->
+      <div class="filter-group search-group">
+        <label class="filter-label">
+          <i class="bi bi-search"></i>
+          Buscar
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Nombre, apellido o email..."
+          [value]="filters().search || ''"
+          (input)="onSearchChange($any($event.target).value)">
+      </div>
+
+      <!-- Filtro por Rol -->
+      <div class="filter-group">
+        <label class="filter-label">
+          <i class="bi bi-person-badge"></i>
+          Rol
+        </label>
+        <select
+          class="form-select"
+          [value]="filters().rol || ''"
+          (change)="onFilterChange('rol', $any($event.target).value)">
+          <option value="">Todos los roles</option>
+          <option value="admin">Administradores</option>
+          <option value="asesor">Asesores</option>
+        </select>
+      </div>
+
+      <!-- Filtro por Estado -->
+      <div class="filter-group">
+        <label class="filter-label">
+          <i class="bi bi-toggle-on"></i>
+          Estado
+        </label>
+        <select
+          class="form-select"
+          [value]="filters().activo !== undefined ? filters().activo?.toString() : ''"
+          (change)="onFilterChange('activo', $any($event.target).value === '' ? undefined : $any($event.target).value === 'true')">
+          <option value="">Todos los estados</option>
+          <option value="true">Activos</option>
+          <option value="false">Inactivos</option>
+        </select>
+      </div>
+
+      <!-- Botón para limpiar filtros -->
+      <div class="filter-group clear-group">
+        <button
+          class="btn btn-outline-secondary w-100"
+          (click)="clearFilters()"
+          [disabled]="!filters().rol && filters().activo === undefined && !filters().search">
+          <i class="bi bi-x-circle"></i>
+          Limpiar Filtros
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabla de Usuarios -->
+  <div class="table-section">
+    @if (isLoading()) {
+      <div class="loading-state">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+        <p class="loading-text">Cargando usuarios...</p>
+      </div>
+    } @else if (users().length === 0) {
+      @if (hasActiveFilters()) {
+        <app-empty-state
+          icon="bi-filter-circle"
+          message="No se encontraron usuarios con los filtros aplicados"
+          actionText="Limpiar Filtros"
+          (actionClick)="clearFilters()">
+        </app-empty-state>
+      } @else {
+        <app-empty-state
+          icon="bi-people"
+          message="No hay usuarios registrados aún"
+          actionText="Crear Primer Usuario"
+          actionRoute="/member-area/usuarios/nuevo">
+        </app-empty-state>
+      }
+    } @else {
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Usuario</th>
+              <th>Email</th>
+              <th>Rol</th>
+              <!-- <th>Teléfono</th> -->
+              <th class="text-center">Estado</th>
+              <th class="text-center">Registro</th>
+              <th class="text-end">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (user of users(); track user.id) {
+              <tr [class.inactive-row]="!user.activo">
+                <!-- Usuario (con foto) -->
+                <td>
+                  <div class="user-cell">
+                    @if (user.fotoUrl) {
+                      <img [src]="user.fotoUrl" [alt]="getFullName(user)" class="user-avatar">
+                    } @else {
+                      <div class="user-avatar-placeholder">
+                        <i class="bi bi-person"></i>
+                      </div>
+                    }
+                    <span class="user-name">{{ getFullName(user) }}</span>
+                  </div>
+                </td>
+
+                <!-- Email -->
+                <td>
+                  <a [href]="'mailto:' + user.email" class="email-link">
+                    {{ user.email }}
+                  </a>
+                </td>
+
+                <!-- Rol -->
+                <td>
+                  <span class="badge" [ngClass]="getRolBadgeClass(user.rol)">
+                    <i class="bi" [ngClass]="user.rol === 'admin' ? 'bi-shield-check' : 'bi-briefcase'"></i>
+                    {{ getRolLabel(user.rol) }}
+                  </span>
+                </td>
+
+                <!-- Teléfono -->
+                <!-- <td>
+                  @if (user.telefono) {
+                    <a [href]="'tel:' + user.telefono" class="phone-link">
+                      {{ user.telefono }}
+                    </a>
+                  } @else {
+                    <span class="text-muted">-</span>
+                  }
+                </td> -->
+
+                <!-- Estado -->
+                <td class="text-center">
+                  <span class="badge" [ngClass]="getStatusBadgeClass(user.activo)">
+                    {{ getStatusLabel(user.activo) }}
+                  </span>
+                </td>
+
+                <!-- Fecha de Registro -->
+                <td class="text-center">
+                  <span class="date-text">
+                    {{ user.fechaRegistro | date:'dd/MM/yyyy' }}
+                  </span>
+                </td>
+
+                <!-- Acciones -->
+                <td class="td-actions">
+                  <div class="actions">
+                    <!-- Editar -->
+                    <a
+                      [routerLink]="['/member-area/usuarios/editar', user.id]"
+                      class="action-btn edit"
+                      aria-label="Editar usuario">
+                      <i class="bi bi-pencil"></i>
+                    </a>
+
+                    <!-- Desactivar/Reactivar -->
+                    @if (user.activo) {
+                      <button
+                        class="action-btn deactivate"
+                        (click)="confirmDeactivate(user)"
+                        aria-label="Desactivar usuario">
+                        <i class="bi bi-slash-circle"></i>
+                      </button>
+                    } @else {
+                      <button
+                        class="action-btn reactivate"
+                        (click)="reactivateUser(user)"
+                        aria-label="Reactivar usuario">
+                        <i class="bi bi-check-circle"></i>
+                      </button>
+                    }
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile Cards (visible en móvil) -->
+      <div class="users-cards">
+        @for (user of users(); track user.id) {
+          <div class="user-card" [class.inactive-card]="!user.activo">
+            <div class="card-avatar">
+              @if (user.fotoUrl) {
+                <img [src]="user.fotoUrl" [alt]="getFullName(user)" class="avatar-img">
+              } @else {
+                <div class="avatar-placeholder">
+                  <i class="bi bi-person-fill"></i>
+                </div>
+              }
+            </div>
+
+            <div class="card-content">
+              <div class="card-header">
+                <h3 class="card-name">{{ getFullName(user) }}</h3>
+                <span class="badge" [ngClass]="getRolBadgeClass(user.rol)">
+                  <i class="bi" [ngClass]="user.rol === 'admin' ? 'bi-shield-check' : 'bi-briefcase'"></i>
+                  {{ getRolLabel(user.rol) }}
+                </span>
+              </div>
+
+              <div class="card-details">
+                <div class="detail-item">
+                  <i class="bi bi-envelope"></i>
+                  <a [href]="'mailto:' + user.email" class="email-link">{{ user.email }}</a>
+                </div>
+
+                @if (user.telefono) {
+                  <div class="detail-item">
+                    <i class="bi bi-telephone"></i>
+                    <a [href]="'tel:' + user.telefono" class="phone-link">{{ user.telefono }}</a>
+                  </div>
+                }
+
+                <div class="detail-item">
+                  <i class="bi bi-calendar"></i>
+                  <span>{{ user.fechaRegistro | date:'dd/MM/yyyy' }}</span>
+                </div>
+              </div>
+
+              <div class="card-footer">
+                <span class="badge" [ngClass]="getStatusBadgeClass(user.activo)">
+                  {{ getStatusLabel(user.activo) }}
+                </span>
+
+                <div class="card-actions">
+                  <a
+                    [routerLink]="['/member-area/usuarios/editar', user.id]"
+                    class="action-btn edit"
+                    aria-label="Editar usuario">
+                    <i class="bi bi-pencil"></i>
+                  </a>
+
+                  @if (user.activo) {
+                    <button
+                      class="action-btn deactivate"
+                      (click)="confirmDeactivate(user)"
+                      aria-label="Desactivar usuario">
+                      <i class="bi bi-slash-circle"></i>
+                    </button>
+                  } @else {
+                    <button
+                      class="action-btn reactivate"
+                      (click)="reactivateUser(user)"
+                      aria-label="Reactivar usuario">
+                      <i class="bi bi-check-circle"></i>
+                    </button>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Resumen de resultados y paginación -->
+      <div class="results-footer">
+        <div class="results-summary">
+          <p class="summary-text">
+            Mostrando <strong>{{ users().length }}</strong> 
+            @if (users().length === 1) {
+              usuario
+            } @else {
+              usuarios
+            }
+            de <strong>{{ totalUsers() }}</strong> total
+          </p>
+        </div>
+
+        <!-- Paginación -->
+        @if (totalPages() > 1) {
+          <nav class="pagination-nav">
+            <button 
+              class="pagination-btn pagination-prev"
+              [disabled]="currentPage() === 1"
+              (click)="onPageChange(currentPage() - 1)"
+              type="button">
+              <i class="bi bi-chevron-left"></i>
+              Anterior
+            </button>
+
+            <div class="pagination-numbers">
+              @if (currentPage() > 3) {
+                <button 
+                  class="pagination-number"
+                  (click)="onPageChange(1)"
+                  type="button">
+                  1
+                </button>
+                <span class="pagination-ellipsis">...</span>
+              }
+
+              @for (pagina of paginasArray; track pagina) {
+                <button 
+                  class="pagination-number"
+                  [class.active]="pagina === currentPage()"
+                  (click)="onPageChange(pagina)"
+                  type="button">
+                  {{ pagina }}
+                </button>
+              }
+
+              @if (currentPage() < totalPages() - 2) {
+                <span class="pagination-ellipsis">...</span>
+                <button 
+                  class="pagination-number"
+                  (click)="onPageChange(totalPages())"
+                  type="button">
+                  {{ totalPages() }}
+                </button>
+              }
+            </div>
+
+            <button 
+              class="pagination-btn pagination-next"
+              [disabled]="currentPage() === totalPages()"
+              (click)="onPageChange(currentPage() + 1)"
+              type="button">
+              Siguiente
+              <i class="bi bi-chevron-right"></i>
+            </button>
+          </nav>
+        }
+      </div>
+    }
+  </div>
+</div>
+
+<!-- Diálogo de Reasignación de Propiedades -->
+<app-reassign-properties-dialog
+  [isOpen]="showReassignDialog()"
+  [usuarioId]="asesorToDeactivate()?.id || null"
+  [usuarioNombre]="asesorToDeactivate() ? getFullName(asesorToDeactivate()!) : ''"
+  (confirm)="confirmReassign($event)"
+  (close)="cancelReassign()">
+</app-reassign-properties-dialog>
+
+<!-- Modal de confirmación para desactivar -->
+<app-confirm-modal
+  [isOpen]="!!userToDeactivate()"
+  [title]="'Confirmar Desactivación'"
+  [message]="'¿Está seguro que desea desactivar a ' + userToDeactivateName() + '? El usuario no podrá acceder al sistema.'"
+  [confirmText]="'Desactivar'"
+  [cancelText]="'Cancelar'"
+  [variant]="'danger'"
+  [isLoading]="isDeactivating()"
+  (confirm)="deactivateUser()"
+  (cancel)="cancelDeactivate()">
+</app-confirm-modal>
+
+<!-- Modal de confirmación para reactivar -->
+<app-confirm-modal
+  [isOpen]="!!userToReactivate()"
+  [title]="'Confirmar Reactivación'"
+  [message]="'¿Está seguro que desea reactivar a ' + userToReactivateName() + '? El usuario podrá volver a acceder al sistema.'"
+  [confirmText]="'Reactivar'"
+  [cancelText]="'Cancelar'"
+  [variant]="'success'"
+  (confirm)="confirmReactivate()"
+  (cancel)="cancelReactivate()">
+</app-confirm-modal>
