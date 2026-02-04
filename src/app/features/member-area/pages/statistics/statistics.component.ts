@@ -54,7 +54,7 @@ export class StatisticsComponent implements OnInit {
 
   // Computed
   currentUser = computed(() => this.authService.getUsuario());
-  isAdmin = computed(() => this.currentUser()?.rol === 'administrador');
+  isAdmin = computed(() => this.currentUser()?.rol === 'admin');
 
   // Computed para formato StatsGridComponent - Propiedades
   propiedadesCardsFormatted = computed((): StatCardConfig[] => {
