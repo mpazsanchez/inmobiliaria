@@ -53,7 +53,7 @@ export class DashboardComponent implements OnInit {
 
   // Computed para determinar el rol
   currentUser = computed(() => this.authService.getUsuario());
-  isAdmin = computed(() => this.currentUser()?.rol === 'administrador');
+  isAdmin = computed(() => this.currentUser()?.rol === 'admin');
   isAsesor = computed(() => this.currentUser()?.rol === 'asesor');
 
   // Estadísticas para Asesor
