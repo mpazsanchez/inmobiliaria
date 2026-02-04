@@ -8,6 +8,8 @@ export { EmptyStateComponent } from './empty-state/empty-state.component';
 export { PageHeaderComponent } from './page-header/page-header.component';
 export type { HeaderAction } from './page-header/page-header.component';
 export { NotificationCardComponent } from './notification-card/notification-card.component';
+export { ReassignPropertiesDialogComponent } from './reassign-properties-dialog/reassign-properties-dialog.component';
+export type { ReasignacionMultipleData, AsignacionPropiedad } from './reassign-properties-dialog/reassign-properties-dialog.component';
 
 // Form Components - Reutilizables para formularios del admin
 export { FormHeaderComponent } from './form-header/form-header.component';
