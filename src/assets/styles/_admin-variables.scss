@@ -15,6 +15,11 @@ $accent-orange-dark: #d68423;
 $accent-orange-light: #fff8f0;  // Light orange for backgrounds
 $accent-yellow: #f4a541;
 
+// Aliases for compatibility
+$primary: $primary-green;
+$primary-dark: $primary-green-dark;
+$primary-light: $primary-green-light;
+
 // Text Colors
 $text-dark: #1f2937;
 $text-muted: #6b7280;
@@ -30,6 +35,7 @@ $text-success: #155724;
 
 // Background Colors
 $bg-light: #f9fafb;
+$bg-light-hover: #f3f4f6;
 $bg-white: #ffffff;
 $bg-dark: #111827;
 $bg-gray: #f8f9fa;
