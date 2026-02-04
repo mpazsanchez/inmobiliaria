@@ -64,6 +64,7 @@ export type OrdenBusqueda =
 // =============================================
 export interface RespuestaPaginada<T> {
   datos: T[];
+  items?: T[]; // alias para compatibilidad
   total?: number; // alias para mantener compatibilidad
   paginacion: InfoPaginacion;
 }
@@ -102,4 +103,29 @@ export interface OpcionFiltro {
 export interface RangoNumerico {
   minimo: number;
   maximo: number;
+}
+
+// =============================================
+// FILTROS DE USUARIOS
+// =============================================
+export interface FiltrosUsuarios {
+  // Búsqueda por texto
+  search?: string;                       // nombre, apellido, email
+  busqueda?: string;                     // alias para search
+  
+  // Filtros de rol
+  rol?: 'admin' | 'asesor';
+  
+  // Filtros de estado
+  activo?: boolean;
+  destacado?: boolean;
+  
+  // Ordenamiento
+  ordenarPor?: 'nombre' | 'email' | 'fechaRegistro' | 'ultimoAcceso';
+  ordenDireccion?: 'asc' | 'desc';
+  
+  // Paginación
+  pagina?: number;
+  limite?: number;
+  porPagina?: number;
 }
