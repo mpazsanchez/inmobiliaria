@@ -23,10 +23,10 @@
         "orden": 3
       },
       {
-        "id": "asesores",
-        "label": "Asesores",
+        "id": "usuarios",
+        "label": "Usuarios",
         "icon": "bi-people",
-        "route": "/member-area/asesores",
+        "route": "/member-area/usuarios",
         "orden": 4
       },
       {
