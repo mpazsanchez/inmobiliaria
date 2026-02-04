@@ -204,7 +204,8 @@ export class UserListComponent implements OnInit {
           this.proceedWithDeactivation(asesor);
         }
       },
-      error: () => {
+      error: (err) => {
+        console.error('Error al verificar propiedades:', err);
         // En caso de error, desactivar directamente
         this.proceedWithDeactivation(asesor);
       }
