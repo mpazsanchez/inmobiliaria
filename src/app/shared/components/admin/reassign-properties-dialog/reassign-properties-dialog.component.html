@@ -1,0 +1,202 @@
+<div class="modal-backdrop" [class.open]="isOpen">
+  <div class="modal-dialog" role="dialog" aria-labelledby="dialogTitle">
+    <div class="modal-header">
+      <h3 id="dialogTitle">Reasignar Propiedades</h3>
+      <button type="button" class="btn-close" (click)="onCancel()" aria-label="Cerrar">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      @if (error()) {
+        <div class="alert alert-danger">
+          <i class="bi bi-exclamation-triangle"></i>
+          {{ error() }}
+        </div>
+      }
+
+      @if (isLoading()) {
+        <div class="loading-state">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+          <p>Cargando datos...</p>
+        </div>
+      } @else {
+        <!-- Información -->
+        <div class="info-section">
+          <p class="info-text">
+            <strong>{{ usuarioNombre }}</strong> tiene <strong>{{ getTotalCount() }}</strong>
+            @if (getTotalCount() === 1) {
+              propiedad asignada
+            } @else {
+              propiedades asignadas
+            }.
+            Selecciona un asesor para cada propiedad o usa la opción rápida para asignar todas.
+          </p>
+        </div>
+
+        @if (asesoresDisponibles().length === 0) {
+          <div class="alert alert-warning">
+            <i class="bi bi-exclamation-circle"></i>
+            No hay asesores activos disponibles para reasignar las propiedades.
+          </div>
+        } @else {
+          <!-- Acción Rápida: Asignar Todas -->
+          <div class="quick-assign-section">
+            <label class="section-label">
+              <i class="bi bi-lightning-charge"></i>
+              Acción rápida
+            </label>
+            <div class="quick-assign-row">
+              <select
+                class="form-select"
+                [value]="asesorGlobal() || ''"
+                (change)="onAsesorGlobalChange($event)">
+                <option value="">Seleccionar asesor...</option>
+                @for (asesor of asesoresDisponibles(); track asesor.id) {
+                  <option [value]="asesor.id">{{ getFullName(asesor) }}</option>
+                }
+              </select>
+              <button
+                type="button"
+                class="btn btn-outline-primary"
+                [disabled]="!asesorGlobal()"
+                (click)="asignarTodas()">
+                <i class="bi bi-check2-all"></i>
+                Asignar todas
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                (click)="limpiarAsignaciones()"
+                title="Limpiar asignaciones">
+                <i class="bi bi-x-circle"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Lista de Propiedades con Asignación Individual -->
+          <div class="properties-section">
+            <div class="section-header">
+              <label class="section-label">
+                <i class="bi bi-buildings"></i>
+                Propiedades ({{ getAssignedCount() }}/{{ getTotalCount() }} asignadas)
+              </label>
+            </div>
+
+            @if (propiedades().length === 0) {
+              <div class="empty-state">
+                <i class="bi bi-inbox"></i>
+                <p>Este asesor no tiene propiedades asignadas</p>
+              </div>
+            } @else {
+              <div class="properties-list">
+                @for (prop of propiedades(); track prop.id) {
+                  <div
+                    class="property-item"
+                    [class.assigned]="tieneAsignacion(prop.id)">
+
+                    <!-- Thumbnail -->
+                    @if (prop.imagenes && prop.imagenes.length > 0 && prop.imagenes[0].url) {
+                      <img
+                        [src]="prop.imagenes[0].url"
+                        [alt]="prop.titulo"
+                        class="property-thumb">
+                    } @else {
+                      <div class="property-thumb-placeholder">
+                        <i class="bi bi-house"></i>
+                      </div>
+                    }
+
+                    <!-- Info de la propiedad -->
+                    <div class="property-info">
+                      <h4 class="property-title">{{ prop.titulo }}</h4>
+                      <p class="property-details">
+                        {{ prop.tipoPropiedad }} · {{ prop.operacion }}
+                        @if (prop.ubicacion) {
+                          · {{ prop.ubicacion.barrio }}
+                        }
+                      </p>
+                      <p class="property-price">
+                        {{ prop.precio | currency:'USD':'symbol':'1.0-0' }}
+                      </p>
+                    </div>
+
+                    <!-- Estado de la propiedad -->
+                    @if (prop.estado === 'publicado') {
+                      <span class="badge badge-success">
+                        <i class="bi bi-check-circle"></i>
+                        Publicado
+                      </span>
+                    } @else {
+                      <span class="badge badge-warning">
+                        <i class="bi bi-clock"></i>
+                        {{ prop.estado }}
+                      </span>
+                    }
+
+                    <!-- Selector de Asesor -->
+                    <div class="property-asesor-select">
+                      <select
+                        class="form-select form-select-sm"
+                        [value]="getAsesorAsignado(prop.id)"
+                        (change)="asignarPropiedad(prop.id, +$any($event.target).value)">
+                        <option [value]="0">Sin asignar</option>
+                        @for (asesor of asesoresDisponibles(); track asesor.id) {
+                          <option [value]="asesor.id">{{ getFullName(asesor) }}</option>
+                        }
+                      </select>
+                      @if (tieneAsignacion(prop.id)) {
+                        <i class="bi bi-check-circle-fill assigned-icon"></i>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Resumen de Asignaciones -->
+          @if (getAssignedCount() > 0) {
+            <div class="assignments-summary">
+              <div class="summary-header">
+                <i class="bi bi-list-check"></i>
+                Resumen de asignaciones
+              </div>
+              <div class="summary-list">
+                @for (asesor of asesoresDisponibles(); track asesor.id) {
+                  @if (getCountByAsesor(asesor.id) > 0) {
+                    <div class="summary-item">
+                      <span class="asesor-name">{{ getFullName(asesor) }}</span>
+                      <span class="count-badge">{{ getCountByAsesor(asesor.id) }}</span>
+                    </div>
+                  }
+                }
+              </div>
+            </div>
+          }
+        }
+      }
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">
+        Cancelar
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        [disabled]="isLoading() || getAssignedCount() === 0"
+        (click)="onConfirm()">
+        <i class="bi bi-arrow-right-circle"></i>
+        Reasignar {{ getAssignedCount() }}
+        @if (getAssignedCount() === 1) {
+          propiedad
+        } @else {
+          propiedades
+        }
+      </button>
+    </div>
+  </div>
+</div>
