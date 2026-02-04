@@ -2,39 +2,147 @@
   "usuarios": [
     {
       "id": 1,
-      "nombre": "Administrador Fairway",
       "email": "admin@fairway.com",
-      "password": "admin123",
-      "telefono": "+54 11 4555-0000",
-      "rol": "administrador",
-      "fotoUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+      "passwordHash": "$2a$10$admin123hash",
+      "rol": "admin",
       "activo": true,
-      "fechaRegistro": "2023-01-01",
-      "agenteId": null
+      "nombre": "Administrador",
+      "apellido": "Fairway",
+      "telefono": "+54 11 4555-0000",
+      "fotoUrl": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+      "fechaRegistro": "2023-01-01T00:00:00Z",
+      "destacado": false
     },
     {
       "id": 2,
-      "nombre": "Maria Gonzalez",
       "email": "asesor@fairway.com",
-      "password": "asesor123",
-      "telefono": "+54 9 11 2345-6789",
+      "passwordHash": "$2a$10$asesor123hash",
       "rol": "asesor",
-      "fotoUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face",
       "activo": true,
-      "fechaRegistro": "2022-03-15",
-      "agenteId": 1
+      "nombre": "Maria",
+      "apellido": "Gonzalez",
+      "telefono": "+54 9 11 2345-6789",
+      "fotoUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face",
+      "fechaRegistro": "2022-03-15T10:30:00Z",
+      "destacado": true,
+      "perfilAsesor": {
+        "cargo": "Asesora Inmobiliaria Senior",
+        "especialidad": "Propiedades residenciales de lujo",
+        "slogan": "Tu hogar perfecto te está esperando",
+        "biografia": "Con más de 8 años de experiencia en el mercado inmobiliario, me especializo en propiedades residenciales de alto nivel. Mi objetivo es hacer que el proceso de compra o venta de tu propiedad sea transparente y exitoso.",
+        "experienciaAnios": 8,
+        "idiomas": ["Español", "Inglés", "Portugués"],
+        "whatsapp": "+5491123456789",
+        "linkedin": "https://linkedin.com/in/mariagonzalez",
+        "instagram": "@maria.gonzalez.realtor",
+        "facebook": "Maria Gonzalez Propiedades",
+        "propiedadesVendidas": 47,
+        "propiedadesActivas": 12,
+        "clientesSatisfechos": 89,
+        "certificaciones": [
+          "Agente Inmobiliario Matriculado",
+          "Especialista en Marketing Digital Inmobiliario"
+        ],
+        "premios": [
+          "Top Vendedor 2023",
+          "Mejor Servicio al Cliente 2022"
+        ]
+      }
     },
     {
       "id": 3,
-      "nombre": "Carlos Rodriguez",
       "email": "carlos@fairway.com",
-      "password": "carlos123",
-      "telefono": "+54 9 11 8765-4321",
+      "passwordHash": "$2a$10$carlos123hash",
       "rol": "asesor",
-      "fotoUrl": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=face",
       "activo": true,
-      "fechaRegistro": "2023-01-10",
-      "agenteId": 2
+      "nombre": "Carlos",
+      "apellido": "Rodriguez",
+      "telefono": "+54 9 11 8765-4321",
+      "fotoUrl": "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop&crop=face",
+      "fechaRegistro": "2023-01-10T14:20:00Z",
+      "destacado": true,
+      "perfilAsesor": {
+        "cargo": "Asesor Inmobiliario",
+        "especialidad": "Inversiones y propiedades comerciales",
+        "slogan": "Inversiones inteligentes para tu futuro",
+        "biografia": "Experto en inversiones inmobiliarias y propiedades comerciales. Ayudo a mis clientes a maximizar el retorno de sus inversiones con estrategias personalizadas.",
+        "experienciaAnios": 5,
+        "idiomas": ["Español", "Inglés"],
+        "whatsapp": "+5491187654321",
+        "linkedin": "https://linkedin.com/in/carlosrodriguez",
+        "instagram": "@carlos.inversiones",
+        "facebook": "",
+        "propiedadesVendidas": 32,
+        "propiedadesActivas": 8,
+        "clientesSatisfechos": 65,
+        "certificaciones": [
+          "Agente Inmobiliario Matriculado",
+          "Certificación en Inversiones Inmobiliarias"
+        ],
+        "premios": []
+      }
+    },
+    {
+      "id": 4,
+      "email": "laura@fairway.com",
+      "passwordHash": "$2a$10$laura123hash",
+      "rol": "asesor",
+      "activo": true,
+      "nombre": "Laura",
+      "apellido": "Martinez",
+      "telefono": "+54 9 11 5555-1234",
+      "fotoUrl": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face",
+      "fechaRegistro": "2023-05-20T09:15:00Z",
+      "destacado": false,
+      "perfilAsesor": {
+        "cargo": "Asesora Inmobiliaria",
+        "especialidad": "Primeros compradores y familias jóvenes",
+        "slogan": "Construyendo sueños, creando hogares",
+        "biografia": "Me apasiona ayudar a familias jóvenes y primeros compradores a encontrar su hogar ideal. Con paciencia y dedicación, te guío en cada paso del proceso.",
+        "experienciaAnios": 3,
+        "idiomas": ["Español"],
+        "whatsapp": "+5491155551234",
+        "linkedin": "",
+        "instagram": "@laura.propiedades",
+        "facebook": "Laura Martinez Propiedades",
+        "propiedadesVendidas": 18,
+        "propiedadesActivas": 6,
+        "clientesSatisfechos": 34,
+        "certificaciones": [
+          "Agente Inmobiliario Matriculado"
+        ],
+        "premios": []
+      }
+    },
+    {
+      "id": 5,
+      "email": "juan@fairway.com",
+      "passwordHash": "$2a$10$juan123hash",
+      "rol": "asesor",
+      "activo": false,
+      "nombre": "Juan",
+      "apellido": "Perez",
+      "telefono": "+54 9 11 9999-8888",
+      "fotoUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+      "fechaRegistro": "2022-11-05T16:45:00Z",
+      "destacado": false,
+      "perfilAsesor": {
+        "cargo": "Asesor Inmobiliario",
+        "especialidad": "Terrenos y desarrollos",
+        "slogan": "",
+        "biografia": "",
+        "experienciaAnios": 4,
+        "idiomas": ["Español"],
+        "whatsapp": "+5491199998888",
+        "linkedin": "",
+        "instagram": "",
+        "facebook": "",
+        "propiedadesVendidas": 12,
+        "propiedadesActivas": 0,
+        "clientesSatisfechos": 28,
+        "certificaciones": [],
+        "premios": []
+      }
     }
   ]
 }
