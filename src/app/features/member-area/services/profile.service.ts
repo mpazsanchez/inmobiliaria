@@ -1,69 +1,83 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
-import type { Agente } from '../../../core/models/agent.interface';
-import { AGENTES_MOCK } from '../../../core/services/mock-data/agents.mock';
+import { UserService } from '../../../core/services/user.service';
 import { CloudinaryService } from '../../../core/services/cloudinary.service';
+import { AuthService } from './auth.service';
+import type { Usuario, ActualizarUsuarioDto } from '../../../core/models/user.interface';
 
+/**
+ * Servicio de perfil del usuario autenticado
+ * Ahora usa UserService internamente para evitar duplicación
+ */
 @Injectable({ providedIn: 'root' })
 export class ProfileService {
   private cloudinary = inject(CloudinaryService);
-  private useMockData = true;
+  private userService = inject(UserService);
+  private authService = inject(AuthService);
 
   /**
-   * Obtiene el perfil completo del asesor por su ID de usuario
+   * Obtiene el perfil completo del usuario autenticado
+   * En mock usa el usuario de AuthService
    */
-  getMyProfile(userId: number): Observable<Agente | null> {
-    if (this.useMockData) {
-      const agente = AGENTES_MOCK.find(a => a.id === userId);
-      return of(agente || null).pipe(delay(300));
+  getMyProfile(): Observable<Usuario | null> {
+    // Primero intentar restaurar sesión si no hay usuario
+    let usuario = this.authService.getUsuario();
+    
+    if (!usuario && typeof localStorage !== 'undefined') {
+      this.authService.restaurarSesion();
+      usuario = this.authService.getUsuario();
+    }
+    
+    if (!usuario) {
+      return of(null);
     }
 
-    // TODO: Implementar llamada a API real
-    // return this.http.get<Agente>(`${this.apiUrl}/profile/${userId}`);
-    return of(null);
+    // Usar UserService que ya tiene la lógica de mock/real
+    return this.userService.getUsuarioPorId(usuario.id);
   }
 
   /**
-   * Actualiza el perfil del asesor
+   * Actualiza el perfil del usuario autenticado
+   * Solo permite editar ciertos campos (no rol, no activo, etc)
    */
-  updateProfile(userId: number, data: Partial<Agente>): Observable<Agente> {
-    if (this.useMockData) {
-      const index = AGENTES_MOCK.findIndex(a => a.id === userId);
+  updateMyProfile(data: ActualizarUsuarioDto): Observable<Usuario> {
+    const usuario = this.authService.getUsuario();
 
-      if (index === -1) {
-        return throwError(() => new Error('Agente no encontrado'));
-      }
-
-      // Actualizar datos en el mock (esto persiste en memoria durante la sesion)
-      AGENTES_MOCK[index] = {
-        ...AGENTES_MOCK[index],
-        ...data
-      };
-
-      return of(AGENTES_MOCK[index]).pipe(delay(500));
+    if (!usuario) {
+      return throwError(() => new Error('Usuario no autenticado'));
     }
 
-    // TODO: Implementar llamada a API real
-    // return this.http.put<Agente>(`${this.apiUrl}/profile/${userId}`, data);
-    return throwError(() => new Error('API no implementada'));
+    // Usar UserService para actualizar
+    return this.userService.actualizarUsuario(usuario.id, data);
   }
 
   /**
    * Sube una foto de perfil usando Cloudinary
-   * Retorna URL persistente que funciona despues de refresh
+   * Retorna URL persistente que funciona después de refresh
    */
   uploadPhoto(file: File): Observable<{ url: string }> {
-    // Usar Cloudinary para upload real (funciona en mock y produccion)
+    // Usar Cloudinary para upload real (funciona en mock y producción)
     return this.cloudinary.uploadAgentPhoto(file).pipe(
       map(result => ({ url: result.secureUrl }))
     );
   }
 
   /**
-   * Activa/desactiva el uso de datos mock
+   * Cambia la contraseña del usuario autenticado
+   * TODO: Implementar cuando backend esté listo
    */
-  setUseMockData(useMock: boolean): void {
-    this.useMockData = useMock;
+  changePassword(oldPassword: string, newPassword: string): Observable<void> {
+    const usuario = this.authService.getUsuario();
+
+    if (!usuario) {
+      return throwError(() => new Error('Usuario no autenticado'));
+    }
+
+    // TODO: Implementar llamada a API real
+    // return this.http.put<void>('/api/usuarios/me/password', { oldPassword, newPassword });
+    
+    // Mock: simular éxito
+    return of(void 0).pipe(delay(500));
   }
 }
