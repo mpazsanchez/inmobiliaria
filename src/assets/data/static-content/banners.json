@@ -8,6 +8,7 @@
       "imagenMovilUrl": "assets/images/backgrounds/fairway/hero-home-3.jpg",
       "enlace": "/properties",
       "textoBoton": "Ver propiedades",
+      "pagina": "home",
       "posicion": "hero",
       "orden": 1,
       "activo": true
@@ -20,6 +21,7 @@
       "imagenMovilUrl": "assets/images/backgrounds/fairway/hero-home-2.webp",
       "enlace": "/contact",
       "textoBoton": "Solicitar tasación",
+      "pagina": "home",
       "posicion": "hero",
       "orden": 2,
       "activo": true
@@ -32,8 +34,35 @@
       "imagenMovilUrl": "assets/images/backgrounds/fairway/hero-home.webp",
       "enlace": "/team",
       "textoBoton": "Conocer equipo",
+      "pagina": "home",
       "posicion": "hero",
       "orden": 3,
+      "activo": true
+    },
+    {
+      "id": 4,
+      "titulo": "Propiedades en toda la zona",
+      "subtitulo": "Casas, departamentos, terrenos y locales comerciales",
+      "imagenUrl": "assets/images/backgrounds/fairway/hero-home-3.jpg",
+      "imagenMovilUrl": "assets/images/backgrounds/fairway/hero-home-3.jpg",
+      "enlace": "/properties",
+      "textoBoton": "Ver listado completo",
+      "pagina": "properties",
+      "posicion": "hero",
+      "orden": 1,
+      "activo": true
+    },
+    {
+      "id": 5,
+      "titulo": "¿Querés conocernos?",
+      "subtitulo": "Estamos en Tandil desde 2002",
+      "imagenUrl": "assets/images/backgrounds/fairway/hero-home-2.webp",
+      "imagenMovilUrl": "assets/images/backgrounds/fairway/hero-home-2.webp",
+      "enlace": "/contact",
+      "textoBoton": "Contactanos",
+      "pagina": "about",
+      "posicion": "hero",
+      "orden": 1,
       "activo": true
     }
   ]
