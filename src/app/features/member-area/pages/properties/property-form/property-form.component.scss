@@ -675,6 +675,105 @@
 // ========================================
 .upload-section {
   margin-bottom: 2rem;
+  
+  ::ng-deep app-image-uploader {
+    display: block;
+    
+    .image-uploader {
+      .drop-zone {
+        min-height: 160px;
+        padding: 1.5rem 1rem;
+        
+        .drop-zone-content {
+          gap: 0.75rem;
+          
+          i.bi-cloud-upload {
+            font-size: 2.5rem;
+            color: v.$primary-green;
+          }
+          
+          h3 {
+            font-size: 1rem;
+            margin: 0;
+          }
+          
+          p {
+            font-size: 0.813rem;
+            margin: 0;
+          }
+          
+          .btn-select {
+            padding: 0.625rem 1.25rem;
+            font-size: 0.875rem;
+            background: v.$primary-green;
+            color: white;
+            margin-top: 0.25rem;
+            
+            i {
+              font-size: 0.875rem;
+              color: white !important;
+            }
+            
+            &:hover {
+              background: darken(v.$primary-green, 8%);
+              
+              i {
+                color: white !important;
+              }
+            }
+          }
+          
+          .file-hint {
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive: pantallas pequeñas (tablets y móviles)
+@media (max-width: 768px) {
+  .upload-section {
+    ::ng-deep app-image-uploader {
+      .image-uploader {
+        .drop-zone {
+          min-height: 120px;
+          padding: 1rem 0.75rem;
+          
+          .drop-zone-content {
+            gap: 0.5rem;
+            
+            i.bi-cloud-upload {
+              font-size: 2rem;
+            }
+            
+            h3 {
+              font-size: 0.875rem;
+            }
+            
+            p {
+              font-size: 0.75rem;
+            }
+            
+            .btn-select {
+              padding: 0.5rem 1rem;
+              font-size: 0.813rem;
+              
+              i {
+                font-size: 0.813rem;
+              }
+            }
+            
+            .file-hint {
+              font-size: 0.688rem;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 .error-message {
