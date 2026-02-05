@@ -312,15 +312,17 @@
         </div>
       </form>
 
-      <!-- Preview Link -->
-      <div class="preview-section">
-        <p>
-          <i class="bi bi-eye"></i>
-          <a [routerLink]="['/team', usuario()?.id]" target="_blank">
-            Ver mi perfil publico
-          </a>
-        </p>
-      </div>
+      <!-- Preview Link - Solo para asesores -->
+      @if (esAsesor()) {
+        <div class="preview-section">
+          <p>
+            <i class="bi bi-eye"></i>
+            <a [routerLink]="['/team', usuario()?.id]" target="_blank">
+              Ver mi perfil publico
+            </a>
+          </p>
+        </div>
+      }
     </div>
   }
 </div>
