@@ -225,10 +225,18 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
 
     @media (max-width: 480px) {
       font-size: 0.813rem;
       white-space: normal; // Permite wrap en móviles
+    }
+
+    i {
+      color: v.$primary-green;
+      font-size: 0.875rem;
     }
 
     .required {
@@ -269,6 +277,21 @@
     &[readonly] {
       background: v.$bg-light;
       color: v.$text-muted;
+      cursor: not-allowed;
+    }
+  }
+
+  // Campo readonly especial para fechas
+  .readonly-field {
+    background: rgba(v.$primary-green, 0.05) !important;
+    border-color: rgba(v.$primary-green, 0.2) !important;
+    color: v.$text-dark !important;
+    font-weight: 500;
+    cursor: default;
+    
+    &:focus {
+      box-shadow: none;
+      border-color: rgba(v.$primary-green, 0.2) !important;
     }
   }
 

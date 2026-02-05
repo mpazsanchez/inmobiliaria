@@ -82,6 +82,10 @@ export class PropertyFormComponent implements OnInit, CanComponentDeactivate {
     estado: ['disponible'],
     destacada: [false],
     asesorId: [null, Validators.required],
+    
+    // Campos de solo lectura (no se envían al backend)
+    fechaPublicacion: [{ value: '', disabled: true }],
+    ultimaActualizacion: [{ value: '', disabled: true }],
 
     // Ubicacion
     ubicacion: this.fb.group({
@@ -241,6 +245,12 @@ export class PropertyFormComponent implements OnInit, CanComponentDeactivate {
         ...property.caracteristicas,
         amenidades: property.caracteristicas.amenidades || []
       }
+    });
+
+    // Cargar fechas (campos disabled - solo lectura)
+    this.form.patchValue({
+      fechaPublicacion: property.fechaPublicacion,
+      ultimaActualizacion: property.ultimaActualizacion
     });
 
     // Cargar imagenes

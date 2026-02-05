@@ -155,6 +155,35 @@
                 </span>
               }
             </div>
+
+            <!-- Fechas (solo lectura, manejadas por backend) -->
+            @if (isEditMode()) {
+              <div class="form-group">
+                <label for="fechaPublicacion">
+                  <i class="bi bi-calendar-check"></i>
+                  Fecha de Publicación
+                </label>
+                <input
+                  id="fechaPublicacion"
+                  type="text"
+                  [value]="form.get('fechaPublicacion')?.value || 'N/A'"
+                  readonly
+                  class="readonly-field">
+              </div>
+
+              <div class="form-group">
+                <label for="ultimaActualizacion">
+                  <i class="bi bi-clock-history"></i>
+                  Última Actualización
+                </label>
+                <input
+                  id="ultimaActualizacion"
+                  type="text"
+                  [value]="form.get('ultimaActualizacion')?.value || 'N/A'"
+                  readonly
+                  class="readonly-field">
+              </div>
+            }
           </div>
         </div>
       }
