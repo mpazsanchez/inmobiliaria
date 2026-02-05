@@ -397,12 +397,16 @@
       padding: 1.5rem;
       border-radius: v.$radius-sm;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      word-wrap: break-word;
 
       h2 {
         font-size: 1.5rem;
         font-weight: 600;
         color: v.$text-dark;
         margin: 0 0 1rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
       }
 
       .preview-divider {
@@ -415,10 +419,16 @@
         font-size: 0.875rem;
         line-height: 1.7;
         color: v.$text-dark;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        word-break: break-word;
+        hyphens: auto;
 
         h2, h3, h4 {
           margin: 1.5rem 0 0.75rem;
           font-weight: 600;
+          word-wrap: break-word;
+          overflow-wrap: break-word;
         }
 
         h2 { font-size: 1.5rem; }
