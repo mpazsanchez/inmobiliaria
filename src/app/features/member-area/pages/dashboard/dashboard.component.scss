@@ -806,6 +806,40 @@
         font-size: 0.8rem;
       }
     }
+
+    // Estado desactivado para funciones no implementadas
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+      position: relative;
+
+      &:hover {
+        background: v.$bg-light;
+        border-color: v.$border-color;
+        transform: none;
+        box-shadow: none;
+
+        i {
+          color: v.$primary-green;
+          transform: none;
+        }
+      }
+
+      .badge-soon {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        background: rgba(#f59e0b, 0.15);
+        color: #d97706;
+        padding: 0.15rem 0.4rem;
+        border-radius: 8px;
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        border: 1px solid rgba(#f59e0b, 0.3);
+      }
+    }
   }
 }
 

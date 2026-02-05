@@ -48,7 +48,7 @@
               <i class="bi bi-person-lines-fill"></i>
               Leads Pendientes
             </h2>
-            <a routerLink="/member-area/leads" class="view-all">Ver todos <i class="bi bi-arrow-right"></i></a>
+            <a routerLink="/member-area/consultas" class="view-all">Ver todos <i class="bi bi-arrow-right"></i></a>
           </div>
           <div class="leads-list">
             @for (lead of recentLeads(); track lead.id) {
@@ -66,13 +66,14 @@
                     <span><i class="bi bi-clock"></i> {{ lead.fecha }}</span>
                   </div>
                 </div>
-                <button 
-                  class="btn-respond" 
-                  [disabled]="lead.estado !== 'pendiente'"
+                <a 
+                  routerLink="/member-area/consultas" 
+                  class="btn-respond"
+                  [class.disabled]="lead.estado !== 'pendiente'"
                   aria-label="Responder consulta">
                   <i class="bi bi-reply"></i>
                   Responder
-                </button>
+                </a>
               </div>
             }
           </div>
@@ -107,21 +108,17 @@
       <div class="quick-actions">
         <h2>Acciones Rápidas</h2>
         <div class="actions-grid">
-          <a routerLink="/member-area/properties" class="action-card">
+          <a routerLink="/member-area/propiedades" class="action-card">
             <i class="bi bi-building"></i>
             <span>Mis Propiedades</span>
           </a>
-          <a routerLink="/member-area/leads" class="action-card">
+          <a routerLink="/member-area/consultas" class="action-card">
             <i class="bi bi-people"></i>
             <span>Gestionar Leads</span>
           </a>
-          <a routerLink="/member-area/calendar" class="action-card">
-            <i class="bi bi-calendar"></i>
-            <span>Calendario</span>
-          </a>
-          <a routerLink="/member-area/reports" class="action-card">
+          <a routerLink="/member-area/estadisticas" class="action-card">
             <i class="bi bi-graph-up"></i>
-            <span>Mis Reportes</span>
+            <span>Mis Estadísticas</span>
           </a>
         </div>
       </div>
@@ -209,7 +206,7 @@
               <i class="bi bi-people-fill"></i>
               Performance del Equipo
             </h2>
-            <a routerLink="/member-area/team" class="view-all">Ver equipo <i class="bi bi-arrow-right"></i></a>
+            <a routerLink="/member-area/usuarios" class="view-all">Ver equipo <i class="bi bi-arrow-right"></i></a>
           </div>
           <div class="team-performance">
             <div class="performance-item">
@@ -250,30 +247,31 @@
       <div class="quick-actions">
         <h2>Panel de Control</h2>
         <div class="actions-grid admin-actions">
-          <a routerLink="/member-area/properties/all" class="action-card">
+          <a routerLink="/member-area/propiedades" class="action-card">
             <i class="bi bi-building"></i>
             <span>Todas las Propiedades</span>
           </a>
-          <a routerLink="/member-area/leads/all" class="action-card">
+          <a routerLink="/member-area/consultas" class="action-card">
             <i class="bi bi-people"></i>
             <span>Todos los Leads</span>
           </a>
-          <a routerLink="/member-area/team" class="action-card">
+          <a routerLink="/member-area/usuarios" class="action-card">
             <i class="bi bi-person-badge"></i>
             <span>Gestión de Equipo</span>
           </a>
-          <a routerLink="/member-area/content" class="action-card">
+          <a routerLink="/member-area/contenido" class="action-card">
             <i class="bi bi-file-text"></i>
             <span>Contenido (FAQs, etc)</span>
           </a>
-          <a routerLink="/member-area/reports" class="action-card">
+          <a routerLink="/member-area/estadisticas" class="action-card">
             <i class="bi bi-graph-up"></i>
             <span>Reportes Generales</span>
           </a>
-          <a routerLink="/member-area/settings" class="action-card">
+          <div class="action-card disabled" title="Próximamente">
             <i class="bi bi-gear"></i>
             <span>Configuración</span>
-          </a>
+            <span class="badge-soon">Próximamente</span>
+          </div>
         </div>
       </div>
     </div>
