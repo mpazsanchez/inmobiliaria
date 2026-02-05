@@ -517,6 +517,16 @@
   font-weight: 500;
 }
 
+.badge-pagina {
+  padding: 0.25rem 0.75rem;
+  background: rgba(#10b981, 0.9);
+  color: v.$bg-white;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
 .badge-posicion {
   padding: 0.25rem 0.75rem;
   background: rgba(0, 0, 0, 0.7);

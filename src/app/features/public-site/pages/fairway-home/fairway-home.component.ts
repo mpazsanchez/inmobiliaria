@@ -47,7 +47,8 @@ export class FairwayHomeComponent implements OnInit {
   }
 
   private loadHeroBanner(): void {
-    this.contenidoService.getBannersByPosicion('hero').subscribe({
+    // Cargar banners de la página home en posición hero
+    this.contenidoService.getBannersByPaginaYPosicion('home', 'hero').subscribe({
       next: (banners: Banner[]) => {
         // Tomar el primer banner activo
         if (banners.length > 0) {

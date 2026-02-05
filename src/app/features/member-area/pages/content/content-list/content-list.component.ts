@@ -224,6 +224,18 @@ export class ContentListComponent implements OnInit {
     return Array(rating).fill(0);
   }
 
+  getPaginaLabel(pagina: string): string {
+    const labels: Record<string, string> = {
+      'home': 'Home',
+      'properties': 'Propiedades',
+      'about': 'Nosotros',
+      'contact': 'Contacto',
+      'team': 'Equipo',
+      'services': 'Servicios'
+    };
+    return labels[pagina] || pagina;
+  }
+
   onImageError(event: Event): void {
     const img = event.target as HTMLImageElement;
     // Fallback: usar una imagen placeholder de Unsplash

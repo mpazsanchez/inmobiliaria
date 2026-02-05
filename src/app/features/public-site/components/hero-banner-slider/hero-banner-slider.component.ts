@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, inject, signal } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NgbCarouselModule, NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
@@ -17,6 +17,10 @@ export class HeroBannerSliderComponent implements OnInit {
 
   private contenidoService = inject(ContenidoDinamicoService);
 
+  // Input para especificar la página (default: home)
+  @Input() pagina: 'home' | 'properties' | 'about' | 'contact' | 'team' | 'services' = 'home';
+  @Input() posicion: 'hero' | 'secundario' | 'promocional' = 'hero';
+
   banners = signal<Banner[]>([]);
   isLoading = signal(true);
   currentSlideIndex = signal(0);
@@ -26,7 +30,8 @@ export class HeroBannerSliderComponent implements OnInit {
   }
 
   private loadBanners(): void {
-    this.contenidoService.getBannersByPosicion('hero').subscribe({
+    // Cargar banners filtrados por página Y posición
+    this.contenidoService.getBannersByPaginaYPosicion(this.pagina, this.posicion).subscribe({
       next: (banners) => {
         this.banners.set(banners);
         this.isLoading.set(false);

@@ -8,7 +8,7 @@
   </app-page-header>
 
   <!-- Stats Cards -->
-  @if (stats()) {
+  <!-- @if (stats()) {
     <div class="stats-grid">
       @for (tab of tabs; track tab.key) {
         <button
@@ -27,7 +27,7 @@
         </button>
       }
     </div>
-  }
+  } -->
 
   <!-- Tabs -->
   <div class="tabs-container">
@@ -263,6 +263,7 @@
                     [alt]="item.titulo"
                     (error)="onImageError($event)">
                   <div class="banner-overlay">
+                    <span class="badge-pagina">{{ getPaginaLabel(item.pagina) }}</span>
                     <span class="badge-posicion">{{ item.posicion | titlecase }}</span>
                   </div>
                 </div>
