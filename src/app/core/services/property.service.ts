@@ -1,8 +1,9 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of, delay } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Propiedad } from '../models/property.interface';
+import { Observable, of } from 'rxjs';
+import { map, switchMap, shareReplay, delay } from 'rxjs/operators';
+import { Propiedad, AgenteInfo } from '../models/property.interface';
+import { Usuario } from '../models/user.interface';
 import { FiltrosBusqueda, RespuestaPaginada } from '../models/search-filters.interface';
 import { MOCK_PROPIEDADES } from './mock-data/properties.mock';
 import { environment } from '../../../environments/environment';
@@ -11,9 +12,13 @@ import { environment } from '../../../environments/environment';
 export class PropertyService {
   private http = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}/propiedades`;
-  
+  private usuariosUrl = '/assets/data/usuarios.json';
+
   // Flag para usar datos mock o API real
   private useMockData = true;
+
+  // Cache de usuarios para enriquecer propiedades (carga una sola vez)
+  private usuariosCache$: Observable<Map<number, Usuario>> | null = null;
 
   // =============================================
   // OBTENER PROPIEDADES CON FILTROS
@@ -139,30 +144,56 @@ export class PropertyService {
 
   // =============================================
   // MÉTODOS PRIVADOS - MOCK DATA
+  // Enriquecen propiedades con datos del agente desde usuarios.json
+  // Simula cómo funcionaría una API real con ?expand=agente
   // =============================================
-  
+
   private getPropiedadesMock(filtros?: FiltrosBusqueda): Observable<RespuestaPaginada<Propiedad>> {
-    // Simular delay de red
-    return of(this.filtrarYPaginarPropiedades(MOCK_PROPIEDADES, filtros)).pipe(delay(300));
+    return this.getUsuariosMap().pipe(
+      map(usuariosMap => {
+        const resultado = this.filtrarYPaginarPropiedades(MOCK_PROPIEDADES, filtros);
+        return {
+          ...resultado,
+          datos: this.enriquecerPropiedades(resultado.datos, usuariosMap)
+        };
+      }),
+      delay(300)
+    );
   }
 
   private getPropiedadPorIdMock(id: number): Observable<Propiedad | null> {
-    const propiedad = MOCK_PROPIEDADES.find(p => p.id === id) || null;
-    return of(propiedad).pipe(delay(200));
+    return this.getUsuariosMap().pipe(
+      map(usuariosMap => {
+        const propiedad = MOCK_PROPIEDADES.find(p => p.id === id);
+        if (!propiedad) return null;
+        return this.enriquecerPropiedad(propiedad, usuariosMap);
+      }),
+      delay(200)
+    );
   }
 
   private getPropiedadesDestacadasMock(limite: number): Observable<Propiedad[]> {
-    const destacadas = MOCK_PROPIEDADES
-      .filter(p => p.destacada && p.estado === 'disponible')
-      .slice(0, limite);
-    return of(destacadas).pipe(delay(200));
+    return this.getUsuariosMap().pipe(
+      map(usuariosMap => {
+        const destacadas = MOCK_PROPIEDADES
+          .filter(p => p.destacada && p.estado === 'disponible')
+          .slice(0, limite);
+        return this.enriquecerPropiedades(destacadas, usuariosMap);
+      }),
+      delay(200)
+    );
   }
 
   private getPropiedadesRecientesMock(limite: number): Observable<Propiedad[]> {
-    const recientes = [...MOCK_PROPIEDADES]
-      .sort((a, b) => new Date(b.fechaPublicacion).getTime() - new Date(a.fechaPublicacion).getTime())
-      .slice(0, limite);
-    return of(recientes).pipe(delay(200));
+    return this.getUsuariosMap().pipe(
+      map(usuariosMap => {
+        const recientes = [...MOCK_PROPIEDADES]
+          .sort((a, b) => new Date(b.fechaPublicacion).getTime() - new Date(a.fechaPublicacion).getTime())
+          .slice(0, limite);
+        return this.enriquecerPropiedades(recientes, usuariosMap);
+      }),
+      delay(200)
+    );
   }
 
   private getPropiedadesRelacionadasMock(propiedadId: number, limite: number): Observable<Propiedad[]> {
@@ -171,17 +202,20 @@ export class PropertyService {
       return of([]);
     }
 
-    // Buscar propiedades similares (mismo tipo y operación, diferente id)
-    const relacionadas = MOCK_PROPIEDADES
-      .filter(p => 
-        p.id !== propiedadId &&
-        p.tipoPropiedad === propiedadBase.tipoPropiedad &&
-        p.operacion === propiedadBase.operacion &&
-        p.estado === 'disponible'
-      )
-      .slice(0, limite);
-
-    return of(relacionadas).pipe(delay(200));
+    return this.getUsuariosMap().pipe(
+      map(usuariosMap => {
+        const relacionadas = MOCK_PROPIEDADES
+          .filter(p =>
+            p.id !== propiedadId &&
+            p.tipoPropiedad === propiedadBase.tipoPropiedad &&
+            p.operacion === propiedadBase.operacion &&
+            p.estado === 'disponible'
+          )
+          .slice(0, limite);
+        return this.enriquecerPropiedades(relacionadas, usuariosMap);
+      }),
+      delay(200)
+    );
   }
 
   private contarPropiedadesMock(filtros?: FiltrosBusqueda): Observable<number> {
@@ -420,12 +454,68 @@ export class PropertyService {
   // =============================================
   // CONFIGURACIÓN
   // =============================================
-  
+
   /**
    * Cambia entre usar datos mock o API real
    * @param useMock - true para usar mock, false para API real
    */
   setUseMockData(useMock: boolean): void {
     this.useMockData = useMock;
+  }
+
+  // =============================================
+  // ENRIQUECIMIENTO DE PROPIEDADES CON DATOS DE AGENTE
+  // =============================================
+
+  /**
+   * Obtiene el mapa de usuarios cacheado (carga una sola vez)
+   * Simula cómo una API real expandiría relaciones bajo demanda
+   */
+  private getUsuariosMap(): Observable<Map<number, Usuario>> {
+    if (!this.usuariosCache$) {
+      this.usuariosCache$ = this.http.get<{ usuarios: Usuario[] }>(this.usuariosUrl).pipe(
+        map(response => {
+          const mapa = new Map<number, Usuario>();
+          (response.usuarios || []).forEach(u => mapa.set(u.id, u));
+          return mapa;
+        }),
+        shareReplay(1) // Cache del resultado
+      );
+    }
+    return this.usuariosCache$;
+  }
+
+  /**
+   * Convierte un Usuario a AgenteInfo para embeber en propiedad
+   */
+  private usuarioToAgenteInfo(usuario: Usuario): AgenteInfo {
+    return {
+      id: usuario.id,
+      nombre: `${usuario.nombre} ${usuario.apellido}`,
+      telefono: usuario.perfilAsesor?.whatsapp || usuario.telefono,
+      email: usuario.email,
+      fotoUrl: usuario.fotoUrl
+    };
+  }
+
+  /**
+   * Enriquece una propiedad con datos del agente desde el mapa de usuarios
+   */
+  private enriquecerPropiedad(propiedad: Propiedad, usuariosMap: Map<number, Usuario>): Propiedad {
+    const usuario = usuariosMap.get(propiedad.asesorId);
+    if (usuario) {
+      return {
+        ...propiedad,
+        agente: this.usuarioToAgenteInfo(usuario)
+      };
+    }
+    return propiedad;
+  }
+
+  /**
+   * Enriquece un array de propiedades con datos de agentes
+   */
+  private enriquecerPropiedades(propiedades: Propiedad[], usuariosMap: Map<number, Usuario>): Propiedad[] {
+    return propiedades.map(p => this.enriquecerPropiedad(p, usuariosMap));
   }
 }
