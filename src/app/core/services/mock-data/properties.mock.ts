@@ -36,14 +36,14 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: true,
-    asesorId: 1,
+    asesorId: 2,
     fechaPublicacion: '2024-01-15',
     ultimaActualizacion: '2024-01-20',
     agente: {
-      id: 1,
+      id: 2,
       nombre: 'María González',
       telefono: '+5491123456789',
-      email: 'maria.gonzalez@fairway.com.ar',
+      email: 'asesor@fairway.com',
       fotoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop'
     }
   },
@@ -85,10 +85,10 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ultimaActualizacion: '2024-01-18',
     agente: {
       id: 2,
-      nombre: 'Carlos Rodríguez',
-      telefono: '+5491187654321',
-      email: 'carlos.rodriguez@fairway.com.ar',
-      fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop'
+      nombre: 'María González',
+      telefono: '+5491123456789',
+      email: 'asesor@fairway.com',
+      fotoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop'
     }
   },
   {
@@ -123,14 +123,14 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: true,
-    asesorId: 1,
+    asesorId: 2,
     fechaPublicacion: '2024-01-20',
     ultimaActualizacion: '2024-01-20',
     agente: {
-      id: 1,
+      id: 2,
       nombre: 'María González',
       telefono: '+5491123456789',
-      email: 'maria.gonzalez@fairway.com.ar',
+      email: 'asesor@fairway.com',
       fotoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop'
     }
   },
@@ -166,14 +166,14 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: true,
-    asesorId: 3,  // Cambiado para testing
+    asesorId: 3,
     fechaPublicacion: '2024-01-05',
     ultimaActualizacion: '2024-01-15',
     agente: {
-      id: 2,
+      id: 3,
       nombre: 'Carlos Rodríguez',
       telefono: '+5491187654321',
-      email: 'carlos.rodriguez@fairway.com.ar',
+      email: 'carlos@fairway.com',
       fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop'
     }
   },
@@ -209,15 +209,15 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: true,
-    asesorId: 3,  // Cambiado para testing
+    asesorId: 3,
     fechaPublicacion: '2024-01-12',
     ultimaActualizacion: '2024-01-19',
     agente: {
       id: 3,
-      nombre: 'Ana Martínez',
-      telefono: '+5491145678901',
-      email: 'ana.martinez@fairway.com.ar',
-      fotoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop'
+      nombre: 'Carlos Rodríguez',
+      telefono: '+5491187654321',
+      email: 'carlos@fairway.com',
+      fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop'
     }
   },
   {
@@ -253,14 +253,14 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: true,
-    asesorId: 3,  // Cambiado para testing
+    asesorId: 3,
     fechaPublicacion: '2024-01-18',
     ultimaActualizacion: '2024-01-22',
     agente: {
-      id: 2,
+      id: 3,
       nombre: 'Carlos Rodríguez',
       telefono: '+5491187654321',
-      email: 'carlos.rodriguez@fairway.com.ar',
+      email: 'carlos@fairway.com',
       fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop'
     }
   },
@@ -295,15 +295,15 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: false,
-    asesorId: 3,  // Cambiado para testing
+    asesorId: 3,
     fechaPublicacion: '2024-01-22',
     ultimaActualizacion: '2024-01-22',
     agente: {
-      id: 1,
-      nombre: 'María González',
-      telefono: '+5491123456789',
-      email: 'maria.gonzalez@fairway.com.ar',
-      fotoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop'
+      id: 3,
+      nombre: 'Carlos Rodríguez',
+      telefono: '+5491187654321',
+      email: 'carlos@fairway.com',
+      fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop'
     }
   },
   {
@@ -336,14 +336,14 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: false,
-    asesorId: 3,  // Cambiado para testing
+    asesorId: 3,
     fechaPublicacion: '2024-01-21',
     ultimaActualizacion: '2024-01-21',
     agente: {
-      id: 2,
+      id: 3,
       nombre: 'Carlos Rodríguez',
       telefono: '+5491187654321',
-      email: 'carlos.rodriguez@fairway.com.ar',
+      email: 'carlos@fairway.com',
       fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop'
     }
   },
@@ -377,15 +377,15 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: false,
-    asesorId: 1,
+    asesorId: 4,
     fechaPublicacion: '2024-01-20',
     ultimaActualizacion: '2024-01-20',
     agente: {
-      id: 1,
-      nombre: 'María González',
-      telefono: '+5491123456789',
-      email: 'maria.gonzalez@fairway.com.ar',
-      fotoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop'
+      id: 4,
+      nombre: 'Laura Martínez',
+      telefono: '+5491155551234',
+      email: 'laura@fairway.com',
+      fotoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop'
     }
   },
   {
@@ -423,10 +423,10 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ultimaActualizacion: '2024-01-19',
     agente: {
       id: 3,
-      nombre: 'Ana Martínez',
-      telefono: '+5491145678901',
-      email: 'ana.martinez@fairway.com.ar',
-      fotoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop'
+      nombre: 'Carlos Rodríguez',
+      telefono: '+5491187654321',
+      email: 'carlos@fairway.com',
+      fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop'
     }
   },
   {
@@ -464,10 +464,10 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ultimaActualizacion: '2024-01-18',
     agente: {
       id: 2,
-      nombre: 'Carlos Rodríguez',
-      telefono: '+5491187654321',
-      email: 'carlos.rodriguez@fairway.com.ar',
-      fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop'
+      nombre: 'María González',
+      telefono: '+5491123456789',
+      email: 'asesor@fairway.com',
+      fotoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop'
     }
   },
   // Propiedades en Recoleta para otro cluster
@@ -501,15 +501,15 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: false,
-    asesorId: 1,
+    asesorId: 4,
     fechaPublicacion: '2024-01-17',
     ultimaActualizacion: '2024-01-17',
     agente: {
-      id: 1,
-      nombre: 'María González',
-      telefono: '+5491123456789',
-      email: 'maria.gonzalez@fairway.com.ar',
-      fotoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop'
+      id: 4,
+      nombre: 'Laura Martínez',
+      telefono: '+5491155551234',
+      email: 'laura@fairway.com',
+      fotoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop'
     }
   },
   {
@@ -547,10 +547,10 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ultimaActualizacion: '2024-01-16',
     agente: {
       id: 3,
-      nombre: 'Ana Martínez',
-      telefono: '+5491145678901',
-      email: 'ana.martinez@fairway.com.ar',
-      fotoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop'
+      nombre: 'Carlos Rodríguez',
+      telefono: '+5491187654321',
+      email: 'carlos@fairway.com',
+      fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop'
     }
   },
   {
@@ -588,10 +588,10 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ultimaActualizacion: '2024-01-15',
     agente: {
       id: 2,
-      nombre: 'Carlos Rodríguez',
-      telefono: '+5491187654321',
-      email: 'carlos.rodriguez@fairway.com.ar',
-      fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop'
+      nombre: 'María González',
+      telefono: '+5491123456789',
+      email: 'asesor@fairway.com',
+      fotoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop'
     }
   },
   {
@@ -624,14 +624,14 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: false,
-    asesorId: 1,
+    asesorId: 2,
     fechaPublicacion: '2024-01-14',
     ultimaActualizacion: '2024-01-14',
     agente: {
-      id: 1,
+      id: 2,
       nombre: 'María González',
       telefono: '+5491123456789',
-      email: 'maria.gonzalez@fairway.com.ar',
+      email: 'asesor@fairway.com',
       fotoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop'
     }
   },
@@ -671,10 +671,10 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ultimaActualizacion: '2024-01-13',
     agente: {
       id: 2,
-      nombre: 'Carlos Rodríguez',
-      telefono: '+5491187654321',
-      email: 'carlos.rodriguez@fairway.com.ar',
-      fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop'
+      nombre: 'María González',
+      telefono: '+5491123456789',
+      email: 'asesor@fairway.com',
+      fotoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop'
     }
   },
   {
@@ -712,10 +712,10 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ultimaActualizacion: '2024-01-12',
     agente: {
       id: 3,
-      nombre: 'Ana Martínez',
-      telefono: '+5491145678901',
-      email: 'ana.martinez@fairway.com.ar',
-      fotoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop'
+      nombre: 'Carlos Rodríguez',
+      telefono: '+5491187654321',
+      email: 'carlos@fairway.com',
+      fotoUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop'
     }
   },
   {
@@ -748,15 +748,15 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: false,
-    asesorId: 1,
+    asesorId: 4,
     fechaPublicacion: '2024-01-11',
     ultimaActualizacion: '2024-01-11',
     agente: {
-      id: 1,
-      nombre: 'María González',
-      telefono: '+5491123456789',
-      email: 'maria.gonzalez@fairway.com.ar',
-      fotoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop'
+      id: 4,
+      nombre: 'Laura Martínez',
+      telefono: '+5491155551234',
+      email: 'laura@fairway.com',
+      fotoUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop'
     }
   }
 ];

@@ -81,13 +81,14 @@ export class AgentService {
   // =============================================
   getPropiedadesAgente(agenteId: number): Observable<Propiedad[]> {
     if (this.useMockData) {
+      // Filtrar por asesorId que es el campo correcto en las propiedades
       const propiedades = MOCK_PROPIEDADES.filter(
-        (p: Propiedad) => p.agente?.id === agenteId
+        (p: Propiedad) => p.asesorId === agenteId
       );
       return of(propiedades).pipe(delay(300));
     }
     
-    const params = new HttpParams().set('agenteId', agenteId.toString());
+    const params = new HttpParams().set('asesorId', agenteId.toString());
     return this.http.get<Propiedad[]>('/api/propiedades', { params });
   }
 
@@ -96,8 +97,9 @@ export class AgentService {
   // =============================================
   getEstadisticasAgente(agenteId: number): Observable<EstadisticasAgente> {
     if (this.useMockData) {
+      // Filtrar por asesorId que es el campo correcto
       const propiedades = MOCK_PROPIEDADES.filter(
-        (p: Propiedad) => p.agente?.id === agenteId
+        (p: Propiedad) => p.asesorId === agenteId
       );
       
       const stats: EstadisticasAgente = {
