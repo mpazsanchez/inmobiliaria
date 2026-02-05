@@ -41,6 +41,7 @@ export class ContentFormComponent implements OnInit, CanComponentDeactivate {
   iconosDisponibles: string[] = [];
   categoriasFaq: string[] = [];
   posicionesBanner: { value: string; label: string }[] = [];
+  paginasBanner: { value: string; label: string }[] = [];
 
   // Preview de imagen
   photoPreview = signal<string | null>(null);
@@ -49,6 +50,7 @@ export class ContentFormComponent implements OnInit, CanComponentDeactivate {
     this.iconosDisponibles = this.contentService.getIconosDisponibles();
     this.categoriasFaq = this.contentService.getCategoriasFaq();
     this.posicionesBanner = this.contentService.getPosicionesBanner();
+    this.paginasBanner = this.contentService.getPaginasBanner();
 
     // Determinar tipo de contenido y modo desde la ruta
     const url = this.router.url;
@@ -105,6 +107,7 @@ export class ContentFormComponent implements OnInit, CanComponentDeactivate {
         imagenMovilUrl: [''],
         enlace: [''],
         textoBoton: [''],
+        pagina: ['home', [Validators.required]],
         posicion: ['hero', [Validators.required]],
         orden: [1, [Validators.required, Validators.min(1)]],
         activo: [true],

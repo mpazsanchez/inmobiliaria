@@ -308,6 +308,14 @@
 
           <div class="form-grid">
             <div class="form-group">
+              <label for="pagina">Página *</label>
+              <select id="pagina" formControlName="pagina">
+                @for (pag of paginasBanner; track pag.value) {
+                  <option [value]="pag.value">{{ pag.label }}</option>
+                }
+              </select>
+            </div>
+            <div class="form-group">
               <label for="posicion">Posición *</label>
               <select id="posicion" formControlName="posicion">
                 @for (pos of posicionesBanner; track pos.value) {
@@ -315,6 +323,9 @@
                 }
               </select>
             </div>
+          </div>
+
+          <div class="form-grid">
             <div class="form-group">
               <label for="orden">Orden *</label>
               <input type="number" id="orden" formControlName="orden" min="1">

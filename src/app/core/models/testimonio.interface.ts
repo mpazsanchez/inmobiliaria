@@ -39,7 +39,8 @@ export interface Banner {
   imagenMovilUrl?: string;
   enlace?: string;
   textoBoton?: string;
-  posicion: 'hero' | 'secundario' | 'promocional';
+  pagina: 'home' | 'properties' | 'about' | 'contact' | 'team' | 'services'; // Página donde se muestra
+  posicion: 'hero' | 'secundario' | 'promocional'; // Posición dentro de la página
   orden: number;
   activo: boolean;
   fechaInicio?: string;

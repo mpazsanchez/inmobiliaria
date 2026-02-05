@@ -30,8 +30,9 @@ import type { Testimonio, Beneficio, FAQ, Banner } from '../models';
 export interface ContentFilters {
   busqueda?: string;
   activo?: boolean;
-  categoria?: string;
-  posicion?: string;
+  categoria?: string; // Para FAQs
+  posicion?: string; // Para Banners
+  pagina?: string; // Para Banners - filtrar por página
 }
 
 export interface ContentStats {
@@ -228,6 +229,7 @@ const BANNERS_FALLBACK: Banner[] = [
     imagenMovilUrl: 'assets/images/backgrounds/fairway/hero-home-3.jpg',
     enlace: '/properties',
     textoBoton: 'Ver propiedades',
+    pagina: 'home',
     posicion: 'hero',
     orden: 1,
     activo: true
@@ -240,6 +242,7 @@ const BANNERS_FALLBACK: Banner[] = [
     imagenMovilUrl: 'assets/images/backgrounds/fairway/hero-home-2.webp',
     enlace: '/contact',
     textoBoton: 'Solicitar tasación',
+    pagina: 'home',
     posicion: 'hero',
     orden: 2,
     activo: true
@@ -252,8 +255,35 @@ const BANNERS_FALLBACK: Banner[] = [
     imagenMovilUrl: 'assets/images/backgrounds/fairway/hero-home.webp',
     enlace: '/team',
     textoBoton: 'Conocer equipo',
+    pagina: 'home',
     posicion: 'hero',
     orden: 3,
+    activo: true
+  },
+  {
+    id: 4,
+    titulo: 'Propiedades en toda la zona',
+    subtitulo: 'Casas, departamentos, terrenos y locales comerciales',
+    imagenUrl: 'assets/images/backgrounds/fairway/hero-home-3.jpg',
+    imagenMovilUrl: 'assets/images/backgrounds/fairway/hero-home-3.jpg',
+    enlace: '/properties',
+    textoBoton: 'Ver listado completo',
+    pagina: 'properties',
+    posicion: 'hero',
+    orden: 1,
+    activo: true
+  },
+  {
+    id: 5,
+    titulo: '¿Querés conocernos?',
+    subtitulo: 'Estamos en Tandil desde 2002',
+    imagenUrl: 'assets/images/backgrounds/fairway/hero-home-2.webp',
+    imagenMovilUrl: 'assets/images/backgrounds/fairway/hero-home-2.webp',
+    enlace: '/contact',
+    textoBoton: 'Contactanos',
+    pagina: 'about',
+    posicion: 'hero',
+    orden: 1,
     activo: true
   }
 ];
@@ -634,6 +664,41 @@ export class ContenidoDinamicoService {
     return this.getBanners({ posicion, activo: true });
   }
 
+  /**
+   * Obtiene banners activos filtrados por página
+   */
+  getBannersByPagina(pagina: 'home' | 'properties' | 'about' | 'contact' | 'team' | 'services'): Observable<Banner[]> {
+    if (this.useMockData) {
+      return this.banners$.pipe(
+        map(banners => banners.filter(b => b.activo && b.pagina === pagina)),
+        map(banners => banners.sort((a, b) => a.orden - b.orden)),
+        delay(300)
+      );
+    }
+    return this.http.get<Banner[]>(`${this.API_URL}/banners`, { params: { pagina, activo: 'true' } });
+  }
+
+  /**
+   * Obtiene banners activos filtrados por página Y posición
+   */
+  getBannersByPaginaYPosicion(
+    pagina: 'home' | 'properties' | 'about' | 'contact' | 'team' | 'services',
+    posicion: 'hero' | 'secundario' | 'promocional'
+  ): Observable<Banner[]> {
+    if (this.useMockData) {
+      return this.banners$.pipe(
+        map(banners => banners.filter(b => 
+          b.activo && b.pagina === pagina && b.posicion === posicion
+        )),
+        map(banners => banners.sort((a, b) => a.orden - b.orden)),
+        delay(300)
+      );
+    }
+    return this.http.get<Banner[]>(`${this.API_URL}/banners`, { 
+      params: { pagina, posicion, activo: 'true' } 
+    });
+  }
+
   // =============================================
   // BANNERS - ESCRITURA (Admin)
   // =============================================
@@ -650,6 +715,7 @@ export class ContenidoDinamicoService {
         imagenMovilUrl: data.imagenMovilUrl,
         enlace: data.enlace,
         textoBoton: data.textoBoton,
+        pagina: data.pagina || 'home',
         posicion: data.posicion || 'hero',
         orden: data.orden || current.length + 1,
         activo: data.activo ?? true,
@@ -750,6 +816,17 @@ export class ContenidoDinamicoService {
 
   getCategoriasFaq(): string[] {
     return ['Comisiones', 'Proceso', 'Servicios', 'Financiamiento', 'Legal', 'General'];
+  }
+
+  getPaginasBanner(): { value: string; label: string }[] {
+    return [
+      { value: 'home', label: 'Home / Inicio' },
+      { value: 'properties', label: 'Propiedades' },
+      { value: 'about', label: 'Nosotros' },
+      { value: 'contact', label: 'Contacto' },
+      { value: 'team', label: 'Equipo' },
+      { value: 'services', label: 'Servicios' }
+    ];
   }
 
   getPosicionesBanner(): { value: string; label: string }[] {
@@ -867,6 +944,10 @@ export class ContenidoDinamicoService {
 
     if (filters.posicion) {
       result = result.filter(b => b.posicion === filters.posicion);
+    }
+
+    if (filters.pagina) {
+      result = result.filter(b => b.pagina === filters.pagina);
     }
 
     return result.sort((a, b) => a.orden - b.orden);
