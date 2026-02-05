@@ -55,21 +55,21 @@
               <div class="lead-item">
                 <div class="lead-info">
                   <div class="lead-header">
-                    <strong>{{ lead.nombre }}</strong>
-                    <span class="lead-badge" [class]="getLeadStatusClass(lead.estado)">
-                      {{ getLeadStatusText(lead.estado) }}
+                    <strong>{{ lead.nombreContacto }}</strong>
+                    <span class="lead-badge" [ngClass]="lead.respondida ? 'status-responded' : 'status-pending'">
+                      {{ lead.respondida ? 'Respondido' : 'Pendiente' }}
                     </span>
                   </div>
-                  <p class="lead-property">{{ lead.propiedad }}</p>
+                  <p class="lead-property">{{ getPropertyTitle(lead.propiedadId) }}</p>
                   <div class="lead-meta">
-                    <span><i class="bi bi-tag"></i> {{ lead.tipo }}</span>
-                    <span><i class="bi bi-clock"></i> {{ lead.fecha }}</span>
+                    <span><i class="bi bi-envelope"></i> {{ lead.emailContacto }}</span>
+                    <span><i class="bi bi-clock"></i> {{ getTimeAgo(lead.fechaEnvio) }}</span>
                   </div>
                 </div>
                 <a 
                   routerLink="/member-area/consultas" 
                   class="btn-respond"
-                  [class.disabled]="lead.estado !== 'pendiente'"
+                  [class.disabled]="lead.respondida"
                   aria-label="Responder consulta">
                   <i class="bi bi-reply"></i>
                   Responder
@@ -174,26 +174,26 @@
               <i class="bi bi-person-x"></i>
               Leads Sin Asignar
             </h2>
-            <a routerLink="/member-area/leads" class="view-all">Ver todos <i class="bi bi-arrow-right"></i></a>
+            <a routerLink="/member-area/consultas" class="view-all">Ver todos <i class="bi bi-arrow-right"></i></a>
           </div>
           <div class="leads-list">
             @for (lead of unassignedLeads(); track lead.id) {
               <div class="lead-item">
                 <div class="lead-info">
                   <div class="lead-header">
-                    <strong>{{ lead.nombre }}</strong>
+                    <strong>{{ lead.nombreContacto }}</strong>
                     <span class="lead-badge status-unassigned">Sin asignar</span>
                   </div>
-                  <p class="lead-property">{{ lead.propiedad }}</p>
+                  <p class="lead-property">{{ getPropertyTitle(lead.propiedadId) }}</p>
                   <div class="lead-meta">
-                    <span><i class="bi bi-tag"></i> {{ lead.tipo }}</span>
-                    <span><i class="bi bi-clock"></i> {{ lead.fecha }}</span>
+                    <span><i class="bi bi-envelope"></i> {{ lead.emailContacto }}</span>
+                    <span><i class="bi bi-clock"></i> {{ getTimeAgo(lead.fechaEnvio) }}</span>
                   </div>
                 </div>
-                <button class="btn-assign" aria-label="Asignar agente a consulta">
+                <a routerLink="/member-area/consultas" class="btn-assign" aria-label="Asignar agente a consulta">
                   <i class="bi bi-person-plus"></i>
                   Asignar
-                </button>
+                </a>
               </div>
             }
           </div>

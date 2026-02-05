@@ -2,6 +2,8 @@ import { Component, Input, signal, computed, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { LeadsAdminService } from '../../services/leads-admin.service';
+import type { Contacto } from '../../../../core/models/lead.interface';
 import { inject } from '@angular/core';
 
 interface StatCard {
@@ -21,14 +23,7 @@ interface RecentActivity {
   color: string;
 }
 
-interface Lead {
-  id: number;
-  nombre: string;
-  propiedad: string;
-  tipo: string;
-  fecha: string;
-  estado: 'pendiente' | 'respondido' | 'convertido';
-}
+// Ya no usamos una interfaz local, usamos Contacto del modelo
 
 @Component({
   selector: 'app-dashboard',
@@ -43,6 +38,7 @@ interface Lead {
 export class DashboardComponent implements OnInit {
   @Input() user: any;
   private authService = inject(AuthService);
+  private leadsService = inject(LeadsAdminService);
   showInstallerForm = false;
 
   // Computed para determinar el rol
@@ -67,18 +63,10 @@ export class DashboardComponent implements OnInit {
   ]);
 
   // Leads recientes (Asesor)
-  recentLeads = signal<Lead[]>([
-    { id: 1, nombre: 'Juan Pérez', propiedad: 'Depto 2 amb - Palermo', tipo: 'Consulta', fecha: 'Hoy 14:30', estado: 'pendiente' },
-    { id: 2, nombre: 'Ana García', propiedad: 'Casa 3 amb - Belgrano', tipo: 'Visita', fecha: 'Hoy 10:15', estado: 'pendiente' },
-    { id: 3, nombre: 'Carlos López', propiedad: 'Depto 1 amb - Recoleta', tipo: 'Consulta', fecha: 'Ayer 18:00', estado: 'respondido' },
-  ]);
+  recentLeads = signal<Contacto[]>([]);
 
   // Leads sin asignar (Admin)
-  unassignedLeads = signal<Lead[]>([
-    { id: 10, nombre: 'Martín Rojas', propiedad: 'Casa 4 amb - San Isidro', tipo: 'Consulta', fecha: 'Hace 2 horas', estado: 'pendiente' },
-    { id: 11, nombre: 'Laura Mendoza', propiedad: 'Depto 2 amb - Puerto Madero', tipo: 'Visita', fecha: 'Hace 4 horas', estado: 'pendiente' },
-    { id: 12, nombre: 'Diego Silva', propiedad: 'PH 3 amb - Villa Crespo', tipo: 'Consulta', fecha: 'Hoy 09:00', estado: 'pendiente' },
-  ]);
+  unassignedLeads = signal<Contacto[]>([]);
 
   // Actividad reciente
   recentActivity = signal<RecentActivity[]>([
@@ -92,6 +80,42 @@ export class DashboardComponent implements OnInit {
     const user = this.currentUser();
     if (user) {
       this.user = user;
+      this.loadLeads();
+    }
+  }
+
+  loadLeads() {
+    const user = this.currentUser();
+    if (!user) return;
+
+    if (this.isAdmin()) {
+      // Admin: Cargar leads no respondidos sin asesor asignado
+      this.leadsService.getLeads({ 
+        respondida: false,
+        asesorId: undefined // Sin asesor = sin asignar
+      }).subscribe({
+        next: (leads) => {
+          // Filtrar solo los que no tienen asesor
+          const sinAsignar = leads.filter(lead => !lead.asesorId);
+          this.unassignedLeads.set(sinAsignar.slice(0, 3)); // Solo 3 para el dashboard
+        },
+        error: (error) => {
+          console.error('Error cargando leads sin asignar:', error);
+        }
+      });
+    } else if (this.isAsesor()) {
+      // Asesor: Cargar sus leads no respondidos
+      this.leadsService.getLeads({ 
+        respondida: false,
+        asesorId: user.id 
+      }).subscribe({
+        next: (leads) => {
+          this.recentLeads.set(leads.slice(0, 3)); // Solo 3 para el dashboard
+        },
+        error: (error) => {
+          console.error('Error cargando leads del asesor:', error);
+        }
+      });
     }
   }
 
@@ -117,5 +141,16 @@ export class DashboardComponent implements OnInit {
       'convertido': 'Convertido'
     };
     return texts[estado] || estado;
+  }
+
+  // Métodos para formatear datos de leads
+  getTimeAgo(fecha: string): string {
+    return this.leadsService.getTimeAgo(fecha);
+  }
+
+  getPropertyTitle(propiedadId: number): string {
+    // Por ahora retornamos un placeholder
+    // Cuando tengas el servicio de propiedades, lo puedes integrar aquí
+    return `Propiedad #${propiedadId}`;
   }
 }
