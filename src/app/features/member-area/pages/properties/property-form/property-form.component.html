@@ -126,6 +126,35 @@
                 </span>
               </label>
             </div>
+
+            <div class="form-group">
+              <label for="asesorId">
+                Asesor Asignado <span class="required">*</span>
+              </label>
+              <select 
+                id="asesorId" 
+                formControlName="asesorId"
+                [class.invalid]="form.get('asesorId')?.invalid && form.get('asesorId')?.touched">
+                <option [value]="null" disabled>Selecciona un asesor</option>
+                @for (asesor of asesoresDisponibles(); track asesor.id) {
+                  <option [value]="asesor.id">
+                    {{ asesor.nombre }} {{ asesor.apellido }}
+                    @if (asesor.perfilAsesor?.destacado) {
+                      <span> ⭐</span>
+                    }
+                  </option>
+                }
+              </select>
+              @if (form.get('asesorId')?.invalid && form.get('asesorId')?.touched) {
+                <span class="field-error">Debes asignar un asesor</span>
+              }
+              @if (asesoresDisponibles().length === 0) {
+                <span class="field-info">
+                  <i class="bi bi-info-circle"></i>
+                  No hay asesores activos disponibles
+                </span>
+              }
+            </div>
           </div>
         </div>
       }

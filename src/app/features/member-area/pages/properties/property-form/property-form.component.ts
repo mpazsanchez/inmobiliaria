@@ -4,9 +4,11 @@ import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PropertiesAdminService } from '../../../services/properties-admin.service';
 import { AuthService } from '../../../services/auth.service';
+import { UserService } from '../../../../../core/services/user.service';
 import { GeocodingService } from '../../../../../core/services';
 import { ImageUploadService, ImageUploadResult } from '../../../../../core/services/image-upload.service';
 import { Propiedad, Imagen } from '../../../../../core/models/property.interface';
+import { Usuario } from '../../../../../core/models/user.interface';
 import { PropertyMapComponent } from '../../../../public-site/components/property-map/property-map.component';
 import { ImageUploaderComponent } from '../../../../../shared/components/image-uploader/image-uploader.component';
 import { CanComponentDeactivate } from '../../../../../core/guards/can-deactivate.guard';
@@ -41,6 +43,7 @@ export class PropertyFormComponent implements OnInit, CanComponentDeactivate {
   private route = inject(ActivatedRoute);
   private propertiesService = inject(PropertiesAdminService);
   private authService = inject(AuthService);
+  private userService = inject(UserService);
   private geocodingService = inject(GeocodingService);
   private imageUploadService = inject(ImageUploadService);
   private unsavedChangesService = inject(UnsavedChangesService);
@@ -57,6 +60,7 @@ export class PropertyFormComponent implements OnInit, CanComponentDeactivate {
   activeTab = signal<'basic' | 'location' | 'features' | 'images'>('basic');
   isGeocoding = signal(false);
   geocodingSuccess = signal(false);
+  asesoresDisponibles = signal<Usuario[]>([]);
 
   // Opciones
   tiposPropiedad = this.propertiesService.getTiposPropiedad();
@@ -77,6 +81,7 @@ export class PropertyFormComponent implements OnInit, CanComponentDeactivate {
     moneda: ['USD', Validators.required],
     estado: ['disponible'],
     destacada: [false],
+    asesorId: [null, Validators.required],
 
     // Ubicacion
     ubicacion: this.fb.group({
@@ -162,11 +167,41 @@ export class PropertyFormComponent implements OnInit, CanComponentDeactivate {
   }
 
   ngOnInit(): void {
+    // Cargar lista de asesores disponibles
+    this.loadAsesores();
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.isEditMode.set(true);
       this.propertyId.set(+id);
       this.loadProperty(+id);
+    } else {
+      // En modo creación, asignar asesor por defecto
+      this.setDefaultAsesor();
+    }
+  }
+
+  loadAsesores(): void {
+    this.userService.getUsuarios({ rol: 'asesor', activo: true }).subscribe({
+      next: (response) => {
+        const asesores = response.items || response.datos || [];
+        this.asesoresDisponibles.set(asesores);
+      },
+      error: (err) => {
+        console.error('Error cargando asesores:', err);
+        this.asesoresDisponibles.set([]);
+      }
+    });
+  }
+
+  setDefaultAsesor(): void {
+    const currentUser = this.currentUser();
+    if (currentUser) {
+      // Si es asesor, asignarse a sí mismo
+      if (currentUser.rol === 'asesor') {
+        this.form.patchValue({ asesorId: currentUser.id });
+      }
+      // Si es admin, dejar el campo vacío para que seleccione
     }
   }
 
@@ -200,6 +235,7 @@ export class PropertyFormComponent implements OnInit, CanComponentDeactivate {
       moneda: property.moneda,
       estado: property.estado,
       destacada: property.destacada,
+      asesorId: property.asesorId,
       ubicacion: property.ubicacion,
       caracteristicas: {
         ...property.caracteristicas,
@@ -386,7 +422,6 @@ export class PropertyFormComponent implements OnInit, CanComponentDeactivate {
     this.error.set(null);
 
     const data = this.form.value;
-    data.asesorId = this.currentUser()?.id || 1;
 
     const request = this.isEditMode()
       ? this.propertiesService.updateProperty(this.propertyId()!, data)
