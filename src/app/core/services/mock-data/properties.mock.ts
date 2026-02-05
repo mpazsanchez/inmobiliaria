@@ -36,6 +36,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: true,
+    visible: true,
     asesorId: 2,
     fechaPublicacion: '2024-01-15',
     ultimaActualizacion: '2024-01-20'
@@ -73,6 +74,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: true,
+    visible: true,
     asesorId: 2,
     fechaPublicacion: '2024-01-10',
     ultimaActualizacion: '2024-01-18'
@@ -109,6 +111,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: true,
+    visible: true,
     asesorId: 2,
     fechaPublicacion: '2024-01-20',
     ultimaActualizacion: '2024-01-20'
@@ -145,6 +148,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: true,
+    visible: true,
     asesorId: 3,
     fechaPublicacion: '2024-01-05',
     ultimaActualizacion: '2024-01-15'
@@ -181,6 +185,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: true,
+    visible: true,
     asesorId: 3,
     fechaPublicacion: '2024-01-12',
     ultimaActualizacion: '2024-01-19'
@@ -218,6 +223,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: true,
+    visible: true,
     asesorId: 3,
     fechaPublicacion: '2024-01-18',
     ultimaActualizacion: '2024-01-22'
@@ -253,6 +259,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: false,
+    visible: true,
     asesorId: 3,
     fechaPublicacion: '2024-01-22',
     ultimaActualizacion: '2024-01-22'
@@ -287,6 +294,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: false,
+    visible: true,
     asesorId: 3,
     fechaPublicacion: '2024-01-21',
     ultimaActualizacion: '2024-01-21'
@@ -321,6 +329,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: false,
+    visible: true,
     asesorId: 4,
     fechaPublicacion: '2024-01-20',
     ultimaActualizacion: '2024-01-20'
@@ -355,6 +364,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: false,
+    visible: true,
     asesorId: 3,
     fechaPublicacion: '2024-01-19',
     ultimaActualizacion: '2024-01-19'
@@ -389,6 +399,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: true,
+    visible: true,
     asesorId: 2,
     fechaPublicacion: '2024-01-18',
     ultimaActualizacion: '2024-01-18'
@@ -424,6 +435,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: false,
+    visible: true,
     asesorId: 4,
     fechaPublicacion: '2024-01-17',
     ultimaActualizacion: '2024-01-17'
@@ -458,6 +470,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: true,
+    visible: true,
     asesorId: 3,
     fechaPublicacion: '2024-01-16',
     ultimaActualizacion: '2024-01-16'
@@ -492,6 +505,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: false,
+    visible: true,
     asesorId: 2,
     fechaPublicacion: '2024-01-15',
     ultimaActualizacion: '2024-01-15'
@@ -526,6 +540,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: false,
+    visible: true,
     asesorId: 2,
     fechaPublicacion: '2024-01-14',
     ultimaActualizacion: '2024-01-14'
@@ -561,6 +576,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: false,
+    visible: true,
     asesorId: 2,
     fechaPublicacion: '2024-01-13',
     ultimaActualizacion: '2024-01-13'
@@ -595,6 +611,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: false,
+    visible: true,
     asesorId: 3,
     fechaPublicacion: '2024-01-12',
     ultimaActualizacion: '2024-01-12'
@@ -629,6 +646,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
     ],
     estado: 'disponible',
     destacada: false,
+    visible: true,
     asesorId: 4,
     fechaPublicacion: '2024-01-11',
     ultimaActualizacion: '2024-01-11'

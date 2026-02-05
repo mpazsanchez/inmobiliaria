@@ -11,6 +11,7 @@ export interface Propiedad {
   imagenes: Imagen[];
   estado: string;
   destacada: boolean;
+  visible: boolean; // Visibilidad en sitio público
   asesorId: number;
   fechaPublicacion: string;
   ultimaActualizacion: string;

@@ -152,6 +152,7 @@ export class PropertiesAdminService {
       imagenes: data.imagenes || [],
       estado: data.estado || 'disponible',
       destacada: data.destacada || false,
+      visible: true,
       asesorId: data.asesorId || 1,
       fechaPublicacion: new Date().toISOString().split('T')[0],
       ultimaActualizacion: new Date().toISOString().split('T')[0],

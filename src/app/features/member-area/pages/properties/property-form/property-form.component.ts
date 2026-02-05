@@ -81,6 +81,7 @@ export class PropertyFormComponent implements OnInit, CanComponentDeactivate {
     moneda: ['USD', Validators.required],
     estado: ['disponible'],
     destacada: [false],
+    visible: [true], // Por defecto visible
     asesorId: [null, Validators.required],
     
     // Campos de solo lectura (no se envían al backend)
@@ -164,6 +165,7 @@ export class PropertyFormComponent implements OnInit, CanComponentDeactivate {
       imagenes: [],
       estado: 'disponible',
       destacada: false,
+      visible: true,
       asesorId: 0,
       fechaPublicacion: new Date().toISOString(),
       ultimaActualizacion: new Date().toISOString()
@@ -239,6 +241,7 @@ export class PropertyFormComponent implements OnInit, CanComponentDeactivate {
       moneda: property.moneda,
       estado: property.estado,
       destacada: property.destacada,
+      visible: property.visible ?? true,
       asesorId: property.asesorId,
       ubicacion: property.ubicacion,
       caracteristicas: {
