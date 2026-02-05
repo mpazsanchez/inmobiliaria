@@ -10,7 +10,7 @@
 1. [Información General](#1-información-general)
 2. [Autenticación](#2-autenticación)
 3. [Propiedades](#3-propiedades)
-4. [Agentes](#4-agentes)
+4. [Usuarios (Admin + Asesores)](#4-usuarios-admin--asesores)
 5. [Leads/Contactos](#5-leadscontactos)
 6. [Notificaciones](#6-notificaciones)
 7. [Estadísticas](#7-estadísticas)
@@ -249,39 +249,49 @@ Propiedad
 
 ---
 
-## 4. Agentes
+## 4. Usuarios (Admin + Asesores)
 
-### GET `/agentes`
-**Descripción:** Obtener listado de agentes
+> **Nota:** En la arquitectura actual, los "agentes/asesores" son usuarios con `rol: 'asesor'`.
+> No existe una entidad "Agente" separada. Los datos públicos del asesor están en `perfilAsesor`.
+
+### GET `/usuarios`
+**Descripción:** Obtener listado de usuarios
 
 **Query Parameters:**
 ```typescript
 {
-  destacado?: boolean;
+  rol?: 'admin' | 'asesor';
   activo?: boolean;
+  destacado?: boolean;
   limite?: number;
   busqueda?: string;
-  especialidad?: string;
 }
 ```
 
 **Response 200:**
 ```typescript
-Agente[]
+Usuario[]
 ```
 
 **Dónde se usa:**
-- [agent-listing.component.ts](src/app/features/public-site/pages/agent-listing/agent-listing.component.ts) - Listado público
-- [agent-list.component.ts](src/app/features/member-area/pages/agents/agent-list/agent-list.component.ts) - Admin
+- [agent-listing.component.ts](src/app/features/public-site/pages/agent-listing/agent-listing.component.ts) - Listado público (filtro: rol=asesor, activo=true)
+- [user-list.component.ts](src/app/features/member-area/pages/users/user-list/user-list.component.ts) - Admin
 
 ---
 
-### GET `/agentes/:id`
-**Descripción:** Obtener detalle de un agente
+### GET `/usuarios/:id`
+**Descripción:** Obtener detalle de un usuario
+
+**Query Parameters:**
+```typescript
+{
+  expand?: 'propiedades' | 'estadisticas' | 'propiedades,estadisticas';
+}
+```
 
 **Response 200:**
 ```typescript
-Agente
+Usuario
 ```
 
 **Dónde se usa:**
@@ -289,8 +299,18 @@ Agente
 
 ---
 
-### GET `/agentes/:id/estadisticas`
-**Descripción:** Obtener estadísticas de un agente
+### GET `/usuarios/:id/propiedades`
+**Descripción:** Obtener propiedades de un usuario/asesor
+
+**Response 200:**
+```typescript
+Propiedad[]
+```
+
+---
+
+### GET `/usuarios/:id/estadisticas`
+**Descripción:** Obtener estadísticas de un asesor
 
 **Response 200:**
 ```typescript
@@ -300,69 +320,90 @@ Agente
   propiedadesAlquiler: number;
   valorTotalCartera: number;
   moneda: string;
+  consultasRecibidas?: number;
 }
 ```
 
 ---
 
-### GET `/agentes/:id/valoraciones`
-**Descripción:** Obtener valoraciones/reviews de un agente
+### GET `/usuarios/destacados`
+**Descripción:** Obtener asesores destacados para home
+
+**Query Parameters:**
+```typescript
+{
+  limite?: number;  // default: 4
+}
+```
 
 **Response 200:**
 ```typescript
-ValoracionAgente[]
+Usuario[]  // Solo usuarios con rol='asesor' y destacado=true
 ```
 
 ---
 
-### POST `/agentes` (Admin)
-**Descripción:** Crear nuevo agente
+### POST `/usuarios` (Admin)
+**Descripción:** Crear nuevo usuario
 
 **Headers:** `Authorization: Bearer <token>`
 
 **Request Body:**
 ```typescript
 {
+  email: string;
+  password: string;
+  rol: 'admin' | 'asesor';
   nombre: string;
   apellido: string;
-  cargo: string;
-  email: string;
   telefono: string;
-  fotoUrl: string;
-  especialidad?: string;
-  slogan?: string;
-  biografia?: string;
-  experienciaAnios?: number;
-  idiomas?: string[];
-  whatsapp?: string;
-  linkedin?: string;
-  instagram?: string;
-  facebook?: string;
-  certificaciones?: string[];
-  premios?: string[];
-  activo: boolean;
-  destacado?: boolean;
+  fotoUrl?: string;
+  perfilAsesor?: Partial<PerfilAsesor>;  // Solo para rol='asesor'
 }
 ```
 
 **Response 201:**
 ```typescript
-Agente
+Usuario
 ```
 
 ---
 
-### PUT `/agentes/:id` (Admin)
-**Descripción:** Actualizar agente
+### PUT `/usuarios/:id` (Admin)
+**Descripción:** Actualizar usuario
+
+**Request Body:**
+```typescript
+{
+  nombre?: string;
+  apellido?: string;
+  email?: string;
+  telefono?: string;
+  fotoUrl?: string;
+  activo?: boolean;
+  destacado?: boolean;
+  perfilAsesor?: Partial<PerfilAsesor>;
+}
+```
 
 **Response 200:**
 ```typescript
-Agente
+Usuario
 ```
 
 ---
 
-### DELETE `/agentes/:id` (Admin)
+### PUT `/usuarios/:id/password` (Admin o propio usuario)
+**Descripción:** Cambiar contraseña
+
+**Request Body:**
+```typescript
+{
+  passwordActual: string;  // Requerido si es el propio usuario
+  nuevaPassword: string;
+}
+```
+
 **Response 200:**
 ```typescript
 { success: true }
@@ -370,33 +411,40 @@ Agente
 
 ---
 
-### PATCH `/agentes/:id/toggle-activo` (Admin)
-**Descripción:** Cambiar estado activo/inactivo
+### PATCH `/usuarios/:id/estado` (Admin)
+**Descripción:** Activar/desactivar usuario
+
+**Request Body:**
+```typescript
+{
+  activo: boolean;
+}
+```
 
 **Response 200:**
 ```typescript
-Agente
+Usuario
 ```
 
 ---
 
-### PATCH `/agentes/:id/toggle-destacado` (Admin)
-**Descripción:** Cambiar estado destacado
-
+### DELETE `/usuarios/:id` (Admin)
 **Response 200:**
 ```typescript
-Agente
+{ success: true }
 ```
 
 ---
 
-### GET `/agentes/stats` (Admin)
-**Descripción:** Estadísticas generales de agentes
+### GET `/usuarios/stats` (Admin)
+**Descripción:** Estadísticas generales de usuarios
 
 **Response 200:**
 ```typescript
 {
   total: number;
+  admins: number;
+  asesores: number;
   activos: number;
   inactivos: number;
   destacados: number;
@@ -840,60 +888,6 @@ interface AgenteInfo {
 
 ---
 
-### Agente
-```typescript
-interface Agente {
-  id: number;
-  nombre: string;
-  apellido: string;
-  cargo: string;
-  email: string;
-  telefono: string;
-  fotoUrl: string;
-
-  // Información profesional
-  especialidad?: string;
-  slogan?: string;
-  biografia?: string;
-  experienciaAnios?: number;
-
-  // Idiomas
-  idiomas?: string[];
-
-  // Redes sociales
-  whatsapp?: string;
-  linkedin?: string;
-  instagram?: string;
-  facebook?: string;
-
-  // Estadísticas
-  propiedadesVendidas?: number;
-  propiedadesActivas?: number;
-  clientesSatisfechos?: number;
-
-  // Certificaciones
-  certificaciones?: string[];
-  premios?: string[];
-
-  // Estado
-  activo: boolean;
-  destacado?: boolean;
-}
-
-interface ValoracionAgente {
-  id: number;
-  agenteId: number;
-  clienteNombre: string;
-  clienteAvatar?: string;
-  comentario: string;
-  calificacion: number;  // 1-5
-  fecha: Date;
-  propiedad?: string;
-}
-```
-
----
-
 ### Contacto (Lead)
 ```typescript
 interface Contacto {
@@ -914,16 +908,97 @@ interface Contacto {
 
 ### Usuario
 ```typescript
+type RolUsuario = 'admin' | 'asesor';
+
 interface Usuario {
   id: number;
-  nombre: string;
+
+  // Autenticación
   email: string;
-  telefono: string;
-  rol: string;            // 'administrador' | 'asesor'
-  fotoUrl: string;
-  passwordHash: string;   // Solo backend
+  passwordHash: string;   // Solo backend, nunca se envía al frontend
+  rol: RolUsuario;
   activo: boolean;
-  fechaRegistro: string;  // ISO 8601
+
+  // Datos personales básicos
+  nombre: string;
+  apellido: string;
+  telefono: string;
+  fotoUrl: string;
+
+  // Fechas de control
+  fechaRegistro: string;   // ISO 8601
+  ultimoAcceso?: string;   // ISO 8601
+
+  // Visibilidad (para asesores en home)
+  destacado?: boolean;
+
+  // Extensión de perfil público (solo para rol='asesor')
+  perfilAsesor?: PerfilAsesor;
+}
+
+// Datos públicos extendidos para asesores
+interface PerfilAsesor {
+  // Información profesional
+  cargo: string;              // "Agente Asociado", "Broker", etc.
+  especialidad?: string;      // "Propiedades de lujo", "Primera vivienda"
+  slogan?: string;            // Frase breve para el listado
+  biografia?: string;         // Biografía completa para perfil público
+  experienciaAnios?: number;
+
+  // Idiomas
+  idiomas?: string[];         // ["Español", "Inglés", "Portugués"]
+
+  // Redes sociales y contacto adicional
+  whatsapp?: string;
+  linkedin?: string;
+  instagram?: string;
+  facebook?: string;
+
+  // Estadísticas públicas
+  propiedadesVendidas?: number;
+  propiedadesActivas?: number;
+  clientesSatisfechos?: number;
+
+  // Certificaciones y logros
+  certificaciones?: string[];
+  premios?: string[];
+
+  // Visibilidad
+  destacado?: boolean;        // Para mostrar primero en listado público
+}
+
+// DTO para crear usuario
+interface CrearUsuarioDto {
+  email: string;
+  password: string;
+  rol: RolUsuario;
+  nombre: string;
+  apellido: string;
+  telefono: string;
+  fotoUrl?: string;
+  perfilAsesor?: Partial<PerfilAsesor>;
+}
+
+// DTO para actualizar usuario
+interface ActualizarUsuarioDto {
+  nombre?: string;
+  apellido?: string;
+  email?: string;
+  telefono?: string;
+  fotoUrl?: string;
+  activo?: boolean;
+  destacado?: boolean;
+  perfilAsesor?: Partial<PerfilAsesor>;
+}
+
+// Estadísticas de asesor
+interface EstadisticasAsesor {
+  totalPropiedades: number;
+  propiedadesVenta: number;
+  propiedadesAlquiler: number;
+  valorTotalCartera: number;
+  moneda: string;
+  consultasRecibidas?: number;
 }
 ```
 
@@ -1018,9 +1093,10 @@ interface AsesorStats {
    - `imagenes`: al menos 1 imagen requerida
    - Coordenadas válidas para Argentina
 
-2. **Agentes:**
+2. **Usuarios:**
    - `email`: único, formato válido
    - `telefono`: formato válido
+   - `rol`: debe ser 'admin' o 'asesor'
 
 3. **Contactos:**
    - Validar reCAPTCHA token si está presente
