@@ -56,13 +56,6 @@
         "icon": "bi-bar-chart-line",
         "route": "/member-area/estadisticas",
         "orden": 8
-      },
-      {
-        "id": "configuracion",
-        "label": "Configuracion",
-        "icon": "bi-gear",
-        "route": "/member-area/configuracion",
-        "orden": 9
       }
     ],
     "asesor": [
