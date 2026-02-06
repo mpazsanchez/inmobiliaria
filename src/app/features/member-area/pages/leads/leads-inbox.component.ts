@@ -1,9 +1,11 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, inject, signal, computed, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LeadsAdminService, LeadFilters, LeadStats } from '../../services/leads-admin.service';
 import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../../../core/services/user.service';
 import type { Contacto } from '../../../../core/models/lead.interface';
+import type { Usuario } from '../../../../core/models/user.interface';
 import {
   PageHeaderComponent,
   StatsGridComponent,
@@ -29,6 +31,7 @@ import {
 export class LeadsInboxComponent implements OnInit {
   private leadsService = inject(LeadsAdminService);
   private authService = inject(AuthService);
+  private userService = inject(UserService);
 
   // Estado
   leads = signal<Contacto[]>([]);
@@ -43,12 +46,33 @@ export class LeadsInboxComponent implements OnInit {
   leadToDelete = signal<Contacto | null>(null);
   isDeleting = signal(false);
 
+  // Asesores disponibles (para admin)
+  asesoresDisponibles = signal<Usuario[]>([]);
+  asesoresMap = computed(() => {
+    const map = new Map<number, Usuario>();
+    this.asesoresDisponibles().forEach(a => map.set(a.id, a));
+    return map;
+  });
+
+  // Modal de asignación de lead
+  showAssignModal = signal(false);
+  leadToAssign = signal<Contacto | null>(null);
+  selectedAsesorId = signal<number | null>(null);
+  isAssigning = signal(false);
+
   // Usuario actual
   currentUser = computed(() => this.authService.getUsuario());
   isAdmin = computed(() => this.currentUser()?.rol === 'admin');
 
   // Título dinámico según rol
   pageTitle = computed(() => this.isAdmin() ? 'Consultas' : 'Mis Consultas');
+
+  @HostListener('document:keydown.escape')
+  onEscapeKey(): void {
+    if (this.showAssignModal()) {
+      this.closeAssignModal();
+    }
+  }
 
   // Stats cards computadas
   statsCards = computed<StatCardConfig[]>(() => {
@@ -72,6 +96,9 @@ export class LeadsInboxComponent implements OnInit {
       if (userId) {
         this.filters.set({ asesorId: userId });
       }
+    } else {
+      // Admin: cargar lista de asesores
+      this.loadAsesores();
     }
     this.loadLeads();
     this.loadStats();
@@ -231,7 +258,9 @@ export class LeadsInboxComponent implements OnInit {
 
   hasActiveFilters(): boolean {
     const f = this.filters();
-    return !!(f.busqueda || f.respondida !== undefined);
+    // Para admin, asesorId es un filtro activo; para asesor, es fijo
+    const hasAsesorFilter = this.isAdmin() && (f.asesorId !== undefined);
+    return !!(f.busqueda || f.respondida !== undefined || hasAsesorFilter);
   }
 
   // Acciones de contacto
@@ -246,5 +275,92 @@ export class LeadsInboxComponent implements OnInit {
 
   callPhone(telefono: string): void {
     window.location.href = `tel:${telefono}`;
+  }
+
+  // ========== Métodos para admin: asesores y asignación ==========
+
+  loadAsesores(): void {
+    this.userService.getUsuarios({ rol: 'asesor', activo: true, limite: 100 }).subscribe({
+      next: (response) => {
+        this.asesoresDisponibles.set(response.datos);
+      },
+      error: (err) => {
+        console.error('Error al cargar asesores:', err);
+      }
+    });
+  }
+
+  getAsesorName(asesorId: number | null): string {
+    if (!asesorId) return 'Sin asignar';
+    const asesor = this.asesoresMap().get(asesorId);
+    return asesor ? `${asesor.nombre} ${asesor.apellido}` : 'Sin asignar';  
+  }
+
+  // Verifica si el lead realmente tiene un asesor válido asignado
+  hasValidAsesor(asesorId: number | null): boolean {
+    if (!asesorId) return false;
+    return this.asesoresMap().has(asesorId);
+  }
+
+  onAsesorFilterChange(event: Event): void {
+    const value = (event.target as HTMLSelectElement).value;
+    if (value === '') {
+      this.onFilterChange('asesorId', undefined);
+    } else if (value === 'null') {
+      // Filtrar sin asignar - valor especial
+      this.onFilterChange('asesorId', null);
+    } else {
+      this.onFilterChange('asesorId', +value);
+    }
+  }
+
+  // Modal de asignación
+  openAssignModal(lead: Contacto): void {
+    this.leadToAssign.set(lead);
+    this.selectedAsesorId.set(null);
+    this.showAssignModal.set(true);
+  }
+
+  closeAssignModal(): void {
+    this.showAssignModal.set(false);
+    this.leadToAssign.set(null);
+    this.selectedAsesorId.set(null);
+  }
+
+  assignLead(): void {
+    const lead = this.leadToAssign();
+    const asesorId = this.selectedAsesorId();
+
+    if (!lead || !asesorId) return;
+
+    this.isAssigning.set(true);
+
+    this.leadsService.assignToAgent(lead.id, asesorId).subscribe({
+      next: (updatedLead) => {
+        // Actualizar lista de leads
+        const currentLeads = this.leads();
+        const index = currentLeads.findIndex(l => l.id === lead.id);
+        if (index >= 0) {
+          const newLeads = [...currentLeads];
+          newLeads[index] = updatedLead;
+          this.leads.set(newLeads);
+        }
+        // Si el lead asignado es el seleccionado, actualizar
+        if (this.selectedLead()?.id === lead.id) {
+          this.selectedLead.set(updatedLead);
+        }
+        this.closeAssignModal();
+        this.isAssigning.set(false);
+      },
+      error: (err) => {
+        console.error('Error al asignar lead:', err);
+        this.isAssigning.set(false);
+      }
+    });
+  }
+
+  onSelectAsesor(event: Event): void {
+    const value = (event.target as HTMLSelectElement).value;
+    this.selectedAsesorId.set(value ? +value : null);
   }
 }

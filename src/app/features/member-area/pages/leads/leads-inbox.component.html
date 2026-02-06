@@ -33,6 +33,18 @@
           <option value="true">Respondidas</option>
         </select>
 
+        @if (isAdmin()) {
+          <select
+            [value]="filters().asesorId === undefined ? '' : (filters().asesorId === null ? 'null' : filters().asesorId)"
+            (change)="onAsesorFilterChange($event)">
+            <option value="">Todos los asesores</option>
+            <option value="null">Sin asignar</option>
+            @for (asesor of asesoresDisponibles(); track asesor.id) {
+              <option [value]="asesor.id">{{ asesor.nombre }} {{ asesor.apellido }}</option>
+            }
+          </select>
+        }
+
         @if (hasActiveFilters()) {
           <button class="btn-clear-filters" (click)="clearFilters()">
             <i class="bi bi-x-lg"></i>
@@ -77,6 +89,12 @@
                     <span class="lead-time">{{ getTimeAgo(lead.fechaEnvio) }}</span>
                   </div>
                   <div class="lead-email">{{ lead.emailContacto }}</div>
+                  @if (isAdmin()) {
+                    <div class="lead-asesor" [class.sin-asignar]="!hasValidAsesor(lead.asesorId)">
+                      <i class="bi" [class.bi-person-check]="hasValidAsesor(lead.asesorId)" [class.bi-person-dash]="!hasValidAsesor(lead.asesorId)"></i>
+                      {{ getAsesorName(lead.asesorId) }}
+                    </div>
+                  }
                   <div class="lead-preview">{{ lead.mensaje }}</div>
                 </div>
                 @if (!lead.respondida) {
@@ -121,6 +139,21 @@
                 {{ selectedLead()!.propiedadId }}
               </div>
             </div>
+
+            <!-- Asesor asignado (visible para admin) -->
+            @if (isAdmin()) {
+              <div class="asesor-assignment-row">
+                <div class="asesor-info" [class.sin-asignar]="!hasValidAsesor(selectedLead()!.asesorId)">
+                  <i class="bi" [class.bi-person-check]="hasValidAsesor(selectedLead()!.asesorId)" [class.bi-person-dash]="!hasValidAsesor(selectedLead()!.asesorId)"></i>
+                  <span class="asesor-label">Asesor:</span>
+                  <span class="asesor-name">{{ getAsesorName(selectedLead()!.asesorId) }}</span>
+                </div>
+                <button class="btn-assign" (click)="openAssignModal(selectedLead()!)">
+                  <i class="bi" [class.bi-person-plus]="!hasValidAsesor(selectedLead()!.asesorId)" [class.bi-arrow-repeat]="hasValidAsesor(selectedLead()!.asesorId)"></i>
+                  {{ hasValidAsesor(selectedLead()!.asesorId) ? 'Reasignar' : 'Asignar' }}
+                </button>
+              </div>
+            }
 
             <!-- Quick Contact Actions (horizontal) -->
             <div class="quick-actions">
@@ -193,4 +226,53 @@
     (confirm)="deleteLead()"
     (cancel)="cancelDelete()">
   </app-confirm-modal>
+
+  <!-- Modal de asignación de asesor -->
+  @if (showAssignModal()) {
+    <div class="modal-backdrop" (click)="closeAssignModal()">
+      <div class="modal-dialog assign-modal" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>
+            <i class="bi bi-person-plus"></i>
+            {{ leadToAssign()?.asesorId ? 'Reasignar consulta' : 'Asignar consulta' }}
+          </h3>
+          <button class="btn-close-modal" (click)="closeAssignModal()">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="assign-lead-info">
+            <strong>Consulta de:</strong> {{ leadToAssign()?.nombreContacto }}
+          </p>
+          <div class="form-group">
+            <label for="asesor-select">Seleccionar asesor</label>
+            <select
+              id="asesor-select"
+              [value]="selectedAsesorId() || ''"
+              (change)="onSelectAsesor($event)">
+              <option value="">-- Seleccione un asesor --</option>
+              @for (asesor of asesoresDisponibles(); track asesor.id) {
+                <option [value]="asesor.id">{{ asesor.nombre }} {{ asesor.apellido }}</option>
+              }
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" (click)="closeAssignModal()">Cancelar</button>
+          <button
+            class="btn-primary"
+            [disabled]="!selectedAsesorId() || isAssigning()"
+            (click)="assignLead()">
+            @if (isAssigning()) {
+              <span class="spinner-small"></span>
+              Asignando...
+            } @else {
+              <i class="bi bi-check-lg"></i>
+              Asignar
+            }
+          </button>
+        </div>
+      </div>
+    </div>
+  }
 </div>

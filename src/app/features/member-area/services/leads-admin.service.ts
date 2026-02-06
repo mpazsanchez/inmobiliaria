@@ -134,7 +134,7 @@ const MOCK_LEADS: Contacto[] = [
 export interface LeadFilters {
   busqueda?: string;
   respondida?: boolean;
-  asesorId?: number;
+  asesorId?: number | null; // null = sin asignar
   propiedadId?: number;
   fechaDesde?: string;
   fechaHasta?: string;
@@ -197,8 +197,13 @@ export class LeadsAdminService {
       result = result.filter(l => l.respondida === filters.respondida);
     }
 
-    if (filters.asesorId) {
-      result = result.filter(l => l.asesorId === filters.asesorId);
+    if (filters.asesorId !== undefined) {
+      if (filters.asesorId === null) {
+        // Filtrar leads sin asesor asignado
+        result = result.filter(l => l.asesorId === null);
+      } else {
+        result = result.filter(l => l.asesorId === filters.asesorId);
+      }
     }
 
     if (filters.propiedadId) {
