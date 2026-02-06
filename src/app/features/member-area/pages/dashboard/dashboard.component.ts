@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { LeadsAdminService } from '../../services/leads-admin.service';
 import { UserService } from '../../../../core/services/user.service';
+import { ToastService } from '../../../../core/services/toast.service';
 import type { Contacto } from '../../../../core/models/lead.interface';
 import type { Usuario } from '../../../../core/models/user.interface';
 
@@ -43,6 +44,7 @@ export class DashboardComponent implements OnInit {
   private authService = inject(AuthService);
   private leadsService = inject(LeadsAdminService);
   private userService = inject(UserService);
+  private toastService = inject(ToastService);
   showInstallerForm = false;
 
   // Modal de asignación de lead
@@ -100,28 +102,32 @@ export class DashboardComponent implements OnInit {
     if (!user) return;
 
     if (this.isAdmin()) {
-      // Admin: Cargar leads no respondidos sin asesor asignado
+      // Admin: Cargar últimas 5 consultas sin asignar para preview
       this.leadsService.getLeads({ 
         respondida: false,
-        asesorId: undefined // Sin asesor = sin asignar
+        asesorId: undefined,
+        pagina: 1,
+        limite: 5 // Preview de 5 más recientes
       }).subscribe({
-        next: (leads) => {
+        next: (response) => {
           // Filtrar solo los que no tienen asesor
-          const sinAsignar = leads.filter(lead => !lead.asesorId);
-          this.unassignedLeads.set(sinAsignar.slice(0, 3)); // Solo 3 para el dashboard
+          const sinAsignar = response.datos.filter(lead => !lead.asesorId);
+          this.unassignedLeads.set(sinAsignar);
         },
         error: (error) => {
           console.error('Error cargando leads sin asignar:', error);
         }
       });
     } else if (this.isAsesor()) {
-      // Asesor: Cargar sus leads no respondidos
+      // Asesor: Cargar sus últimas 5 consultas pendientes
       this.leadsService.getLeads({ 
         respondida: false,
-        asesorId: user.id 
+        asesorId: user.id,
+        pagina: 1,
+        limite: 5 // Preview de 5 más recientes
       }).subscribe({
-        next: (leads) => {
-          this.recentLeads.set(leads.slice(0, 3)); // Solo 3 para el dashboard
+        next: (response) => {
+          this.recentLeads.set(response.datos);
         },
         error: (error) => {
           console.error('Error cargando leads del asesor:', error);
@@ -204,11 +210,18 @@ export class DashboardComponent implements OnInit {
         // Remover el lead de la lista de sin asignar
         const currentLeads = this.unassignedLeads();
         this.unassignedLeads.set(currentLeads.filter(l => l.id !== lead.id));
+        
+        // Obtener nombre del asesor
+        const asesor = this.asesoresDisponibles().find(a => a.id === asesorId);
+        const asesorName = asesor ? `${asesor.nombre} ${asesor.apellido}` : 'el asesor';
+        
+        this.toastService.success(`Consulta asignada a ${asesorName} correctamente`);
         this.closeAssignModal();
         this.isAssigning.set(false);
       },
       error: (err: unknown) => {
         console.error('Error al asignar lead:', err);
+        this.toastService.error('Error al asignar la consulta. Por favor, intenta nuevamente.');
         this.isAssigning.set(false);
       }
     });
