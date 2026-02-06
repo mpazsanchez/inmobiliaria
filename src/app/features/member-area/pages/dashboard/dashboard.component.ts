@@ -2,10 +2,12 @@ import { Component, Input, signal, computed, OnInit, inject } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { firstValueFrom } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { LeadsAdminService } from '../../services/leads-admin.service';
 import { UserService } from '../../../../core/services/user.service';
 import { ToastService } from '../../../../core/services/toast.service';
+import { DashboardSkeletonComponent } from './dashboard-skeleton.component';
 import type { Contacto } from '../../../../core/models/lead.interface';
 import type { Usuario } from '../../../../core/models/user.interface';
 
@@ -34,7 +36,8 @@ interface RecentActivity {
   imports: [
     CommonModule,
     RouterLink,
-    FormsModule
+    FormsModule,
+    DashboardSkeletonComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
@@ -46,6 +49,9 @@ export class DashboardComponent implements OnInit {
   private userService = inject(UserService);
   private toastService = inject(ToastService);
   showInstallerForm = false;
+
+  // Estado de carga general
+  isLoading = signal(true);
 
   // Modal de asignación de lead
   showAssignModal = signal(false);
@@ -60,20 +66,10 @@ export class DashboardComponent implements OnInit {
   isAsesor = computed(() => this.currentUser()?.rol === 'asesor');
 
   // Estadísticas para Asesor
-  asesorStats = signal<StatCard[]>([
-    { title: 'Mis Propiedades', value: 12, icon: 'bi-building', color: '#1a4d2e', trend: '+2 este mes' },
-    { title: 'Leads Pendientes', value: 8, icon: 'bi-person-lines-fill', color: '#e6962e', trend: '3 nuevos hoy' },
-    { title: 'Visitas Programadas', value: 5, icon: 'bi-calendar-check', color: '#2b8b52', trend: 'Esta semana' },
-    { title: 'Conversión', value: '68%', icon: 'bi-graph-up-arrow', color: '#1a4d2e', trend: '+5%', trendUp: true }
-  ]);
+  asesorStats = signal<StatCard[]>([]);
 
   // Estadísticas para Admin
-  adminStats = signal<StatCard[]>([
-    { title: 'Total Propiedades', value: 47, icon: 'bi-building', color: '#1a4d2e', trend: '+5 este mes' },
-    { title: 'Leads del Mes', value: 124, icon: 'bi-people', color: '#e6962e', trend: '89 respondidos' },
-    { title: 'Asesores Activos', value: 8, icon: 'bi-person-badge', color: '#2b8b52', trend: '100% activos' },
-    { title: 'Conversión Global', value: '64%', icon: 'bi-graph-up', color: '#1a4d2e', trend: '+3%', trendUp: true }
-  ]);
+  adminStats = signal<StatCard[]>([]);
 
   // Leads recientes (Asesor)
   recentLeads = signal<Contacto[]>([]);
@@ -93,46 +89,89 @@ export class DashboardComponent implements OnInit {
     const user = this.currentUser();
     if (user) {
       this.user = user;
-      this.loadLeads();
+      this.loadDashboardData();
     }
   }
 
-  loadLeads() {
+  loadDashboardData() {
     const user = this.currentUser();
     if (!user) return;
 
+    this.isLoading.set(true);
+
     if (this.isAdmin()) {
-      // Admin: Cargar últimas 5 consultas sin asignar para preview
-      this.leadsService.getLeads({ 
-        respondida: false,
-        asesorId: undefined,
-        pagina: 1,
-        limite: 5 // Preview de 5 más recientes
-      }).subscribe({
-        next: (response) => {
-          // Filtrar solo los que no tienen asesor
-          const sinAsignar = response.datos.filter(lead => !lead.asesorId);
-          this.unassignedLeads.set(sinAsignar);
-        },
-        error: (error) => {
-          console.error('Error cargando leads sin asignar:', error);
-        }
-      });
+      this.loadAdminData();
     } else if (this.isAsesor()) {
-      // Asesor: Cargar sus últimas 5 consultas pendientes
-      this.leadsService.getLeads({ 
-        respondida: false,
-        asesorId: user.id,
-        pagina: 1,
-        limite: 5 // Preview de 5 más recientes
-      }).subscribe({
-        next: (response) => {
-          this.recentLeads.set(response.datos);
-        },
-        error: (error) => {
-          console.error('Error cargando leads del asesor:', error);
-        }
-      });
+      this.loadAsesorData();
+    }
+  }
+
+  async loadAdminData() {
+    try {
+      // Cargar leads y stats en paralelo
+      const [leadsResponse, stats] = await Promise.all([
+        firstValueFrom(this.leadsService.getLeads({ 
+          respondida: false,
+          asesorId: undefined,
+          pagina: 1,
+          limite: 5
+        })),
+        firstValueFrom(this.leadsService.getStats())
+      ]);
+
+      // Procesar leads
+      const sinAsignar = leadsResponse.datos.filter(lead => !lead.asesorId);
+      this.unassignedLeads.set(sinAsignar);
+
+      // Procesar stats
+      this.adminStats.set([
+        { title: 'Total Propiedades', value: 47, icon: 'bi-building', color: '#1a4d2e', trend: '+5 este mes' },
+        { title: 'Leads del Mes', value: stats.total, icon: 'bi-people', color: '#e6962e', trend: `${stats.pendientes} pendientes` },
+        { title: 'Asesores Activos', value: 8, icon: 'bi-person-badge', color: '#2b8b52', trend: '100% activos' },
+        { title: 'Leads Respondidos', value: stats.respondidas, icon: 'bi-check-circle', color: '#1a4d2e', trend: stats.total > 0 ? `${Math.round((stats.respondidas / stats.total) * 100)}%` : '0%' }
+      ]);
+
+      this.isLoading.set(false);
+    } catch (error) {
+      console.error('Error cargando datos del dashboard:', error);
+      this.isLoading.set(false);
+    }
+  }
+
+  async loadAsesorData() {
+    const user = this.currentUser();
+    if (!user) {
+      this.isLoading.set(false);
+      return;
+    }
+
+    try {
+      // Cargar leads y stats del asesor en paralelo
+      const [leadsResponse, stats] = await Promise.all([
+        firstValueFrom(this.leadsService.getLeads({ 
+          respondida: false,
+          asesorId: user.id,
+          pagina: 1,
+          limite: 5
+        })),
+        firstValueFrom(this.leadsService.getStats(user.id))
+      ]);
+
+      // Procesar leads
+      this.recentLeads.set(leadsResponse.datos);
+
+      // Procesar stats
+      this.asesorStats.set([
+        { title: 'Mis Propiedades', value: 12, icon: 'bi-building', color: '#1a4d2e', trend: '+2 este mes' },
+        { title: 'Leads Pendientes', value: stats.pendientes, icon: 'bi-person-lines-fill', color: '#e6962e', trend: `${stats.hoy} nuevos hoy` },
+        { title: 'Leads Respondidos', value: stats.respondidas, icon: 'bi-check-circle', color: '#2b8b52', trend: 'Este mes' },
+        { title: 'Total Consultas', value: stats.total, icon: 'bi-envelope', color: '#1a4d2e', trend: `${stats.estaSemana} esta semana` }
+      ]);
+
+      this.isLoading.set(false);
+    } catch (error) {
+      console.error('Error cargando datos del asesor:', error);
+      this.isLoading.set(false);
     }
   }
 

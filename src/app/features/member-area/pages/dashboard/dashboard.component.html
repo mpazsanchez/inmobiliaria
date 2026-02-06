@@ -1,6 +1,11 @@
 <div class="dashboard-wrapper">
+  <!-- Skeleton general mientras carga -->
+  @if (isLoading()) {
+    <app-dashboard-skeleton />
+  }
+
   <!-- Dashboard para ASESOR -->
-  @if (isAsesor()) {
+  @else if (isAsesor()) {
     <div class="dashboard-container">
       <!-- Header -->
       <div class="dashboard-header">
@@ -126,7 +131,7 @@
   }
 
   <!-- Dashboard para ADMINISTRADOR -->
-  @if (isAdmin()) {
+  @else if (isAdmin()) {
     <div class="dashboard-container">
       <!-- Header -->
       <div class="dashboard-header">
