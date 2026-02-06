@@ -273,6 +273,32 @@ export class LeadsAdminService {
   }
 
   // =============================================
+  // ASIGNAR A ASESOR
+  // =============================================
+  assignToAgent(id: number, asesorId: number): Observable<Contacto> {
+    if (this.useMockData) {
+      const current = this.leadsSubject.value;
+      const index = current.findIndex(l => l.id === id);
+
+      if (index === -1) {
+        throw new Error('Consulta no encontrada');
+      }
+
+      const updated: Contacto = {
+        ...current[index],
+        asesorId: asesorId
+      };
+      const newList = [...current];
+      newList[index] = updated;
+
+      this.leadsSubject.next(newList);
+      return of(updated).pipe(delay(300));
+    }
+
+    return this.http.patch<Contacto>(`${this.API_URL}/${id}/asignar`, { asesorId });
+  }
+
+  // =============================================
   // ELIMINAR CONSULTA
   // =============================================
   deleteLead(id: number): Observable<boolean> {

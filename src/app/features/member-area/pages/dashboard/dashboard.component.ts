@@ -1,10 +1,12 @@
-import { Component, Input, signal, computed, OnInit } from '@angular/core';
+import { Component, Input, signal, computed, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { LeadsAdminService } from '../../services/leads-admin.service';
+import { UserService } from '../../../../core/services/user.service';
 import type { Contacto } from '../../../../core/models/lead.interface';
-import { inject } from '@angular/core';
+import type { Usuario } from '../../../../core/models/user.interface';
 
 interface StatCard {
   title: string;
@@ -30,7 +32,8 @@ interface RecentActivity {
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink
+    RouterLink,
+    FormsModule
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
@@ -39,7 +42,15 @@ export class DashboardComponent implements OnInit {
   @Input() user: any;
   private authService = inject(AuthService);
   private leadsService = inject(LeadsAdminService);
+  private userService = inject(UserService);
   showInstallerForm = false;
+
+  // Modal de asignación de lead
+  showAssignModal = signal(false);
+  leadToAssign = signal<Contacto | null>(null);
+  asesoresDisponibles = signal<Usuario[]>([]);
+  selectedAsesorId = signal<number | null>(null);
+  isAssigning = signal(false);
 
   // Computed para determinar el rol
   currentUser = computed(() => this.authService.getUsuario());
@@ -152,5 +163,58 @@ export class DashboardComponent implements OnInit {
     // Por ahora retornamos un placeholder
     // Cuando tengas el servicio de propiedades, lo puedes integrar aquí
     return `Propiedad #${propiedadId}`;
+  }
+
+  // ========== Modal de asignación ==========
+
+  openAssignModal(lead: Contacto): void {
+    this.leadToAssign.set(lead);
+    this.selectedAsesorId.set(null);
+    this.loadAsesores();
+    this.showAssignModal.set(true);
+  }
+
+  closeAssignModal(): void {
+    this.showAssignModal.set(false);
+    this.leadToAssign.set(null);
+    this.selectedAsesorId.set(null);
+  }
+
+  loadAsesores(): void {
+    this.userService.getUsuarios({ rol: 'asesor', activo: true, limite: 100 }).subscribe({
+      next: (response) => {
+        this.asesoresDisponibles.set(response.datos);
+      },
+      error: (err) => {
+        console.error('Error al cargar asesores:', err);
+      }
+    });
+  }
+
+  assignLead(): void {
+    const lead = this.leadToAssign();
+    const asesorId = this.selectedAsesorId();
+
+    if (!lead || !asesorId) return;
+
+    this.isAssigning.set(true);
+
+    this.leadsService.assignToAgent(lead.id, asesorId).subscribe({
+      next: () => {
+        // Remover el lead de la lista de sin asignar
+        const currentLeads = this.unassignedLeads();
+        this.unassignedLeads.set(currentLeads.filter(l => l.id !== lead.id));
+        this.closeAssignModal();
+        this.isAssigning.set(false);
+      },
+      error: (err: unknown) => {
+        console.error('Error al asignar lead:', err);
+        this.isAssigning.set(false);
+      }
+    });
+  }
+
+  getAsesorFullName(asesor: Usuario): string {
+    return `${asesor.nombre} ${asesor.apellido}`;
   }
 }

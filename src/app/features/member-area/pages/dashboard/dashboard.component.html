@@ -190,10 +190,10 @@
                     <span><i class="bi bi-clock"></i> {{ getTimeAgo(lead.fechaEnvio) }}</span>
                   </div>
                 </div>
-                <a routerLink="/member-area/consultas" class="btn-assign" aria-label="Asignar agente a consulta">
+                <button type="button" class="btn-assign" (click)="openAssignModal(lead)" aria-label="Asignar agente a consulta">
                   <i class="bi bi-person-plus"></i>
                   Asignar
-                </a>
+                </button>
               </div>
             }
           </div>
@@ -272,3 +272,60 @@
     </div>
   }
 </div>
+
+<!-- Modal de asignación de lead -->
+@if (showAssignModal()) {
+  <div class="modal-backdrop" (click)="closeAssignModal()">
+    <div class="assign-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3><i class="bi bi-person-plus"></i> Asignar Lead</h3>
+        <button type="button" class="btn-close" (click)="closeAssignModal()">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        @if (leadToAssign(); as lead) {
+          <div class="lead-summary">
+            <p><strong>{{ lead.nombreContacto }}</strong></p>
+            <p class="text-muted">{{ lead.emailContacto }}</p>
+            <p class="lead-message">{{ lead.mensaje }}</p>
+          </div>
+
+          <div class="form-group">
+            <label for="asesorSelect">Seleccionar Asesor</label>
+            <select
+              id="asesorSelect"
+              class="form-select"
+              [ngModel]="selectedAsesorId()"
+              (ngModelChange)="selectedAsesorId.set($event)">
+              <option [ngValue]="null">-- Seleccione un asesor --</option>
+              @for (asesor of asesoresDisponibles(); track asesor.id) {
+                <option [ngValue]="asesor.id">{{ getAsesorFullName(asesor) }}</option>
+              }
+            </select>
+          </div>
+        }
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeAssignModal()">
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          [disabled]="!selectedAsesorId() || isAssigning()"
+          (click)="assignLead()">
+          @if (isAssigning()) {
+            <span class="spinner-border spinner-border-sm"></span>
+            Asignando...
+          } @else {
+            <i class="bi bi-check-lg"></i>
+            Asignar
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+}
