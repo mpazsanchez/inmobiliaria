@@ -86,6 +86,7 @@ export const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+        canDeactivate: [canDeactivateGuard],
         data: { title: 'Mi Perfil - Fairway' }
       },
       {

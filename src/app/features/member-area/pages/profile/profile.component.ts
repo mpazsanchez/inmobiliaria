@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule, Validators } fr
 import { RouterModule } from '@angular/router';
 import { ProfileService } from '../../services/profile.service';
 import { AuthService } from '../../services/auth.service';
+import { CanComponentDeactivate } from '../../../../core/guards/can-deactivate.guard';
+import { UnsavedChangesService } from '../../../../core/services/unsaved-changes.service';
 import type { Usuario, PerfilAsesor, ActualizarUsuarioDto } from '../../../../core/models/user.interface';
 
 @Component({
@@ -13,10 +15,11 @@ import type { Usuario, PerfilAsesor, ActualizarUsuarioDto } from '../../../../co
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, CanComponentDeactivate {
   private fb = inject(FormBuilder);
   private profileService = inject(ProfileService);
   private authService = inject(AuthService);
+  private unsavedChangesService = inject(UnsavedChangesService);
 
   profileForm!: FormGroup;
   usuario = signal<Usuario | null>(null);
@@ -296,6 +299,9 @@ export class ProfileComponent implements OnInit {
         this.successMessage.set('Perfil actualizado correctamente');
         this.isSaving.set(false);
         this.selectedPhotoFile = null;
+        
+        // Marcar formulario como pristine para que el guard permita salir
+        this.profileForm.markAsPristine();
 
         // Limpiar mensaje de exito despues de 3 segundos
         setTimeout(() => this.successMessage.set(null), 3000);
@@ -335,5 +341,19 @@ export class ProfileComponent implements OnInit {
 
     const usuario = this.usuario();
     return usuario?.fotoUrl || 'assets/images/agents/default-avatar.jpg';
+  }
+
+  // Implementación del guard CanComponentDeactivate
+  canDeactivate(): boolean | Promise<boolean> {
+    if (this.isSaving()) {
+      return false; // No permitir salir mientras se está guardando
+    }
+    
+    if (this.profileForm.pristine) {
+      return true; // Permitir salir si no hay cambios
+    }
+    
+    // Mostrar modal de confirmación si hay cambios sin guardar
+    return this.unsavedChangesService.confirmLeave();
   }
 }
