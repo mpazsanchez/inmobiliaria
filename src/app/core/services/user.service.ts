@@ -2,15 +2,16 @@ import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, map, catchError, tap } from 'rxjs/operators';
-import { 
-  Usuario, 
+import {
+  Usuario,
   PerfilAsesor,
-  CrearUsuarioDto, 
+  CrearUsuarioDto,
   ActualizarUsuarioDto,
   ReasignacionPropiedadesDto,
   RolUsuario
 } from '../models/user.interface';
 import { FiltrosUsuarios, RespuestaPaginada } from '../models/search-filters.interface';
+import { PropertyService } from './property.service';
 
 /**
  * Servicio para gestión de usuarios del sistema
@@ -22,17 +23,16 @@ import { FiltrosUsuarios, RespuestaPaginada } from '../models/search-filters.int
 })
 export class UserService {
   private http = inject(HttpClient);
+  private propertyService = inject(PropertyService);
   private jsonUrl = '/assets/data/usuarios.json';
   private useMockData = true; // Cambiar a false cuando API esté lista
-  
+
   // Signals para estado
   private loading = signal(false);
   private error = signal<string | null>(null);
-  
+
   // Cache de usuarios
   private usuariosCache = signal<Usuario[]>([]);
-
-  constructor() {}
 
   /**
    * Obtiene todos los usuarios del sistema con filtros y paginación
@@ -425,20 +425,18 @@ export class UserService {
 
   /**
    * Obtiene la cantidad de propiedades asignadas a un asesor
-   * TODO: En mock simula datos. Conectar con API real.
    */
   getPropertyCountByAsesor(asesorId: number): Observable<number> {
-    // Mock: simular que algunos asesores tienen propiedades
-    const mockCounts: { [key: number]: number } = {
-      2: 5,  // Maria Gonzalez tiene 5 propiedades
-      3: 3,  // Carlos Rodriguez tiene 3
-      4: 0,  // Juan Perez no tiene propiedades
-      5: 8   // Otro asesor
-    };
-
-    const count = mockCounts[asesorId] || 0;
-    
-    return of(count).pipe(delay(300));
+    return this.propertyService.getPropiedades({ limite: 1000 }).pipe(
+      map(response => {
+        const propiedadesAsesor = response.datos.filter(p => p.asesorId === asesorId);
+        return propiedadesAsesor.length;
+      }),
+      catchError(err => {
+        console.error('Error al obtener propiedades del asesor:', err);
+        return of(0);
+      })
+    );
   }
 
   /**
