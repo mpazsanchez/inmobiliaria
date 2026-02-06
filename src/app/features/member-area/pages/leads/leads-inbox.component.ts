@@ -112,20 +112,15 @@ export class LeadsInboxComponent implements OnInit {
   }
 
   loadLeads(): void {
-    console.log('📊 LeadsInbox.loadLeads() - Filtros actuales:', this.filters());
     this.isLoading.set(true);
     this.leadsService.getLeads(this.filters()).subscribe({
       next: (response) => {
-        console.log('📊 LeadsInbox.loadLeads() - Respuesta recibida:', {
-          leads: response.datos.length,
-          paginacion: response.paginacion
-        });
         this.leads.set(response.datos);
         this.paginacion.set(response.paginacion);
         this.isLoading.set(false);
       },
       error: (err) => {
-        console.error('❌ Error cargando leads:', err);
+        console.error('Error cargando leads:', err);
         this.isLoading.set(false);
       }
     });
@@ -418,7 +413,6 @@ export class LeadsInboxComponent implements OnInit {
   // ========== Paginación ==========
 
   onPaginaChange(pagina: number): void {
-    console.log('📄 Cambiando a página:', pagina);
     const current = this.filters();
     this.filters.set({ ...current, pagina });
     this.loadLeads();
@@ -426,15 +420,11 @@ export class LeadsInboxComponent implements OnInit {
   }
 
   get totalPaginas(): number {
-    const total = this.paginacion()?.totalPaginas || 0;
-    console.log('📊 totalPaginas getter:', total, 'paginacion:', this.paginacion());
-    return total;
+    return this.paginacion()?.totalPaginas || 0;
   }
 
   get paginaActual(): number {
-    const actual = this.paginacion()?.paginaActual || 1;
-    console.log('📊 paginaActual getter:', actual);
-    return actual;
+    return this.paginacion()?.paginaActual || 1;
   }
 
   get paginasArray(): number[] {
@@ -447,7 +437,6 @@ export class LeadsInboxComponent implements OnInit {
       paginas.push(i);
     }
 
-    console.log('📊 paginasArray:', paginas);
     return paginas;
   }
 }
