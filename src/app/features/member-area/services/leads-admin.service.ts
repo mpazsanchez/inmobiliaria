@@ -169,7 +169,6 @@ export class LeadsAdminService {
   // OBTENER TODAS LAS CONSULTAS CON FILTROS
   // =============================================
   getLeads(filters?: LeadFilters): Observable<RespuestaPaginada<Contacto>> {
-    console.log('🔍 LeadsService.getLeads() - Filtros recibidos:', filters);
     if (this.useMockData) {
       return this.leads$.pipe(
         map(leads => {
@@ -190,7 +189,7 @@ export class LeadsAdminService {
           const fin = inicio + limite;
           const datos = filtered.slice(inicio, fin);
 
-          const respuesta = {
+          return {
             datos,
             paginacion: {
               paginaActual: pagina,
@@ -201,16 +200,6 @@ export class LeadsAdminService {
               tieneAnterior: pagina > 1
             }
           };
-          
-          console.log('✅ LeadsService.getLeads() - Respuesta:', {
-            totalFiltrados: totalItems,
-            datosPaginados: datos.length,
-            pagina,
-            limite,
-            totalPaginas
-          });
-          
-          return respuesta;
         }),
         delay(300)
       );
