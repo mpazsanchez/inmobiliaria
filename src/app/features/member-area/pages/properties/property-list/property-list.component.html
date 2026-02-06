@@ -76,7 +76,13 @@
       </app-empty-state>
     } @else {
       <div class="results-header">
-        <span class="results-count">{{ properties().length }} propiedades</span>
+        <span class="results-count">
+          @if (paginacion()) {
+            Mostrando {{ properties().length }} de {{ paginacion()!.totalItems }} propiedades
+          } @else {
+            {{ properties().length }} propiedades
+          }
+        </span>
       </div>
 
       <div class="properties-table">
@@ -238,6 +244,59 @@
           </div>
         }
       </div>
+
+      <!-- Paginación -->
+      @if (paginacion() && paginacion()!.totalPaginas > 1) {
+        <div class="pagination-container">
+          <button
+            class="pagination-btn"
+            [disabled]="paginaActual === 1"
+            (click)="onPageChange(paginaActual - 1)"
+            type="button">
+            <i class="bi bi-chevron-left"></i>
+            Anterior
+          </button>
+
+          <div class="pagination-numbers">
+            @if (paginaActual > 3) {
+              <button class="pagination-number" (click)="onPageChange(1)" type="button">
+                1
+              </button>
+              <span class="pagination-ellipsis">...</span>
+            }
+
+            @for (pagina of paginasArray; track pagina) {
+              <button
+                class="pagination-number"
+                [class.active]="pagina === paginaActual"
+                (click)="onPageChange(pagina)"
+                type="button">
+                {{ pagina }}
+              </button>
+            }
+
+            @if (paginaActual < totalPaginas - 2) {
+              <span class="pagination-ellipsis">...</span>
+              <button class="pagination-number" (click)="onPageChange(totalPaginas)" type="button">
+                {{ totalPaginas }}
+              </button>
+            }
+          </div>
+
+          <button
+            class="pagination-btn"
+            [disabled]="paginaActual === totalPaginas"
+            (click)="onPageChange(paginaActual + 1)"
+            type="button">
+            Siguiente
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+
+        <div class="pagination-info">
+          Mostrando {{ (paginaActual - 1) * (paginacion()?.porPagina || 10) + 1 }} - {{ Math.min(paginaActual * (paginacion()?.porPagina || 10), paginacion()?.totalItems || 0) }} de {{ paginacion()?.totalItems || 0 }} propiedades
+        </div>
+      }
     }
   </section>
 

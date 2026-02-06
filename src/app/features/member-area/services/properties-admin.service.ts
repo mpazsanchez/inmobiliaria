@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { map, delay, tap } from 'rxjs/operators';
 import { Propiedad, Imagen } from '../../../core/models/property.interface';
+import { RespuestaPaginada, InfoPaginacion } from '../../../core/models/search-filters.interface';
 import { MOCK_PROPIEDADES } from '../../../core/services/mock-data/properties.mock';
 import { CloudinaryService } from '../../../core/services/cloudinary.service';
 
@@ -15,6 +16,8 @@ export interface PropertyFilters {
   tipoPropiedad?: string;
   estado?: string;
   asesorId?: number;
+  pagina?: number;
+  limite?: number;
 }
 
 export interface PropertyStats {
@@ -52,6 +55,43 @@ export class PropertiesAdminService {
       return this.getPropertiesMock(filters);
     }
     return this.http.get<Propiedad[]>(this.API_URL, { params: filters as any });
+  }
+
+  /**
+   * Obtiene propiedades con paginación
+   */
+  getPropertiesPaginated(filters: PropertyFilters = {}): Observable<RespuestaPaginada<Propiedad>> {
+    const pagina = filters.pagina || 1;
+    const limite = filters.limite || 10;
+    if (this.useMockData) {
+      return this.getPropertiesMock(filters).pipe(
+        map(allProperties => {
+          // Aplicar paginación
+          const totalItems = allProperties.length;
+          const totalPaginas = Math.ceil(totalItems / limite);
+          const inicio = (pagina - 1) * limite;
+          const fin = inicio + limite;
+          const datos = allProperties.slice(inicio, fin);
+
+          return {
+            datos,
+            paginacion: {
+              paginaActual: pagina,
+              porPagina: limite,
+              totalItems,
+              totalPaginas,
+              tieneSiguiente: pagina < totalPaginas,
+              tieneAnterior: pagina > 1
+            }
+          };
+        })
+      );
+    }
+    
+    // API real
+    return this.http.get<RespuestaPaginada<Propiedad>>(this.API_URL, {
+      params: filters as any
+    });
   }
 
   /**

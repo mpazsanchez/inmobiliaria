@@ -1,9 +1,10 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { PropertiesAdminService, PropertyFilters, PropertyStats } from '../../../services/properties-admin.service';
 import { AuthService } from '../../../services/auth.service';
 import { Propiedad } from '../../../../../core/models/property.interface';
+import { InfoPaginacion } from '../../../../../core/models/search-filters.interface';
 import {
   PageHeaderComponent,
   HeaderAction,
@@ -30,6 +31,8 @@ import {
 export class PropertyListComponent implements OnInit {
   private propertiesService = inject(PropertiesAdminService);
   private authService = inject(AuthService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   // Estado
   properties = signal<Propiedad[]>([]);
@@ -37,9 +40,13 @@ export class PropertyListComponent implements OnInit {
   isLoading = signal(true);
   selectedProperty = signal<Propiedad | null>(null);
   showDeleteModal = signal(false);
+  paginacion = signal<InfoPaginacion | null>(null);
 
-  // Filtros
-  filters = signal<PropertyFilters>({});
+  // Filtros (incluyen paginación)
+  filters = signal<PropertyFilters>({
+    pagina: 1,
+    limite: 10
+  });
   searchTerm = signal('');
 
   // Usuario y permisos
@@ -79,22 +86,31 @@ export class PropertyListComponent implements OnInit {
   estados = this.propertiesService.getEstados();
 
   ngOnInit(): void {
-    this.loadProperties();
+    // Leer parámetros de query inicial
+    this.route.queryParams.subscribe(params => {
+      const pagina = parseInt(params['pagina']) || 1;
+      const limite = parseInt(params['limite']) || 10;
+      
+      this.filters.update(f => ({ ...f, pagina, limite }));
+      this.loadProperties();
+    });
+    
     this.loadStats();
   }
 
   loadProperties(): void {
     this.isLoading.set(true);
-    const filters = this.filters();
+    const filters = { ...this.filters() };
 
     // Si es asesor, solo ver sus propiedades
     if (!this.isAdmin()) {
       filters.asesorId = this.currentUser()?.id;
     }
 
-    this.propertiesService.getProperties(filters).subscribe({
-      next: (data) => {
-        this.properties.set(data);
+    this.propertiesService.getPropertiesPaginated(filters).subscribe({
+      next: (response) => {
+        this.properties.set(response.datos);
+        this.paginacion.set(response.paginacion);
         this.isLoading.set(false);
       },
       error: (err) => {
@@ -112,21 +128,22 @@ export class PropertyListComponent implements OnInit {
   }
 
   onSearch(): void {
-    this.filters.update(f => ({ ...f, search: this.searchTerm() }));
+    this.filters.update(f => ({ ...f, search: this.searchTerm(), pagina: 1 }));
     this.loadProperties();
   }
 
   onFilterChange(key: string, value: string): void {
     this.filters.update(f => ({
       ...f,
-      [key]: value || undefined
+      [key]: value || undefined,
+      pagina: 1
     }));
     this.loadProperties();
   }
 
   clearFilters(): void {
     this.searchTerm.set('');
-    this.filters.set({});
+    this.filters.set({ pagina: 1, limite: 10 });
     this.loadProperties();
   }
 
@@ -217,4 +234,41 @@ export class PropertyListComponent implements OnInit {
     const f = this.filters();
     return !!(f.search || f.operacion || f.tipoPropiedad || f.estado);
   }
+
+  // Métodos de paginación
+  onPageChange(pagina: number): void {
+    this.filters.update(f => ({ ...f, pagina }));
+    this.loadProperties();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  onPageSizeChange(limite: number): void {
+    this.filters.update(f => ({ ...f, limite, pagina: 1 }));
+    this.loadProperties();
+  }
+
+  // Getters para paginación
+  get totalPaginas(): number {
+    return this.paginacion()?.totalPaginas || 0;
+  }
+
+  get paginaActual(): number {
+    return this.paginacion()?.paginaActual || 1;
+  }
+
+  get paginasArray(): number[] {
+    const total = this.totalPaginas;
+    const actual = this.paginaActual;
+    const rango = 2;
+    const paginas: number[] = [];
+
+    for (let i = Math.max(1, actual - rango); i <= Math.min(total, actual + rango); i++) {
+      paginas.push(i);
+    }
+
+    return paginas;
+  }
+
+  // Exponer Math para el template
+  Math = Math;
 }
