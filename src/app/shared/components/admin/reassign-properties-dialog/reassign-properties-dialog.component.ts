@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges, inject, signal, computed } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges, inject, signal, computed, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PropertyService, UserService } from '../../../../core/services';
@@ -63,6 +63,8 @@ export class ReassignPropertiesDialogComponent implements OnInit, OnChanges {
     return props.every(p => asig.has(p.id) && asig.get(p.id)! > 0);
   });
 
+  private dataLoaded = false;
+
   ngOnInit(): void {
     if (this.isOpen && this.usuarioId) {
       this.loadData();
@@ -70,18 +72,57 @@ export class ReassignPropertiesDialogComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.isOpen && this.usuarioId) {
+    // Solo cargar datos cuando isOpen cambia a true o cuando cambia usuarioId mientras está abierto
+    const isOpenChange = changes['isOpen'];
+    const usuarioIdChange = changes['usuarioId'];
+
+    if (isOpenChange?.currentValue === true && !isOpenChange.previousValue) {
+      // Modal se está abriendo
+      this.dataLoaded = false;
+      if (this.usuarioId) {
+        this.loadData();
+      }
+    } else if (usuarioIdChange && this.isOpen && !this.dataLoaded) {
+      // Usuario cambió mientras el modal está abierto
       this.loadData();
+    }
+
+    // Reset cuando se cierra el modal
+    if (isOpenChange?.currentValue === false && isOpenChange.previousValue === true) {
+      this.resetState();
     }
   }
 
+  /**
+   * Cierra el modal al presionar Escape
+   */
+  @HostListener('document:keydown.escape')
+  onEscapeKey(): void {
+    if (this.isOpen) {
+      this.onCancel();
+    }
+  }
+
+  /**
+   * Resetea el estado del componente
+   */
+  private resetState(): void {
+    this.propiedades.set([]);
+    this.asesoresDisponibles.set([]);
+    this.asignaciones.set(new Map());
+    this.asesorGlobal.set(null);
+    this.error.set(null);
+    this.dataLoaded = false;
+  }
+
   loadData(): void {
-    if (!this.usuarioId) return;
+    if (!this.usuarioId || this.dataLoaded) return;
 
     this.isLoading.set(true);
     this.error.set(null);
     this.asignaciones.set(new Map());
     this.asesorGlobal.set(null);
+    this.dataLoaded = true;
 
     // Cargar propiedades del asesor
     this.propertyService.getPropiedades().subscribe({
@@ -98,6 +139,7 @@ export class ReassignPropertiesDialogComponent implements OnInit, OnChanges {
       error: (err: any) => {
         this.error.set('Error al cargar propiedades');
         console.error(err);
+        this.dataLoaded = false;
       }
     });
 
@@ -112,14 +154,33 @@ export class ReassignPropertiesDialogComponent implements OnInit, OnChanges {
         this.error.set('Error al cargar asesores');
         console.error(err);
         this.isLoading.set(false);
+        this.dataLoaded = false;
       }
     });
   }
 
   /**
+   * Maneja el click en el backdrop para cerrar el modal
+   */
+  onBackdropClick(event: MouseEvent): void {
+    // Solo cerrar si el click fue directamente en el backdrop, no en sus hijos
+    if (event.target === event.currentTarget) {
+      this.onCancel();
+    }
+  }
+
+  /**
+   * Previene la propagación del evento para elementos interactivos
+   */
+  stopPropagation(event: Event): void {
+    event.stopPropagation();
+  }
+
+  /**
    * Asigna un asesor a una propiedad específica
    */
-  asignarPropiedad(propiedadId: number, asesorId: number): void {
+  asignarPropiedad(propiedadId: number, asesorId: number, event?: Event): void {
+    event?.stopPropagation();
     const current = new Map(this.asignaciones());
     current.set(propiedadId, asesorId);
     this.asignaciones.set(current);
@@ -129,6 +190,7 @@ export class ReassignPropertiesDialogComponent implements OnInit, OnChanges {
    * Maneja el cambio del select de asesor global
    */
   onAsesorGlobalChange(event: Event): void {
+    event.stopPropagation();
     const target = event.target as HTMLSelectElement;
     const value = +target.value;
     this.asesorGlobal.set(value || null);

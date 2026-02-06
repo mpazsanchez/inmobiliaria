@@ -1,5 +1,5 @@
-<div class="modal-backdrop" [class.open]="isOpen">
-  <div class="modal-dialog" role="dialog" aria-labelledby="dialogTitle">
+<div class="modal-backdrop" [class.open]="isOpen" (click)="onBackdropClick($event)">
+  <div class="modal-dialog" role="dialog" aria-labelledby="dialogTitle" (click)="stopPropagation($event)">
     <div class="modal-header">
       <h3 id="dialogTitle">Reasignar Propiedades</h3>
       <button type="button" class="btn-close" (click)="onCancel()" aria-label="Cerrar">
@@ -43,7 +43,7 @@
           </div>
         } @else {
           <!-- Acción Rápida: Asignar Todas -->
-          <div class="quick-assign-section">
+          <div class="quick-assign-section" (click)="stopPropagation($event)">
             <label class="section-label">
               <i class="bi bi-lightning-charge"></i>
               Acción rápida
@@ -52,7 +52,9 @@
               <select
                 class="form-select"
                 [value]="asesorGlobal() || ''"
-                (change)="onAsesorGlobalChange($event)">
+                (change)="onAsesorGlobalChange($event)"
+                (click)="stopPropagation($event)"
+                (mousedown)="stopPropagation($event)">
                 <option value="">Seleccionar asesor...</option>
                 @for (asesor of asesoresDisponibles(); track asesor.id) {
                   <option [value]="asesor.id">{{ getFullName(asesor) }}</option>
@@ -62,14 +64,14 @@
                 type="button"
                 class="btn btn-outline-primary"
                 [disabled]="!asesorGlobal()"
-                (click)="asignarTodas()">
+                (click)="asignarTodas(); stopPropagation($event)">
                 <i class="bi bi-check2-all"></i>
                 Asignar todas
               </button>
               <button
                 type="button"
                 class="btn btn-outline-secondary"
-                (click)="limpiarAsignaciones()"
+                (click)="limpiarAsignaciones(); stopPropagation($event)"
                 title="Limpiar asignaciones">
                 <i class="bi bi-x-circle"></i>
               </button>
@@ -137,11 +139,13 @@
                     }
 
                     <!-- Selector de Asesor -->
-                    <div class="property-asesor-select">
+                    <div class="property-asesor-select" (click)="stopPropagation($event)">
                       <select
                         class="form-select form-select-sm"
                         [value]="getAsesorAsignado(prop.id)"
-                        (change)="asignarPropiedad(prop.id, +$any($event.target).value)">
+                        (change)="asignarPropiedad(prop.id, +$any($event.target).value, $event)"
+                        (click)="stopPropagation($event)"
+                        (mousedown)="stopPropagation($event)">
                         <option [value]="0">Sin asignar</option>
                         @for (asesor of asesoresDisponibles(); track asesor.id) {
                           <option [value]="asesor.id">{{ getFullName(asesor) }}</option>
@@ -181,14 +185,14 @@
     </div>
 
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="onCancel()">
+      <button type="button" class="btn btn-secondary" (click)="onCancel(); stopPropagation($event)">
         Cancelar
       </button>
       <button
         type="button"
         class="btn btn-primary"
         [disabled]="isLoading() || getAssignedCount() === 0"
-        (click)="onConfirm()">
+        (click)="onConfirm(); stopPropagation($event)">
         <i class="bi bi-arrow-right-circle"></i>
         Reasignar {{ getAssignedCount() }}
         @if (getAssignedCount() === 1) {
