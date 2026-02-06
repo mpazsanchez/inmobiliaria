@@ -37,6 +37,12 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
     catchError((error: HttpErrorResponse) => {
       let errorMessage = 'Ha ocurrido un error';
 
+      // Ignorar errores de servicios externos (Cloudinary, etc.)
+      if (req.url.includes('cloudinary.com')) {
+        // No interceptar, dejar que el servicio lo maneje
+        return throwError(() => error);
+      }
+
       // Errores del cliente o de red
       if (error.error instanceof ErrorEvent) {
         errorMessage = `Error: ${error.error.message}`;
