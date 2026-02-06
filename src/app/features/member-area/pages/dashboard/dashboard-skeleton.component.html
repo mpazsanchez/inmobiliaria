@@ -1,0 +1,70 @@
+<div class="dashboard-container skeleton-dashboard">
+  <!-- Skeleton Header -->
+  <div class="dashboard-header">
+    <div class="header-content">
+      <div class="welcome-section">
+        <div class="skeleton-text" style="width: 300px; height: 32px; margin-bottom: 8px;"></div>
+        <div class="skeleton-text" style="width: 200px; height: 18px;"></div>
+      </div>
+      <div class="skeleton-text" style="width: 100px; height: 36px; border-radius: 20px;"></div>
+    </div>
+  </div>
+
+  <!-- Skeleton Stats Cards -->
+  <div class="stats-grid">
+    @for (i of [1,2,3,4]; track i) {
+      <div class="stat-card skeleton">
+        <div class="skeleton-text" style="width: 48px; height: 48px; border-radius: 12px;"></div>
+        <div class="stat-content">
+          <div class="skeleton-text" style="width: 140px; height: 16px; margin-bottom: 8px;"></div>
+          <div class="skeleton-text" style="width: 80px; height: 32px; margin-bottom: 8px;"></div>
+          <div class="skeleton-text" style="width: 100px; height: 14px;"></div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Skeleton Content Grid -->
+  <div class="content-grid">
+    <!-- Skeleton Section 1 -->
+    <div class="dashboard-section">
+      <div class="section-header">
+        <div class="skeleton-text" style="width: 180px; height: 24px;"></div>
+        <div class="skeleton-text" style="width: 100px; height: 20px;"></div>
+      </div>
+      <div class="leads-list">
+        @for (i of [1,2,3]; track i) {
+          <div class="lead-item skeleton">
+            <div class="lead-info">
+              <div class="lead-header">
+                <div class="skeleton-text" style="width: 140px; height: 16px;"></div>
+                <div class="skeleton-text" style="width: 80px; height: 20px;"></div>
+              </div>
+              <div class="skeleton-text" style="width: 180px; height: 14px;"></div>
+              <div class="skeleton-text" style="width: 160px; height: 12px;"></div>
+            </div>
+            <div class="skeleton-text" style="width: 80px; height: 36px;"></div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Skeleton Section 2 -->
+    <div class="dashboard-section">
+      <div class="section-header">
+        <div class="skeleton-text" style="width: 200px; height: 24px;"></div>
+      </div>
+      <div class="activities-list">
+        @for (i of [1,2,3,4]; track i) {
+          <div class="activity-item skeleton">
+            <div class="skeleton-text" style="width: 40px; height: 40px; border-radius: 50%;"></div>
+            <div class="activity-content">
+              <div class="skeleton-text" style="width: 200px; height: 16px; margin-bottom: 4px;"></div>
+              <div class="skeleton-text" style="width: 120px; height: 12px;"></div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
