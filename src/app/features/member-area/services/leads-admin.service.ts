@@ -1,8 +1,9 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import type { Contacto } from '../../../core/models/lead.interface';
+import type { RespuestaPaginada } from '../../../core/models/search-filters.interface';
 
 // Mock data
 const MOCK_LEADS: Contacto[] = [
@@ -138,6 +139,8 @@ export interface LeadFilters {
   propiedadId?: number;
   fechaDesde?: string;
   fechaHasta?: string;
+  pagina?: number;
+  limite?: number;
 }
 
 export interface LeadStats {
@@ -165,18 +168,65 @@ export class LeadsAdminService {
   // =============================================
   // OBTENER TODAS LAS CONSULTAS CON FILTROS
   // =============================================
-  getLeads(filters?: LeadFilters): Observable<Contacto[]> {
+  getLeads(filters?: LeadFilters): Observable<RespuestaPaginada<Contacto>> {
+    console.log('🔍 LeadsService.getLeads() - Filtros recibidos:', filters);
     if (this.useMockData) {
       return this.leads$.pipe(
-        map(leads => this.applyFilters(leads, filters)),
-        map(leads => leads.sort((a, b) =>
-          new Date(b.fechaEnvio).getTime() - new Date(a.fechaEnvio).getTime()
-        )),
+        map(leads => {
+          // Aplicar filtros
+          let filtered = this.applyFilters(leads, filters);
+          
+          // Ordenar por fecha (más recientes primero)
+          filtered = filtered.sort((a, b) =>
+            new Date(b.fechaEnvio).getTime() - new Date(a.fechaEnvio).getTime()
+          );
+
+          // Paginación
+          const pagina = filters?.pagina || 1;
+          const limite = filters?.limite || 10;
+          const totalItems = filtered.length;
+          const totalPaginas = Math.ceil(totalItems / limite);
+          const inicio = (pagina - 1) * limite;
+          const fin = inicio + limite;
+          const datos = filtered.slice(inicio, fin);
+
+          const respuesta = {
+            datos,
+            paginacion: {
+              paginaActual: pagina,
+              porPagina: limite,
+              totalItems,
+              totalPaginas,
+              tieneSiguiente: pagina < totalPaginas,
+              tieneAnterior: pagina > 1
+            }
+          };
+          
+          console.log('✅ LeadsService.getLeads() - Respuesta:', {
+            totalFiltrados: totalItems,
+            datosPaginados: datos.length,
+            pagina,
+            limite,
+            totalPaginas
+          });
+          
+          return respuesta;
+        }),
         delay(300)
       );
     }
 
-    return this.http.get<Contacto[]>(this.API_URL, { params: filters as any });
+    // Para API real - construir query params
+    let params = new HttpParams();
+    if (filters) {
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          params = params.set(key, String(value));
+        }
+      });
+    }
+
+    return this.http.get<RespuestaPaginada<Contacto>>(this.API_URL, { params });
   }
 
   private applyFilters(leads: Contacto[], filters?: LeadFilters): Contacto[] {

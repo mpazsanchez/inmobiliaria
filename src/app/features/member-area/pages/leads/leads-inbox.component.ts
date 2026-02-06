@@ -4,8 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { LeadsAdminService, LeadFilters, LeadStats } from '../../services/leads-admin.service';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../../../core/services/user.service';
+import { ToastService } from '../../../../core/services/toast.service';
 import type { Contacto } from '../../../../core/models/lead.interface';
 import type { Usuario } from '../../../../core/models/user.interface';
+import type { InfoPaginacion } from '../../../../core/models/search-filters.interface';
 import {
   PageHeaderComponent,
   StatsGridComponent,
@@ -32,12 +34,17 @@ export class LeadsInboxComponent implements OnInit {
   private leadsService = inject(LeadsAdminService);
   private authService = inject(AuthService);
   private userService = inject(UserService);
+  private toastService = inject(ToastService);
+
+  // Exponer Math para el template
+  Math = Math;
 
   // Estado
   leads = signal<Contacto[]>([]);
+  paginacion = signal<InfoPaginacion | null>(null);
   stats = signal<LeadStats | null>(null);
   isLoading = signal(true);
-  filters = signal<LeadFilters>({});
+  filters = signal<LeadFilters>({ pagina: 1, limite: 10 });
 
   // Lead seleccionado para ver detalle
   selectedLead = signal<Contacto | null>(null);
@@ -105,13 +112,20 @@ export class LeadsInboxComponent implements OnInit {
   }
 
   loadLeads(): void {
+    console.log('📊 LeadsInbox.loadLeads() - Filtros actuales:', this.filters());
     this.isLoading.set(true);
     this.leadsService.getLeads(this.filters()).subscribe({
-      next: (leads) => {
-        this.leads.set(leads);
+      next: (response) => {
+        console.log('📊 LeadsInbox.loadLeads() - Respuesta recibida:', {
+          leads: response.datos.length,
+          paginacion: response.paginacion
+        });
+        this.leads.set(response.datos);
+        this.paginacion.set(response.paginacion);
         this.isLoading.set(false);
       },
-      error: () => {
+      error: (err) => {
+        console.error('❌ Error cargando leads:', err);
         this.isLoading.set(false);
       }
     });
@@ -132,16 +146,16 @@ export class LeadsInboxComponent implements OnInit {
       const asesorId = this.currentUser()?.id;
       if (value === '' || value === null || value === undefined) {
         const { [key]: _, ...rest } = current;
-        this.filters.set({ ...rest, asesorId });
+        this.filters.set({ ...rest, asesorId, pagina: 1, limite: 10 });
       } else {
-        this.filters.set({ ...current, [key]: value, asesorId });
+        this.filters.set({ ...current, [key]: value, asesorId, pagina: 1, limite: 10 });
       }
     } else {
       if (value === '' || value === null || value === undefined) {
         const { [key]: _, ...rest } = current;
-        this.filters.set(rest);
+        this.filters.set({ ...rest, pagina: 1, limite: 10 });
       } else {
-        this.filters.set({ ...current, [key]: value });
+        this.filters.set({ ...current, [key]: value, pagina: 1, limite: 10 });
       }
     }
 
@@ -263,6 +277,33 @@ export class LeadsInboxComponent implements OnInit {
     return !!(f.busqueda || f.respondida !== undefined || hasAsesorFilter);
   }
 
+  // Mensaje específico cuando el filtro es "sin asignar"
+  emptyStateMessage = computed(() => {
+    const f = this.filters();
+    
+    // Si hay filtro de "sin asignar" activo
+    if (f.asesorId === null) {
+      return {
+        title: 'Sin consultas nuevas',
+        message: 'No hay consultas sin asignar en este momento. Todas las consultas tienen un asesor asignado.'
+      };
+    }
+    
+    // Si hay otros filtros activos
+    if (this.hasActiveFilters()) {
+      return {
+        title: 'Sin resultados',
+        message: 'No se encontraron consultas con los filtros aplicados'
+      };
+    }
+    
+    // Estado vacío por defecto
+    return {
+      title: 'Sin consultas',
+      message: 'No hay consultas pendientes por el momento'
+    };
+  });
+
   // Acciones de contacto
   sendEmail(email: string): void {
     window.location.href = `mailto:${email}`;
@@ -327,6 +368,13 @@ export class LeadsInboxComponent implements OnInit {
     this.selectedAsesorId.set(null);
   }
 
+  onBackdropClick(event: MouseEvent): void {
+    // Solo cerrar si el click fue directamente en el backdrop
+    if (event.target === event.currentTarget) {
+      this.closeAssignModal();
+    }
+  }
+
   assignLead(): void {
     const lead = this.leadToAssign();
     const asesorId = this.selectedAsesorId();
@@ -337,23 +385,26 @@ export class LeadsInboxComponent implements OnInit {
 
     this.leadsService.assignToAgent(lead.id, asesorId).subscribe({
       next: (updatedLead) => {
-        // Actualizar lista de leads
-        const currentLeads = this.leads();
-        const index = currentLeads.findIndex(l => l.id === lead.id);
-        if (index >= 0) {
-          const newLeads = [...currentLeads];
-          newLeads[index] = updatedLead;
-          this.leads.set(newLeads);
-        }
-        // Si el lead asignado es el seleccionado, actualizar
-        if (this.selectedLead()?.id === lead.id) {
-          this.selectedLead.set(updatedLead);
-        }
+        // Mostrar mensaje de éxito
+        const asesor = this.asesoresDisponibles().find(a => a.id === asesorId);
+        const asesorName = asesor ? `${asesor.nombre} ${asesor.apellido}` : 'el asesor';
+        this.toastService.success(`Consulta asignada a ${asesorName} correctamente`);
+        
         this.closeAssignModal();
         this.isAssigning.set(false);
+        
+        // Recargar la lista para reflejar cambios
+        this.loadLeads();
+        this.loadStats();
+        
+        // Limpiar selección si el lead asignado era el seleccionado
+        if (this.selectedLead()?.id === lead.id) {
+          this.selectedLead.set(null);
+        }
       },
       error: (err) => {
         console.error('Error al asignar lead:', err);
+        this.toastService.error('Error al asignar la consulta. Por favor, intenta nuevamente.');
         this.isAssigning.set(false);
       }
     });
@@ -362,5 +413,41 @@ export class LeadsInboxComponent implements OnInit {
   onSelectAsesor(event: Event): void {
     const value = (event.target as HTMLSelectElement).value;
     this.selectedAsesorId.set(value ? +value : null);
+  }
+
+  // ========== Paginación ==========
+
+  onPaginaChange(pagina: number): void {
+    console.log('📄 Cambiando a página:', pagina);
+    const current = this.filters();
+    this.filters.set({ ...current, pagina });
+    this.loadLeads();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  get totalPaginas(): number {
+    const total = this.paginacion()?.totalPaginas || 0;
+    console.log('📊 totalPaginas getter:', total, 'paginacion:', this.paginacion());
+    return total;
+  }
+
+  get paginaActual(): number {
+    const actual = this.paginacion()?.paginaActual || 1;
+    console.log('📊 paginaActual getter:', actual);
+    return actual;
+  }
+
+  get paginasArray(): number[] {
+    const total = this.totalPaginas;
+    const actual = this.paginaActual;
+    const rango = 2;
+    const paginas: number[] = [];
+
+    for (let i = Math.max(1, actual - rango); i <= Math.min(total, actual + rango); i++) {
+      paginas.push(i);
+    }
+
+    console.log('📊 paginasArray:', paginas);
+    return paginas;
   }
 }

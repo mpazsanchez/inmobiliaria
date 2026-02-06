@@ -66,8 +66,8 @@
         } @else if (leads().length === 0) {
           <app-empty-state
             icon="bi-inbox"
-            [title]="hasActiveFilters() ? 'Sin resultados' : 'Sin consultas'"
-            [message]="hasActiveFilters() ? 'No se encontraron consultas con los filtros aplicados' : 'No hay consultas pendientes por el momento'"
+            [title]="emptyStateMessage().title"
+            [message]="emptyStateMessage().message"
             [showClearFilters]="hasActiveFilters()"
             (clearFilters)="clearFilters()"
             [compact]="true">
@@ -103,6 +103,59 @@
               </div>
             }
           </div>
+
+          <!-- Paginación dentro de la columna de lista -->
+          @if (paginacion()) {
+            <div class="pagination-container">
+              <button
+                class="pagination-btn"
+                [disabled]="paginaActual === 1"
+                (click)="onPaginaChange(paginaActual - 1)"
+                type="button">
+                <i class="bi bi-chevron-left"></i>
+                Anterior
+              </button>
+
+              <div class="pagination-numbers">
+                @if (paginaActual > 3) {
+                  <button class="pagination-number" (click)="onPaginaChange(1)" type="button">
+                    1
+                  </button>
+                  <span class="pagination-ellipsis">...</span>
+                }
+
+                @for (pagina of paginasArray; track pagina) {
+                  <button
+                    class="pagination-number"
+                    [class.active]="pagina === paginaActual"
+                    (click)="onPaginaChange(pagina)"
+                    type="button">
+                    {{ pagina }}
+                  </button>
+                }
+
+                @if (paginaActual < totalPaginas - 2) {
+                  <span class="pagination-ellipsis">...</span>
+                  <button class="pagination-number" (click)="onPaginaChange(totalPaginas)" type="button">
+                    {{ totalPaginas }}
+                  </button>
+                }
+              </div>
+
+              <button
+                class="pagination-btn"
+                [disabled]="paginaActual === totalPaginas"
+                (click)="onPaginaChange(paginaActual + 1)"
+                type="button">
+                Siguiente
+                <i class="bi bi-chevron-right"></i>
+              </button>
+            </div>
+
+            <div class="pagination-info">
+              Mostrando {{ (paginaActual - 1) * 10 + 1 }} - {{ Math.min(paginaActual * 10, paginacion()!.totalItems) }} de {{ paginacion()!.totalItems }} consultas
+            </div>
+          }
         }
       </div>
 
@@ -200,14 +253,6 @@
             </button>
           </div>
         </div>
-      } @else {
-        <!-- Empty Detail State -->
-        <div class="lead-detail-column empty">
-          <div class="empty-detail">
-            <i class="bi bi-envelope-open"></i>
-            <p>Selecciona una consulta para ver los detalles</p>
-          </div>
-        </div>
       }
     </div>
   </div>
@@ -229,7 +274,7 @@
 
   <!-- Modal de asignación de asesor -->
   @if (showAssignModal()) {
-    <div class="modal-backdrop" (click)="closeAssignModal()">
+    <div class="modal-backdrop" (click)="onBackdropClick($event)">
       <div class="modal-dialog assign-modal" (click)="$event.stopPropagation()">
         <div class="modal-header">
           <h3>
