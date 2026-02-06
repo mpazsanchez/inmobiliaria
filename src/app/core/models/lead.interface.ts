@@ -1,7 +1,8 @@
 export interface Contacto {
   id: number;
   propiedadId: number;
-  asesorId: number;
+  /** ID del asesor asignado. null = sin asignar */
+  asesorId: number | null;
   nombreContacto: string;
   emailContacto: string;
   telefonoContacto: string;

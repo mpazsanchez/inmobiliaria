@@ -93,6 +93,40 @@ const MOCK_LEADS: Contacto[] = [
     mensaje: 'Estoy buscando una propiedad similar pero con 4 dormitorios. ¿Tienen algo disponible en la zona?',
     fechaEnvio: '2026-01-17T14:30:00Z',
     respondida: true
+  },
+  // Leads sin asesor asignado (para el dashboard de admin)
+  {
+    id: 888,
+    propiedadId: 102,
+    asesorId: null,
+    nombreContacto: 'Fernando Ruiz',
+    emailContacto: 'fernando.ruiz@gmail.com',
+    telefonoContacto: '+54 9 11 4567-8901',
+    mensaje: 'Hola, vi esta propiedad en el portal y me interesa conocerla. ¿Cuándo podríamos coordinar una visita?',
+    fechaEnvio: '2026-01-23T09:15:00Z',
+    respondida: false
+  },
+  {
+    id: 889,
+    propiedadId: 103,
+    asesorId: null,
+    nombreContacto: 'Claudia Vega',
+    emailContacto: 'claudia.vega@yahoo.com',
+    telefonoContacto: '+54 9 11 5678-9012',
+    mensaje: 'Buenos días, quisiera información sobre el precio y si aceptan permuta.',
+    fechaEnvio: '2026-01-23T11:30:00Z',
+    respondida: false
+  },
+  {
+    id: 890,
+    propiedadId: 105,
+    asesorId: null,
+    nombreContacto: 'Diego Moreno',
+    emailContacto: 'diego.moreno@hotmail.com',
+    telefonoContacto: '+54 9 11 6789-0123',
+    mensaje: 'Me interesa esta propiedad para inversión. ¿Podrían enviarme más detalles sobre rentabilidad?',
+    fechaEnvio: '2026-01-22T16:45:00Z',
+    respondida: false
   }
 ];
 

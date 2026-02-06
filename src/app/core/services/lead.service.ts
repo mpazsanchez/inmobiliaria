@@ -224,7 +224,9 @@ export class LeadService {
   private countByAgent(inquiries: Contacto[]): { agentId: number; total: number }[] {
     const count = inquiries.reduce((acc, inquiry) => {
       const value = inquiry.asesorId;
-      acc[value] = (acc[value] || 0) + 1;
+      if (value !== null) {
+        acc[value] = (acc[value] || 0) + 1;
+      }
       return acc;
     }, {} as Record<number, number>);
 
