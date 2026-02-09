@@ -7,6 +7,7 @@ import { AuthService } from '../../../services/auth.service';
 import { UserService } from '../../../../../core/services/user.service';
 import { GeocodingService } from '../../../../../core/services';
 import { ImageUploadService, ImageUploadResult } from '../../../../../core/services/image-upload.service';
+import { ToastService } from '../../../../../core/services/toast.service';
 import { Propiedad, Imagen } from '../../../../../core/models/property.interface';
 import { Usuario } from '../../../../../core/models/user.interface';
 import { PropertyMapComponent } from '../../../../public-site/components/property-map/property-map.component';
@@ -49,6 +50,7 @@ export class PropertyFormComponent implements OnInit, CanComponentDeactivate {
   private geocodingService = inject(GeocodingService);
   private imageUploadService = inject(ImageUploadService);
   private unsavedChangesService = inject(UnsavedChangesService);
+  private toastService = inject(ToastService);
 
   // Exponer Math para el template
   Math = Math;
@@ -522,10 +524,14 @@ export class PropertyFormComponent implements OnInit, CanComponentDeactivate {
     request.subscribe({
       next: () => {
         this.form.markAsPristine(); // Marcar como sin cambios después de guardar
+        this.toastService.success(
+          this.isEditMode() ? 'Propiedad actualizada exitosamente' : 'Propiedad creada exitosamente'
+        );
         this.router.navigate(['/member-area/propiedades']);
       },
       error: (err) => {
         this.error.set('Error al guardar la propiedad');
+        this.toastService.error('Error al guardar la propiedad. Por favor, intenta nuevamente.');
         this.isSaving.set(false);
       }
     });

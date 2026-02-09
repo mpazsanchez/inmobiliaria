@@ -4,6 +4,7 @@ import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { PropertiesAdminService, PropertyFilters, PropertyStats } from '../../../services/properties-admin.service';
 import { AuthService } from '../../../services/auth.service';
 import { Propiedad } from '../../../../../core/models/property.interface';
+import { ToastService } from '../../../../../core/services/toast.service';
 import { InfoPaginacion } from '../../../../../core/models/search-filters.interface';
 import {
   PageHeaderComponent,
@@ -33,6 +34,7 @@ export class PropertyListComponent implements OnInit {
   private authService = inject(AuthService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+  private toastService = inject(ToastService);
 
   // Estado
   properties = signal<Propiedad[]>([]);
@@ -149,16 +151,25 @@ export class PropertyListComponent implements OnInit {
 
   toggleDestacada(propiedad: Propiedad): void {
     this.propertiesService.toggleDestacada(propiedad.id).subscribe({
-      next: () => this.loadProperties()
+      next: () => {
+        const mensaje = propiedad.destacada
+          ? 'Propiedad desmarcada como destacada'
+          : 'Propiedad marcada como destacada';
+        this.toastService.success(mensaje);
+        this.loadProperties();
+      },
+      error: () => this.toastService.error('Error al cambiar estado de destacada')
     });
   }
 
   changeStatus(propiedad: Propiedad, estado: string): void {
     this.propertiesService.changeStatus(propiedad.id, estado).subscribe({
       next: () => {
+        this.toastService.success(`Estado cambiado a "${this.getStatusLabel(estado)}"`);
         this.loadProperties();
         this.loadStats();
-      }
+      },
+      error: () => this.toastService.error('Error al cambiar el estado de la propiedad')
     });
   }
 
@@ -180,8 +191,13 @@ export class PropertyListComponent implements OnInit {
       next: () => {
         this.showDeleteModal.set(false);
         this.selectedProperty.set(null);
+        this.toastService.success('Propiedad eliminada exitosamente');
         this.loadProperties();
         this.loadStats();
+      },
+      error: () => {
+        this.showDeleteModal.set(false);
+        this.toastService.error('Error al eliminar la propiedad. Por favor, intenta nuevamente.');
       }
     });
   }
