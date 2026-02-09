@@ -44,7 +44,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       }
 
       // Errores del cliente o de red
-      if (error.error instanceof ErrorEvent) {
+      if (typeof ErrorEvent !== 'undefined' && error.error instanceof ErrorEvent) {
         errorMessage = `Error: ${error.error.message}`;
         toastService.error(errorMessage);
         return throwError(() => error);
