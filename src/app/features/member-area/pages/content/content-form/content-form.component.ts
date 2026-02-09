@@ -8,6 +8,7 @@ import { ImageUploadResult } from '../../../../../core/services/image-upload.ser
 import type { Testimonio, Beneficio, FAQ, Banner } from '../../../../../core/models';
 import { CanComponentDeactivate } from '../../../../../core/guards/can-deactivate.guard';
 import { UnsavedChangesService } from '../../../../../core/services/unsaved-changes.service';
+import { ToastService } from '../../../../../core/services/toast.service';
 
 @Component({
   selector: 'app-content-form',
@@ -22,6 +23,7 @@ export class ContentFormComponent implements OnInit, CanComponentDeactivate {
   private router = inject(Router);
   private contentService = inject(ContenidoDinamicoService);
   private unsavedChangesService = inject(UnsavedChangesService);
+  private toastService = inject(ToastService);
 
   // Tipo de contenido y modo
   contentType = signal<ContentType>('testimonios');
@@ -170,15 +172,19 @@ export class ContentFormComponent implements OnInit, CanComponentDeactivate {
     const handleSuccess = () => {
       this.form.markAsPristine(); // Marcar como sin cambios después de guardar
       this.saving.set(false);
-      this.successMessage.set(this.isEditMode() ? 'Actualizado correctamente' : 'Creado correctamente');
-      setTimeout(() => {
-        this.router.navigate(['/member-area/contenido']);
-      }, 1000);
+      const mensaje = this.isEditMode() ? 'Actualizado correctamente' : 'Creado correctamente';
+      this.toastService.success(mensaje);
+      // Navegar de vuelta a la lista con la tab correcta
+      this.router.navigate(['/member-area/contenido'], {
+        queryParams: { tab: this.contentType() }
+      });
     };
 
     const handleError = (err: Error) => {
       this.saving.set(false);
-      this.errorMessage.set('Error al guardar: ' + (err.message || 'Error desconocido'));
+      const mensaje = 'Error al guardar: ' + (err.message || 'Error desconocido');
+      this.errorMessage.set(mensaje);
+      this.toastService.error(mensaje);
     };
 
     const updateActions: Record<ContentType, (id: number, data: any) => void> = {
@@ -244,6 +250,7 @@ export class ContentFormComponent implements OnInit, CanComponentDeactivate {
 
   onImageUploadError(errorMessage: string): void {
     this.errorMessage.set(errorMessage);
+    this.toastService.error(errorMessage);
   }
 
   removeTestimonioPhoto(): void {
