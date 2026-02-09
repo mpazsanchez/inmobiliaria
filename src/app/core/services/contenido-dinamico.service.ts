@@ -113,7 +113,7 @@ const BENEFICIOS_FALLBACK: Beneficio[] = [
   },
   {
     id: 2,
-    icono: 'users',
+    icono: 'people',
     titulo: 'Equipo Profesional',
     descripcion: 'Asesores especializados comprometidos en encontrar la propiedad perfecta para cada cliente.',
     orden: 2,
@@ -121,7 +121,7 @@ const BENEFICIOS_FALLBACK: Beneficio[] = [
   },
   {
     id: 3,
-    icono: 'home',
+    icono: 'house',
     titulo: 'Amplio Portfolio',
     descripcion: 'Gran variedad de propiedades en venta y alquiler en Tandil y la zona serrana.',
     orden: 3,
@@ -137,7 +137,7 @@ const BENEFICIOS_FALLBACK: Beneficio[] = [
   },
   {
     id: 5,
-    icono: 'trending-up',
+    icono: 'graph-up-arrow',
     titulo: 'Conocimiento Local',
     descripcion: 'Profundo conocimiento del mercado inmobiliario de Tandil y sus diferentes barrios.',
     orden: 5,
