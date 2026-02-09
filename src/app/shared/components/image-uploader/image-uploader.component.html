@@ -22,7 +22,7 @@
         style="display: none">
       <button type="button" class="btn-select" (click)="fileInput.click()">
         <i class="bi bi-cloud-upload"></i>
-        {{ compact ? 'Subir imagen' : 'Seleccionar Imágenes' }}
+        <span class="btn-text">{{ compact ? 'Subir imagen' : 'Seleccionar Imágenes' }}</span>
       </button>
       @if (!compact) {
         <small class="file-hint">JPG, PNG, WEBP o GIF • Máximo 10MB por imagen</small>

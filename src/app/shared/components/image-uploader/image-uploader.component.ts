@@ -8,6 +8,7 @@ export interface ImageUploadProgress {
   status: 'pending' | 'uploading' | 'success' | 'error';
   result?: ImageUploadResult;
   error?: string;
+  previewUrl?: string; // Cache de blob URL
 }
 
 @Component({
@@ -85,7 +86,8 @@ export class ImageUploaderComponent {
       const uploadItem: ImageUploadProgress = {
         file,
         progress: 0,
-        status: 'pending'
+        status: 'pending',
+        previewUrl: URL.createObjectURL(file) // Cachear blob URL
       };
 
       this.uploadQueue.update(queue => [...queue, uploadItem]);
@@ -97,59 +99,82 @@ export class ImageUploaderComponent {
     // Validar imagen
     const validation = this.imageUploadService.validateImage(uploadItem.file);
     if (!validation.valid) {
-      this.updateUploadStatus(uploadItem, 'error', validation.error);
+      this.uploadQueue.update(queue =>
+        queue.map(item =>
+          item.file === uploadItem.file
+            ? { ...item, status: 'error' as const, error: validation.error }
+            : item
+        )
+      );
       this.uploadError.emit(validation.error);
       return;
     }
 
     // Marcar como uploading
-    this.updateUploadStatus(uploadItem, 'uploading');
+    this.uploadQueue.update(queue =>
+      queue.map(item =>
+        item.file === uploadItem.file
+          ? { ...item, status: 'uploading' as const }
+          : item
+      )
+    );
 
     // Subir a Cloudinary
     this.imageUploadService.uploadToCloudinary(uploadItem.file, { folder: this.folder })
       .subscribe({
         next: (result) => {
-          uploadItem.result = result;
-          this.updateUploadStatus(uploadItem, 'success');
+          console.log('Upload success:', result);
+          // Actualizar con el resultado - esto creará un nuevo objeto
+          this.uploadQueue.update(queue =>
+            queue.map(item =>
+              item.file === uploadItem.file
+                ? { ...item, status: 'success' as const, result, progress: 100 }
+                : item
+            )
+          );
           this.uploadComplete.emit(result);
         },
         error: (error) => {
+          console.error('Upload error:', error);
           const errorMessage = error.message || 'Error al subir la imagen';
-          this.updateUploadStatus(uploadItem, 'error', errorMessage);
+          this.uploadQueue.update(queue =>
+            queue.map(item =>
+              item.file === uploadItem.file
+                ? { ...item, status: 'error' as const, error: errorMessage }
+                : item
+            )
+          );
           this.uploadError.emit(errorMessage);
         }
       });
   }
 
-  private updateUploadStatus(
-    uploadItem: ImageUploadProgress,
-    status: ImageUploadProgress['status'],
-    error?: string
-  ): void {
-    this.uploadQueue.update(queue =>
-      queue.map(item =>
-        item === uploadItem
-          ? { ...item, status, error, progress: status === 'success' ? 100 : item.progress }
-          : item
-      )
-    );
-  }
-
   removeUpload(uploadItem: ImageUploadProgress): void {
-    this.uploadQueue.update(queue => queue.filter(item => item !== uploadItem));
+    // Liberar blob URL si existe
+    if (uploadItem.previewUrl) {
+      URL.revokeObjectURL(uploadItem.previewUrl);
+    }
+    this.uploadQueue.update(queue => queue.filter(item => item.file !== uploadItem.file));
   }
 
   clearCompleted(): void {
-    this.uploadQueue.update(queue =>
-      queue.filter(item => item.status !== 'success' && item.status !== 'error')
-    );
+    this.uploadQueue.update(queue => {
+      // Liberar blob URLs de items completados/con error
+      queue.forEach(item => {
+        if ((item.status === 'success' || item.status === 'error') && item.previewUrl) {
+          URL.revokeObjectURL(item.previewUrl);
+        }
+      });
+      return queue.filter(item => item.status !== 'success' && item.status !== 'error');
+    });
   }
 
   getPreviewUrl(uploadItem: ImageUploadProgress): string {
     if (uploadItem.result) {
       return uploadItem.result.thumbnailUrl;
     }
-    return URL.createObjectURL(uploadItem.file);
+    // Usar blob URL cacheada
+    return uploadItem.previewUrl || '';
   }
 
   formatFileSize(bytes: number): string {
