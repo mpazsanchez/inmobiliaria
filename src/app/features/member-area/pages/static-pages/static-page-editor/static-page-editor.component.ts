@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { SafeHtml } from '@angular/platform-browser';
 import { ContenidoEstaticoService } from '../../../../../core/services/contenido-estatico.service';
 import { SanitizerService } from '../../../../../core/services/sanitizer.service';
+import { ToastService } from '../../../../../core/services/toast.service';
 import { ContenidoEstatico, TipoPaginaEstatica } from '../../../../../core/models/static-content/contenido-estatico.interface';
 import { PageHeaderComponent } from '../../../../../shared/components/admin/page-header/page-header.component';
 import { QuillModule } from 'ngx-quill';
@@ -47,12 +48,12 @@ export class StaticPageEditorComponent implements OnInit, CanComponentDeactivate
   private contentService = inject(ContenidoEstaticoService);
   private sanitizerService = inject(SanitizerService);
   private unsavedChangesService = inject(UnsavedChangesService);
+  private toastService = inject(ToastService);
 
   pageId = signal<TipoPaginaEstatica>('nosotros');
   loading = signal(true);
   saving = signal(false);
-  errorMessage = signal<string | null>(null);
-  successMessage = signal<string | null>(null);
+  seoExpanded = signal(false);
 
   form!: FormGroup;
 
@@ -125,12 +126,11 @@ export class StaticPageEditorComponent implements OnInit, CanComponentDeactivate
       Object.keys(this.form.controls).forEach(key => {
         this.form.get(key)?.markAsTouched();
       });
+      this.toastService.error('Por favor completa todos los campos requeridos');
       return;
     }
 
     this.saving.set(true);
-    this.errorMessage.set(null);
-    this.successMessage.set(null);
 
     const data: Partial<ContenidoEstatico> = {
       pagina: this.pageId(),
@@ -139,18 +139,14 @@ export class StaticPageEditorComponent implements OnInit, CanComponentDeactivate
 
     this.contentService.updateContent(this.pageId(), data).subscribe({
       next: () => {
-        this.form.markAsPristine(); // Marcar como sin cambios después de guardar
+        this.form.markAsPristine();
         this.saving.set(false);
-        this.successMessage.set('Contenido guardado correctamente');
-        
-        // Redirigir después de 2 segundos
-        setTimeout(() => {
-          this.router.navigate(['/member-area/paginas-estaticas']);
-        }, 2000);
+        this.toastService.success('Contenido guardado correctamente');
+        this.router.navigate(['/member/paginas-estaticas']);
       },
       error: (error) => {
         this.saving.set(false);
-        this.errorMessage.set('Error al guardar: ' + (error.message || 'Error desconocido'));
+        this.toastService.error('Error al guardar: ' + (error.message || 'Error desconocido'));
       }
     });
   }

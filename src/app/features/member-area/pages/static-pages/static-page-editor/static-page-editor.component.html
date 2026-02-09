@@ -91,115 +91,6 @@
               </div>
             </div>
           </div>
-
-          <!-- Card de SEO Metadata -->
-          <div class="editor-card">
-            <div class="card-header">
-              <i class="bi bi-search"></i>
-              <h3>SEO Metadata</h3>
-              <span class="badge-optional">Opcional</span>
-            </div>
-            
-            <div class="card-body">
-              <p class="help-text-block">
-                <i class="bi bi-info-circle"></i>
-                Estos campos ayudan a mejorar el posicionamiento en buscadores (Google, Bing, etc.)
-              </p>
-
-              <!-- Meta Description -->
-              <div class="form-group">
-                <label for="metaDescripcion">
-                  Meta Description
-                  <span class="char-count">{{ form.get('metaDescripcion')?.value?.length || 0 }}/160</span>
-                </label>
-                <small class="help-text">
-                  Descripción que aparece en resultados de búsqueda (máx. 160 caracteres)
-                </small>
-                <textarea
-                  id="metaDescripcion"
-                  class="form-control"
-                  formControlName="metaDescripcion"
-                  rows="3"
-                  maxlength="160"
-                  placeholder="Breve descripción de la página para motores de búsqueda"
-                ></textarea>
-                <small class="help-text">
-                  <i class="bi bi-lightbulb"></i>
-                  Ejemplo: "Conoce Fairway Inmobiliaria, 12 años conectando personas con sus hogares soñados en Buenos Aires."
-                </small>
-              </div>
-
-              <!-- Meta Keywords -->
-              <div class="form-group">
-                <label for="metaKeywords">
-                  Meta Keywords
-                  <span class="char-count">{{ form.get('metaKeywords')?.value?.length || 0 }}/255</span>
-                </label>
-                <small class="help-text">
-                  Palabras clave separadas por comas (máx. 255 caracteres)
-                </small>
-                <input
-                  id="metaKeywords"
-                  type="text"
-                  class="form-control"
-                  formControlName="metaKeywords"
-                  maxlength="255"
-                  placeholder="inmobiliaria, propiedades, venta, alquiler, Buenos Aires"
-                />
-                <small class="help-text">
-                  <i class="bi bi-lightbulb"></i>
-                  Usa términos que la gente buscaría para encontrar esta página
-                </small>
-              </div>
-            </div>
-          </div>
-
-          <!-- Mensajes -->
-          @if (successMessage()) {
-            <div class="alert alert-success">
-              <i class="bi bi-check-circle"></i>
-              {{ successMessage() }}
-              <button class="alert-close" (click)="successMessage.set(null)">
-                <i class="bi bi-x"></i>
-              </button>
-            </div>
-          }
-
-          @if (errorMessage()) {
-            <div class="alert alert-error">
-              <i class="bi bi-exclamation-triangle"></i>
-              {{ errorMessage() }}
-              <button class="alert-close" (click)="errorMessage.set(null)">
-                <i class="bi bi-x"></i>
-              </button>
-            </div>
-          }
-
-          <!-- Botones -->
-          <div class="editor-actions">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              (click)="onCancel()"
-              [disabled]="saving()"
-            >
-              <i class="bi bi-x-lg"></i>
-              Cancelar
-            </button>
-            <button
-              type="submit"
-              class="btn btn-primary"
-              [disabled]="form.invalid || saving()"
-            >
-              @if (saving()) {
-                <span class="spinner-sm"></span>
-                Guardando...
-              } @else {
-                <i class="bi bi-save"></i>
-                Guardar Cambios
-              }
-            </button>
-          </div>
         </div>
 
         <!-- Panel lateral con vista previa -->
@@ -224,6 +115,107 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Card de SEO Metadata - Acordeón colapsable -->
+      <div class="editor-card seo-card-fullwidth">
+        <button 
+          type="button"
+          class="card-header accordion-header" 
+          (click)="seoExpanded.set(!seoExpanded())"
+          [attr.aria-expanded]="seoExpanded()"
+          aria-label="Expandir o contraer sección de SEO Metadata"
+        >
+          <div class="header-left">
+            <i class="bi bi-search"></i>
+            <h3>SEO Metadata</h3>
+            <span class="badge-optional">Opcional</span>
+          </div>
+          <i class="bi accordion-icon" [class.bi-chevron-down]="!seoExpanded()" [class.bi-chevron-up]="seoExpanded()"></i>
+        </button>
+        
+        @if (seoExpanded()) {
+        <div class="card-body">
+          <p class="help-text-block">
+            <i class="bi bi-info-circle"></i>
+            Estos campos ayudan a mejorar el posicionamiento en buscadores (Google, Bing, etc.)
+          </p>
+
+          <div class="seo-fields-grid">
+            <!-- Meta Description -->
+            <div class="form-group">
+              <label for="metaDescripcion">
+                Meta Description
+                <span class="char-count">{{ form.get('metaDescripcion')?.value?.length || 0 }}/160</span>
+              </label>
+              <small class="help-text">
+                Descripción que aparece en resultados de búsqueda (máx. 160 caracteres)
+              </small>
+              <textarea
+                id="metaDescripcion"
+                class="form-control"
+                formControlName="metaDescripcion"
+                rows="3"
+                maxlength="160"
+                placeholder="Breve descripción de la página para motores de búsqueda"
+              ></textarea>
+              <small class="help-text">
+                <i class="bi bi-lightbulb"></i>
+                Ejemplo: "Conoce Fairway Inmobiliaria, 12 años conectando personas con sus hogares soñados en Buenos Aires."
+              </small>
+            </div>
+
+            <!-- Meta Keywords -->
+            <div class="form-group">
+              <label for="metaKeywords">
+                Meta Keywords
+                <span class="char-count">{{ form.get('metaKeywords')?.value?.length || 0 }}/255</span>
+              </label>
+              <small class="help-text">
+                Palabras clave separadas por comas (máx. 255 caracteres)
+              </small>
+              <input
+                id="metaKeywords"
+                type="text"
+                class="form-control"
+                formControlName="metaKeywords"
+                maxlength="255"
+                placeholder="inmobiliaria, propiedades, venta, alquiler, Buenos Aires"
+              />
+              <small class="help-text">
+                <i class="bi bi-lightbulb"></i>
+                Usa términos que la gente buscaría para encontrar esta página
+              </small>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+
+      <!-- Botones de acción al final -->
+      <div class="editor-actions-bottom">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="onCancel()"
+          [disabled]="saving()"
+        >
+          <i class="bi bi-x-lg"></i>
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="form.invalid || saving()"
+        >
+          @if (saving()) {
+            <span class="spinner-sm"></span>
+            Guardando...
+          } @else {
+            <i class="bi bi-save"></i>
+            Guardar Cambios
+          }
+        </button>
       </div>
     </form>
   }
