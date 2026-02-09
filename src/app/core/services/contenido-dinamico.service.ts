@@ -224,7 +224,7 @@ const BANNERS_FALLBACK: Banner[] = [
   {
     id: 1,
     titulo: 'Encontrá tu hogar ideal',
-    subtitulo: 'Miles de propiedades en venta y alquiler te esperan',
+    subtitulo: 'Propiedades en venta y alquiler en Tandil y la zona',
     imagenUrl: 'assets/images/backgrounds/fairway/hero-home-3.jpg',
     imagenMovilUrl: 'assets/images/backgrounds/fairway/hero-home-3.jpg',
     enlace: '/properties',

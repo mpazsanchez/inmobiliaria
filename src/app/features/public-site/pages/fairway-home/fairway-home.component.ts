@@ -37,8 +37,8 @@ export class FairwayHomeComponent implements OnInit {
 
   // Fallback por si no hay datos
   private readonly fallbackHero = {
-    titulo: 'Encuentra tu hogar ideal',
-    subtitulo: 'Miles de propiedades en venta y alquiler te esperan',
+    titulo: 'Encontrá tu hogar ideal',
+    subtitulo: 'Propiedades en venta y alquiler en Tandil y la zona',
     imagenUrl: 'assets/images/backgrounds/fairway/hero-home-3.jpg'
   };
 
