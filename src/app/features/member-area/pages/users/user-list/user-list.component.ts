@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, ViewChild, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -34,6 +34,8 @@ import {
 })
 export class UserListComponent implements OnInit {
   private userService = inject(UserService);
+
+  @ViewChild(ReassignPropertiesDialogComponent) reassignDialog?: ReassignPropertiesDialogComponent;
 
   // Estado
   users = signal<Usuario[]>([]);
@@ -236,6 +238,7 @@ export class UserListComponent implements OnInit {
       error: (err: unknown) => {
         console.error('❌ Error al reasignar propiedades:', err);
         this.isDeactivating.set(false);
+        this.reassignDialog?.isSaving.set(false);
       }
     });
   }
@@ -261,6 +264,7 @@ export class UserListComponent implements OnInit {
       error: (err) => {
         console.error('Error al desactivar usuario:', err);
         this.isDeactivating.set(false);
+        this.reassignDialog?.isSaving.set(false);
       }
     });
   }
