@@ -4,10 +4,12 @@ export const environment = {
 
   // Cloudinary - Configurar con tus credenciales
   cloudinary: {
-    cloudName: 'TU_CLOUD_NAME',        // Reemplazar con tu cloud name
-    uploadPreset: 'fairway_unsigned',  // Crear en Cloudinary Dashboard
-    folder: 'fairway-dev'              // Carpeta para desarrollo
+    cloudName: 'dvbhqr8nu',
+    uploadPreset: 'fairway', 
+    folder: 'fairway'
   },
+
+  // CLOUDINARY_URL=cloudinary:321548118555262:EMNQUZD00AxmVJzch8DghZJV9TE@dvbhqr8nu,
 
   // reCAPTCHA Enterprise
   recaptcha: {
