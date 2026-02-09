@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, ActivatedRoute } from '@angular/router';
 import { ContenidoDinamicoService, ContentType, ContentStats } from '../../../../../core/services/contenido-dinamico.service';
 import type { Testimonio, Beneficio, FAQ, Banner } from '../../../../../core/models';
 import {
@@ -10,6 +10,7 @@ import {
   ConfirmModalComponent
 } from '../../../../../shared/components/admin';
 import { OptimizeImagePipe } from '../../../../../core/pipes/optimize-image.pipe';
+import { ToastService } from '../../../../../core/services/toast.service';
 
 type TabType = 'testimonios' | 'beneficios' | 'faqs' | 'banners';
 
@@ -29,6 +30,8 @@ type TabType = 'testimonios' | 'beneficios' | 'faqs' | 'banners';
 })
 export class ContentListComponent implements OnInit {
   private contentService = inject(ContenidoDinamicoService);
+  private toastService = inject(ToastService);
+  private route = inject(ActivatedRoute);
 
   // Estado
   loading = signal(true);
@@ -89,6 +92,12 @@ export class ContentListComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Leer tab inicial de los query params (solo una vez, sin suscripción)
+    const tab = this.route.snapshot.queryParams['tab'] as TabType;
+    if (tab && ['testimonios', 'beneficios', 'faqs', 'banners'].includes(tab)) {
+      this.activeTab.set(tab);
+    }
+    
     this.loadStats();
     this.loadContent();
   }
@@ -158,10 +167,14 @@ export class ContentListComponent implements OnInit {
   toggleActivo(type: ContentType, id: number) {
     this.contentService.toggleActivo(type, id).subscribe({
       next: () => {
+        this.toastService.success('Estado actualizado correctamente');
         this.loadContent();
         this.loadStats();
       },
-      error: (err) => console.error('Error toggling activo:', err)
+      error: (err) => {
+        console.error('Error toggling activo:', err);
+        this.toastService.error('Error al actualizar el estado');
+      }
     });
   }
 
@@ -193,11 +206,14 @@ export class ContentListComponent implements OnInit {
         this.deleting.set(false);
         this.showDeleteModal.set(false);
         this.itemToDelete.set(null);
+        this.toastService.success('Eliminado correctamente');
         this.loadContent();
         this.loadStats();
       },
-      error: () => {
+      error: (err) => {
         this.deleting.set(false);
+        console.error('Error deleting:', err);
+        this.toastService.error('Error al eliminar');
       }
     });
   }
