@@ -100,18 +100,18 @@
       .drop-zone-content {
         gap: 0;
 
-        i.bi-cloud-upload {
+        > i.bi-cloud-upload {
           display: none;
         }
 
         .btn-select {
           margin: 0;
-          padding: 8px 16px;
-          font-size: 0.813rem;
-          gap: 6px;
+          padding: 10px 24px;
+          font-size: 0.938rem;
+          gap: 8px;
 
           i {
-            font-size: 0.875rem;
+            font-size: 1.125rem;
           }
         }
       }
