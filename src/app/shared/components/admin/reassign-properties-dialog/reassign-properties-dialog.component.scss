@@ -188,15 +188,29 @@
   }
 
   @media (max-width: 640px) {
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: stretch;
 
     .form-select {
       width: 100%;
       max-width: none;
     }
 
-    .btn {
-      flex: 1;
+    .btn-outline-primary {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .btn-outline-secondary {
+      width: 100%;
+      justify-content: center;
+      flex-direction: row;
+      gap: 0.375rem;
+
+      &::after {
+        content: 'Limpiar';
+        font-size: 0.813rem;
+      }
     }
   }
 }
@@ -496,11 +510,14 @@
 }
 
 .btn-secondary {
-  background: v.$bg-light;
+  background: v.$bg-white;
   color: v.$text-primary;
+  border: 1px solid v.$border-color;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 
   &:hover:not(:disabled) {
-    background: darken(v.$bg-light, 5%);
+    background: v.$bg-light;
+    border-color: darken(v.$border-color, 10%);
   }
 }
 
@@ -595,6 +612,18 @@
     .property-thumb-placeholder {
       width: 50px;
       height: 38px;
+    }
+
+    .property-title {
+      font-size: 0.8125rem;
+    }
+
+    .property-details {
+      font-size: 0.75rem;
+    }
+
+    .property-price {
+      font-size: 0.8125rem;
     }
   }
 
