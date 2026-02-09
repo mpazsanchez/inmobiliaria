@@ -5,9 +5,13 @@
         type="button"
         [class.active]="activeTab() === tab.id"
         [class.valid]="tab.isValid ? tab.isValid() : false"
+        [class.has-error]="tab.hasError"
         (click)="tabChange.emit(tab.id)">
         <i [class]="'bi bi-' + tab.icon"></i>
         <span>{{ tab.label }}</span>
+        @if (tab.hasError) {
+          <i class="bi bi-exclamation-circle error-icon"></i>
+        }
       </button>
     }
   }

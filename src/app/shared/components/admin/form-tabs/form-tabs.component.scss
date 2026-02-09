@@ -78,6 +78,17 @@
       justify-content: center;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
+    
+    &.has-error:not(.active) {
+      border-color: admin.$danger;
+      background: lighten(admin.$danger, 45%);
+      
+      .error-icon {
+        color: admin.$danger;
+        font-size: 0.875rem;
+        margin-left: 0.25rem;
+      }
+    }
   }
 }
 

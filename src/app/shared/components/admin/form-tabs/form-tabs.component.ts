@@ -7,6 +7,7 @@ export interface TabConfig {
   icon: string;
   isValid?: () => boolean;
   hideIf?: () => boolean;
+  hasError?: boolean;
 }
 
 /**
