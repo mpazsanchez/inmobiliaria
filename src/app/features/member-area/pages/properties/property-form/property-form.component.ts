@@ -13,11 +13,12 @@ import { PropertyMapComponent } from '../../../../public-site/components/propert
 import { ImageUploaderComponent } from '../../../../../shared/components/image-uploader/image-uploader.component';
 import { CanComponentDeactivate } from '../../../../../core/guards/can-deactivate.guard';
 import { UnsavedChangesService } from '../../../../../core/services/unsaved-changes.service';
-import { 
-  FormHeaderComponent, 
-  FormTabsComponent, 
-  FormAlertComponent, 
+import {
+  FormHeaderComponent,
+  FormTabsComponent,
+  FormAlertComponent,
   LoadingStateComponent,
+  ConfirmModalComponent,
   type TabConfig
 } from '../../../../../shared/components/admin';
 
@@ -25,14 +26,15 @@ import {
   selector: 'app-property-form',
   standalone: true,
   imports: [
-    CommonModule, 
-    ReactiveFormsModule, 
-    PropertyMapComponent, 
+    CommonModule,
+    ReactiveFormsModule,
+    PropertyMapComponent,
     ImageUploaderComponent,
     FormHeaderComponent,
     FormTabsComponent,
     FormAlertComponent,
-    LoadingStateComponent
+    LoadingStateComponent,
+    ConfirmModalComponent
   ],
   templateUrl: './property-form.component.html',
   styleUrls: ['./property-form.component.scss']
@@ -61,6 +63,10 @@ export class PropertyFormComponent implements OnInit, CanComponentDeactivate {
   isGeocoding = signal(false);
   geocodingSuccess = signal(false);
   asesoresDisponibles = signal<Usuario[]>([]);
+
+  // Estado del modal de eliminar imagen
+  showDeleteModal = signal(false);
+  imageToDeleteIndex = signal<number | null>(null);
 
   // Opciones
   tiposPropiedad = this.propertiesService.getTiposPropiedad();
@@ -266,30 +272,58 @@ export class PropertyFormComponent implements OnInit, CanComponentDeactivate {
     });
   }
 
-  // Tabs
-  setTab(tab: 'basic' | 'location' | 'features' | 'images'): void {
-    this.activeTab.set(tab);
+  // Método para cambiar de tab (usado desde el template)
+  onTabChange(tabId: string): void {
+    const validTabs = ['basic', 'location', 'features', 'images'];
+    if (validTabs.includes(tabId)) {
+      this.activeTab.set(tabId as 'basic' | 'location' | 'features' | 'images');
+    }
   }
 
-  private readonly tabValidators: Record<string, () => boolean> = {
-    basic: () => !!(this.form.get('titulo')?.valid &&
-               this.form.get('descripcion')?.valid &&
-               this.form.get('precio')?.valid),
-    location: () => !!this.form.get('ubicacion')?.valid,
-    features: () => !!this.form.get('caracteristicas')?.valid,
-    images: () => this.imagenesArray.length > 0
+  // Métodos de validación estables (no recreados en cada render)
+  isBasicValid = (): boolean => {
+    const form = this.form;
+    return !!(form.get('titulo')?.valid && form.get('descripcion')?.valid && form.get('precio')?.valid);
   };
 
-  isTabValid(tab: string): boolean {
-    return this.tabValidators[tab]?.() ?? true;
-  }
+  isLocationValid = (): boolean => {
+    return !!this.form.get('ubicacion')?.valid;
+  };
 
-  // Configuración de tabs para el componente reutilizable
-  tabsConfig: TabConfig[] = [
-    { id: 'basic', label: 'Información Básica', icon: 'info-circle', isValid: () => this.isTabValid('basic') },
-    { id: 'location', label: 'Ubicación', icon: 'geo-alt', isValid: () => this.isTabValid('location') },
-    { id: 'features', label: 'Características', icon: 'list-check', isValid: () => this.isTabValid('features') },
-    { id: 'images', label: 'Imágenes', icon: 'images', isValid: () => this.isTabValid('images') }
+  isFeaturesValid = (): boolean => {
+    return !!this.form.get('caracteristicas')?.valid;
+  };
+
+  isImagesValid = (): boolean => {
+    return this.imagenesArray.length > 0;
+  };
+
+  // Configuración de tabs - array estático con referencias estables a las funciones
+  readonly tabsConfig: TabConfig[] = [
+    {
+      id: 'basic',
+      label: 'Información Básica',
+      icon: 'info-circle',
+      isValid: this.isBasicValid
+    },
+    {
+      id: 'location',
+      label: 'Ubicación',
+      icon: 'geo-alt',
+      isValid: this.isLocationValid
+    },
+    {
+      id: 'features',
+      label: 'Características',
+      icon: 'list-check',
+      isValid: this.isFeaturesValid
+    },
+    {
+      id: 'images',
+      label: 'Imágenes',
+      icon: 'images',
+      isValid: this.isImagesValid
+    }
   ];
 
   // Amenidades
@@ -341,6 +375,26 @@ export class PropertyFormComponent implements OnInit, CanComponentDeactivate {
     this.imagenesArray.removeAt(index);
   }
 
+  // Marcar imagen como principal (moverla a la primera posición)
+  setAsPrincipal(index: number): void {
+    if (index <= 0 || index >= this.imagenesArray.length) return;
+
+    const imageToMove = this.imagenesArray.at(index);
+    const imageData = {
+      url: imageToMove.get('url')?.value,
+      descripcion: imageToMove.get('descripcion')?.value
+    };
+
+    // Remover de la posición actual
+    this.imagenesArray.removeAt(index);
+
+    // Insertar en la primera posición
+    this.imagenesArray.insert(0, this.fb.group({
+      url: [imageData.url, Validators.required],
+      descripcion: [imageData.descripcion || '']
+    }));
+  }
+
   // Manejo de uploads desde el componente ImageUploader
   onImageUploaded(result: ImageUploadResult): void {
     // Agregar la imagen cargada al formulario
@@ -361,17 +415,42 @@ export class PropertyFormComponent implements OnInit, CanComponentDeactivate {
     }, 5000);
   }
 
-  // Método para agregar imagen manualmente por URL (mantener compatibilidad)
-  addImageByUrl(): void {
-    this.imagenesArray.push(this.fb.group({
-      url: ['', Validators.required],
-      descripcion: ['']
-    }));
+  // Abrir modal de confirmación para eliminar imagen
+  openDeleteModal(index: number): void {
+    this.imageToDeleteIndex.set(index);
+    this.showDeleteModal.set(true);
+  }
+
+  // Confirmar eliminación de imagen
+  confirmDeleteImage(): void {
+    const index = this.imageToDeleteIndex();
+    if (index !== null) {
+      this.removeImage(index);
+    }
+    this.closeDeleteModal();
+  }
+
+  // Cancelar eliminación de imagen
+  cancelDeleteImage(): void {
+    this.closeDeleteModal();
+  }
+
+  // Cerrar modal
+  private closeDeleteModal(): void {
+    this.showDeleteModal.set(false);
+    this.imageToDeleteIndex.set(null);
   }
 
   // Obtener versiones optimizadas de una imagen
   getImageVersions(url: string) {
     return this.imageUploadService.getImageVersions(url);
+  }
+
+  // Manejo de error cuando una imagen no carga
+  onImageError(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    // Mostrar placeholder cuando la imagen no carga
+    img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150"%3E%3Crect fill="%23f3f4f6" width="150" height="150"/%3E%3Ctext fill="%239ca3af" font-family="sans-serif" font-size="12" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EImagen no disponible%3C/text%3E%3C/svg%3E';
   }
 
   // Geocoding

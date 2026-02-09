@@ -10,10 +10,10 @@
     <app-loading-state [message]="'Cargando propiedad...'"></app-loading-state>
   } @else {
     <!-- Tabs Navigation -->
-    <app-form-tabs 
-      [tabs]="tabsConfig" 
+    <app-form-tabs
+      [tabs]="tabsConfig"
       [activeTab]="activeTab()"
-      (tabChange)="activeTab.set($any($event))">
+      (tabChange)="onTabChange($event)">
     </app-form-tabs>
 
     <!-- Form -->
@@ -407,18 +407,6 @@
       @if (activeTab() === 'images') {
         <div class="form-section">
           <h2>Imágenes</h2>
-          <p class="section-description">Sube las fotos de la propiedad desde tu ordenador o agrega URLs. La primera imagen será la principal.</p>
-
-          <!-- Componente de carga de imágenes -->
-          <div class="upload-section">
-            <app-image-uploader
-              [maxFiles]="20"
-              [folder]="'properties'"
-              [showPreview]="true"
-              (uploadComplete)="onImageUploaded($event)"
-              (uploadError)="onImageUploadError($event)">
-            </app-image-uploader>
-          </div>
 
           <!-- Mensaje de error -->
           @if (error()) {
@@ -428,65 +416,76 @@
             </div>
           }
 
-          <!-- Divider -->
-          <div class="divider">
-            <span>o agrega URLs manualmente</span>
-          </div>
-
-          <!-- Lista de imágenes agregadas -->
-          <div class="images-list">
-            @for (imagen of imagenesArray.controls; track $index; let i = $index) {
-              <div class="image-item" [formGroupName]="i">
-                <div class="image-preview">
-                  @if (imagen.get('url')?.value) {
-                    <img [src]="getImageVersions(imagen.get('url')?.value).thumbnail" [alt]="imagen.get('descripcion')?.value || 'Imagen de propiedad'">
-                  } @else {
-                    <div class="no-image">
-                      <i class="bi bi-image"></i>
-                    </div>
-                  }
-                  @if (i === 0) {
-                    <span class="main-badge">Principal</span>
-                  }
-                </div>
-                <div class="image-fields">
-                  <div class="form-group">
-                    <label>URL de la imagen</label>
-                    <input
-                      type="text"
-                      formControlName="url"
-                      placeholder="https://..."
-                      readonly
-                      [class.invalid]="imagen.get('url')?.invalid && imagen.get('url')?.touched">
-                  </div>
-                  <div class="form-group">
-                    <label>Descripción</label>
-                    <input
-                      type="text"
-                      formControlName="descripcion"
-                      placeholder="Ej: Living, Dormitorio...">
-                  </div>
-                </div>
-                <button type="button" class="btn-remove" (click)="removeImage(i)" title="Eliminar imagen">
-                  <i class="bi bi-trash"></i>
-                </button>
+          <!-- Lista de imágenes existentes (primero) -->
+          @if (imagenesArray.length > 0) {
+            <div class="images-list" formArrayName="imagenes">
+              <div class="images-list-header">
+                <h3>Imágenes cargadas ({{ imagenesArray.length }})</h3>
+                <p class="images-list-hint">La primera imagen será la principal en el listado</p>
               </div>
-            }
-          </div>
-
-          <!-- Botón para agregar URL manual -->
-          <button type="button" class="btn-add-url" (click)="addImageByUrl()">
-            <i class="bi bi-link-45deg"></i>
-            Agregar URL manualmente
-          </button>
-
-          @if (imagenesArray.length === 0) {
-            <div class="images-hint">
-              <i class="bi bi-lightbulb"></i>
-              <p>Sube al menos una imagen para publicar la propiedad</p>
-              <small>Las imágenes se optimizan automáticamente para mejorar el rendimiento</small>
+              <div class="images-grid">
+                @for (imagen of imagenesArray.controls; track $index; let i = $index) {
+                  <div class="image-item" [formGroupName]="i">
+                    <div class="image-preview">
+                      <img
+                        [src]="getImageVersions(imagen.get('url')?.value).medium"
+                        [alt]="imagen.get('descripcion')?.value || 'Imagen de propiedad'"
+                        loading="lazy"
+                        (error)="onImageError($event)">
+                      @if (i === 0) {
+                        <span class="main-badge">Principal</span>
+                      }
+                      <span class="image-order">{{ i + 1 }}</span>
+                    </div>
+                    <div class="image-content">
+                      <div class="image-fields">
+                        <div class="form-group">
+                          <label [for]="'img-desc-' + i">Descripción <small>(opcional)</small></label>
+                          <input
+                            type="text"
+                            [id]="'img-desc-' + i"
+                            formControlName="descripcion"
+                            placeholder="Ej: Living, Dormitorio principal, Cocina...">
+                          <small class="field-hint">Ayuda a describir la imagen para accesibilidad y SEO</small>
+                        </div>
+                      </div>
+                      <div class="image-actions">
+                        @if (i > 0) {
+                          <button type="button" class="btn-principal" (click)="setAsPrincipal(i)">
+                            <i class="bi bi-star"></i>
+                            Marcar como principal
+                          </button>
+                        }
+                        <button type="button" class="btn-remove" (click)="openDeleteModal(i)">
+                          <i class="bi bi-trash"></i>
+                          Eliminar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                }
+              </div>
             </div>
           }
+
+          <!-- Componente de carga de imágenes (después de las existentes) -->
+          <div class="upload-section" [class.compact]="imagenesArray.length > 0">
+            @if (imagenesArray.length === 0) {
+              <div class="upload-empty-state">
+                <i class="bi bi-images"></i>
+                <h3>Agrega imágenes de la propiedad</h3>
+                <p>Las fotos se optimizan automáticamente para web</p>
+              </div>
+            }
+            <app-image-uploader
+              [maxFiles]="20"
+              [folder]="'properties'"
+              [showPreview]="true"
+              [compact]="imagenesArray.length > 0"
+              (uploadComplete)="onImageUploaded($event)"
+              (uploadError)="onImageUploadError($event)">
+            </app-image-uploader>
+          </div>
         </div>
       }
 
@@ -512,3 +511,16 @@
     </form>
   }
 </div>
+
+<!-- Modal de confirmación para eliminar imagen -->
+<app-confirm-modal
+  [isOpen]="showDeleteModal()"
+  [variant]="'danger'"
+  [title]="'Eliminar imagen'"
+  [message]="'¿Estás seguro de que deseas eliminar esta imagen?'"
+  [warningText]="'Esta acción no se puede deshacer.'"
+  [confirmText]="'Eliminar'"
+  [cancelText]="'Cancelar'"
+  (confirm)="confirmDeleteImage()"
+  (cancel)="cancelDeleteImage()">
+</app-confirm-modal>

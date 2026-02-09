@@ -862,102 +862,138 @@
 // ========================================
 // Images Section
 // ========================================
-.upload-section {
-  margin-bottom: 2rem;
-  
-  ::ng-deep app-image-uploader {
+
+// Estado vacío (sin imágenes cargadas)
+.upload-empty-state {
+  text-align: center;
+  padding: 1rem 0 0.5rem;
+
+  i {
+    font-size: 2.5rem;
+    color: v.$primary-green;
     display: block;
-    
-    .image-uploader {
-      .drop-zone {
-        min-height: 160px;
-        padding: 1.5rem 1rem;
-        
-        .drop-zone-content {
-          gap: 0.75rem;
-          
-          i.bi-cloud-upload {
-            font-size: 2.5rem;
-            color: v.$primary-green;
+    margin-bottom: 0.5rem;
+
+    @media (max-width: 640px) {
+      font-size: 2rem;
+    }
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: v.$text-dark;
+    margin: 0 0 0.25rem;
+
+    @media (max-width: 640px) {
+      font-size: 0.9rem;
+    }
+  }
+
+  p {
+    font-size: 0.813rem;
+    color: v.$text-muted;
+    margin: 0;
+  }
+}
+
+.upload-section {
+  margin-top: 1.5rem;
+
+  // Modo compacto: cuando ya hay imágenes cargadas
+  &.compact {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px dashed v.$border-color;
+
+    ::ng-deep app-image-uploader {
+      .image-uploader .drop-zone {
+        padding: 0.75rem 1rem;
+        min-height: auto;
+        border-style: dashed;
+        border-width: 1.5px;
+        border-color: v.$border-color;
+        background: v.$bg-light;
+
+        &:hover {
+          border-color: v.$primary-green;
+          background: rgba(v.$primary-green, 0.04);
+        }
+
+        .drop-zone-content .btn-select {
+          padding: 0.5rem 1rem;
+          font-size: 0.813rem;
+          background: v.$primary-green;
+          gap: 0.4rem;
+
+          .btn-text {
+            color: white !important;
           }
-          
-          h3 {
-            font-size: 1rem;
-            margin: 0;
-          }
-          
-          p {
-            font-size: 0.813rem;
-            margin: 0;
-          }
-          
-          .btn-select {
-            padding: 0.625rem 1.25rem;
+
+          i {
+            color: white !important;
             font-size: 0.875rem;
-            background: v.$primary-green;
-            color: white;
-            margin-top: 0.25rem;
-            
-            i {
-              font-size: 0.875rem;
-              color: white !important;
-            }
-            
-            &:hover {
-              background: darken(v.$primary-green, 8%);
-              
-              i {
-                color: white !important;
-              }
-            }
           }
-          
-          .file-hint {
-            font-size: 0.75rem;
-            margin-top: 0.25rem;
+
+          &:hover {
+            background: darken(v.$primary-green, 8%);
           }
         }
       }
     }
   }
-}
 
-// Responsive: pantallas pequeñas (tablets y móviles)
-@media (max-width: 768px) {
-  .upload-section {
+  // Modo normal: sin imágenes cargadas
+  &:not(.compact) {
     ::ng-deep app-image-uploader {
-      .image-uploader {
-        .drop-zone {
-          min-height: 120px;
+      display: block;
+
+      .image-uploader .drop-zone {
+        min-height: 120px;
+        padding: 1.25rem 1rem;
+        border-color: v.$border-color;
+
+        @media (max-width: 640px) {
+          min-height: 100px;
           padding: 1rem 0.75rem;
-          
-          .drop-zone-content {
-            gap: 0.5rem;
-            
-            i.bi-cloud-upload {
-              font-size: 2rem;
-            }
-            
-            h3 {
-              font-size: 0.875rem;
-            }
-            
-            p {
-              font-size: 0.75rem;
-            }
-            
-            .btn-select {
+        }
+
+        .drop-zone-content {
+          gap: 0.5rem;
+
+          i.bi-cloud-upload {
+            display: none; // Ya mostramos el ícono en upload-empty-state
+          }
+
+          .btn-select {
+            padding: 0.625rem 1.25rem;
+            font-size: 0.875rem;
+            background: v.$primary-green;
+            color: white;
+            margin-top: 0;
+
+            @media (max-width: 640px) {
               padding: 0.5rem 1rem;
               font-size: 0.813rem;
-              
-              i {
-                font-size: 0.813rem;
-              }
             }
-            
-            .file-hint {
-              font-size: 0.688rem;
+
+            .btn-text {
+              color: white !important;
+              font-weight: 500;
             }
+
+            i {
+              color: white !important;
+            }
+
+            &:hover {
+              background: darken(v.$primary-green, 8%);
+            }
+          }
+
+          .file-hint {
+            font-size: 0.75rem;
+            margin-top: 0.125rem;
           }
         }
       }
@@ -1005,156 +1041,233 @@
 }
 
 .images-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: v.$text-dark;
+    margin: 0 0 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+      content: '📷';
+    }
+  }
+}
+
+// Grid de imágenes
+.images-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 }
 
 .image-item {
   display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  background: v.$bg-light;
-  border-radius: 10px;
+  flex-direction: column;
+  background: v.$bg-white;
+  border-radius: 12px;
   border: 1px solid v.$border-color;
+  overflow: hidden;
+  transition: all 0.25s ease;
 
-  @media (max-width: 640px) {
-    flex-direction: column;
+  &:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    border-color: rgba(v.$primary-green, 0.3);
   }
 
   .image-preview {
     position: relative;
-    width: 120px;
-    height: 90px;
-    border-radius: 8px;
+    width: 100%;
+    height: 200px;
+    background: v.$bg-light;
     overflow: hidden;
-    flex-shrink: 0;
 
     @media (max-width: 640px) {
-      width: 100%;
-      height: 150px;
+      height: 220px;
     }
 
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.3s ease;
     }
 
-    .no-image {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: v.$bg-white;
-      color: v.$text-muted;
-      font-size: 1.5rem;
+    &:hover img {
+      transform: scale(1.03);
     }
 
     .main-badge {
       position: absolute;
-      top: 6px;
-      left: 6px;
-      padding: 0.2rem 0.5rem;
-      background: v.$accent-orange;
+      top: 12px;
+      left: 12px;
+      padding: 0.35rem 0.75rem;
+      background: linear-gradient(135deg, v.$accent-orange, darken(v.$accent-orange, 10%));
       color: v.$bg-white;
-      font-size: 0.65rem;
-      font-weight: 600;
-      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(v.$accent-orange, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+
+      &::before {
+        content: '⭐';
+        font-size: 0.6rem;
+      }
     }
+
+    .image-order {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 28px;
+      height: 28px;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+  }
+
+  .image-content {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
   .image-fields {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
 
     .form-group {
       margin: 0;
 
       label {
-        font-size: 0.75rem;
+        font-size: 0.8rem;
+        font-weight: 500;
+        margin-bottom: 0.35rem;
+
+        small {
+          color: v.$text-muted;
+          font-weight: 400;
+        }
       }
 
       input {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.85rem;
+        padding: 0.625rem 0.875rem;
+        font-size: 0.875rem;
+        border-radius: 8px;
+
+        &:focus {
+          border-color: v.$primary-green;
+          box-shadow: 0 0 0 3px rgba(v.$primary-green, 0.1);
+        }
       }
+
+      .field-hint {
+        display: block;
+        margin-top: 0.35rem;
+        font-size: 0.7rem;
+        color: v.$text-muted;
+        line-height: 1.4;
+      }
+    }
+  }
+
+  .image-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid v.$border-color;
+
+    @media (max-width: 400px) {
+      flex-direction: column;
+    }
+  }
+
+  .btn-principal {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.875rem;
+    background: transparent;
+    border: 1px solid v.$accent-orange;
+    border-radius: 6px;
+    color: v.$accent-orange;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    i {
+      font-size: 0.9rem;
+    }
+
+    &:hover {
+      background: rgba(v.$accent-orange, 0.1);
+      border-color: darken(v.$accent-orange, 10%);
+      color: darken(v.$accent-orange, 10%);
     }
   }
 
   .btn-remove {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
+    gap: 0.5rem;
+    padding: 0.5rem 0.875rem;
     background: transparent;
     border: 1px solid v.$border-color;
-    border-radius: 8px;
+    border-radius: 6px;
     color: v.$text-muted;
+    font-size: 0.8rem;
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.2s;
-    align-self: flex-start;
+
+    i {
+      font-size: 0.9rem;
+    }
 
     &:hover {
-      background: rgba(v.$danger, 0.1);
+      background: rgba(v.$danger, 0.08);
       border-color: v.$danger;
       color: v.$danger;
     }
   }
 }
 
-.btn-add-url {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  width: 100%;
-  padding: 1rem;
-  background: transparent;
-  border: 2px dashed v.$border-color;
-  border-radius: 10px;
-  color: v.$text-muted;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s;
+// Header de la lista de imágenes
+.images-list-header {
+  margin-bottom: 1rem;
 
-  &:hover {
-    border-color: v.$primary-green;
-    color: v.$primary-green;
-    background: rgba(v.$primary-green, 0.02);
-  }
-}
-
-.images-hint {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 1rem;
-  padding: 1rem;
-  background: v.$accent-orange-light;
-  border-radius: 8px;
-  color: v.$accent-orange;
-  font-size: 0.85rem;
-  text-align: center;
-
-  i {
-    font-size: 1.5rem;
+  h3 {
+    margin-bottom: 0.25rem !important;
   }
 
-  p {
+  .images-list-hint {
+    font-size: 0.8rem;
+    color: v.$text-muted;
     margin: 0;
-    font-weight: 500;
-  }
-
-  small {
-    color: darken(v.$accent-orange, 10%);
-    font-size: 0.75rem;
   }
 }
 
