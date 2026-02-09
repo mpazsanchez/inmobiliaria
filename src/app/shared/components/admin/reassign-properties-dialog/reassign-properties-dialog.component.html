@@ -191,14 +191,19 @@
       <button
         type="button"
         class="btn btn-primary"
-        [disabled]="isLoading() || getAssignedCount() === 0"
+        [disabled]="isLoading() || isSaving() || getAssignedCount() === 0"
         (click)="onConfirm(); stopPropagation($event)">
-        <i class="bi bi-arrow-right-circle"></i>
-        Reasignar {{ getAssignedCount() }}
-        @if (getAssignedCount() === 1) {
-          propiedad
+        @if (isSaving()) {
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Reasignando...
         } @else {
-          propiedades
+          <i class="bi bi-arrow-right-circle"></i>
+          Reasignar {{ getAssignedCount() }}
+          @if (getAssignedCount() === 1) {
+            propiedad
+          } @else {
+            propiedades
+          }
         }
       </button>
     </div>

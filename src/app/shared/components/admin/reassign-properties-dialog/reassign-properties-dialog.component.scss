@@ -536,6 +536,23 @@
   }
 }
 
+// ============ SPINNER ============
+.spinner-border-sm {
+  display: inline-block;
+  width: 0.875rem;
+  height: 0.875rem;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 // ============ RESPONSIVE ============
 @media (max-width: 768px) {
   .modal-dialog {

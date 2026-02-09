@@ -42,6 +42,7 @@ export class ReassignPropertiesDialogComponent implements OnInit, OnChanges {
   propiedades = signal<Propiedad[]>([]);
   asesoresDisponibles = signal<Usuario[]>([]);
   isLoading = signal(false);
+  isSaving = signal(false);
   error = signal<string | null>(null);
 
   // Map de propiedadId -> asesorId asignado
@@ -112,6 +113,7 @@ export class ReassignPropertiesDialogComponent implements OnInit, OnChanges {
     this.asignaciones.set(new Map());
     this.asesorGlobal.set(null);
     this.error.set(null);
+    this.isSaving.set(false);
     this.dataLoaded = false;
   }
 
@@ -246,11 +248,13 @@ export class ReassignPropertiesDialogComponent implements OnInit, OnChanges {
 
     if (!this.usuarioId) return;
 
+    this.isSaving.set(true);
+
     const data = {
       usuarioOrigenId: this.usuarioId,
       asignaciones: asignacionesValidas
     };
-    
+
     this.confirm.emit(data);
   }
 
