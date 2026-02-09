@@ -8,17 +8,13 @@
   <app-loading-state [message]="'Cargando usuario...'"></app-loading-state>
   } @else {
   <!-- Tabs Navigation -->
-  <app-form-tabs [tabs]="tabsConfig" [activeTab]="activeTab()" (tabChange)="activeTab.set($any($event))">
+  <app-form-tabs [tabs]="tabsConfig()" [activeTab]="activeTab()" (tabChange)="activeTab.set($any($event))">
   </app-form-tabs>
 
   <!-- Form -->
   <form [formGroup]="form" (ngSubmit)="onSubmit()" class="user-form">
     <!-- Error Alert -->
     <app-form-alert [message]="error()" [type]="'error'" (dismiss)="error.set(null)">
-    </app-form-alert>
-
-    <!-- Success Alert -->
-    <app-form-alert [message]="success()" [type]="'success'" (dismiss)="success.set(null)">
     </app-form-alert>
 
     <!-- TAB: DATOS BÁSICOS -->
@@ -139,23 +135,65 @@
 
       @if (!isEditMode()) {
       <!-- Crear usuario: contraseña obligatoria -->
-      <div class="form-group">
-        <label for="password">Contraseña <span class="required">*</span></label>
-        <input type="password" id="password" formControlName="password" placeholder="Mínimo 8 caracteres"
-          [class.invalid]="form.get('password')?.invalid && form.get('password')?.touched">
-        @if (form.get('password')?.invalid && form.get('password')?.touched) {
-        <span class="field-error">La contraseña debe tener al menos 8 caracteres</span>
-        }
-      </div>
+      <div class="password-section">
+        <div class="form-group">
+          <label for="password">Contraseña <span class="required">*</span></label>
+          <input type="password" id="password" formControlName="password" placeholder="Mínimo 8 caracteres"
+            [class.valid]="form.get('password')?.value && form.get('password')?.valid"
+            [class.invalid]="form.get('password')?.value && form.get('password')?.invalid">
+          @if (form.get('password')?.invalid && form.get('password')?.touched && !form.get('password')?.value) {
+          <span class="field-error">La contraseña es requerida</span>
+          }
+          @if (form.get('password')?.invalid && form.get('password')?.touched && form.get('password')?.value && form.get('password')?.errors?.['message']) {
+          <span class="field-error">{{ form.get('password')?.errors?.['message'] }}</span>
+          }
+        </div>
 
-      <div class="form-group">
-        <label for="confirmarPassword">Confirmar Contraseña <span class="required">*</span></label>
-        <input type="password" id="confirmarPassword" formControlName="confirmarPassword"
-          placeholder="Repite la contraseña"
-          [class.invalid]="form.get('confirmarPassword')?.invalid && form.get('confirmarPassword')?.touched">
-        @if (form.get('confirmarPassword')?.invalid && form.get('confirmarPassword')?.touched) {
-        <span class="field-error">Confirma la contraseña</span>
+        <!-- Password Requirements Checklist -->
+        @if (form.get('password')?.value) {
+        <div class="password-requirements">
+          <p class="requirements-title">La contraseña debe cumplir:</p>
+          <ul class="requirements-list">
+            <li [class.valid]="passwordRequirements().minLength" [class.invalid]="!passwordRequirements().minLength">
+              <i class="bi" [class.bi-check-circle-fill]="passwordRequirements().minLength" [class.bi-x-circle-fill]="!passwordRequirements().minLength"></i>
+              Mínimo 8 caracteres
+            </li>
+            <li [class.valid]="passwordRequirements().hasUppercase" [class.invalid]="!passwordRequirements().hasUppercase">
+              <i class="bi" [class.bi-check-circle-fill]="passwordRequirements().hasUppercase" [class.bi-x-circle-fill]="!passwordRequirements().hasUppercase"></i>
+              Al menos una mayúscula
+            </li>
+            <li [class.valid]="passwordRequirements().hasLowercase" [class.invalid]="!passwordRequirements().hasLowercase">
+              <i class="bi" [class.bi-check-circle-fill]="passwordRequirements().hasLowercase" [class.bi-x-circle-fill]="!passwordRequirements().hasLowercase"></i>
+              Al menos una minúscula
+            </li>
+            <li [class.valid]="passwordRequirements().hasNumber" [class.invalid]="!passwordRequirements().hasNumber">
+              <i class="bi" [class.bi-check-circle-fill]="passwordRequirements().hasNumber" [class.bi-x-circle-fill]="!passwordRequirements().hasNumber"></i>
+              Al menos un número
+            </li>
+            <li [class.valid]="passwordRequirements().hasSpecialChar" [class.invalid]="!passwordRequirements().hasSpecialChar">
+              <i class="bi" [class.bi-check-circle-fill]="passwordRequirements().hasSpecialChar" [class.bi-x-circle-fill]="!passwordRequirements().hasSpecialChar"></i>
+              Al menos un carácter especial (!&#64;#$%^&*...)
+            </li>
+          </ul>
+        </div>
         }
+
+        <div class="form-group">
+          <label for="confirmarPassword">Confirmar Contraseña <span class="required">*</span></label>
+          <input type="password" id="confirmarPassword" formControlName="confirmarPassword"
+            placeholder="Repite la contraseña"
+            [class.valid]="form.get('confirmarPassword')?.value && passwordsMatch() && form.get('password')?.valid"
+            [class.invalid]="form.get('confirmarPassword')?.value && !passwordsMatch()">
+          @if (form.get('confirmarPassword')?.value && !passwordsMatch()) {
+          <span class="field-error">Las contraseñas no coinciden</span>
+          }
+          @if (form.get('confirmarPassword')?.value && passwordsMatch()) {
+          <span class="field-success">
+            <i class="bi bi-check-circle-fill"></i>
+            Las contraseñas coinciden
+          </span>
+          }
+        </div>
       </div>
 
       <div class="alert alert-info">

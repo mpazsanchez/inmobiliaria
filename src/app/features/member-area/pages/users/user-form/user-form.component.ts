@@ -1,9 +1,10 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { UserService } from '../../../../../core/services/user.service';
 import { AuthService } from '../../../services/auth.service';
+import { ToastService } from '../../../../../core/services/toast.service';
 import { ImageUploaderComponent } from '../../../../../shared/components/image-uploader/image-uploader.component';
 import { ImageUploadResult } from '../../../../../core/services/image-upload.service';
 import type { Usuario, CrearUsuarioDto, ActualizarUsuarioDto, RolUsuario } from '../../../../../core/models/user.interface';
@@ -39,6 +40,7 @@ export class UserFormComponent implements OnInit, CanComponentDeactivate {
   private route = inject(ActivatedRoute);
   private userService = inject(UserService);
   private authService = inject(AuthService);
+  private toastService = inject(ToastService);
 
   // Estado
   isEditMode = signal(false);
@@ -59,7 +61,17 @@ export class UserFormComponent implements OnInit, CanComponentDeactivate {
   
   // Modal de confirmación para eliminar foto
   showDeletePhotoModal = signal(false);
-  
+
+  // Password requirements tracking
+  passwordRequirements = signal({
+    minLength: false,
+    hasUppercase: false,
+    hasLowercase: false,
+    hasNumber: false,
+    hasSpecialChar: false
+  });
+  passwordsMatch = signal(true);
+
   // Usuario actual
   usuario = signal<Usuario | null>(null);
   
@@ -70,6 +82,33 @@ export class UserFormComponent implements OnInit, CanComponentDeactivate {
   isEditingOwnProfile = computed(() => {
     const currentUserId = this.authService.getCurrentUserId();
     return this.isEditMode() && this.userId() === currentUserId;
+  });
+
+  // Computed para detectar errores en cada tab
+  tabErrors = computed(() => {
+    const form = this.form;
+    const touched = Object.keys(form.controls).some(key => form.get(key)?.touched);
+    if (!touched && !form.dirty) return { basico: false, seguridad: false, perfil: false, redes: false, logros: false };
+    
+    return {
+      basico: (
+        form.get('nombre')?.invalid ||
+        form.get('apellido')?.invalid ||
+        form.get('email')?.invalid ||
+        form.get('telefono')?.invalid ||
+        form.get('rol')?.invalid
+      ) || false,
+      seguridad: !this.isEditMode() && (
+        form.get('password')?.invalid ||
+        form.get('confirmarPassword')?.invalid ||
+        !this.passwordsMatch()
+      ) || false,
+      perfil: this.esAsesor() && (
+        form.get('cargo')?.invalid
+      ) || false,
+      redes: false,
+      logros: false
+    };
   });
 
   // Formulario
@@ -110,13 +149,13 @@ export class UserFormComponent implements OnInit, CanComponentDeactivate {
   });
 
   // Configuración de tabs
-  tabsConfig: TabConfig[] = [
-    { id: 'basico', label: 'Datos Básicos', icon: 'person' },
-    { id: 'seguridad', label: 'Seguridad', icon: 'shield-lock' },
-    { id: 'perfil', label: 'Perfil Público', icon: 'card-text', hideIf: () => !this.esAsesor() },
-    { id: 'redes', label: 'Redes Sociales', icon: 'share', hideIf: () => !this.esAsesor() },
-    { id: 'logros', label: 'Logros', icon: 'trophy', hideIf: () => !this.esAsesor() }
-  ];
+  tabsConfig = computed<TabConfig[]>(() => [
+    { id: 'basico', label: 'Datos Básicos', icon: 'person', hasError: this.tabErrors().basico },
+    { id: 'seguridad', label: 'Seguridad', icon: 'shield-lock', hasError: this.tabErrors().seguridad },
+    { id: 'perfil', label: 'Perfil Público', icon: 'card-text', hideIf: () => !this.esAsesor(), hasError: this.tabErrors().perfil },
+    { id: 'redes', label: 'Redes Sociales', icon: 'share', hideIf: () => !this.esAsesor(), hasError: this.tabErrors().redes },
+    { id: 'logros', label: 'Logros', icon: 'trophy', hideIf: () => !this.esAsesor(), hasError: this.tabErrors().logros }
+  ]);
 
   // Opciones
   roles: { value: RolUsuario, label: string }[] = [
@@ -147,30 +186,93 @@ export class UserFormComponent implements OnInit, CanComponentDeactivate {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    
+
     if (id) {
       this.isEditMode.set(true);
       this.userId.set(+id);
       this.cargarUsuario(+id);
-      
+
       // En modo edición, la contraseña no es obligatoria
       this.form.get('password')?.clearValidators();
       this.form.get('confirmarPassword')?.clearValidators();
     } else {
-      // En modo creación, la contraseña es obligatoria
+      // En modo creación, la contraseña es obligatoria con validación de seguridad
       this.form.get('password')?.setValidators([
-        Validators.required, 
-        Validators.minLength(8)
+        Validators.required,
+        this.passwordStrengthValidator.bind(this)
       ]);
       this.form.get('confirmarPassword')?.setValidators([
         Validators.required
       ]);
     }
 
+    // Escuchar cambios en el campo de contraseña para feedback en tiempo real
+    this.form.get('password')?.valueChanges.subscribe((value: string) => {
+      this.updatePasswordRequirements(value || '');
+    });
+
+    // Escuchar cambios en confirmar contraseña para feedback en tiempo real
+    this.form.get('confirmarPassword')?.valueChanges.subscribe((value: string) => {
+      const password = this.form.get('password')?.value || '';
+      this.passwordsMatch.set(!value || password === value);
+    });
+
     // Observar cambios en el rol para habilitar/deshabilitar campos
     this.form.get('rol')?.valueChanges.subscribe(() => {
       this.actualizarValidadoresSegunRol();
     });
+  }
+
+  private passwordStrengthValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value || '';
+    if (!value) return { required: true };
+
+    const errors: ValidationErrors = {};
+    const missing: string[] = [];
+    
+    if (value.length < 8) {
+      errors['minLength'] = true;
+      missing.push('mínimo 8 caracteres');
+    }
+    if (!/[A-Z]/.test(value)) {
+      errors['missingUppercase'] = true;
+      missing.push('mayúscula');
+    }
+    if (!/[a-z]/.test(value)) {
+      errors['missingLowercase'] = true;
+      missing.push('minúscula');
+    }
+    if (!/[0-9]/.test(value)) {
+      errors['missingNumber'] = true;
+      missing.push('número');
+    }
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`~]/.test(value)) {
+      errors['missingSpecialChar'] = true;
+      missing.push('carácter especial');
+    }
+
+    if (Object.keys(errors).length) {
+      errors['message'] = `Falta: ${missing.join(', ')}`;
+      return errors;
+    }
+    
+    return null;
+  }
+
+  private updatePasswordRequirements(value: string): void {
+    this.passwordRequirements.set({
+      minLength: value.length >= 8,
+      hasUppercase: /[A-Z]/.test(value),
+      hasLowercase: /[a-z]/.test(value),
+      hasNumber: /[0-9]/.test(value),
+      hasSpecialChar: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`~]/.test(value)
+    });
+
+    // Actualizar match si confirmar ya tiene valor
+    const confirmValue = this.form.get('confirmarPassword')?.value;
+    if (confirmValue) {
+      this.passwordsMatch.set(value === confirmValue);
+    }
   }
 
   cargarUsuario(id: number): void {
@@ -319,12 +421,10 @@ export class UserFormComponent implements OnInit, CanComponentDeactivate {
 
     this.userService.crearUsuario(dto).subscribe({
       next: (usuario) => {
-        this.success.set('Usuario creado exitosamente');
         this.isSaving.set(false);
-        
-        setTimeout(() => {
-          this.router.navigate(['/member-area/usuarios']);
-        }, 1500);
+        this.form.markAsPristine();
+        this.toastService.success('Usuario creado exitosamente');
+        this.router.navigate(['/member-area/usuarios']);
       },
       error: (err) => {
         console.error('Error al crear usuario:', err);
@@ -371,13 +471,10 @@ export class UserFormComponent implements OnInit, CanComponentDeactivate {
 
     this.userService.actualizarUsuario(this.userId()!, dto).subscribe({
       next: (usuario) => {
-        this.success.set('Usuario actualizado exitosamente');
         this.isSaving.set(false);
         this.form.markAsPristine();
-        
-        setTimeout(() => {
-          this.router.navigate(['/member-area/usuarios']);
-        }, 1500);
+        this.toastService.success('Usuario actualizado exitosamente');
+        this.router.navigate(['/member-area/usuarios']);
       },
       error: (err) => {
         console.error('Error al actualizar usuario:', err);
