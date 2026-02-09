@@ -127,50 +127,43 @@ export class ImageUploadService {
       return throwError(() => new Error(validation.error));
     }
 
-    // Optimizar imagen antes de subir
-    return this.optimizeImage(file, options.maxWidth || 1920, options.quality || 0.85).pipe(
-      switchMap(optimizedBlob => {
-        const formData = new FormData();
-        formData.append('file', optimizedBlob, file.name);
-        formData.append('upload_preset', this.cloudinaryConfig.uploadPreset);
-        
-        if (options.folder) {
-          formData.append('folder', options.folder);
-        }
+    // Subir directamente sin optimización previa (Cloudinary lo hace)
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', this.cloudinaryConfig.uploadPreset);
+    
+    if (options.folder) {
+      formData.append('folder', options.folder);
+    }
 
-        // Configurar transformaciones para generar versiones optimizadas
-        const transformations = {
-          eager: [
-            { width: 150, height: 150, crop: 'thumb', quality: 'auto:low' }, // Thumbnail
-            { width: 800, height: 600, crop: 'limit', quality: 'auto:good' }  // Medium
-          ],
-          eager_async: true
+    const url = `https://api.cloudinary.com/v1_1/${this.cloudinaryConfig.cloudName}/image/upload`;
+
+    return this.http.post<any>(url, formData).pipe(
+      map(response => {
+        // Construir URLs con transformaciones de Cloudinary
+        const baseUrl = response.secure_url.split('/upload/')[0] + '/upload';
+        const imagePath = response.secure_url.split('/upload/')[1];
+
+        return {
+          url: response.secure_url, // URL original
+          thumbnailUrl: `${baseUrl}/w_150,h_150,c_thumb,q_auto:low/${imagePath}`,
+          mediumUrl: `${baseUrl}/w_800,h_600,c_limit,q_auto:good/${imagePath}`,
+          publicId: response.public_id,
+          width: response.width,
+          height: response.height,
+          format: response.format,
+          size: response.bytes
         };
-
-        const url = `https://api.cloudinary.com/v1_1/${this.cloudinaryConfig.cloudName}/image/upload`;
-
-        return this.http.post<any>(url, formData).pipe(
-          map(response => {
-            // Construir URLs con transformaciones de Cloudinary
-            const baseUrl = response.secure_url.split('/upload/')[0] + '/upload';
-            const imagePath = response.secure_url.split('/upload/')[1];
-
-            return {
-              url: response.secure_url, // URL original (optimizada)
-              thumbnailUrl: `${baseUrl}/w_150,h_150,c_thumb,q_auto:low/${imagePath}`, // 150x150
-              mediumUrl: `${baseUrl}/w_800,h_600,c_limit,q_auto:good/${imagePath}`, // 800x600 max
-              publicId: response.public_id,
-              width: response.width,
-              height: response.height,
-              format: response.format,
-              size: response.bytes
-            };
-          }),
-          catchError(error => {
-            console.error('Error al subir imagen a Cloudinary:', error);
-            return throwError(() => new Error('Error al subir la imagen. Intente nuevamente.'));
-          })
-        );
+      }),
+      catchError(error => {
+        console.error('Error al subir imagen a Cloudinary:', error);
+        let errorMessage = 'Error al subir la imagen. Intente nuevamente.';
+        
+        if (error.error?.error?.message) {
+          errorMessage = error.error.error.message;
+        }
+        
+        return throwError(() => new Error(errorMessage));
       })
     );
   }
@@ -189,7 +182,7 @@ export class ImageUploadService {
    */
   deleteFromCloudinary(publicId: string): Observable<void> {
     // Por seguridad, la eliminación debe hacerse desde el backend
-    // Aquí solo retornamos success, implementar endpoint backend si es necesario
+    // Aquí solo retornamos success, implementar endpoint backend
     console.warn('Eliminación de imágenes debe implementarse en el backend');
     return new Observable(observer => {
       observer.next();
@@ -199,10 +192,11 @@ export class ImageUploadService {
 
   /**
    * Genera URL con transformaciones específicas de Cloudinary
+   * Todas las imágenes ahora están en Cloudinary
    */
   getTransformedUrl(url: string, transformations: string): string {
-    if (!url.includes('cloudinary.com')) {
-      return url; // No es una imagen de Cloudinary, retornar URL original
+    if (!url || !url.includes('/upload/')) {
+      return url; // URL inválida o no es de Cloudinary
     }
 
     const parts = url.split('/upload/');
@@ -214,7 +208,8 @@ export class ImageUploadService {
   }
 
   /**
-   * Obtiene diferentes versiones de una imagen de Cloudinary
+   * Obtiene diferentes versiones optimizadas de una imagen de Cloudinary
+   * Genera automáticamente thumbnails y diferentes tamaños
    */
   getImageVersions(url: string) {
     return {

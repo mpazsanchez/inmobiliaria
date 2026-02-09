@@ -30,9 +30,9 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: ['jardin', 'parrilla', 'cochera', 'lavadero']
     },
     imagenes: [
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420307/fairway/properties/ybr2lwdyezmae8o2pqpg.jpg', descripcion: 'Frente' },
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420309/fairway/properties/b6nx9y4hvwizdbwyuzjc.jpg', descripcion: 'Living' },
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420311/fairway/properties/hahhacelgrjutvxyljua.jpg', descripcion: 'Jardin' }
+      { url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop', descripcion: 'Frente' },
+      { url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop', descripcion: 'Living' },
+      { url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop', descripcion: 'Jardin' }
     ],
     estado: 'disponible',
     destacada: true,
@@ -69,8 +69,8 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: ['balcon', 'pileta', 'gym', 'sum', 'seguridad-24hs']
     },
     imagenes: [
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420312/fairway/properties/igxtaeapoitbcam6ukoy.jpg', descripcion: 'Living' },
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420314/fairway/properties/kidonzo2x5ekkbnf9wxp.jpg', descripcion: 'Dormitorio' }
+      { url: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop', descripcion: 'Living' },
+      { url: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop', descripcion: 'Dormitorio' }
     ],
     estado: 'disponible',
     destacada: true,
@@ -107,7 +107,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: ['patio', 'parrilla']
     },
     imagenes: [
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420315/fairway/properties/ezdw1ybxvltph9krj1wj.jpg', descripcion: 'Living' }
+      { url: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&h=600&fit=crop', descripcion: 'Living' }
     ],
     estado: 'disponible',
     destacada: true,
@@ -144,7 +144,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: ['aire-acondicionado', 'seguridad-24hs', 'recepcion']
     },
     imagenes: [
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420317/fairway/properties/emkqn5wxu8rettuqmqg7.jpg', descripcion: 'Vista general' }
+      { url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop', descripcion: 'Vista general' }
     ],
     estado: 'disponible',
     destacada: true,
@@ -181,7 +181,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: []
     },
     imagenes: [
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420319/fairway/properties/vakptdjytbfcjsd3a2qo.jpg', descripcion: 'Vista' }
+      { url: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop', descripcion: 'Vista' }
     ],
     estado: 'disponible',
     destacada: true,
@@ -218,8 +218,8 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: ['balcon', 'pileta', 'gym', 'solarium', 'laundry', 'seguridad-24hs']
     },
     imagenes: [
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420320/fairway/properties/ydpom30s2vfwb3bipdpk.jpg', descripcion: 'Living' },
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420322/fairway/properties/zqvwyrcunakc9bhojwle.jpg', descripcion: 'Dormitorio' }
+      { url: 'https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?w=800&h=600&fit=crop', descripcion: 'Living' },
+      { url: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&h=600&fit=crop', descripcion: 'Dormitorio' }
     ],
     estado: 'disponible',
     destacada: true,
@@ -255,7 +255,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: ['terraza']
     },
     imagenes: [
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420312/fairway/properties/igxtaeapoitbcam6ukoy.jpg', descripcion: 'Interior' }
+      { url: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop', descripcion: 'Interior' }
     ],
     estado: 'disponible',
     destacada: false,
@@ -290,7 +290,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: ['terraza', 'parrilla']
     },
     imagenes: [
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420309/fairway/properties/b6nx9y4hvwizdbwyuzjc.jpg', descripcion: 'Terraza' }
+      { url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop', descripcion: 'Terraza' }
     ],
     estado: 'disponible',
     destacada: false,
@@ -325,7 +325,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: []
     },
     imagenes: [
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420315/fairway/properties/ezdw1ybxvltph9krj1wj.jpg', descripcion: 'Interior' }
+      { url: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&h=600&fit=crop', descripcion: 'Interior' }
     ],
     estado: 'disponible',
     destacada: false,
@@ -360,7 +360,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: ['patio', 'parrilla', 'lavadero']
     },
     imagenes: [
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420311/fairway/properties/hahhacelgrjutvxyljua.jpg', descripcion: 'Patio' }
+      { url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop', descripcion: 'Patio' }
     ],
     estado: 'disponible',
     destacada: false,
@@ -395,7 +395,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: ['pileta', 'gym', 'spa', 'seguridad-24hs']
     },
     imagenes: [
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420307/fairway/properties/ybr2lwdyezmae8o2pqpg.jpg', descripcion: 'Vista' }
+      { url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop', descripcion: 'Vista' }
     ],
     estado: 'disponible',
     destacada: true,
@@ -431,7 +431,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: ['balcon']
     },
     imagenes: [
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420314/fairway/properties/kidonzo2x5ekkbnf9wxp.jpg', descripcion: 'Living' }
+      { url: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop', descripcion: 'Living' }
     ],
     estado: 'disponible',
     destacada: false,
@@ -466,7 +466,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: ['terraza', 'pileta-privada', 'seguridad-24hs']
     },
     imagenes: [
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420309/fairway/properties/b6nx9y4hvwizdbwyuzjc.jpg', descripcion: 'Terraza' }
+      { url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop', descripcion: 'Terraza' }
     ],
     estado: 'disponible',
     destacada: true,
@@ -501,7 +501,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: ['gym', 'laundry']
     },
     imagenes: [
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420312/fairway/properties/igxtaeapoitbcam6ukoy.jpg', descripcion: 'Living' }
+      { url: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop', descripcion: 'Living' }
     ],
     estado: 'disponible',
     destacada: false,
@@ -536,7 +536,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: ['balcon', 'dependencia']
     },
     imagenes: [
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420311/fairway/properties/hahhacelgrjutvxyljua.jpg', descripcion: 'Living' }
+      { url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop', descripcion: 'Living' }
     ],
     estado: 'disponible',
     destacada: false,
@@ -572,7 +572,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: ['aire-acondicionado', 'seguridad-24hs']
     },
     imagenes: [
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420317/fairway/properties/emkqn5wxu8rettuqmqg7.jpg', descripcion: 'Oficina' }
+      { url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop', descripcion: 'Oficina' }
     ],
     estado: 'disponible',
     destacada: false,
@@ -607,7 +607,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: []
     },
     imagenes: [
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420323/fairway/properties/uwkj6alfmgwqb6v9kcpb.jpg', descripcion: 'Local' }
+      { url: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=600&fit=crop', descripcion: 'Local' }
     ],
     estado: 'disponible',
     destacada: false,
@@ -642,7 +642,7 @@ export const MOCK_PROPIEDADES: Propiedad[] = [
       amenidades: []
     },
     imagenes: [
-      { url: 'https://res.cloudinary.com/dvbhqr8nu/image/upload/v1770420315/fairway/properties/ezdw1ybxvltph9krj1wj.jpg', descripcion: 'Interior' }
+      { url: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?w=800&h=600&fit=crop', descripcion: 'Interior' }
     ],
     estado: 'disponible',
     destacada: false,
