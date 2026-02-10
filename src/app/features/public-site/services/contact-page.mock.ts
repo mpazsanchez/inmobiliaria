@@ -10,7 +10,7 @@ export const CONTACT_PAGE_MOCK = {
     horario: 'Lunes a Viernes de 9 a 18hs'
   },
   social: [
-    { icon: 'fab fa-whatsapp', label: 'WhatsApp', url: 'https://wa.me/5492494380238' },
+    { icon: 'fab fa-whatsapp', label: 'WhatsApp', url: 'https://wa.me/5492494244568' },
     { icon: 'fab fa-instagram', label: 'Instagram', url: 'https://www.instagram.com/fairwayserviciosintegrales/' },
     { icon: 'fab fa-facebook', label: 'Facebook', url: 'https://www.facebook.com/fairway.parquizacion.integral/' }
   ],
