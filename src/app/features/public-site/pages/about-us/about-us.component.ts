@@ -1,5 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { SafeHtml } from '@angular/platform-browser';
 import { ContenidoEstaticoService } from '../../../../core/services/contenido-estatico.service';
 import { SeoService } from '../../../../core/services/seo.service';
@@ -9,7 +10,7 @@ import { ContenidoEstatico } from '../../../../core/models/static-content/conten
 @Component({
   selector: 'app-about-us',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './about-us.component.html',
   styleUrl: './about-us.component.scss'
 })
@@ -22,7 +23,6 @@ export class AboutUsComponent implements OnInit {
   private readonly contenidoService = inject(ContenidoEstaticoService);
   private readonly sanitizerService = inject(SanitizerService);
   private readonly seoService = inject(SeoService);
-
   ngOnInit(): void {
     this.loadContent();
   }

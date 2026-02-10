@@ -1,74 +1,84 @@
 <!-- About Us Page -->
 <div class="about-us-page">
 
-  <!-- Hero Banner -->
-  <section class="hero-banner">
+  <!-- Hero Section -->
+  <section class="hero-section">
     <div class="hero-overlay"></div>
     <div class="container">
       <div class="hero-content">
         @if (content) {
+          <span class="hero-label">Sobre Nosotros</span>
           <h1 class="hero-title">{{ content.titulo }}</h1>
+          <div class="hero-divider"></div>
+          <p class="hero-subtitle">Más de 12 años construyendo confianza y realizando sueños inmobiliarios</p>
         }
-        <div class="hero-divider"></div>
-        <p class="hero-subtitle">Tu socio de confianza en el mercado inmobiliario</p>
       </div>
     </div>
   </section>
 
-  <!-- Loading State -->
-  @if (loading) {
-    <section class="loading-section">
+    <!-- Main About Section -->
+    <section class="main-about-section">
       <div class="container">
-        <div class="loading-wrapper">
-          <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Cargando...</span>
+        <div class="row align-items-center g-5 content-row">
+          <div class="col-lg-6">
+            <div class="about-image-wrapper">
+              <div class="image-frame">
+                <img src="/assets/images/backgrounds/fairway/urbanismo.webp"
+                     alt="Fairway Inmobiliaria - Oficina y equipo profesional"
+                     class="img-fluid"
+                     loading="eager">
+              </div>
+              <div class="experience-badge">
+                <div class="badge-content">
+                  <span class="badge-number">10+</span>
+                  <span class="badge-text">Años de<br>Experiencia</span>
+                </div>
+              </div>
+            </div>
           </div>
-          <p class="loading-text">Cargando contenido...</p>
-        </div>
-      </div>
-    </section>
-  }
-
-  <!-- Error State -->
-  @if (error && !loading) {
-    <section class="error-section">
-      <div class="container">
-        <div class="error-wrapper">
-          <i class="fas fa-exclamation-circle error-icon"></i>
-          <p class="error-text">{{ error }}</p>
-        </div>
-      </div>
-    </section>
-  }
-
-  <!-- Main Content -->
-  @if (content && !loading && !error) {
-    <section class="content-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-10 mx-auto">
-            <div class="content-wrapper" [innerHTML]="safeHtml"></div>
+          <div class="col-lg-6">
+            <div class="about-content">
+              <span class="section-label">Sobre Fairway</span>
+              <h2 class="section-title">Líderes en el Mercado Inmobiliario</h2>
+              <p class="intro-text">
+                Fairway Servicios Integrales es una empresa con más de 10 años de
+                experiencia en el mercado inmobiliario de Tandil y la zona. Nos especializamos
+                en la compra, venta y alquiler de propiedades residenciales, comerciales y rurales.
+              </p>
+              <div class="about-highlights">
+                <div class="highlight-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span>Asesoramiento personalizado en cada operación</span>
+                </div>
+                <div class="highlight-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span>Equipo de profesionales matriculados</span>
+                </div>
+                <div class="highlight-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span>Cobertura integral en Tandil y la región</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
-  }
 
-  <!-- Stats Section -->
-  @if (content && !loading) {
+    <!-- Stats Section -->
     <section class="stats-section">
       <div class="container">
-        <div class="row g-4">
-          <div class="col-md-4">
+        <div class="row g-4 justify-content-center">
+          <div class="col-lg-4 col-md-4">
             <div class="stat-card">
               <div class="stat-icon">
                 <i class="fas fa-calendar-check"></i>
               </div>
-              <h3 class="stat-number">20+</h3>
+              <h3 class="stat-number">10+</h3>
               <p class="stat-label">Años de Experiencia</p>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-lg-4 col-md-4">
             <div class="stat-card">
               <div class="stat-icon">
                 <i class="fas fa-home"></i>
@@ -77,7 +87,7 @@
               <p class="stat-label">Propiedades Vendidas</p>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-lg-4 col-md-4">
             <div class="stat-card">
               <div class="stat-icon">
                 <i class="fas fa-users"></i>
@@ -90,19 +100,134 @@
       </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
+    <!-- Mission & Vision Section -->
+    <section class="mission-vision-section">
       <div class="container">
-        <div class="cta-wrapper">
-          <h2 class="cta-title">¿Listo para encontrar tu propiedad ideal?</h2>
-          <p class="cta-text">Nuestro equipo de expertos está aquí para ayudarte en cada paso del camino</p>
-          <div class="cta-buttons">
-            <a routerLink="/properties" class="btn btn-light btn-lg">Ver Propiedades</a>
-            <a routerLink="/contact" class="btn btn-outline-light btn-lg">Contáctanos</a>
+        <div class="section-header text-center">
+          <span class="section-label">Nuestra Filosofía</span>
+          <h2 class="section-title">Misión y Visión</h2>
+        </div>
+        <div class="row g-4 mt-3">
+          <div class="col-lg-6">
+            <div class="mission-card">
+              <div class="card-icon-wrapper">
+                <i class="fas fa-bullseye"></i>
+              </div>
+              <h3>Nuestra Misión</h3>
+              <p class="card-text">
+                Brindar soluciones inmobiliarias integrales, conectando a personas
+                con sus propiedades ideales a través de un servicio personalizado,
+                profesional y transparente que genere confianza y satisfacción.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="vision-card">
+              <div class="card-icon-wrapper">
+                <i class="fas fa-eye"></i>
+              </div>
+              <h3>Nuestra Visión</h3>
+              <p class="card-text">
+                Ser la inmobiliaria de referencia en el mercado, reconocida por nuestra
+                excelencia en el servicio, innovación tecnológica y compromiso con el
+                éxito de nuestros clientes y la comunidad.
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </section>
-  }
+
+    <!-- Values Section -->
+    <section class="values-section">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-label">Nuestros Valores</span>
+          <h2 class="section-title">Lo Que Nos Define</h2>
+          <p class="section-subtitle">Trabajamos con compromiso, honestidad y profesionalismo</p>
+        </div>
+        <div class="row g-4 mt-4">
+          <div class="col-lg-4 col-md-6">
+            <div class="value-card">
+              <div class="value-icon">
+                <i class="fas fa-handshake"></i>
+              </div>
+              <h3 class="value-title">Compromiso</h3>
+              <p class="value-description">
+                Dedicados a entender y cumplir las expectativas de cada cliente,
+                brindando un servicio excepcional en cada etapa del proceso.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="value-card">
+              <div class="value-icon">
+                <i class="fas fa-balance-scale"></i>
+              </div>
+              <h3 class="value-title">Honestidad</h3>
+              <p class="value-description">
+                Operamos con transparencia total, asegurando que cada operación
+                se realice con la máxima integridad y confianza.
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="value-card">
+              <div class="value-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <h3 class="value-title">Crecimiento</h3>
+              <p class="value-description">
+                Nos actualizamos constantemente para ofrecer las mejores
+                soluciones del mercado inmobiliario a nuestros clientes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Preview Section -->
+    <section class="team-preview-section">
+      <div class="container">
+        <div class="section-header text-center">
+          <span class="section-label">Nuestro Equipo</span>
+          <h2 class="section-title">Profesionales a tu Servicio</h2>
+          <p class="section-subtitle">Asesores dedicados a hacer realidad tus objetivos inmobiliarios</p>
+        </div>
+        <div class="text-center mt-4">
+          <a routerLink="/team" class="btn btn-primary btn-lg">
+            <i class="fas fa-users me-2"></i>
+            Conocé al Equipo
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <div class="row align-items-center">
+            <div class="col-lg-8">
+              <h2 class="cta-title">¿Listo para encontrar tu propiedad ideal?</h2>
+              <p class="cta-text">Nuestro equipo de expertos está aquí para ayudarte en cada paso del camino</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+              <div class="cta-buttons">
+                <a routerLink="/properties" class="btn btn-light btn-lg">
+                  <i class="fas fa-search me-2"></i>
+                  Ver Propiedades
+                </a>
+                <a routerLink="/contact" class="btn btn-outline-light btn-lg">
+                  <i class="fas fa-envelope me-2"></i>
+                  Contactanos
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
 </div>

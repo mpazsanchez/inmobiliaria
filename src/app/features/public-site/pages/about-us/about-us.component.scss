@@ -1,17 +1,17 @@
-@import '../../../../../assets/styles/variables';
+@use '../../../../../assets/styles/public-variables' as v;
 
 .about-us-page {
-  
-  // Hero Banner
-  .hero-banner {
+
+  // Hero Section
+  .hero-section {
     position: relative;
-    min-height: 350px;
-    background: linear-gradient(135deg, rgba($green-fairway, 0.6) 0%, rgba($green-accent, 0.3) 90%);
+    min-height: 420px;
+    background: linear-gradient(135deg, rgba(v.$brand-green, 0.95) 0%, rgba(v.$brand-green-dark, 0.9) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    padding: 120px 0 60px;
+    padding: 140px 0 80px;
 
     &::before {
       content: '';
@@ -23,7 +23,15 @@
       background-image: url('/assets/images/backgrounds/fairway/urbanismo.webp');
       background-size: cover;
       background-position: center;
-      z-index: -2;
+      opacity: 0;
+      z-index: 0;
+      animation: fadeInBackground 0.6s ease-in forwards;
+    }
+
+    @keyframes fadeInBackground {
+      to {
+        opacity: 0.15;
+      }
     }
 
     .hero-overlay {
@@ -32,42 +40,55 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
-      z-index: -1;
+      background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+      z-index: 1;
     }
 
     .container {
       position: relative;
-      z-index: 1;
+      z-index: 2;
     }
 
     .hero-content {
       text-align: center;
       color: white;
 
-      .hero-title {
-        font-size: 2.5rem;
-        font-weight: 700;
+      .hero-label {
+        display: inline-block;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        opacity: 0.85;
         margin-bottom: 1rem;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .hero-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        letter-spacing: -0.5px;
 
         @media (max-width: 768px) {
-          font-size: 2rem;
+          font-size: 2.25rem;
         }
       }
 
       .hero-divider {
         width: 80px;
-        height: 4px;
-        background: white;
+        height: 3px;
+        background: v.$brand-orange;
         margin: 0 auto 1.5rem;
         border-radius: 2px;
       }
 
       .hero-subtitle {
-        font-size: 1.1rem;
+        font-size: 1.15rem;
         font-weight: 300;
-        opacity: 0.95;
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto;
 
         @media (max-width: 768px) {
           font-size: 1rem;
@@ -76,42 +97,31 @@
     }
 
     @media (max-width: 768px) {
-      min-height: 300px;
-      padding: 50px 0;
+      min-height: 320px;
+      padding: 100px 0 60px;
     }
   }
 
-  // Loading Section
-  .loading-section {
-    padding: 100px 0;
-    background: #f8f9fa;
+  // Loading & Error States
+  .loading-section, .error-section {
+    padding: 80px 0;
+    background: v.$bg-light;
 
-    .loading-wrapper {
+    .loading-wrapper, .error-wrapper {
       text-align: center;
 
       .spinner-border {
         width: 3rem;
         height: 3rem;
         border-width: 0.3rem;
+        color: v.$brand-green;
       }
 
       .loading-text {
         margin-top: 1.5rem;
         font-size: 1.1rem;
-        color: #6c757d;
+        color: v.$text-muted;
       }
-    }
-  }
-
-  // Error Section
-  .error-section {
-    padding: 100px 0;
-    background: #f8f9fa;
-
-    .error-wrapper {
-      text-align: center;
-      max-width: 500px;
-      margin: 0 auto;
 
       .error-icon {
         font-size: 4rem;
@@ -121,103 +131,188 @@
 
       .error-text {
         font-size: 1.1rem;
-        color: #6c757d;
+        color: v.$text-muted;
       }
     }
   }
 
-  // Main Content Section
-  .content-section {
-    padding: 50px 0;
+  // Main About Section
+  .main-about-section {
+    padding: 80px 0;
     background: white;
 
-    .content-wrapper {
-      font-size: 1.1rem;
-      line-height: 1.9;
-      color: #444;
-
-      ::ng-deep {
-        h2 {
-          font-size: 1.9rem;
-          font-weight: 700;
-          color: #454444;
-          margin-bottom: 1.25rem;
-          margin-top: 2.5rem;
-
-          &:first-child {
-            margin-top: 0;
-          }
-
-          @media (max-width: 768px) {
-            font-size: 1.6rem;
-          }
-        }
-
-        h3 {
-          font-size: 1.35rem;
-          font-weight: 600;
-          color: rgba($green-fairway, 0.9);
-          margin-top: 1.75rem;
-          margin-bottom: 0.9rem;
-
-          @media (max-width: 768px) {
-            font-size: 1.2rem;
-          }
-        }
-
-        p {
-          margin-bottom: 1.5rem;
-          color: #555;
-          text-align: justify;
-        }
-
-        ul {
-          margin: 1.5rem 0;
-          padding-left: 1.5rem;
-          list-style: none;
-
-          li {
-            margin-bottom: 0.75rem;
-            padding-left: 0;
-            color: #555;
-            line-height: 1.7;
-          }
-        }
-
-        strong {
-          color: #1a1a1a;
-          font-weight: 600;
-        }
-      }
+    @media (min-width: 1200px) {
+      padding: 100px 0;
     }
 
     @media (max-width: 768px) {
       padding: 60px 0;
     }
+
+    .about-image-wrapper {
+      position: relative;
+
+      @media (max-width: 991px) {
+        margin-bottom: 2.5rem;
+      }
+
+      .image-frame {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+
+        img {
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+      }
+
+      .experience-badge {
+        position: absolute;
+        bottom: -25px;
+        right: 25px;
+        background: linear-gradient(135deg, v.$brand-orange 0%, v.$brand-orange-dark 100%);
+        padding: 24px 28px;
+        border-radius: 16px;
+        box-shadow: 0 12px 35px rgba(v.$brand-orange, 0.35);
+        z-index: 10;
+
+        @media (max-width: 768px) {
+          bottom: -20px;
+          right: 15px;
+          padding: 18px 22px;
+        }
+
+        .badge-content {
+          text-align: center;
+          color: white;
+
+          .badge-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 6px;
+
+            @media (max-width: 768px) {
+              font-size: 2rem;
+            }
+          }
+
+          .badge-text {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            line-height: 1.3;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+
+            @media (max-width: 768px) {
+              font-size: 0.7rem;
+            }
+          }
+        }
+      }
+    }
+
+    .about-content {
+      .section-label {
+        display: inline-block;
+        color: v.$brand-orange;
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 0.75rem;
+      }
+
+      .section-title {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: v.$text-dark;
+        margin-bottom: 1.25rem;
+        line-height: 1.2;
+
+        @media (max-width: 768px) {
+          font-size: 1.85rem;
+        }
+      }
+
+      .intro-text {
+        font-size: 1.05rem;
+        line-height: 1.8;
+        color: v.$text-muted;
+        margin-bottom: 2rem;
+      }
+
+      .about-highlights {
+        display: flex;
+        flex-direction: column;
+        gap: 0.875rem;
+
+        .highlight-item {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+
+          i {
+            color: v.$brand-green;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+          }
+
+          span {
+            font-size: 0.95rem;
+            color: v.$text-dark;
+            font-weight: 500;
+          }
+        }
+      }
+    }
   }
 
   // Stats Section
   .stats-section {
-    padding: 50px 0;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 70px 0;
+    background: linear-gradient(135deg, v.$brand-green 0%, v.$brand-green-dark 100%);
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('/assets/images/backgrounds/fairway/slide-2.jpg');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.08;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+    }
 
     .stat-card {
       text-align: center;
-      padding: 2rem 1.25rem;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 2.5rem 1.5rem;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
       height: 100%;
+      transition: transform 0.3s ease;
 
       &:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+        transform: translateY(-5px);
       }
 
       .stat-icon {
         font-size: 2.5rem;
-        color: $green-fairway;
+        color: v.$brand-orange;
         margin-bottom: 1rem;
 
         i {
@@ -226,22 +321,283 @@
       }
 
       .stat-number {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: #1a1a1a;
+        font-size: 2.75rem;
+        font-weight: 800;
+        color: v.$brand-green;
         margin-bottom: 0.5rem;
         line-height: 1;
 
         @media (max-width: 768px) {
-          font-size: 2rem;
+          font-size: 2.25rem;
         }
       }
 
       .stat-label {
-        font-size: 1rem;
-        color: #6c757d;
+        font-size: 0.95rem;
+        color: v.$text-muted;
         margin: 0;
-        font-weight: 500;
+        font-weight: 600;
+      }
+    }
+
+    @media (max-width: 768px) {
+      padding: 50px 0;
+    }
+
+    @media (max-width: 575px) {
+      .stat-card {
+        padding: 1.5rem 1rem;
+
+        .stat-icon {
+          font-size: 1.75rem;
+          margin-bottom: 0.75rem;
+        }
+
+        .stat-number {
+          font-size: 1.75rem;
+        }
+
+        .stat-label {
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+
+  // Mission & Vision Section
+  .mission-vision-section {
+    padding: 80px 0;
+    background: white;
+
+    @media (min-width: 1200px) {
+      padding: 100px 0;
+    }
+
+    .section-header {
+      margin-bottom: 1rem;
+
+      .section-label {
+        display: inline-block;
+        color: v.$brand-orange;
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 0.75rem;
+      }
+
+      .section-title {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: v.$text-dark;
+
+        @media (max-width: 768px) {
+          font-size: 1.85rem;
+        }
+      }
+    }
+
+    .mission-card, .vision-card {
+      background: v.$bg-light;
+      padding: 2.5rem;
+      border-radius: 16px;
+      height: 100%;
+      border-left: 4px solid v.$brand-green;
+      transition: box-shadow 0.3s ease;
+
+      &:hover {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      }
+
+      .card-icon-wrapper {
+        width: 56px;
+        height: 56px;
+        background: linear-gradient(135deg, v.$brand-green 0%, v.$brand-green-dark 100%);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.25rem;
+
+        i {
+          font-size: 1.5rem;
+          color: white;
+        }
+      }
+
+      h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: v.$text-dark;
+        margin-bottom: 1rem;
+      }
+
+      .card-text {
+        font-size: 1rem;
+        line-height: 1.75;
+        color: v.$text-muted;
+        margin: 0;
+      }
+    }
+
+    .vision-card {
+      border-left-color: v.$brand-orange;
+
+      .card-icon-wrapper {
+        background: linear-gradient(135deg, v.$brand-orange 0%, v.$brand-orange-dark 100%);
+      }
+    }
+
+    @media (max-width: 768px) {
+      padding: 60px 0;
+    }
+  }
+
+  // Values Section
+  .values-section {
+    padding: 80px 0;
+    background: v.$bg-light;
+
+    @media (min-width: 1200px) {
+      padding: 100px 0;
+    }
+
+    .section-header {
+      margin-bottom: 3rem;
+
+      .section-label {
+        display: inline-block;
+        color: v.$brand-orange;
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 0.75rem;
+      }
+
+      .section-title {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: v.$text-dark;
+        margin-bottom: 0.75rem;
+
+        @media (max-width: 768px) {
+          font-size: 1.85rem;
+        }
+      }
+
+      .section-subtitle {
+        font-size: 1.05rem;
+        color: v.$text-muted;
+        max-width: 550px;
+        margin: 0 auto;
+      }
+    }
+
+    .value-card {
+      background: white;
+      padding: 2.25rem;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+      height: 100%;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+        border-color: v.$brand-green;
+      }
+
+      .value-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, v.$brand-green 0%, v.$brand-green-dark 100%);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.25rem;
+
+        i {
+          font-size: 1.5rem;
+          color: white;
+        }
+      }
+
+      .value-title {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: v.$text-dark;
+        margin-bottom: 0.75rem;
+      }
+
+      .value-description {
+        font-size: 0.95rem;
+        line-height: 1.7;
+        color: v.$text-muted;
+        margin: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      padding: 60px 0;
+    }
+  }
+
+  // Team Preview Section
+  .team-preview-section {
+    padding: 80px 0;
+    background: white;
+
+    @media (min-width: 1200px) {
+      padding: 100px 0;
+    }
+
+    .section-header {
+      margin-bottom: 2rem;
+
+      .section-label {
+        display: inline-block;
+        color: v.$brand-orange;
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 0.75rem;
+      }
+
+      .section-title {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: v.$text-dark;
+        margin-bottom: 0.75rem;
+
+        @media (max-width: 768px) {
+          font-size: 1.85rem;
+        }
+      }
+
+      .section-subtitle {
+        font-size: 1.05rem;
+        color: v.$text-muted;
+        max-width: 550px;
+        margin: 0 auto;
+      }
+    }
+
+    .btn-primary {
+      padding: 0.875rem 2.25rem;
+      font-size: 1rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, v.$brand-green 0%, v.$brand-green-dark 100%);
+      border: none;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(v.$brand-green, 0.3);
       }
     }
 
@@ -252,8 +608,8 @@
 
   // CTA Section
   .cta-section {
-    padding: 60px 0;
-    background: linear-gradient(135deg, rgba($green-fairway, 0.92) 0%, rgba($green-accent, 0.88) 100%);
+    padding: 70px 0;
+    background: linear-gradient(135deg, rgba(v.$brand-green, 0.95) 0%, rgba(v.$brand-green-dark, 0.9) 100%);
     position: relative;
     overflow: hidden;
 
@@ -264,11 +620,11 @@
       left: 0;
       right: 0;
       bottom: 0;
-      // background-image: url('/assets/images/backgrounds/fairway/slide-2.jpg');
+      background-image: url('/assets/images/backgrounds/fairway/slide-2.jpg');
       background-size: cover;
       background-position: center;
-      opacity: 0.15;
-      z-index: -1;
+      opacity: 0.1;
+      z-index: 0;
     }
 
     .container {
@@ -276,14 +632,13 @@
       z-index: 1;
     }
 
-    .cta-wrapper {
-      text-align: center;
+    .cta-content {
       color: white;
 
       .cta-title {
-        font-size: 1.9rem;
+        font-size: 2rem;
         font-weight: 700;
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
 
         @media (max-width: 768px) {
           font-size: 1.6rem;
@@ -292,42 +647,55 @@
 
       .cta-text {
         font-size: 1.05rem;
-        margin-bottom: 1.75rem;
-        opacity: 0.95;
+        opacity: 0.9;
 
         @media (max-width: 768px) {
           font-size: 0.95rem;
+          margin-bottom: 2rem;
         }
       }
 
       .cta-buttons {
         display: flex;
         gap: 1rem;
-        justify-content: center;
         flex-wrap: wrap;
 
+        @media (max-width: 991px) {
+          justify-content: flex-start;
+        }
+
+        @media (min-width: 992px) {
+          justify-content: flex-end;
+        }
+
         .btn {
-          padding: 0.75rem 2rem;
-          font-size: 1rem;
+          padding: 0.75rem 1.75rem;
+          font-size: 0.95rem;
           font-weight: 600;
           border-radius: 50px;
           transition: all 0.3s ease;
           border-width: 2px;
+          white-space: nowrap;
 
           &.btn-light {
+            background: white;
+            color: v.$brand-green;
+
             &:hover {
-              background: white;
               transform: translateY(-2px);
-              box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+              box-shadow: 0 8px 24px rgba(255, 255, 255, 0.25);
             }
           }
 
           &.btn-outline-light {
+            background: transparent;
+            border-color: white;
+            color: white;
+
             &:hover {
               background: white;
-              color: $green-fairway;
+              color: v.$brand-green;
               transform: translateY(-2px);
-              box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
             }
           }
         }
