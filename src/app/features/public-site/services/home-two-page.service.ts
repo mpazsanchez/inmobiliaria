@@ -77,7 +77,7 @@ export class HomeTwoPageService {
           ],
           contactInfo: {
             phone: '+54 249 424-4568',
-            description: '¿Tenés algún proyecto en mente? Llámanos:',
+            description: '¿Tenés algún proyecto en mente? Llamanos:',
           },
           founderInfo: {
             name: 'Glazing Team',

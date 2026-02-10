@@ -15,7 +15,7 @@
     </svg>
     <div>
       <strong>¡Consulta enviada!</strong>
-      <p>El asesor se pondrá en contacto contigo a la brevedad.</p>
+      <p>El asesor se pondrá en contacto con vos a la brevedad.</p>
     </div>
   </div>
 
@@ -84,7 +84,7 @@
         id="mensaje"
         formControlName="mensaje"
         rows="4"
-        placeholder="Escribe tu consulta..."
+        placeholder="Escribí tu consulta..."
         [class.error]="f['mensaje'].touched && f['mensaje'].invalid">
       </textarea>
       <span class="error-text" *ngIf="f['mensaje'].touched && f['mensaje'].errors?.['required']">

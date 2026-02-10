@@ -4,9 +4,9 @@
     
     <!-- Form Header -->
     <div class="form-header">
-      <h2 class="form-title">Envíenos un mensaje</h2>
+      <h2 class="form-title">Envianos un mensaje</h2>
       <p class="form-subtitle">
-        Su dirección de correo electrónico no será publicada. Los campos obligatorios están marcados con *
+        Tu dirección de correo electrónico no será publicada. Los campos obligatorios están marcados con *
       </p>
     </div>
 
@@ -42,7 +42,7 @@
               [class.is-invalid]="isFieldInvalid('email')">
             <div class="invalid-feedback" *ngIf="isFieldInvalid('email')">
               <span *ngIf="contactForm.get('email')?.errors?.['required']">El email es obligatorio</span>
-              <span *ngIf="contactForm.get('email')?.errors?.['email']">Por favor ingrese un email válido</span>
+              <span *ngIf="contactForm.get('email')?.errors?.['email']">Por favor ingresá un email válido</span>
             </div>
           </div>
         </div>
@@ -91,7 +91,7 @@
               id="message"
               formControlName="message"
               rows="6"
-              placeholder="Escriba su mensaje*"
+              placeholder="Escribí tu mensaje*"
               [class.is-invalid]="isFieldInvalid('message')"></textarea>
             <div class="invalid-feedback" *ngIf="isFieldInvalid('message')">
               El mensaje es obligatorio
