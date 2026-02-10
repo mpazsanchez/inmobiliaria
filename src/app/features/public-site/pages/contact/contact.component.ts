@@ -1,8 +1,8 @@
 import { Component, inject, OnInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ContactHeroComponent } from '../../components/contact/contact-hero/contact-hero.component';
 import { ContactInfoComponent } from '../../components/contact/contact-info/contact-info.component';
 import { ContactFormComponent } from '../../components/contact/contact-form/contact-form.component';
+import { FairwayFaqSectionComponent } from '../../components/fairway-faq-section/fairway-faq-section.component';
 import { ContactPageService } from '../../services/contact-page.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -11,9 +11,9 @@ import { DomSanitizer } from '@angular/platform-browser';
   standalone: true,
   imports: [
     CommonModule,
-    ContactHeroComponent,
     ContactInfoComponent,
     ContactFormComponent,
+    FairwayFaqSectionComponent,
   ],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
@@ -21,7 +21,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ContactComponent implements OnInit {
   private contactPageService = inject(ContactPageService);
   private sanitizer = inject(DomSanitizer);
-
   readonly data = this.contactPageService.data;
   readonly loading = this.contactPageService.loading;
   readonly error = this.contactPageService.error;
