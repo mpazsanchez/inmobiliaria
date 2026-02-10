@@ -106,13 +106,25 @@ export class StaticPagesListComponent implements OnInit {
 
   getPublicUrl(pageId: TipoPaginaEstatica): string {
     const urlMap: Record<TipoPaginaEstatica, string> = {
-      nosotros: '/nosotros',
-      contacto: '/contacto',
-      servicios: '/servicios',
-      faqs: '/faqs',
-      terminos: '/terminos',
-      privacidad: '/privacidad'
+      nosotros: '/about',
+      contacto: '/contact',
+      servicios: '/servicios', // No creado aún
+      faqs: '/contact',
+      terminos: '/terminos', // No creado aún
+      privacidad: '/privacidad' // No creado aún
     };
     return urlMap[pageId] || '/';
+  }
+
+  getFragment(pageId: TipoPaginaEstatica): string | undefined {
+    const fragmentMap: Record<TipoPaginaEstatica, string | undefined> = {
+      nosotros: undefined,
+      contacto: undefined,
+      servicios: undefined,
+      faqs: 'preguntas-frecuentes',
+      terminos: undefined,
+      privacidad: undefined
+    };
+    return fragmentMap[pageId];
   }
 }
