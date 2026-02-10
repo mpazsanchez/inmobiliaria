@@ -500,7 +500,7 @@ export class ContenidoDinamicoService {
       const newId = current.length > 0 ? Math.max(...current.map(b => b.id)) + 1 : 1;
       const newItem: Beneficio = {
         id: newId,
-        icono: data.icono || 'bi-star',
+        icono: data.icono || 'star',
         titulo: data.titulo || '',
         descripcion: data.descripcion || '',
         orden: data.orden || current.length + 1,
@@ -839,24 +839,24 @@ export class ContenidoDinamicoService {
 
   getIconosDisponibles(): string[] {
     return [
-      'bi-shield-check',
-      'bi-people',
-      'bi-graph-up-arrow',
-      'bi-headset',
-      'bi-house',
-      'bi-award',
-      'bi-star',
-      'bi-heart',
-      'bi-check-circle',
-      'bi-lightning',
-      'bi-clock',
-      'bi-geo-alt',
-      'bi-phone',
-      'bi-envelope',
-      'bi-cash-coin',
-      'bi-key',
-      'bi-building',
-      'bi-briefcase'
+      'shield-check',
+      'people',
+      'graph-up-arrow',
+      'headset',
+      'house',
+      'award',
+      'star',
+      'heart',
+      'check-circle',
+      'lightning',
+      'clock',
+      'geo-alt',
+      'phone',
+      'envelope',
+      'cash-coin',
+      'key',
+      'building',
+      'briefcase'
     ];
   }
 
