@@ -34,27 +34,29 @@
     <!-- Rango de Precios -->
     <div class="filter-group">
       <span class="filter-label">Precio</span>
-      <div class="price-range">
-        <select [(ngModel)]="filtros.moneda" name="moneda" class="filter-select currency-select">
+      <div class="price-filters-wrapper">
+        <select [(ngModel)]="filtros.moneda" name="moneda" class="filter-select currency-select-full">
           <option *ngFor="let m of monedaOpciones" [value]="m.value">{{ m.label }}</option>
         </select>
-        <input
-          type="number"
-          [(ngModel)]="filtros.precioMinimo"
-          name="precioMinimo"
-          placeholder="Mínimo"
-          class="filter-input"
-          min="0"
-        />
-        <span class="range-separator">-</span>
-        <input
-          type="number"
-          [(ngModel)]="filtros.precioMaximo"
-          name="precioMaximo"
-          placeholder="Máximo"
-          class="filter-input"
-          min="0"
-        />
+        <div class="price-range-inputs">
+          <input
+            type="number"
+            [(ngModel)]="filtros.precioMinimo"
+            name="precioMinimo"
+            placeholder="Precio mínimo"
+            class="filter-input"
+            min="0"
+          />
+          <span class="range-separator">-</span>
+          <input
+            type="number"
+            [(ngModel)]="filtros.precioMaximo"
+            name="precioMaximo"
+            placeholder="Precio máximo"
+            class="filter-input"
+            min="0"
+          />
+        </div>
       </div>
     </div>
 

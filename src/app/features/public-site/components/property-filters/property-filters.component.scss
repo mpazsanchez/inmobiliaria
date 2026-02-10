@@ -148,6 +148,22 @@ $green-dark: #0f3820;
   cursor: pointer;
 }
 
+.price-filters-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  .currency-select-full {
+    width: 100%;
+  }
+
+  .price-range-inputs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
 .price-range {
   display: flex;
   align-items: center;
