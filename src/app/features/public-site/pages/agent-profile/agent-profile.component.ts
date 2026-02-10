@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AgentService } from '../../../../core/services/agent.service';
 import { PropertyService } from '../../../../core/services/property.service';
@@ -25,15 +25,10 @@ export class AgentProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private agentService: AgentService,
-    private propertyService: PropertyService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    private propertyService: PropertyService
   ) {}
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      window.scrollTo({ top: 0, behavior: 'instant' });
-    }
-    
     this.route.params.subscribe(params => {
       const id = +params['id'];
       this.loadAgentProfile(id);
