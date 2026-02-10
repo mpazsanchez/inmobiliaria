@@ -6,7 +6,6 @@ import { Title } from '@angular/platform-browser';
 import { ToastContainerComponent } from './shared/components/toast-container/toast-container.component';
 import { ConfirmModalComponent } from './shared/components/admin/confirm-modal/confirm-modal.component';
 import { UnsavedChangesService } from './core/services/unsaved-changes.service';
-import { AuthService } from './features/member-area/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +19,6 @@ export class AppComponent implements OnInit {
 
   // Inyectar servicio para acceso desde el template
   unsavedChangesService = inject(UnsavedChangesService);
-  private authService = inject(AuthService);
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
   private titleService = inject(Title);
@@ -29,9 +27,6 @@ export class AppComponent implements OnInit {
   private readonly defaultTitle = 'Fairway Inmobiliaria';
 
   ngOnInit(): void {
-    // Restaurar sesión desde localStorage al iniciar la app
-    this.authService.restaurarSesion();
-
     // Actualizar título de la página en cada navegación
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),

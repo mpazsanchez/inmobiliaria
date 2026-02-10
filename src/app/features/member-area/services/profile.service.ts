@@ -21,14 +21,8 @@ export class ProfileService {
    * En mock usa el usuario de AuthService
    */
   getMyProfile(): Observable<Usuario | null> {
-    // Primero intentar restaurar sesión si no hay usuario
-    let usuario = this.authService.getUsuario();
-    
-    if (!usuario && typeof localStorage !== 'undefined') {
-      this.authService.restaurarSesion();
-      usuario = this.authService.getUsuario();
-    }
-    
+    const usuario = this.authService.getUsuario();
+
     if (!usuario) {
       return of(null);
     }

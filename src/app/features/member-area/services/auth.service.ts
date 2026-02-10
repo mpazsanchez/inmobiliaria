@@ -14,6 +14,12 @@ export class AuthService {
   readonly isLoggedIn = computed(() => !!this.usuario());
   readonly currentUser = computed(() => this.usuario());
 
+  constructor() {
+    // Restaurar sesión inmediatamente al crear el servicio,
+    // antes de que cualquier guard consulte el estado de auth
+    this.restaurarSesion();
+  }
+
   // =============================================
   // LOGIN - TODO: Conectar con API real
   // =============================================

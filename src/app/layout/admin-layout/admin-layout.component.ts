@@ -26,7 +26,6 @@ export class AdminLayoutComponent implements OnInit {
   usuario = this.authService.getUsuario();
 
   ngOnInit(): void {
-    this.authService.restaurarSesion();
     this.usuario = this.authService.getUsuario();
 
     // Cerrar sidebar móvil al navegar
