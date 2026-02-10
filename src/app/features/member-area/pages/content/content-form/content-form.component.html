@@ -140,7 +140,7 @@
                   class="icon-option"
                   [class.selected]="form.get('icono')?.value === icono"
                   (click)="form.patchValue({ icono: icono })">
-                  <i [class]="icono"></i>
+                  <i class="bi" [ngClass]="'bi-' + icono"></i>
                 </button>
               }
             </div>

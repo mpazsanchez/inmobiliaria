@@ -89,7 +89,7 @@ export class ContentFormComponent implements OnInit, CanComponentDeactivate {
         orden: [1, [Validators.required, Validators.min(1)]]
       }),
       beneficios: () => this.fb.group({
-        icono: ['bi-star', [Validators.required]],
+        icono: ['star', [Validators.required]],
         titulo: ['', [Validators.required, Validators.minLength(2)]],
         descripcion: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(300)]],
         orden: [1, [Validators.required, Validators.min(1)]],
