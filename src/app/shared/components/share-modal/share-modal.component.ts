@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, Output, EventEmitter, PLATFORM_ID, inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import type { Propiedad } from '../../../core/models/property.interface';
 
 @Component({
@@ -10,6 +10,9 @@ import type { Propiedad } from '../../../core/models/property.interface';
   styleUrl: './share-modal.component.scss'
 })
 export class ShareModalComponent {
+  private platformId = inject(PLATFORM_ID);
+  private isBrowser = isPlatformBrowser(this.platformId);
+
   @Input() property: Propiedad | null = null;
   @Input() isOpen = false;
   @Output() closed = new EventEmitter<void>();
@@ -26,29 +29,25 @@ export class ShareModalComponent {
   }
 
   shareOn(platform: string): void {
-    if (!this.property) return;
+    if (!this.property || !this.isBrowser) return;
 
+    // Acceso seguro a window después de verificar isBrowser
     const url = `${window.location.origin}/property/${this.property.id}`;
     const text = `${this.property.titulo} - ${this.formatearPrecio(this.property.precio, this.property.moneda)}`;
 
-    switch (platform) {
-      case 'whatsapp':
-        window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank');
-        break;
-      case 'facebook':
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
-        break;
-      case 'twitter':
-        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
-        break;
-      case 'email':
-        window.location.href = `mailto:?subject=${encodeURIComponent(text)}&body=${encodeURIComponent(url)}`;
-        break;
-    }
+    const shareActions: { [key: string]: () => void } = {
+      'whatsapp': () => window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`, '_blank'),
+      'facebook': () => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank'),
+      'twitter': () => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank'),
+      'email': () => window.location.href = `mailto:?subject=${encodeURIComponent(text)}&body=${encodeURIComponent(url)}`
+    };
+
+    const action = shareActions[platform];
+    if (action) action();
   }
 
   async copyLink(): Promise<void> {
-    if (!this.property) return;
+    if (!this.property || !this.isBrowser) return;
 
     const url = `${window.location.origin}/property/${this.property.id}`;
 

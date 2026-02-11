@@ -1,4 +1,5 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, forkJoin, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -32,6 +33,8 @@ import { LeadService } from './lead.service';
  */
 @Injectable({ providedIn: 'root' })
 export class StatisticsService {
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly isBrowser = isPlatformBrowser(this.platformId);
   private readonly apiUrl = `${environment.apiUrl}/estadisticas`;
   private readonly http = inject(HttpClient);
   private readonly propertyService = inject(PropertyService);
@@ -480,6 +483,8 @@ export class StatisticsService {
   }
 
   private descargarArchivo(contenido: string, nombreArchivo: string, tipo: string): void {
+    if (!this.isBrowser) return;
+
     const blob = new Blob(['\ufeff' + contenido], { type: `${tipo};charset=utf-8` });
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');

@@ -1,4 +1,5 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, PLATFORM_ID, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import { 
@@ -15,6 +16,9 @@ import {
   providedIn: 'root'
 })
 export class AuthRecoveryService {
+  private platformId = inject(PLATFORM_ID);
+  private isBrowser = isPlatformBrowser(this.platformId);
+
   // Estado del servicio
   private loading = signal(false);
   private error = signal<string | null>(null);
@@ -33,7 +37,7 @@ export class AuthRecoveryService {
     this.error.set(null);
 
     // Mock: buscar usuario por email
-    const usuariosData = localStorage.getItem('usuarios');
+    const usuariosData = this.isBrowser ? localStorage.getItem('usuarios') : null;
     const usuarios = usuariosData ? JSON.parse(usuariosData) : [];
     const usuario = usuarios.find((u: any) => u.email === dto.email);
 
@@ -66,7 +70,9 @@ export class AuthRecoveryService {
         this.tokensRecuperacion.push(tokenRecuperacion);
         
         // Guardar tokens (en producción sería en backend)
-        localStorage.setItem('tokens_recuperacion', JSON.stringify(this.tokensRecuperacion));
+        if (this.isBrowser) {
+          localStorage.setItem('tokens_recuperacion', JSON.stringify(this.tokensRecuperacion));
+        }
 
         // Mock: simular envío de email
         console.log(`📧 Email enviado a ${dto.email}`);
@@ -86,7 +92,7 @@ export class AuthRecoveryService {
     this.loading.set(true);
 
     // Cargar tokens
-    const tokensData = localStorage.getItem('tokens_recuperacion');
+    const tokensData = this.isBrowser ? localStorage.getItem('tokens_recuperacion') : null;
     this.tokensRecuperacion = tokensData ? JSON.parse(tokensData) : [];
 
     return of(null).pipe(
@@ -127,7 +133,7 @@ export class AuthRecoveryService {
     this.error.set(null);
 
     // Cargar tokens
-    const tokensData = localStorage.getItem('tokens_recuperacion');
+    const tokensData = this.isBrowser ? localStorage.getItem('tokens_recuperacion') : null;
     this.tokensRecuperacion = tokensData ? JSON.parse(tokensData) : [];
 
     return of(null).pipe(
@@ -151,7 +157,7 @@ export class AuthRecoveryService {
         }
 
         // Actualizar contraseña del usuario
-        const usuariosData = localStorage.getItem('usuarios');
+        const usuariosData = this.isBrowser ? localStorage.getItem('usuarios') : null;
         const usuarios = usuariosData ? JSON.parse(usuariosData) : [];
         const usuarioIndex = usuarios.findIndex((u: any) => u.id === tokenObj.usuarioId);
 
@@ -163,11 +169,15 @@ export class AuthRecoveryService {
 
         // Hash de la nueva contraseña (en producción usar bcrypt en backend)
         usuarios[usuarioIndex].passwordHash = this.hashPassword(dto.nuevaPassword);
-        localStorage.setItem('usuarios', JSON.stringify(usuarios));
+        if (this.isBrowser) {
+          localStorage.setItem('usuarios', JSON.stringify(usuarios));
+        }
 
         // Marcar token como usado
         tokenObj.usado = true;
-        localStorage.setItem('tokens_recuperacion', JSON.stringify(this.tokensRecuperacion));
+        if (this.isBrowser) {
+          localStorage.setItem('tokens_recuperacion', JSON.stringify(this.tokensRecuperacion));
+        }
 
         this.loading.set(false);
 
@@ -182,6 +192,8 @@ export class AuthRecoveryService {
    * Limpia tokens expirados (mantenimiento)
    */
   limpiarTokensExpirados(): void {
+    if (!this.isBrowser) return;
+
     const tokensData = localStorage.getItem('tokens_recuperacion');
     if (!tokensData) return;
 
