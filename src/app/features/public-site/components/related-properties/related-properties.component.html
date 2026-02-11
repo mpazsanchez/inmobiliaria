@@ -15,9 +15,9 @@
         <a [routerLink]="['/property', propiedad.id]" class="property-item">
           <div class="property-image">
             <img
-              [src]="propiedad.imagenes[0].url || 'assets/images/placeholder-property.jpg'"
+              [src]="propiedad.imagenes[0].url || 'assets/images/placeholder-property.svg'"
               [alt]="propiedad.titulo"
-              onerror="this.src='assets/images/placeholder-property.jpg'">
+              onerror="this.src='assets/images/placeholder-property.svg'">
             <span class="property-badge" [class.alquiler]="propiedad.operacion === 'alquiler'">
               {{ getOperacionLabel(propiedad.operacion) }}
             </span>

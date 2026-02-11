@@ -512,7 +512,7 @@ export class UserFormComponent implements OnInit, CanComponentDeactivate {
   }
 
   getPhotoPreview(): string {
-    return this.form.get('fotoUrl')?.value || '/assets/images/default-avatar.png';
+    return this.form.get('fotoUrl')?.value || '/assets/images/default-avatar.svg';
   }
 
   // Manejo de idiomas

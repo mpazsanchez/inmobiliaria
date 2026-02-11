@@ -2,9 +2,9 @@
   <a [routerLink]="['/team', agente.id]" class="agent-header agent-link">
     <div class="agent-avatar">
       <img
-        [src]="agente.fotoUrl || 'assets/images/default-avatar.png'"
+        [src]="agente.fotoUrl || 'assets/images/default-avatar.svg'"
         [alt]="agente.nombre"
-        onerror="this.src='assets/images/default-avatar.png'">
+        onerror="this.src='assets/images/default-avatar.svg'">
     </div>
     <div class="agent-info">
       <span class="agent-label">Asesor a cargo</span>

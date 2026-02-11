@@ -250,7 +250,7 @@ export class UserService {
           nombre: dto.nombre,
           apellido: dto.apellido,
           telefono: dto.telefono,
-          fotoUrl: dto.fotoUrl || '/assets/images/default-avatar.png',
+          fotoUrl: dto.fotoUrl || '/assets/images/default-avatar.svg',
           fechaRegistro: new Date().toISOString(),
           perfilAsesor: dto.rol === 'asesor' ? this.crearPerfilAsesorPorDefecto(dto.perfilAsesor) : undefined
         };

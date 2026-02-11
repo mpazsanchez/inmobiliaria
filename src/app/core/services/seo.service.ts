@@ -105,7 +105,7 @@ export class SeoService {
     // Imagen principal
     const imagen = propiedad.imagenes && propiedad.imagenes.length > 0 
       ? propiedad.imagenes[0].url 
-      : `${this.baseUrl}/assets/images/default-property.jpg`;
+      : `${this.baseUrl}/assets/images/default-property.svg`;
     this.setImage(imagen);
 
     // URL canónica

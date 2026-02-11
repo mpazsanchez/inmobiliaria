@@ -340,7 +340,7 @@ export class ProfileComponent implements OnInit, CanComponentDeactivate {
     if (preview) return preview;
 
     const usuario = this.usuario();
-    return usuario?.fotoUrl || 'assets/images/agents/default-avatar.jpg';
+    return usuario?.fotoUrl || 'assets/images/agents/default-avatar.svg';
   }
 
   // Implementación del guard CanComponentDeactivate

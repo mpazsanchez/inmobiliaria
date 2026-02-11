@@ -201,12 +201,12 @@ export class PropertyMapComponent implements OnInit, OnChanges, OnDestroy, After
     const operacionLabel = propiedad.operacion === 'venta' ? 'Venta' : 'Alquiler';
     const imagenUrl = propiedad.imagenes && propiedad.imagenes.length > 0
       ? propiedad.imagenes[0].url
-      : 'assets/images/placeholder-property.jpg';
+      : 'assets/images/placeholder-property.svg';
 
     return `
       <div class="popup-content">
         <div class="popup-image">
-          <img src="${imagenUrl}" alt="${propiedad.titulo}" onerror="this.src='assets/images/placeholder-property.jpg'">
+          <img src="${imagenUrl}" alt="${propiedad.titulo}" onerror="this.src='assets/images/placeholder-property.svg'">
           <span class="popup-operation">${operacionLabel}</span>
         </div>
         <div class="popup-info">

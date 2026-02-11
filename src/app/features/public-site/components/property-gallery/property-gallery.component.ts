@@ -25,8 +25,8 @@ export class PropertyGalleryComponent {
   }
 
   get mainImage(): string {
-    if (this.imagenes.length === 0) return 'assets/images/placeholder-property.jpg';
-    return this.imagenes[this.selectedIndex]?.url || 'assets/images/placeholder-property.jpg';
+    if (this.imagenes.length === 0) return 'assets/images/placeholder-property.svg';
+    return this.imagenes[this.selectedIndex]?.url || 'assets/images/placeholder-property.svg';
   }
 
   get thumbnails(): Imagen[] {
