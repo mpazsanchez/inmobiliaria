@@ -88,7 +88,7 @@ export class PropertyListingComponent implements OnInit, OnDestroy {
       ubicacion: params['ubicacion'] || undefined,
       precioMinimo: params['precioMinimo'] ? +params['precioMinimo'] : undefined,
       precioMaximo: params['precioMaximo'] ? +params['precioMaximo'] : undefined,
-      moneda: (params['moneda'] as 'USD' | 'ARS') || undefined,
+      moneda: (params['moneda'] as 'USD' | 'ARS') || 'USD', // Default USD
       ambientes: params['ambientes'] ? +params['ambientes'] : undefined,
       dormitorios: params['dormitorios'] ? +params['dormitorios'] : undefined,
       banos: params['banos'] ? +params['banos'] : undefined,

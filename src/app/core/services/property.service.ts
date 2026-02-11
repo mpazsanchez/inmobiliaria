@@ -1,7 +1,7 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, TransferState, makeStateKey } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { map, switchMap, shareReplay, delay } from 'rxjs/operators';
+import { map, switchMap, shareReplay, delay, tap } from 'rxjs/operators';
 import { Propiedad, AgenteInfo } from '../models/property.interface';
 import { Usuario } from '../models/user.interface';
 import { FiltrosBusqueda, RespuestaPaginada } from '../models/search-filters.interface';
@@ -11,6 +11,7 @@ import { environment } from '../../../environments/environment';
 @Injectable({ providedIn: 'root' })
 export class PropertyService {
   private http = inject(HttpClient);
+  private transferState = inject(TransferState);
   private apiUrl = `${environment.apiUrl}/propiedades`;
   private usuariosUrl = '/assets/data/usuarios.json';
 
@@ -149,6 +150,18 @@ export class PropertyService {
   // =============================================
 
   private getPropiedadesMock(filtros?: FiltrosBusqueda): Observable<RespuestaPaginada<Propiedad>> {
+    // Crear clave única basada en los filtros
+    const stateKey = makeStateKey<RespuestaPaginada<Propiedad>>(`propiedades-${JSON.stringify(filtros)}`);
+    
+    // Intentar obtener datos del TransferState (datos del servidor)
+    const cachedData = this.transferState.get(stateKey, null);
+    
+    if (cachedData) {
+      // Limpiar del TransferState después de usar
+      this.transferState.remove(stateKey);
+      return of(cachedData);
+    }
+    
     return this.getUsuariosMap().pipe(
       map(usuariosMap => {
         const resultado = this.filtrarYPaginarPropiedades(MOCK_PROPIEDADES, filtros);
@@ -157,17 +170,30 @@ export class PropertyService {
           datos: this.enriquecerPropiedades(resultado.datos, usuariosMap)
         };
       }),
+      tap(data => {
+        // Guardar en TransferState para el cliente
+        this.transferState.set(stateKey, data);
+      }),
       delay(300)
     );
   }
 
   private getPropiedadPorIdMock(id: number): Observable<Propiedad | null> {
+    const stateKey = makeStateKey<Propiedad | null>(`propiedad-${id}`);
+    
+    const cached = this.transferState.get(stateKey, undefined);
+    if (cached !== undefined) {
+      this.transferState.remove(stateKey);
+      return of(cached);
+    }
+    
     return this.getUsuariosMap().pipe(
       map(usuariosMap => {
         const propiedad = MOCK_PROPIEDADES.find(p => p.id === id);
         if (!propiedad) return null;
         return this.enriquecerPropiedad(propiedad, usuariosMap);
       }),
+      tap(data => this.transferState.set(stateKey, data)),
       delay(200)
     );
   }

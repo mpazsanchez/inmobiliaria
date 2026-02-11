@@ -70,12 +70,22 @@ export class PropertyFiltersComponent implements OnInit, OnChanges {
   ];
 
   ngOnInit(): void {
+    // Inicializar filtros locales desde los activos
     this.filtros = { ...this.filtrosActivos };
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    // Solo sincronizar si:
+    // 1. No es el primer cambio (ya se manejó en ngOnInit)
+    // 2. Y los filtros realmente cambiaron (evitar sync innecesarios)
     if (changes['filtrosActivos'] && !changes['filtrosActivos'].firstChange) {
-      this.filtros = { ...this.filtrosActivos };
+      const prev = changes['filtrosActivos'].previousValue;
+      const curr = changes['filtrosActivos'].currentValue;
+      
+      // Solo actualizar si los valores son diferentes
+      if (JSON.stringify(prev) !== JSON.stringify(curr)) {
+        this.filtros = { ...curr };
+      }
     }
   }
 

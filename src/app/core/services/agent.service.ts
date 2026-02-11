@@ -1,7 +1,7 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, TransferState, makeStateKey } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { delay, map } from 'rxjs/operators';
+import { delay, map, tap } from 'rxjs/operators';
 import type { Agente, EstadisticasAgente, ValoracionAgente } from '../models/agent.interface';
 import type { Propiedad } from '../models/property.interface';
 import { Usuario } from '../models/user.interface';
@@ -12,6 +12,7 @@ import { MOCK_PROPIEDADES } from './mock-data/properties.mock';
 export class AgentService {
   private http = inject(HttpClient);
   private userService = inject(UserService);
+  private transferState = inject(TransferState);
   private apiUrl = '/api/agentes';
   private useMockData = true; // Cambiar a false cuando haya API real
 
@@ -54,26 +55,48 @@ export class AgentService {
   // OBTENER TODOS LOS AGENTES
   // =============================================
   getAgentes(): Observable<Agente[]> {
+    const stateKey = makeStateKey<Agente[]>('agentes-list');
+    
+    const cached = this.transferState.get(stateKey, null);
+    if (cached) {
+      this.transferState.remove(stateKey);
+      return of(cached);
+    }
+    
     if (this.useMockData) {
       return this.userService.getUsuarios({ rol: 'asesor' }).pipe(
         map(response => (response.items || response.datos).map((u: Usuario) => this.usuarioToAgente(u))),
+        tap(data => this.transferState.set(stateKey, data)),
         delay(300)
       );
     }
-    return this.http.get<Agente[]>(this.apiUrl);
+    return this.http.get<Agente[]>(this.apiUrl).pipe(
+      tap(data => this.transferState.set(stateKey, data))
+    );
   }
 
   // =============================================
   // OBTENER AGENTE POR ID
   // =============================================
   getAgentePorId(id: number): Observable<Agente | undefined> {
+    const stateKey = makeStateKey<Agente | undefined>(`agente-${id}`);
+    
+    const cached = this.transferState.get(stateKey, null);
+    if (cached !== null) {
+      this.transferState.remove(stateKey);
+      return of(cached);
+    }
+    
     if (this.useMockData) {
       return this.userService.getUsuarioPorId(id).pipe(
         map(usuario => usuario ? this.usuarioToAgente(usuario) : undefined),
+        tap(data => this.transferState.set(stateKey, data)),
         delay(200)
       );
     }
-    return this.http.get<Agente>(`${this.apiUrl}/${id}`);
+    return this.http.get<Agente>(`${this.apiUrl}/${id}`).pipe(
+      tap(data => this.transferState.set(stateKey, data))
+    );
   }
 
   // =============================================
