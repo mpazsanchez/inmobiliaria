@@ -1,13 +1,15 @@
 export const environment = {
-  production: true,
-  apiUrl: 'https://api.fairway.com/api',
+  production: false,
+  apiUrl: 'http://localhost:3000/api',
 
-  // Cloudinary - Producción
+  // Cloudinary
   cloudinary: {
-    cloudName: 'TU_CLOUD_NAME',        // Reemplazar con tu cloud name
-    uploadPreset: 'fairway_prod',      // Crear preset de producción
-    folder: 'fairway'                  // Carpeta de producción
+    cloudName: 'dvbhqr8nu',
+    uploadPreset: 'fairway', 
+    folder: 'fairway'
   },
+
+  // CLOUDINARY_URL=cloudinary:321548118555262:EMNQUZD00AxmVJzch8DghZJV9TE@dvbhqr8nu,
 
   // reCAPTCHA Enterprise
   recaptcha: {
@@ -15,3 +17,4 @@ export const environment = {
     enabled: true
   }
 };
+
