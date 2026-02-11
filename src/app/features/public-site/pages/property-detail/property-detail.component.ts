@@ -100,23 +100,23 @@ export class PropertyDetailComponent implements OnInit {
   }
 
   getEstadoClass(estado: string): string {
-    switch (estado) {
-      case 'disponible': return 'estado-disponible';
-      case 'reservado': return 'estado-reservado';
-      case 'vendido':
-      case 'alquilado': return 'estado-cerrado';
-      default: return '';
-    }
+    const estadoClasses: { [key: string]: string } = {
+      'disponible': 'estado-disponible',
+      'reservado': 'estado-reservado',
+      'vendido': 'estado-cerrado',
+      'alquilado': 'estado-cerrado'
+    };
+    return estadoClasses[estado] || '';
   }
 
   getEstadoLabel(estado: string): string {
-    switch (estado) {
-      case 'disponible': return 'Disponible';
-      case 'reservado': return 'Reservado';
-      case 'vendido': return 'Vendido';
-      case 'alquilado': return 'Alquilado';
-      default: return estado;
-    }
+    const estadoLabels: { [key: string]: string } = {
+      'disponible': 'Disponible',
+      'reservado': 'Reservado',
+      'vendido': 'Vendido',
+      'alquilado': 'Alquilado'
+    };
+    return estadoLabels[estado] || estado;
   }
 
   getTipoLabel(tipo: string): string {

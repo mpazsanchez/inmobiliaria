@@ -75,17 +75,14 @@ export class PropertyGalleryComponent {
   onKeydown(event: KeyboardEvent): void {
     if (!this.lightboxOpen) return;
 
-    switch (event.key) {
-      case 'Escape':
-        this.closeLightbox();
-        break;
-      case 'ArrowRight':
-        this.nextImage();
-        break;
-      case 'ArrowLeft':
-        this.prevImage();
-        break;
-    }
+    const keyActions: { [key: string]: () => void } = {
+      'Escape': () => this.closeLightbox(),
+      'ArrowRight': () => this.nextImage(),
+      'ArrowLeft': () => this.prevImage()
+    };
+
+    const action = keyActions[event.key];
+    if (action) action();
   }
 
   changeTab(tab: 'fotos' | 'videos' | '360'): void {
