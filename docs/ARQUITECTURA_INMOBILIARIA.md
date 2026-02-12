@@ -431,11 +431,11 @@ interface ReasignacionPropiedadesDto {
 }
 ```
 
-### Agente (modelo legacy para vistas públicas)
+### Agente (DTO público)
 
 Archivo: `src/app/core/models/agent.interface.ts`
 
-Este modelo se mantiene por compatibilidad con los componentes del sitio público. Internamente, los usuarios con rol `asesor` se gestionan con `Usuario + PerfilAsesor`. La función `usuarioToAgente()` convierte de un formato al otro.
+Este es el modelo que consume el sitio público (agent-listing, agent-profile, property-agent-card). Representa lo que devolvería `GET /api/v1/agentes` — solo datos seguros para mostrar, sin campos internos como `passwordHash` o `rol`. El panel admin trabaja con `Usuario + PerfilAsesor`. En modo mock, la función `usuarioToAgente()` convierte de un formato al otro; con backend real esa conversión la hace el servidor.
 
 ```typescript
 interface Agente {

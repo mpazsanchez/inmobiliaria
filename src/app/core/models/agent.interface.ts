@@ -1,22 +1,23 @@
 // =============================================
-// INTERFACE DE AGENTE INMOBILIARIO (LEGACY)
+// DTO PÚBLICO DE AGENTE INMOBILIARIO
 // =============================================
-// NOTA: Este modelo se mantiene por compatibilidad con el perfil público
-// El sistema de gestión de usuarios ahora usa Usuario + PerfilAsesor
-// Ver: user.interface.ts
+// Este es el modelo que consume el sitio público (agent-listing, agent-profile, etc).
+// Representa lo que devolvería GET /api/v1/agentes — datos seguros, sin info interna.
+// El panel admin trabaja con Usuario + PerfilAsesor (ver user.interface.ts).
+// En modo mock, usuarioToAgente() convierte de Usuario → Agente.
 
 import { PerfilAsesor } from './user.interface';
 
 export interface Agente {
   id: number;
-  usuarioId: number; // Relación con el usuario
+  usuarioId: number;
   nombre: string;
   apellido: string;
   email: string;
   telefono: string;
   fotoUrl: string;
-  
-  // Perfil público (delegado a PerfilAsesor en el nuevo sistema)
+
+  // Perfil profesional público
   cargo: string;
   especialidad?: string;
   slogan?: string;
@@ -46,7 +47,8 @@ export interface Agente {
   destacado?: boolean;
 }
 
-// Función helper para convertir Usuario + PerfilAsesor a Agente (para vistas públicas)
+// Convierte Usuario (modelo interno) → Agente (DTO público).
+// Solo se usa en modo mock. Con backend real, GET /api/v1/agentes devuelve Agente directamente.
 export function usuarioToAgente(usuario: any): Agente {
   const perfil = usuario.perfilAsesor || {};
   
