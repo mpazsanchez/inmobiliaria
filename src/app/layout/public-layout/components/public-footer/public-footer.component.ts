@@ -33,12 +33,12 @@ export class PublicFooterComponent implements OnInit, OnDestroy {
     { title: 'Contacto', url: '/contact' }
   ];
 
-  // Quick Links
+  // Quick Links (Servicios)
   quickLinks = [
-    { title: 'Nuestro Equipo', url: '/team' },
-    { title: 'Tasar mi Propiedad', url: '/services/appraisals' },
-    { title: 'Publicar Propiedad', url: '/contact' },
-    { title: 'Preguntas Frecuentes', url: '/faq' }
+    { title: 'Ventas', url: '/buy' },
+    { title: 'Alquileres', url: '/rent' },
+    { title: 'Asesoramiento', url: '/contact' },
+    { title: 'Nuestro Equipo', url: '/team' }
   ];
 
   // Social Links
