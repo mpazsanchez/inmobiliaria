@@ -63,7 +63,7 @@ export class AuthService {
   private validarPassword(email: string, password: string): boolean {
     const credencialesValidas: Record<string, string> = {
       'admin@fairway.com': 'admin123',
-      'asesor@fairway.com': 'asesor123',
+      'maria@fairway.com': 'asesor123',
       'carlos@fairway.com': 'carlos123',
       'laura@fairway.com': 'laura123',
       'juan@fairway.com': 'juan123'
