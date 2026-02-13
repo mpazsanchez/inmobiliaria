@@ -1,130 +1,161 @@
-@import '../../../../../assets/styles/variables';
+@use '../../../../../assets/styles/public-variables' as v;
 
 .agent-listing-page {
   min-height: 100vh;
-  background: #f8fafc;
-  padding-top: 120px;
+  background: v.$bg-light;
+}
 
-  @media (max-width: 1200px) {
-    padding-top: 100px;
+// ===========================
+// Hero Section
+// ===========================
+.hero-section {
+  position: relative;
+  min-height: 380px;
+  background: linear-gradient(135deg, rgba(v.$brand-green, 0.95) 0%, rgba(v.$brand-green-dark, 0.9) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 140px 0 70px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/assets/images/backgrounds/fairway/urbanismo.webp');
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    z-index: 0;
+    animation: fadeInBackground 0.6s ease-in forwards;
   }
 
-  @media (max-width: 991px) {
-    padding-top: 90px;
+  @keyframes fadeInBackground {
+    to {
+      opacity: 0.15;
+    }
   }
 
-  @media (max-width: 767px) {
-    padding-top: 85px;
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+    z-index: 1;
   }
 
-  @media (max-width: 640px) {
-    padding-top: 80px;
+  .container {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-content {
+    text-align: center;
+    color: white;
+
+    .hero-label {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      opacity: 0.85;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin: 0 0 1.5rem 0;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    .hero-divider {
+      width: 80px;
+      height: 3px;
+      background: v.$brand-orange;
+      margin: 0 auto 1.5rem;
+      border-radius: 2px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      font-weight: 300;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+  }
+
+  @media (max-width: v.$breakpoint-md) {
+    min-height: 300px;
+    padding: 100px 0 50px;
+
+    .hero-content {
+      .hero-title {
+        font-size: 2.25rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  @media (max-width: v.$breakpoint-xs) {
+    padding: 90px 0 40px;
+
+    .hero-content {
+      .hero-title {
+        font-size: 1.85rem;
+      }
+    }
   }
 }
 
+// ===========================
+// Container
+// ===========================
 .container {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 24px;
 
-  @media (max-width: 991px) {
+  @media (max-width: v.$breakpoint-md) {
     padding: 0 20px;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: v.$breakpoint-sm) {
     padding: 0 16px;
   }
 }
 
-// Hero Section
-.page-hero {
-  text-align: center;
-  padding: 30px 0;
-  max-width: 800px;
-  margin: 0 auto;
+// ===========================
+// Agents Section
+// ===========================
+.agents-section {
+  padding: 60px 0 80px;
 
-
-  @media (max-width: 991px) {
-    padding: 40px 0;
+  @media (max-width: v.$breakpoint-md) {
+    padding: 40px 0 60px;
   }
 
-  @media (max-width: 767px) {
-    padding: 32px 0;
-  }
-
-  @media (max-width: 640px) {
-    padding: 24px 0;
+  @media (max-width: v.$breakpoint-sm) {
+    padding: 32px 0 48px;
   }
 }
 
-.hero-title {
-  font-size: 3rem;
-  font-weight: 800;
-  color: #1e293b;
-  margin: 0 0 20px 0;
-  line-height: 1.2;
-
-  @media (max-width: 991px) {
-    font-size: 2.5rem;
-  }
-
-  @media (max-width: 767px) {
-    font-size: 2rem;
-  }
-}
-
-.hero-subtitle {
-  font-size: 1.25rem;
-  color: #64748b;
-  line-height: 1.6;
-  margin: 0;
-
-  @media (max-width: 767px) {
-    font-size: 1.1rem;
-  }
-}
-
-// Section Headers
-.section-header {
-  text-align: center;
-  margin-bottom: 48px;
-
-  @media (max-width: 767px) {
-    margin-bottom: 32px;
-  }
-}
-
-.section-title {
-  font-size: 2.25rem;
-  font-weight: 700;
-  color: #1e293b;
-  margin: 0 0 12px 0;
-
-  @media (max-width: 767px) {
-    font-size: 1.75rem;
-  }
-}
-
-.section-subtitle {
-  font-size: 1.125rem;
-  color: #64748b;
-  margin: 0;
-
-  @media (max-width: 767px) {
-    font-size: 1rem;
-  }
-}
-
-// Featured Section
-.featured-section {
-  margin-bottom: 80px;
-
-  @media (max-width: 767px) {
-    margin-bottom: 60px;
-  }
-}
-
+// ===========================
 // Agents Grid
+// ===========================
 .agents-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -132,46 +163,43 @@
   max-width: 1100px;
   margin: 0 auto;
 
-  &.featured {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
   @media (max-width: 1200px) {
     gap: 24px;
     max-width: 100%;
   }
 
-  @media (max-width: 991px) {
+  @media (max-width: v.$breakpoint-lg) {
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: v.$breakpoint-sm) {
     grid-template-columns: 1fr;
     gap: 20px;
+    max-width: 420px;
   }
 }
 
+// ===========================
 // Agent Card
+// ===========================
 .agent-card {
   background: white;
-  border-radius: 16px;
+  border-radius: v.$radius-xl;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  box-shadow: v.$shadow-md;
+  transition: all v.$transition-slow;
   display: flex;
   flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.04);
 
   &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-  }
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+    border-color: rgba(v.$brand-green, 0.25);
 
-  &.featured {
-    border: 2px solid $green-fairway;
-
-    .card-image {
-      aspect-ratio: 1 / 1;
+    .card-image img {
+      transform: scale(1.05);
     }
   }
 }
@@ -179,72 +207,49 @@
 .card-image {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 4.2;
   overflow: hidden;
-  background: #f1f5f9;
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center 20%;
-    transition: transform 0.4s ease;
+    transition: transform 0.5s ease;
   }
 
-  &:hover img {
-    transform: scale(1.05);
+  @media (max-width: v.$breakpoint-sm) {
+    aspect-ratio: 4 / 3.5;
   }
-
-  @media (max-width: 767px) {
-    aspect-ratio: 1 / 1;
-  }
-}
-
-.featured-badge {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  padding: 6px 14px;
-  background: linear-gradient(135deg, $green-fairway 0%, #0f3820 100%);
-  color: white;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(26, 77, 46, 0.3);
 }
 
 .card-content {
-  padding: 20px;
+  padding: 22px 22px 24px;
   flex: 1;
   display: flex;
   flex-direction: column;
 
-  @media (max-width: 767px) {
-    padding: 18px;
+  @media (max-width: v.$breakpoint-md) {
+    padding: 20px;
   }
 }
 
 .agent-name {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  color: #1e293b;
-  margin: 0 0 6px 0;
+  color: v.$text-dark;
+  margin: 0 0 4px 0;
   line-height: 1.3;
-
-  @media (max-width: 767px) {
-    font-size: 1.15rem;
-  }
 }
 
 .agent-role {
-  font-size: 0.95rem;
-  color: $green-fairway;
+  font-size: 0.85rem;
+  color: v.$brand-green;
   font-weight: 600;
   margin: 0 0 16px 0;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
 }
 
 .agent-specialty {
@@ -252,181 +257,84 @@
   align-items: center;
   gap: 8px;
   padding: 10px 14px;
-  background: #f8fafc;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  color: #475569;
+  background: v.$bg-light;
+  border-radius: v.$radius-md;
+  font-size: 0.875rem;
+  color: v.$text-muted;
   margin-bottom: 16px;
+  border-left: 3px solid v.$brand-orange;
 
   svg {
-    width: 18px;
-    height: 18px;
-    color: $green-fairway;
+    width: 16px;
+    height: 16px;
+    color: v.$brand-green;
     flex-shrink: 0;
   }
 }
 
-.agent-slogan {
-  font-size: 0.95rem;
-  color: #64748b;
-  font-style: italic;
-  line-height: 1.5;
-  margin: 0 0 20px 0;
-}
-
-.agent-stats {
-  display: flex;
-  gap: 20px;
-  padding: 20px 0;
-  border-top: 1px solid #e2e8f0;
-  border-bottom: 1px solid #e2e8f0;
-  margin-bottom: 24px;
-
-  .stat-item {
-    flex: 1;
-    text-align: center;
-  }
-
-  .stat-value {
-    display: block;
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: $green-fairway;
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-
-  .stat-label {
-    display: block;
-    font-size: 0.8rem;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-}
-
+// ===========================
+// Contact Info
+// ===========================
 .agent-contact-info {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 24px;
+  gap: 8px;
+  margin-bottom: 20px;
 
   .contact-link {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 10px 14px;
-    background: #f8fafc;
-    color: #475569;
-    font-size: 0.875rem;
+    padding: 8px 12px;
+    background: v.$bg-light;
+    color: v.$text-muted;
+    font-size: 0.825rem;
     text-decoration: none;
-    border-radius: 8px;
-    transition: all 0.2s ease;
+    border-radius: v.$radius-md;
+    transition: all v.$transition-base;
 
     svg {
-      width: 16px;
-      height: 16px;
-      color: $green-fairway;
+      width: 15px;
+      height: 15px;
+      color: v.$brand-green;
       flex-shrink: 0;
     }
 
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
     &:hover {
-      background: #e2e8f0;
-      color: $green-fairway;
+      background: rgba(v.$brand-green, 0.08);
+      color: v.$brand-green;
     }
   }
 }
 
+// ===========================
+// Card Actions
+// ===========================
 .card-actions {
-  display: flex;
-  gap: 12px;
   margin-top: auto;
-
-  @media (max-width: 480px) {
-    flex-direction: column;
-  }
-}
-
-.btn-primary {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 14px 24px;
-  background: linear-gradient(135deg, $green-fairway 0%, #0f3820 100%);
-  color: white;
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-
-  svg {
-    width: 18px;
-    height: 18px;
-  }
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(26, 77, 46, 0.3);
-  }
-}
-
-.btn-whatsapp {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  background: #25D366;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-
-  svg {
-    width: 24px;
-    height: 24px;
-    color: white;
-  }
-
-  &:hover {
-    background: #20BA5A;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
-  }
-
-  @media (max-width: 480px) {
-    width: 100%;
-    height: 50px;
-  }
 }
 
 .btn-view-profile {
   width: 100%;
   display: block;
   text-align: center;
-  padding: 14px 24px;
-  background: white;
-  color: $green-fairway;
-  font-size: 0.95rem;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, v.$brand-green 0%, v.$brand-green-dark 100%);
+  color: white;
+  font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
-  border: 2px solid $green-fairway;
-  border-radius: 10px;
-  transition: all 0.3s ease;
+  border-radius: 50px;
+  transition: all v.$transition-slow;
 
   &:hover {
-    background: $green-fairway;
-    color: white;
     transform: translateY(-2px);
-  }
-}
-
-// All Agents Section
-.all-agents-section {
-  padding-bottom: 80px;
-
-  @media (max-width: 767px) {
-    padding-bottom: 60px;
+    box-shadow: 0 8px 24px rgba(v.$brand-green, 0.3);
   }
 }
