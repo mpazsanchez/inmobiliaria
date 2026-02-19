@@ -7,7 +7,7 @@ $primary-dark: #1e40af;
 $text-dark: #1f2937;
 $text-muted: #6b7280;
 $border-color: #e5e7eb;
-$bg-light: #f3f4f6;
+$bg-light: #edf0f4;
 $white: #ffffff;
 
 .admin-layout {
@@ -52,6 +52,7 @@ $white: #ffffff;
   height: $header-height;
   background: $white;
   border-bottom: 1px solid $border-color;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
   display: flex;
   align-items: center;
   justify-content: space-between;
