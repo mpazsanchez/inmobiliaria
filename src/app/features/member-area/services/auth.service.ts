@@ -1,4 +1,5 @@
-import { Injectable, signal, computed, inject } from '@angular/core';
+import { Injectable, signal, computed, inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable, firstValueFrom, of, throwError, delay } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -7,6 +8,8 @@ import { Usuario } from '../../../core/models/user.interface';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private http = inject(HttpClient);
+  private platformId = inject(PLATFORM_ID);
+  private isBrowser = isPlatformBrowser(this.platformId);
   private jsonUrl = '/assets/data/usuarios.json';
   private usuario = signal<Usuario | null>(null);
 
@@ -15,9 +18,10 @@ export class AuthService {
   readonly currentUser = computed(() => this.usuario());
 
   constructor() {
-    // Restaurar sesión inmediatamente al crear el servicio,
-    // antes de que cualquier guard consulte el estado de auth
-    this.restaurarSesion();
+    // Restaurar sesión solo en el navegador
+    if (this.isBrowser) {
+      this.restaurarSesion();
+    }
   }
 
   // =============================================
@@ -99,19 +103,19 @@ export class AuthService {
   // PERSISTENCIA DE SESION
   // =============================================
   private guardarSesion(usuario: Usuario): void {
-    if (typeof localStorage !== 'undefined') {
+    if (this.isBrowser && typeof localStorage !== 'undefined') {
       localStorage.setItem('fairway_user', JSON.stringify(usuario));
     }
   }
 
   private limpiarSesion(): void {
-    if (typeof localStorage !== 'undefined') {
+    if (this.isBrowser && typeof localStorage !== 'undefined') {
       localStorage.removeItem('fairway_user');
     }
   }
 
   restaurarSesion(): void {
-    if (typeof localStorage !== 'undefined') {
+    if (this.isBrowser && typeof localStorage !== 'undefined') {
       const stored = localStorage.getItem('fairway_user');
       if (stored) {
         try {
@@ -123,7 +127,6 @@ export class AuthService {
         }
       }
     }
-    // SSR: localStorage no disponible, normal en server-side rendering
   }
 
   // =============================================
