@@ -46,6 +46,7 @@ export class PropertySearchBarComponent implements OnInit {
   ] as const;
 
   readonly currencyOptions = [
+    { value: '', label: 'Moneda' },
     { value: 'USD', label: 'USD' },
     { value: 'ARS', label: 'ARS' }
   ] as const;
@@ -61,7 +62,7 @@ export class PropertySearchBarComponent implements OnInit {
     ubicacion: '',
     precioMinimo: undefined,
     precioMaximo: undefined,
-    moneda: 'USD'
+    moneda: ''
   };
 
   // =============================================

@@ -56,6 +56,7 @@ export class PropertyFiltersComponent implements OnInit, OnChanges {
   ];
 
   monedaOpciones = [
+    { value: '', label: 'Todas las monedas' },
     { value: 'USD', label: 'USD' },
     { value: 'ARS', label: 'ARS' }
   ];

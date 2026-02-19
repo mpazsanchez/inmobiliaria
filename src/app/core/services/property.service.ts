@@ -464,7 +464,7 @@ export class PropertyService {
     // Agregar cada filtro como parámetro
     Object.keys(filtros).forEach(key => {
       const valor = (filtros as any)[key];
-      if (valor !== undefined && valor !== null) {
+      if (valor !== undefined && valor !== null && valor !== '') {
         if (Array.isArray(valor)) {
           // Para arrays, enviar como múltiples parámetros o como string separado por comas
           params = params.set(key, valor.join(','));
