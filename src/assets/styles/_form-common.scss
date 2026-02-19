@@ -48,6 +48,11 @@
   background: v.$bg-white;
   transition: all v.$transition-base;
 
+  // Prevenir zoom automático en iOS
+  @media (max-width: v.$breakpoint-sm) {
+    font-size: 16px;
+  }
+
   &:hover {
     border-color: darken(#e5e7eb, 5%);
   }
@@ -128,6 +133,8 @@
   transition: all v.$transition-base;
   text-decoration: none;
   border: none;
+  // Touch target mínimo recomendado para móviles
+  min-height: 44px;
 
   &:disabled {
     opacity: 0.6;
