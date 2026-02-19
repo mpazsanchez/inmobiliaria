@@ -33,15 +33,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   private blockTimer: ReturnType<typeof setInterval> | null = null;
 
   ngOnInit(): void {
-    // Si ya está autenticado, redirigir al dashboard
-    if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/member-area/dashboard']);
-      return;
-    }
-
     this.seoService.setTitle('Iniciar Sesión | Fairway Propiedades');
     this.seoService.setDescription('Accedé al panel de gestión de Fairway Propiedades. Administrá propiedades, contactos y tu perfil.');
     this.seoService.setKeywords('fairway login, panel administración, área privada, gestión inmobiliaria');
+
+    // Si ya está autenticado, redirigir al dashboard
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/member-area/dashboard']);
+    }
   }
 
   ngOnDestroy(): void {
