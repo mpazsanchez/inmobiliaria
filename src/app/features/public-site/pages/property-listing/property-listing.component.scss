@@ -209,6 +209,7 @@ $text-muted: #64748b;
       display: flex;
       align-items: flex-end;
       animation: fadeIn 0.2s ease;
+      z-index: 1100;
     }
   }
 }
