@@ -201,10 +201,19 @@
 
 .privacy-note {
   margin: 16px 0 0;
-  font-size: 0.75rem;
-  color: #6b7280;
+  font-size: 0.72rem;
+  color: #9ca3af;
   text-align: center;
   line-height: 1.5;
+
+  a {
+    color: #9ca3af;
+    text-decoration: underline;
+
+    &:hover {
+      color: #6b7280;
+    }
+  }
 }
 
 @media (max-width: 768px) {

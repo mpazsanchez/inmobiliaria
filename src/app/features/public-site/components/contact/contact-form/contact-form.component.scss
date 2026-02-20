@@ -167,6 +167,22 @@
             border-radius: 8px;
           }
         }
+
+        .recaptcha-note {
+          margin: 12px 0 0;
+          font-size: 0.72rem;
+          color: #9ca3af;
+          line-height: 1.5;
+
+          a {
+            color: #9ca3af;
+            text-decoration: underline;
+
+            &:hover {
+              color: #6b7280;
+            }
+          }
+        }
       }
 
       .btn-submit {

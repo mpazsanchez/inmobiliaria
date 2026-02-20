@@ -102,14 +102,14 @@
 
       <!-- Submit Button -->
       <div class="submit-section">
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           class="btn btn-primary btn-submit"
           [disabled]="contactForm.invalid || loading()">
           <span *ngIf="loading()" class="spinner-border spinner-border-sm me-2"></span>
           {{ loading() ? 'ENVIANDO...' : 'ENVIAR MENSAJE' }}
         </button>
-        
+
         <!-- Mensaje de éxito -->
         <div *ngIf="success()" class="alert alert-success mt-3">
           ¡Tu mensaje fue enviado correctamente!
@@ -118,6 +118,12 @@
         <div *ngIf="error()" class="alert alert-danger mt-3">
           {{ error() }}
         </div>
+
+        <p class="recaptcha-note">
+          Este sitio está protegido por reCAPTCHA de Google —
+          aplican su <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Política de privacidad</a>
+          y <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Términos de servicio</a>.
+        </p>
       </div>
 
     </form>
