@@ -104,58 +104,15 @@
             }
           </div>
 
-          <!-- Paginación dentro de la columna de lista -->
-          @if (paginacion()) {
-            <div class="pagination-container">
-              <button
-                class="pagination-btn"
-                [disabled]="paginaActual === 1"
-                (click)="onPaginaChange(paginaActual - 1)"
-                type="button">
-                <i class="bi bi-chevron-left"></i>
-                Anterior
-              </button>
-
-              <div class="pagination-numbers">
-                @if (paginaActual > 3) {
-                  <button class="pagination-number" (click)="onPaginaChange(1)" type="button">
-                    1
-                  </button>
-                  <span class="pagination-ellipsis">...</span>
-                }
-
-                @for (pagina of paginasArray; track pagina) {
-                  <button
-                    class="pagination-number"
-                    [class.active]="pagina === paginaActual"
-                    (click)="onPaginaChange(pagina)"
-                    type="button">
-                    {{ pagina }}
-                  </button>
-                }
-
-                @if (paginaActual < totalPaginas - 2) {
-                  <span class="pagination-ellipsis">...</span>
-                  <button class="pagination-number" (click)="onPaginaChange(totalPaginas)" type="button">
-                    {{ totalPaginas }}
-                  </button>
-                }
-              </div>
-
-              <button
-                class="pagination-btn"
-                [disabled]="paginaActual === totalPaginas"
-                (click)="onPaginaChange(paginaActual + 1)"
-                type="button">
-                Siguiente
-                <i class="bi bi-chevron-right"></i>
-              </button>
-            </div>
-
-            <div class="pagination-info">
-              Mostrando {{ (paginaActual - 1) * 10 + 1 }} - {{ Math.min(paginaActual * 10, paginacion()!.totalItems) }} de {{ paginacion()!.totalItems }} consultas
-            </div>
-          }
+          <!-- Paginación -->
+          <app-pagination
+            [currentPage]="paginacion()?.paginaActual ?? 1"
+            [totalPages]="paginacion()?.totalPaginas ?? 0"
+            [totalItems]="paginacion()?.totalItems ?? 0"
+            [pageSize]="paginacion()?.porPagina ?? 10"
+            itemLabel="consultas"
+            (pageChange)="onPaginaChange($event)">
+          </app-pagination>
         }
       </div>
 

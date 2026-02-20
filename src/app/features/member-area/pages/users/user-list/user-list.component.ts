@@ -13,6 +13,7 @@ import {
   EmptyStateComponent,
   ConfirmModalComponent,
   ReassignPropertiesDialogComponent,
+  PaginationComponent,
   type ReasignacionMultipleData
 } from '../../../../../shared/components/admin';
 
@@ -27,7 +28,8 @@ import {
     StatsGridComponent,
     EmptyStateComponent,
     ConfirmModalComponent,
-    ReassignPropertiesDialogComponent
+    ReassignPropertiesDialogComponent,
+    PaginationComponent
   ],
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
@@ -36,9 +38,6 @@ export class UserListComponent implements OnInit {
   private userService = inject(UserService);
 
   @ViewChild(ReassignPropertiesDialogComponent) reassignDialog?: ReassignPropertiesDialogComponent;
-
-  // Exponer Math para el template
-  Math = Math;
 
   // Estado
   users = signal<Usuario[]>([]);
@@ -114,12 +113,13 @@ export class UserListComponent implements OnInit {
       error: (err) => {
         console.error('Error al cargar usuarios:', err);
         this.isLoading.set(false);
+        // TODO: mostrar toast de error al usuario cuando esté conectado a la API real
       }
     });
   }
 
   loadStats(): void {
-    // Cargar todos los usuarios sin paginar para las estadísticas
+    // TODO: reemplazar por un endpoint dedicado de estadísticas en la API real (evitar cargar 1000 registros)
     this.userService.getUsuarios({ limite: 1000 }).subscribe({
       next: (respuesta) => {
         const allUsers = respuesta.datos;
@@ -148,6 +148,7 @@ export class UserListComponent implements OnInit {
   }
 
   onSearchChange(search: string): void {
+    // TODO: agregar debounce (ej. 300ms) al conectar con la API real
     this.onFilterChange('search', search);
   }
 
@@ -165,19 +166,6 @@ export class UserListComponent implements OnInit {
     this.filters.update(f => ({ ...f, pagina: page }));
     this.loadUsers();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  get paginasArray(): number[] {
-    const total = this.totalPages();
-    const actual = this.currentPage();
-    const rango = 2;
-    const paginas: number[] = [];
-
-    for (let i = Math.max(1, actual - rango); i <= Math.min(total, actual + rango); i++) {
-      paginas.push(i);
-    }
-
-    return paginas;
   }
 
   hasActiveFilters(): boolean {
