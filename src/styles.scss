@@ -84,3 +84,39 @@ input, textarea, select {
         font-size: 15px;
     }
 }
+
+/* ============================================
+   reCAPTCHA - Ocultar badge globalmente
+   El badge de Google aparece en todas las páginas porque el script
+   se carga una sola vez. Lo ocultamos y mostramos aviso en los forms.
+   Cumple con los términos de Google siempre que los forms tengan
+   el texto de política de privacidad.
+   ============================================ */
+.grecaptcha-badge {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* ============================================
+   Estilos globales de impresión
+   ============================================ */
+@media print {
+    /* Ocultar navbar y footer en todas las páginas */
+    app-public-navbar,
+    app-public-footer,
+    app-member-navbar {
+        display: none !important;
+    }
+
+    /* Ocultar reCAPTCHA en impresión */
+    .grecaptcha-badge {
+        display: none !important;
+    }
+
+    /* Reset del body para impresión */
+    body {
+        min-height: auto !important;
+        background: white !important;
+    }
+}

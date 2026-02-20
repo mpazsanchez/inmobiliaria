@@ -22,6 +22,11 @@
   @if (propiedad && !isLoading) {
     <div>
       <div class="container">
+        <!-- Print Header - solo visible al imprimir -->
+        <div class="print-header">
+          <img src="assets/images/logos/logotipo-horizontal.png" alt="Fairway" class="print-logo">
+        </div>
+
         <!-- Breadcrumbs -->
         <app-breadcrumbs [items]="breadcrumbs" />
 

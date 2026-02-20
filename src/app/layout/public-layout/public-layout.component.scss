@@ -4,6 +4,32 @@
   min-height: 100vh;
 }
 
+/* Skip navigation - visualmente oculto, solo aparece al hacer Tab */
+.skip-nav {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 9999;
+  padding: 8px 16px;
+  background: #1a4d2e;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 8px 0;
+  transition: top 0.2s;
+
+  &:focus {
+    top: 0;
+  }
+}
+
+@media print {
+  .skip-nav {
+    display: none !important;
+  }
+}
+
 .public-layout {
   display: flex;
   flex-direction: column;

@@ -558,6 +558,41 @@
   }
 }
 
+// Print Styles
+@media print {
+  .gallery-tabs,
+  .thumbnails-column,
+  .nav-arrow,
+  .btn-view-all,
+  .photo-count,
+  .lightbox {
+    display: none !important;
+  }
+
+  .gallery-layout {
+    height: 220px !important;
+    flex-direction: row !important;
+    gap: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .main-image-container {
+    height: 100% !important;
+    flex: 1 !important;
+    border-radius: 8px !important;
+    cursor: default !important;
+
+    &:hover .main-image {
+      transform: none !important;
+    }
+  }
+
+  .main-image {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 // Responsive - Lightbox only (gallery layout responsive está en .gallery-layout y .thumbnails-column)
 @media (max-width: 768px) {
   .btn-view-all {
