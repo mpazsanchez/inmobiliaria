@@ -1,4 +1,5 @@
 // Componentes compartidos del área de administración
+export { PaginationComponent } from './pagination/pagination.component';
 export { StatsCardComponent } from './stats-card/stats-card.component';
 export type { StatCardConfig } from './stats-card/stats-card.component';
 export { StatsGridComponent } from './stats-grid/stats-grid.component';

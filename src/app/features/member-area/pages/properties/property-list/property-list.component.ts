@@ -12,7 +12,8 @@ import {
   StatsGridComponent,
   StatCardConfig,
   EmptyStateComponent,
-  ConfirmModalComponent
+  ConfirmModalComponent,
+  PaginationComponent
 } from '../../../../../shared/components/admin';
 
 @Component({
@@ -24,7 +25,8 @@ import {
     PageHeaderComponent,
     StatsGridComponent,
     EmptyStateComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    PaginationComponent
   ],
   templateUrl: './property-list.component.html',
   styleUrls: ['./property-list.component.scss']
@@ -118,6 +120,7 @@ export class PropertyListComponent implements OnInit {
       error: (err) => {
         console.error('Error cargando propiedades:', err);
         this.isLoading.set(false);
+        // TODO: mostrar toast de error al usuario cuando esté conectado a la API real
       }
     });
   }
@@ -130,6 +133,7 @@ export class PropertyListComponent implements OnInit {
   }
 
   onSearch(): void {
+    // TODO: reemplazar el botón "Buscar" por búsqueda con debounce (ej. 300ms) al conectar con la API real
     this.filters.update(f => ({ ...f, search: this.searchTerm(), pagina: 1 }));
     this.loadProperties();
   }
@@ -263,28 +267,4 @@ export class PropertyListComponent implements OnInit {
     this.loadProperties();
   }
 
-  // Getters para paginación
-  get totalPaginas(): number {
-    return this.paginacion()?.totalPaginas || 0;
-  }
-
-  get paginaActual(): number {
-    return this.paginacion()?.paginaActual || 1;
-  }
-
-  get paginasArray(): number[] {
-    const total = this.totalPaginas;
-    const actual = this.paginaActual;
-    const rango = 2;
-    const paginas: number[] = [];
-
-    for (let i = Math.max(1, actual - rango); i <= Math.min(total, actual + rango); i++) {
-      paginas.push(i);
-    }
-
-    return paginas;
-  }
-
-  // Exponer Math para el template
-  Math = Math;
 }

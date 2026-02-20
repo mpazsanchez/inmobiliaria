@@ -1,0 +1,49 @@
+@if (totalPages > 0) {
+  <div class="pagination-container">
+    <button
+      class="pagination-btn"
+      [disabled]="currentPage === 1"
+      (click)="onPageChange(currentPage - 1)"
+      type="button">
+      <i class="bi bi-chevron-left"></i>
+      Anterior
+    </button>
+
+    <div class="pagination-numbers">
+      @if (currentPage > 3) {
+        <button class="pagination-number" (click)="onPageChange(1)" type="button">1</button>
+        <span class="pagination-ellipsis">...</span>
+      }
+
+      @for (pagina of paginasArray; track pagina) {
+        <button
+          class="pagination-number"
+          [class.active]="pagina === currentPage"
+          (click)="onPageChange(pagina)"
+          type="button">
+          {{ pagina }}
+        </button>
+      }
+
+      @if (currentPage < totalPages - 2) {
+        <span class="pagination-ellipsis">...</span>
+        <button class="pagination-number" (click)="onPageChange(totalPages)" type="button">
+          {{ totalPages }}
+        </button>
+      }
+    </div>
+
+    <button
+      class="pagination-btn"
+      [disabled]="currentPage === totalPages"
+      (click)="onPageChange(currentPage + 1)"
+      type="button">
+      Siguiente
+      <i class="bi bi-chevron-right"></i>
+    </button>
+  </div>
+
+  <div class="pagination-info">
+    Mostrando {{ startItem }} - {{ endItem }} de {{ totalItems }} {{ itemLabel }}
+  </div>
+}

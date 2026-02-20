@@ -13,7 +13,8 @@ import {
   StatsGridComponent,
   StatCardConfig,
   EmptyStateComponent,
-  ConfirmModalComponent
+  ConfirmModalComponent,
+  PaginationComponent
 } from '../../../../shared/components/admin';
 
 @Component({
@@ -25,7 +26,8 @@ import {
     PageHeaderComponent,
     StatsGridComponent,
     EmptyStateComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    PaginationComponent
   ],
   templateUrl: './leads-inbox.component.html',
   styleUrls: ['./leads-inbox.component.scss']
@@ -35,9 +37,6 @@ export class LeadsInboxComponent implements OnInit {
   private authService = inject(AuthService);
   private userService = inject(UserService);
   private toastService = inject(ToastService);
-
-  // Exponer Math para el template
-  Math = Math;
 
   // Estado
   leads = signal<Contacto[]>([]);
@@ -122,6 +121,7 @@ export class LeadsInboxComponent implements OnInit {
       error: (err) => {
         console.error('Error cargando leads:', err);
         this.isLoading.set(false);
+        // TODO: mostrar toast de error al usuario cuando esté conectado a la API real
       }
     });
   }
@@ -158,6 +158,7 @@ export class LeadsInboxComponent implements OnInit {
   }
 
   onSearchChange(event: Event): void {
+    // TODO: agregar debounce (ej. 300ms) al conectar con la API real
     const value = (event.target as HTMLInputElement).value;
     this.onFilterChange('busqueda', value || undefined);
   }
@@ -419,24 +420,4 @@ export class LeadsInboxComponent implements OnInit {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  get totalPaginas(): number {
-    return this.paginacion()?.totalPaginas || 0;
-  }
-
-  get paginaActual(): number {
-    return this.paginacion()?.paginaActual || 1;
-  }
-
-  get paginasArray(): number[] {
-    const total = this.totalPaginas;
-    const actual = this.paginaActual;
-    const rango = 2;
-    const paginas: number[] = [];
-
-    for (let i = Math.max(1, actual - rango); i <= Math.min(total, actual + rango); i++) {
-      paginas.push(i);
-    }
-
-    return paginas;
-  }
 }
