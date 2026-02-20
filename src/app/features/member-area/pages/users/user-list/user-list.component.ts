@@ -37,6 +37,9 @@ export class UserListComponent implements OnInit {
 
   @ViewChild(ReassignPropertiesDialogComponent) reassignDialog?: ReassignPropertiesDialogComponent;
 
+  // Exponer Math para el template
+  Math = Math;
+
   // Estado
   users = signal<Usuario[]>([]);
   totalUsers = signal(0);

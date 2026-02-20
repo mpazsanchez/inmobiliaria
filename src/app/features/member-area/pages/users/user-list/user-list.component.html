@@ -279,74 +279,63 @@
         }
       </div>
 
-      <!-- Resumen de resultados y paginación -->
+      <!-- Paginación -->
       <div class="results-footer">
-        <div class="results-summary">
-          <p class="summary-text">
-            Mostrando <strong>{{ users().length }}</strong> 
-            @if (users().length === 1) {
-              usuario
-            } @else {
-              usuarios
+        <nav class="pagination-nav">
+          <button
+            class="pagination-btn pagination-prev"
+            [disabled]="currentPage() === 1"
+            (click)="onPageChange(currentPage() - 1)"
+            type="button">
+            <i class="bi bi-chevron-left"></i>
+            Anterior
+          </button>
+
+          <div class="pagination-numbers">
+            @if (currentPage() > 3) {
+              <button
+                class="pagination-number"
+                (click)="onPageChange(1)"
+                type="button">
+                1
+              </button>
+              <span class="pagination-ellipsis">...</span>
             }
-            de <strong>{{ totalUsers() }}</strong> total
-          </p>
+
+            @for (pagina of paginasArray; track pagina) {
+              <button
+                class="pagination-number"
+                [class.active]="pagina === currentPage()"
+                (click)="onPageChange(pagina)"
+                type="button">
+                {{ pagina }}
+              </button>
+            }
+
+            @if (currentPage() < totalPages() - 2) {
+              <span class="pagination-ellipsis">...</span>
+              <button
+                class="pagination-number"
+                (click)="onPageChange(totalPages())"
+                type="button">
+                {{ totalPages() }}
+              </button>
+            }
+          </div>
+
+          <button
+            class="pagination-btn pagination-next"
+            [disabled]="currentPage() === totalPages()"
+            (click)="onPageChange(currentPage() + 1)"
+            type="button">
+            Siguiente
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </nav>
+
+        <div class="pagination-info">
+          Mostrando {{ (currentPage() - 1) * (filters().limite || 10) + 1 }} - {{ Math.min(currentPage() * (filters().limite || 10), totalUsers()) }} de {{ totalUsers() }} usuarios
         </div>
-
-        <!-- Paginación -->
-        @if (totalPages() > 1) {
-          <nav class="pagination-nav">
-            <button 
-              class="pagination-btn pagination-prev"
-              [disabled]="currentPage() === 1"
-              (click)="onPageChange(currentPage() - 1)"
-              type="button">
-              <i class="bi bi-chevron-left"></i>
-              Anterior
-            </button>
-
-            <div class="pagination-numbers">
-              @if (currentPage() > 3) {
-                <button 
-                  class="pagination-number"
-                  (click)="onPageChange(1)"
-                  type="button">
-                  1
-                </button>
-                <span class="pagination-ellipsis">...</span>
-              }
-
-              @for (pagina of paginasArray; track pagina) {
-                <button 
-                  class="pagination-number"
-                  [class.active]="pagina === currentPage()"
-                  (click)="onPageChange(pagina)"
-                  type="button">
-                  {{ pagina }}
-                </button>
-              }
-
-              @if (currentPage() < totalPages() - 2) {
-                <span class="pagination-ellipsis">...</span>
-                <button 
-                  class="pagination-number"
-                  (click)="onPageChange(totalPages())"
-                  type="button">
-                  {{ totalPages() }}
-                </button>
-              }
-            </div>
-
-            <button 
-              class="pagination-btn pagination-next"
-              [disabled]="currentPage() === totalPages()"
-              (click)="onPageChange(currentPage() + 1)"
-              type="button">
-              Siguiente
-              <i class="bi bi-chevron-right"></i>
-            </button>
-          </nav>
-        }
       </div>
     }
   </div>

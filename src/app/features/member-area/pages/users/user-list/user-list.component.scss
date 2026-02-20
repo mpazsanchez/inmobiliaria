@@ -773,6 +773,15 @@
   font-size: 0.75rem;
 }
 
+.pagination-info {
+  text-align: center;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  color: v.$text-muted;
+  border-top: 1px solid v.$border-color;
+  background: v.$bg-light;
+}
+
 // ============ RESPONSIVE ============
 @media (max-width: 480px) {
   .filters-section {
