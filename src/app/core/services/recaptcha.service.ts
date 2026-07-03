@@ -25,21 +25,19 @@ export type RecaptchaAction = 'CONTACT' | 'LOGIN' | 'PROPERTY_INQUIRY' | 'REGIST
 
 /**
  * Servicio para integración con Google reCAPTCHA Enterprise
- 
- * Uso:
- * 1. Inyectar el servicio en el componente
- * 2. Llamar a executeRecaptcha('ACTION') antes de enviar el formulario
- * 3. Enviar el token al backend junto con los datos del formulario
- * 4. El backend debe validar el token con la API de Google
+ *
+ * El script se carga de forma lazy (solo cuando se necesita por primera vez)
+ * para no bloquear el rendimiento de páginas que no tienen formularios.
  */
 @Injectable({ providedIn: 'root' })
 export class RecaptchaService {
   private platformId = inject(PLATFORM_ID);
   private readonly siteKey = environment.recaptcha.siteKey;
   private readonly enabled = environment.recaptcha.enabled;
+  private scriptLoadPromise: Promise<void> | null = null;
 
   /**
-   * Verifica si reCAPTCHA está disponible
+   * Verifica si reCAPTCHA está disponible (ya cargado)
    */
   get isAvailable(): boolean {
     return (
@@ -51,32 +49,72 @@ export class RecaptchaService {
   }
 
   /**
-   * Ejecuta reCAPTCHA y obtiene un token de verificación
+   * Carga el script de reCAPTCHA de forma lazy (solo la primera vez).
+   * Las llamadas subsiguientes reutilizan la misma promesa.
+   */
+  private loadScript(): Promise<void> {
+    if (!isPlatformBrowser(this.platformId)) {
+      return Promise.resolve();
+    }
+
+    // Si ya está cargado, no hacer nada
+    if (window.grecaptcha?.enterprise) {
+      return Promise.resolve();
+    }
+
+    // Reutilizar la promesa si ya se está cargando
+    if (this.scriptLoadPromise) {
+      return this.scriptLoadPromise;
+    }
+
+    this.scriptLoadPromise = new Promise<void>((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = `https://www.google.com/recaptcha/enterprise.js?render=${this.siteKey}`;
+      script.async = true;
+      script.defer = true;
+      script.onload = () => resolve();
+      script.onerror = () => {
+        this.scriptLoadPromise = null;
+        reject(new Error('No se pudo cargar reCAPTCHA'));
+      };
+      document.head.appendChild(script);
+    });
+
+    return this.scriptLoadPromise;
+  }
+
+  /**
+   * Ejecuta reCAPTCHA y obtiene un token de verificación.
+   * Carga el script automáticamente si no está disponible.
    *
    * @param action - Nombre de la acción (ej: 'CONTACT', 'LOGIN')
    * @returns Token de verificación o null si falla
    */
   async executeRecaptcha(action: RecaptchaAction): Promise<string | null> {
-    // Si reCAPTCHA está deshabilitado, retornar null (el backend debe manejar esto)
     if (!this.enabled) {
       console.warn('reCAPTCHA está deshabilitado en este ambiente');
       return null;
     }
 
-    // Verificar que estamos en el browser
     if (!isPlatformBrowser(this.platformId)) {
       console.warn('reCAPTCHA solo funciona en el navegador');
       return null;
     }
 
-    // Verificar que la API está disponible
+    // Cargar el script si aún no está disponible
+    try {
+      await this.loadScript();
+    } catch {
+      console.error('Error cargando reCAPTCHA');
+      return null;
+    }
+
     if (!window.grecaptcha?.enterprise) {
       console.error('reCAPTCHA Enterprise no está cargado');
       return null;
     }
 
     try {
-      // Esperar a que reCAPTCHA esté listo y ejecutar
       return await new Promise<string>((resolve, reject) => {
         window.grecaptcha.enterprise.ready(async () => {
           try {

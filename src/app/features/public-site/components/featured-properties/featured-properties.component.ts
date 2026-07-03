@@ -54,6 +54,13 @@ export class FeaturedPropertiesComponent implements OnInit {
     });
   }
 
+  // Transforma URLs de Cloudinary para servir WebP al tamaño correcto
+  // Las property cards se muestran a 336x252px; 672px = 2x para pantallas retina
+  getImageUrl(url: string): string {
+    if (!url || !url.includes('res.cloudinary.com')) return url;
+    return url.replace('/upload/', '/upload/f_auto,w_672,q_auto/');
+  }
+
   formatearPrecio(precio: number, moneda: string): string {
     return new Intl.NumberFormat('es-AR', {
       style: 'currency',

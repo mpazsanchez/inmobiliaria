@@ -20,7 +20,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-image: url('/assets/images/backgrounds/fairway/slide-2.jpg');
+      background-image: url('/assets/images/backgrounds/fairway/slide-2-bg.webp');
       background-size: cover;
       background-position: center;
       opacity: 0;
@@ -340,6 +340,76 @@
           height: 100%;
           border: none;
         }
+
+        .map-facade {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          padding: 0;
+          border: none;
+          cursor: pointer;
+          overflow: hidden;
+          display: block;
+
+          .map-facade-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+          }
+
+          &:hover .map-facade-img {
+            transform: scale(1.03);
+          }
+
+          .map-facade-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.52);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            transition: background 0.2s ease;
+          }
+
+          &:hover .map-facade-overlay {
+            background: rgba(0, 0, 0, 0.60);
+          }
+
+          .map-facade-pin {
+            font-size: 2.5rem;
+            color: #e74c3c;
+            line-height: 1;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+          }
+
+          .map-facade-address {
+            font-size: 1rem;
+            color: white;
+            font-weight: 600;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+          }
+
+          .map-facade-btn {
+            display: inline-flex;
+            align-items: center;
+            background: v.$brand-green;
+            color: white;
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            transition: background 0.2s ease;
+
+            .map-facade:hover & {
+              background: v.$brand-green-dark;
+            }
+          }
+        }
       }
 
       .contact-info-card {
@@ -371,22 +441,21 @@
 
           .social-links {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            flex-direction: row;
+            gap: 12px;
 
             .social-link {
               display: flex;
               align-items: center;
-              gap: 10px;
-              padding: 10px 14px;
+              justify-content: center;
+              width: 44px;
+              height: 44px;
               background: white;
               border: 1px solid #e2e8f0;
-              border-radius: 6px;
+              border-radius: 50%;
               color: #475569;
               text-decoration: none;
-              font-size: 0.9rem;
-              font-weight: 500;
-              transition: all 0.3s ease;
+              transition: all 0.25s ease;
 
               svg {
                 width: 20px;
@@ -395,23 +464,26 @@
               }
 
               &:hover {
-                transform: translateX(4px);
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                transform: translateY(-3px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
               }
 
               &.facebook:hover {
+                background: #1877f2;
                 border-color: #1877f2;
-                color: #1877f2;
+                color: white;
               }
 
               &.instagram:hover {
+                background: #e4405f;
                 border-color: #e4405f;
-                color: #e4405f;
+                color: white;
               }
 
               &.whatsapp:hover {
+                background: #25d366;
                 border-color: #25d366;
-                color: #25d366;
+                color: white;
               }
             }
           }

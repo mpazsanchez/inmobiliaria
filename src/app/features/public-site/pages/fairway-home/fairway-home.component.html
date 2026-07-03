@@ -1,8 +1,9 @@
-<!-- Hero Section con imagen estática desde API -->
+<!-- Hero Section -->
 <section class="hero-section">
   <div class="hero-background">
     <div class="hero-overlay"></div>
-    @if (!isLoading()) {
+    <picture>
+      <source media="(max-width: 640px)" [srcset]="heroMobileImageUrl" type="image/webp">
       <img
         [src]="heroData.imagenUrl"
         alt="Fairway Inmobiliaria"
@@ -10,7 +11,7 @@
         loading="eager"
         fetchpriority="high"
       />
-    }
+    </picture>
   </div>
 
   <div class="hero-content">
@@ -28,35 +29,15 @@
   </div>
 </section>
 
-<!--
-  NOTA: Slider disponible para usar cuando se necesite.
-  Para activar el slider, descomentar lo siguiente y comentar el hero-section de arriba:
-
-  <div class="hero-wrapper">
-    <app-hero-banner-slider/>
-    <div class="search-overlay">
-      <div class="search-container">
-        <app-property-search-bar/>
-      </div>
-    </div>
-  </div>
-
-  También agregar HeroBannerSliderComponent a los imports en el .ts
--->
-
-<!-- Propiedades Destacadas -->
+<!-- Propiedades Destacadas: visible en el fold, se carga de inmediato -->
 <app-featured-properties/>
 
-<!-- Propiedades Exclusivas CTA -->
 <app-exclusive-properties-cta/>
 
-<!-- Por Qué Fairway -->
 <app-why-fairway/>
 
-<!-- Preguntas Frecuentes -->
 <app-fairway-faq-section/>
 
-<!-- Call to Action Section -->
 <section class="cta-section">
   <div class="container">
     <div class="cta-content">

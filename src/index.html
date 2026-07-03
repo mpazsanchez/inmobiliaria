@@ -3,23 +3,29 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Fairway</title>
+  <title>Fairway Inmobiliaria</title>
+  <meta name="description" content="Fairway Inmobiliaria: propiedades en venta y alquiler en Tandil y la zona. Encontrá tu hogar ideal con nuestro equipo de asesores profesionales.">
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="image"
+        href="assets/images/backgrounds/fairway/hero-home-3.webp"
+        imagesrcset="assets/images/backgrounds/fairway/hero-home-3-mobile.webp 480w, assets/images/backgrounds/fairway/hero-home-3.webp 1400w"
+        imagesizes="100vw">
+  <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=optional"
+        onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=optional"
+        onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=optional" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=optional" rel="stylesheet">
+  </noscript>
 
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <!-- Leaflet MarkerCluster CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
-
-  <!-- Google reCAPTCHA Enterprise -->
-  <script src="https://www.google.com/recaptcha/enterprise.js?render=6LcGGlksAAAAAF3cxAbGTE4WZZvCYtFgk6jJZWZN" async defer></script>
+  <!-- reCAPTCHA Enterprise: se carga de forma lazy desde RecaptchaService solo cuando se necesita -->
 </head>
 
 <body>

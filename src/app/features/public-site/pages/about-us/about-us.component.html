@@ -6,12 +6,10 @@
     <div class="hero-overlay"></div>
     <div class="container">
       <div class="hero-content">
-        @if (content) {
-          <span class="hero-label">Sobre Nosotros</span>
-          <h1 class="hero-title">{{ content.titulo }}</h1>
-          <div class="hero-divider"></div>
-          <p class="hero-subtitle">Más de 12 años construyendo confianza y realizando sueños inmobiliarios</p>
-        }
+        <span class="hero-label">Sobre Nosotros</span>
+        <h1 class="hero-title">{{ heroTitle }}</h1>
+        <div class="hero-divider"></div>
+        <p class="hero-subtitle">Más de 12 años construyendo confianza y realizando sueños inmobiliarios</p>
       </div>
     </div>
   </section>
@@ -26,7 +24,9 @@
                 <img src="/assets/images/backgrounds/fairway/urbanismo.webp"
                      alt="Fairway Inmobiliaria - Oficina y equipo profesional"
                      class="img-fluid"
-                     loading="eager">
+                     width="1200" height="553"
+                     loading="eager"
+                     fetchpriority="high">
               </div>
               <div class="experience-badge">
                 <div class="badge-content">

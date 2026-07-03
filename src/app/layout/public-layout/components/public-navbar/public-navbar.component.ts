@@ -41,14 +41,14 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 // import { MenuItem, MenuArgument, NavbarConfig } from '../interfaces/menu.interface';
 
 @Component({
   selector: 'app-public-navbar',
   standalone: true,
-  imports: [CommonModule, NgbModule],
+  imports: [CommonModule, NgbDropdownModule],
   templateUrl: './public-navbar.component.html',
   styleUrl: './public-navbar.component.scss',
 })

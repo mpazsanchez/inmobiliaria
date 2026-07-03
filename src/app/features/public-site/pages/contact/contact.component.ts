@@ -25,6 +25,8 @@ export class ContactComponent implements OnInit {
   readonly loading = this.contactPageService.loading;
   readonly error = this.contactPageService.error;
 
+  mapVisible = false;
+
   readonly safeMapUrl = computed(() => {
     const mapUrl = this.data()?.map?.iframeUrl;
     if (mapUrl) {
@@ -37,5 +39,9 @@ export class ContactComponent implements OnInit {
     if (this.data() === null && !this.loading()) {
       this.contactPageService.fetchData();
     }
+  }
+
+  showMap(): void {
+    this.mapVisible = true;
   }
 }

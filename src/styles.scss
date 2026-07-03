@@ -2,7 +2,7 @@
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
-@import 'bootstrap-icons/font/bootstrap-icons.css';
+@import 'bootstrap-icons/font/bootstrap-icons';
 @import 'assets/styles/_variables.scss';
 
 :root {
@@ -62,6 +62,36 @@ table {
 /* Inputs y textareas no deben desbordar */
 input, textarea, select {
     max-width: 100%;
+}
+
+/* ============================================
+   font-display: optional para icon fonts
+   El override posterior en el cascade sobreescribe el font-display: block
+   que usan Bootstrap Icons y FontAwesome por defecto.
+   "optional": 100ms para cargar; si no llega, usa fallback sin swap.
+   Elimina el parpadeo de íconos sin generar CLS.
+   ============================================ */
+@font-face {
+    font-family: "bootstrap-icons";
+    font-display: optional;
+    src: url("bootstrap-icons/font/fonts/bootstrap-icons.woff2") format("woff2"),
+         url("bootstrap-icons/font/fonts/bootstrap-icons.woff") format("woff");
+}
+
+@font-face {
+    font-family: "Font Awesome 7 Free";
+    font-style: normal;
+    font-weight: 900;
+    font-display: optional;
+    src: url("@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Font Awesome 7 Brands";
+    font-style: normal;
+    font-weight: 400;
+    font-display: optional;
+    src: url("@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2") format("woff2");
 }
 
 /* Flexbox fix para prevenir overflow en flex children */

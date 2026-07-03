@@ -51,6 +51,10 @@ export class AboutUsComponent implements OnInit {
     });
   }
 
+  get heroTitle(): string {
+    return this.content?.titulo || 'Quiénes Somos';
+  }
+
   get experienceData() {
     // Mantener compatibilidad con el componente experience-section si existe
     return null;

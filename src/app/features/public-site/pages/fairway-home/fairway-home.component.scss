@@ -169,19 +169,19 @@ $green-dark: #0f3820;
   padding: 3rem 0;
   color: white;
   overflow: hidden;
-  
+
   // Efecto parallax con imagen de fondo
-  background-image: url('/assets/images/backgrounds/fairway/hero-home-3.jpg');
+  background-image: url('/assets/images/backgrounds/fairway/hero-home-3.webp');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   background-attachment: scroll; // scroll en móvil por defecto
-  
+
   @media (min-width: 768px) {
     padding: 4rem 0;
     background-attachment: fixed; // parallax solo en desktop
   }
-  
+
   @media (min-width: 1024px) {
     padding: 5rem 0;
   }

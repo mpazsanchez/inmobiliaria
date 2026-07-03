@@ -1,53 +1,18 @@
 import { Routes } from '@angular/router';
 
-// Layouts
+// Layout público (eager: envuelve todas las rutas públicas)
 import { PublicLayoutComponent } from './layout/public-layout/public-layout.component';
-import { AdminLayoutComponent } from './layout/admin-layout/admin-layout.component';
 
-// Public Site Pages
-import { HomeComponent } from './features/public-site/pages/home/home.component';
-import { HomeTwoComponent } from './features/public-site/pages/home-two/home-two.component';
-import { FairwayHomeComponent } from './features/public-site/pages/fairway-home/fairway-home.component';
-import { PropertyListingComponent } from './features/public-site/pages/property-listing/property-listing.component';
-import { PropertyDetailComponent } from './features/public-site/pages/property-detail/property-detail.component';
-import { AgentListingComponent } from './features/public-site/pages/agent-listing/agent-listing.component';
-import { AgentProfileComponent } from './features/public-site/pages/agent-profile/agent-profile.component';
-import { ContactComponent } from './features/public-site/pages/contact/contact.component';
-import { AboutUsComponent } from './features/public-site/pages/about-us/about-us.component';
-import { ProductDetailComponent } from './features/public-site/pages/products/product-detail/product-detail.component';
-import { ForgotPasswordComponent } from './features/public-site/pages/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './features/public-site/pages/reset-password/reset-password.component';
-
-// Member Area Pages
-import { LoginComponent } from './features/member-area/pages/login/login.component';
-import { DashboardComponent } from './features/member-area/pages/dashboard/dashboard.component';
-import { ProfileComponent } from './features/member-area/pages/profile/profile.component';
-import { TrainingCatalogComponent } from './features/member-area/pages/training/training-catalog/training-catalog.component';
-import { CourseDetailComponent } from './features/member-area/pages/training/course-detail/course-detail.component';
-import { CertificationsComponent } from './features/member-area/pages/certifications/certifications.component';
-import { PropertyListComponent } from './features/member-area/pages/properties/property-list/property-list.component';
-import { PropertyFormComponent } from './features/member-area/pages/properties/property-form/property-form.component';
-import { UserListComponent } from './features/member-area/pages/users/user-list/user-list.component';
-import { UserFormComponent } from './features/member-area/pages/users/user-form/user-form.component';
-import { LeadsInboxComponent } from './features/member-area/pages/leads/leads-inbox.component';
-import { ContentListComponent } from './features/member-area/pages/content/content-list/content-list.component';
-import { ContentFormComponent } from './features/member-area/pages/content/content-form/content-form.component';
-import { StaticPagesListComponent } from './features/member-area/pages/static-pages/static-pages-list/static-pages-list.component';
-import { StaticPageEditorComponent } from './features/member-area/pages/static-pages/static-page-editor/static-page-editor.component';
-
-// Guards
+// Guards (funciones pequeñas, eager)
 import { authGuard } from './features/member-area/guards/auth.guard';
 import { canDeactivateGuard } from './core/guards/can-deactivate.guard';
-import { NotificationsPageComponent } from './features/member-area/pages/notifications/notifications-page.component';
-import { StatisticsComponent } from './features/member-area/pages/statistics/statistics.component';
 
 export const routes: Routes = [
   // ============ AUTENTICACIÓN Y PASSWORD RESET ============
 
-  // Login (sin layout, fuera del guard)
   {
     path: 'login',
-    component: LoginComponent,
+    loadComponent: () => import('./features/member-area/pages/login/login.component').then(m => m.LoginComponent),
     data: { title: 'Iniciar Sesión - Fairway' }
   },
   {
@@ -55,27 +20,22 @@ export const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   },
-
-  // Forgot Password (público, sin layout)
   {
     path: 'login/forgot-password',
-    component: ForgotPasswordComponent,
+    loadComponent: () => import('./features/public-site/pages/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent),
     data: { title: '¿Olvidaste tu contraseña? - Fairway' }
   },
-
-  // Reset Password (público, sin layout, con token en URL)
   {
     path: 'reset-password',
-    component: ResetPasswordComponent,
+    loadComponent: () => import('./features/public-site/pages/reset-password/reset-password.component').then(m => m.ResetPasswordComponent),
     data: { title: 'Restablecer Contraseña - Fairway' }
   },
 
   // ============ ÁREA DE MIEMBROS ============
 
-  // Rutas protegidas del area de miembros (con layout admin)
   {
     path: 'member-area',
-    component: AdminLayoutComponent,
+    loadComponent: () => import('./layout/admin-layout/admin-layout.component').then(m => m.AdminLayoutComponent),
     canActivate: [authGuard],
     children: [
       {
@@ -85,87 +45,87 @@ export const routes: Routes = [
       },
       {
         path: 'dashboard',
-        component: DashboardComponent,
+        loadComponent: () => import('./features/member-area/pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
         data: { title: 'Dashboard - Fairway' }
       },
       {
         path: 'profile',
-        component: ProfileComponent,
+        loadComponent: () => import('./features/member-area/pages/profile/profile.component').then(m => m.ProfileComponent),
         canDeactivate: [canDeactivateGuard],
         data: { title: 'Mi Perfil - Fairway' }
       },
       {
         path: 'training',
-        component: TrainingCatalogComponent,
+        loadComponent: () => import('./features/member-area/pages/training/training-catalog/training-catalog.component').then(m => m.TrainingCatalogComponent),
         data: { title: 'Capacitacion - Fairway' }
       },
       {
         path: 'training/:id',
-        component: CourseDetailComponent,
+        loadComponent: () => import('./features/member-area/pages/training/course-detail/course-detail.component').then(m => m.CourseDetailComponent),
         data: { title: 'Curso - Fairway' }
       },
       {
         path: 'certificaciones',
-        component: CertificationsComponent,
+        loadComponent: () => import('./features/member-area/pages/certifications/certifications.component').then(m => m.CertificationsComponent),
         data: { title: 'Certificaciones - Fairway' }
       },
       // ============ PROPIEDADES (Admin) ============
       {
         path: 'propiedades',
-        component: PropertyListComponent,
+        loadComponent: () => import('./features/member-area/pages/properties/property-list/property-list.component').then(m => m.PropertyListComponent),
         data: { title: 'Propiedades - Fairway' }
       },
       {
         path: 'propiedades/nueva',
-        component: PropertyFormComponent,
+        loadComponent: () => import('./features/member-area/pages/properties/property-form/property-form.component').then(m => m.PropertyFormComponent),
         canDeactivate: [canDeactivateGuard],
         data: { title: 'Nueva Propiedad - Fairway' }
       },
       {
         path: 'propiedades/editar/:id',
-        component: PropertyFormComponent,
+        loadComponent: () => import('./features/member-area/pages/properties/property-form/property-form.component').then(m => m.PropertyFormComponent),
         canDeactivate: [canDeactivateGuard],
         data: { title: 'Editar Propiedad - Fairway' }
       },
       {
         path: 'mis-propiedades',
-        component: PropertyListComponent,
+        loadComponent: () => import('./features/member-area/pages/properties/property-list/property-list.component').then(m => m.PropertyListComponent),
         data: { title: 'Mis Propiedades - Fairway' }
       },
       // ============ USUARIOS (Admin) ============
       {
         path: 'usuarios',
-        component: UserListComponent,
+        loadComponent: () => import('./features/member-area/pages/users/user-list/user-list.component').then(m => m.UserListComponent),
         data: { title: 'Usuarios - Fairway' }
       },
       {
         path: 'usuarios/nuevo',
-        component: UserFormComponent,
+        loadComponent: () => import('./features/member-area/pages/users/user-form/user-form.component').then(m => m.UserFormComponent),
         canDeactivate: [canDeactivateGuard],
         data: { title: 'Nuevo Usuario - Fairway' }
       },
       {
         path: 'usuarios/editar/:id',
-        component: UserFormComponent,
+        loadComponent: () => import('./features/member-area/pages/users/user-form/user-form.component').then(m => m.UserFormComponent),
         canDeactivate: [canDeactivateGuard],
         data: { title: 'Editar Usuario - Fairway' }
       },
       // ============ CONSULTAS ============
       {
         path: 'consultas',
-        component: LeadsInboxComponent,
+        loadComponent: () => import('./features/member-area/pages/leads/leads-inbox.component').then(m => m.LeadsInboxComponent),
         data: { title: 'Consultas - Fairway' }
       },
       // ============ NOTIFICACIONES ============
       {
         path: 'notificaciones',
-        component: NotificationsPageComponent,
+        loadComponent: () => import('./features/member-area/pages/notifications/notifications-page.component').then(m => m.NotificationsPageComponent),
         data: { title: 'Notificaciones - Fairway' }
       },
       // ============ ESTADÍSTICAS Y REPORTES ============
       {
         path: 'estadisticas',
-        component: StatisticsComponent,
+        loadComponent: () => import('./features/member-area/pages/statistics/statistics.component').then(m => m.StatisticsComponent),
         data: { title: 'Estadísticas - Fairway' }
       },
       {
@@ -176,66 +136,66 @@ export const routes: Routes = [
       // ============ CONTENIDO (Admin) ============
       {
         path: 'contenido',
-        component: ContentListComponent,
+        loadComponent: () => import('./features/member-area/pages/content/content-list/content-list.component').then(m => m.ContentListComponent),
         data: { title: 'Contenido - Fairway' }
       },
       {
         path: 'contenido/testimonios/nuevo',
-        component: ContentFormComponent,
+        loadComponent: () => import('./features/member-area/pages/content/content-form/content-form.component').then(m => m.ContentFormComponent),
         canDeactivate: [canDeactivateGuard],
         data: { title: 'Nuevo Testimonio - Fairway' }
       },
       {
         path: 'contenido/testimonios/editar/:id',
-        component: ContentFormComponent,
+        loadComponent: () => import('./features/member-area/pages/content/content-form/content-form.component').then(m => m.ContentFormComponent),
         canDeactivate: [canDeactivateGuard],
         data: { title: 'Editar Testimonio - Fairway' }
       },
       {
         path: 'contenido/beneficios/nuevo',
-        component: ContentFormComponent,
+        loadComponent: () => import('./features/member-area/pages/content/content-form/content-form.component').then(m => m.ContentFormComponent),
         canDeactivate: [canDeactivateGuard],
         data: { title: 'Nuevo Beneficio - Fairway' }
       },
       {
         path: 'contenido/beneficios/editar/:id',
-        component: ContentFormComponent,
+        loadComponent: () => import('./features/member-area/pages/content/content-form/content-form.component').then(m => m.ContentFormComponent),
         canDeactivate: [canDeactivateGuard],
         data: { title: 'Editar Beneficio - Fairway' }
       },
       {
         path: 'contenido/faqs/nuevo',
-        component: ContentFormComponent,
+        loadComponent: () => import('./features/member-area/pages/content/content-form/content-form.component').then(m => m.ContentFormComponent),
         canDeactivate: [canDeactivateGuard],
         data: { title: 'Nueva FAQ - Fairway' }
       },
       {
         path: 'contenido/faqs/editar/:id',
-        component: ContentFormComponent,
+        loadComponent: () => import('./features/member-area/pages/content/content-form/content-form.component').then(m => m.ContentFormComponent),
         canDeactivate: [canDeactivateGuard],
         data: { title: 'Editar FAQ - Fairway' }
       },
       {
         path: 'contenido/banners/nuevo',
-        component: ContentFormComponent,
+        loadComponent: () => import('./features/member-area/pages/content/content-form/content-form.component').then(m => m.ContentFormComponent),
         canDeactivate: [canDeactivateGuard],
         data: { title: 'Nuevo Banner - Fairway' }
       },
       {
         path: 'contenido/banners/editar/:id',
-        component: ContentFormComponent,
+        loadComponent: () => import('./features/member-area/pages/content/content-form/content-form.component').then(m => m.ContentFormComponent),
         canDeactivate: [canDeactivateGuard],
         data: { title: 'Editar Banner - Fairway' }
       },
       // ============ PÁGINAS ESTÁTICAS (Admin) ============
       {
         path: 'paginas-estaticas',
-        component: StaticPagesListComponent,
+        loadComponent: () => import('./features/member-area/pages/static-pages/static-pages-list/static-pages-list.component').then(m => m.StaticPagesListComponent),
         data: { title: 'Páginas Estáticas - Fairway' }
       },
       {
         path: 'paginas-estaticas/editar/:id',
-        component: StaticPageEditorComponent,
+        loadComponent: () => import('./features/member-area/pages/static-pages/static-page-editor/static-page-editor.component').then(m => m.StaticPageEditorComponent),
         canDeactivate: [canDeactivateGuard],
         data: { title: 'Editar Página - Fairway' }
       },
@@ -244,7 +204,6 @@ export const routes: Routes = [
         redirectTo: 'dashboard',
         pathMatch: 'full'
       },
-
     ]
   },
 
@@ -256,77 +215,77 @@ export const routes: Routes = [
       // Homepage
       {
         path: '',
-        component: FairwayHomeComponent,
+        loadComponent: () => import('./features/public-site/pages/fairway-home/fairway-home.component').then(m => m.FairwayHomeComponent),
         data: { title: 'Inicio - Fairway Inmobiliaria' }
       },
 
       // ============ PROPIEDADES ============
       {
         path: 'properties',
-        component: PropertyListingComponent,
+        loadComponent: () => import('./features/public-site/pages/property-listing/property-listing.component').then(m => m.PropertyListingComponent),
         data: { title: 'Propiedades - Fairway Inmobiliaria' }
       },
       {
         path: 'buy',
-        component: PropertyListingComponent,
+        loadComponent: () => import('./features/public-site/pages/property-listing/property-listing.component').then(m => m.PropertyListingComponent),
         data: { title: 'Propiedades en Venta - Fairway Inmobiliaria', operacion: 'venta' }
       },
       {
         path: 'rent',
-        component: PropertyListingComponent,
+        loadComponent: () => import('./features/public-site/pages/property-listing/property-listing.component').then(m => m.PropertyListingComponent),
         data: { title: 'Propiedades en Alquiler - Fairway Inmobiliaria', operacion: 'alquiler' }
       },
       {
         path: 'property/:id',
-        component: PropertyDetailComponent,
+        loadComponent: () => import('./features/public-site/pages/property-detail/property-detail.component').then(m => m.PropertyDetailComponent),
         data: { title: 'Detalle de Propiedad - Fairway Inmobiliaria' }
       },
 
       // ============ EQUIPO / AGENTES ============
       {
         path: 'team',
-        component: AgentListingComponent,
+        loadComponent: () => import('./features/public-site/pages/agent-listing/agent-listing.component').then(m => m.AgentListingComponent),
         data: { title: 'Nuestro Equipo - Fairway Inmobiliaria' }
       },
       {
         path: 'team/:id',
-        component: AgentProfileComponent,
+        loadComponent: () => import('./features/public-site/pages/agent-profile/agent-profile.component').then(m => m.AgentProfileComponent),
         data: { title: 'Perfil de Asesor - Fairway Inmobiliaria' }
       },
 
       // ============ PÁGINAS INFORMATIVAS ============
       {
         path: 'about',
-        component: AboutUsComponent,
+        loadComponent: () => import('./features/public-site/pages/about-us/about-us.component').then(m => m.AboutUsComponent),
         data: { title: 'Nosotros - Fairway' }
       },
       {
         path: 'contact',
-        component: ContactComponent,
+        loadComponent: () => import('./features/public-site/pages/contact/contact.component').then(m => m.ContactComponent),
         data: { title: 'Contacto - Fairway' }
       },
 
       // ============ LEGACY HOMES ============
       {
         path: 'home',
-        component: HomeComponent,
+        loadComponent: () => import('./features/public-site/pages/home/home.component').then(m => m.HomeComponent),
         data: { title: 'Inicio - Fairway' }
       },
       {
         path: 'home-two',
-        component: HomeTwoComponent,
+        loadComponent: () => import('./features/public-site/pages/home-two/home-two.component').then(m => m.HomeTwoComponent),
         data: { title: 'Inicio - Fairway' }
       },
 
       // ============ SERVICIOS ============
       {
         path: 'product/:slug',
-        component: ProductDetailComponent,
+        loadComponent: () => import('./features/public-site/pages/products/product-detail/product-detail.component').then(m => m.ProductDetailComponent),
         data: { title: 'Producto - Fairway' }
       },
       {
         path: 'services/:slug',
-        component: ProductDetailComponent,
+        loadComponent: () => import('./features/public-site/pages/products/product-detail/product-detail.component').then(m => m.ProductDetailComponent),
         data: { title: 'Servicio - Fairway' }
       },
 
@@ -341,7 +300,7 @@ export const routes: Routes = [
       // ============ FALLBACK ============
       {
         path: '**',
-        component: FairwayHomeComponent,
+        loadComponent: () => import('./features/public-site/pages/fairway-home/fairway-home.component').then(m => m.FairwayHomeComponent),
         data: { title: 'Inicio - Fairway Inmobiliaria' }
       }
     ]

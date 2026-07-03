@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, OnDestroy, PLATFORM_ID, inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, switchMap, EMPTY } from 'rxjs';
 import { PropertyService } from '../../../../core/services';
 import { Propiedad, FiltrosBusqueda, RespuestaPaginada, OrdenBusqueda } from '../../../../core/models';
 import { PropertyCardComponent } from '../../components/property-card/property-card.component';
@@ -34,6 +34,7 @@ export class PropertyListingComponent implements OnInit, OnDestroy {
   
   // Suscripciones
   private subscriptions = new Subscription();
+  private platformId = inject(PLATFORM_ID);
   
   filtros: FiltrosBusqueda = {
     pagina: 1,
@@ -55,17 +56,32 @@ export class PropertyListingComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // Suscribirse a cambios en queryParams - única fuente de verdad
+    // switchMap cancela la request anterior si queryParams cambia antes de que resuelva.
+    // Evita el flash "todas → 0 → filtradas" causado por dos emisiones rápidas.
     this.subscriptions.add(
-      this.route.queryParams.subscribe(params => {
-        // Construir filtros desde queryParams
-        this.filtros = this.buildFiltrosFromParams(params);
-        
-        // Configurar breadcrumbs según operación
-        this.setupBreadcrumbs(this.filtros.operacion);
-        
-        // Cargar propiedades con los nuevos filtros
-        this.cargarPropiedades();
+      this.route.queryParams.pipe(
+        switchMap(params => {
+          this.filtros = this.buildFiltrosFromParams(params);
+          this.setupBreadcrumbs(this.filtros.operacion);
+          this.isLoading = true;
+          // En SSR el servidor no fetchea datos: renderiza solo el skeleton.
+          // Evita que el HTML pre-renderizado muestre propiedades sin filtro
+          // antes de que el cliente hidrate con los queryParams correctos.
+          if (!isPlatformBrowser(this.platformId)) {
+            return EMPTY;
+          }
+          return this.propertyService.getPropiedades(this.filtros);
+        })
+      ).subscribe({
+        next: (respuesta: RespuestaPaginada<Propiedad>) => {
+          this.propiedades = respuesta.datos;
+          this.totalResultados = respuesta.paginacion.total || respuesta.paginacion.totalItems;
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error('❌ Error al cargar propiedades:', error);
+          this.isLoading = false;
+        }
       })
     );
   }
@@ -107,22 +123,6 @@ export class PropertyListingComponent implements OnInit, OnDestroy {
         active: true
       }
     ];
-  }
-
-  cargarPropiedades(): void {
-    this.isLoading = true;
-    
-    this.propertyService.getPropiedades(this.filtros).subscribe({
-      next: (respuesta: RespuestaPaginada<Propiedad>) => {
-        this.propiedades = respuesta.datos;
-        this.totalResultados = respuesta.paginacion.total || respuesta.paginacion.totalItems;
-        this.isLoading = false;
-      },
-      error: (error) => {
-        console.error('❌ Error al cargar propiedades:', error);
-        this.isLoading = false;
-      }
-    });
   }
 
   onFiltrosChange(nuevosFiltros: FiltrosBusqueda): void {

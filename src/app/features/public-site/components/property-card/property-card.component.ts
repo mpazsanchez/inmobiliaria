@@ -13,10 +13,27 @@ import { Propiedad } from '../../../../core/models';
 export class PropertyCardComponent {
   @Input() propiedad!: Propiedad;
   @Input() compactMode: boolean = false;
+  @Input() index = 0;
   @Output() favoriteToggle = new EventEmitter<string>();
   @Output() share = new EventEmitter<{ propertyId: string, platform: string }>();
 
   isFavorite = false;
+
+  getImageUrl(url: string): string {
+    if (!url || !url.includes('res.cloudinary.com')) return url;
+    return url.replace('/upload/', '/upload/f_auto,w_760,q_auto/');
+  }
+
+  getAgentImageUrl(url: string): string {
+    if (!url) return url;
+    if (url.includes('res.cloudinary.com')) {
+      return url.replace('/upload/', '/upload/f_auto,w_88,h_88,c_thumb,g_face/');
+    }
+    if (url.includes('images.unsplash.com')) {
+      return url.replace(/([?&]w=)\d+/, '$1150').replace(/([?&]h=)\d+/, '$1150');
+    }
+    return url;
+  }
 
   toggleFavorite(event: Event): void {
     event.preventDefault();

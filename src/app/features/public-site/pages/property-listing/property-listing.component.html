@@ -7,7 +7,9 @@
     <div class="page-header">
       <div class="header-content">
         <h1 class="page-title">Propiedades {{ tituloOperacion }}</h1>
-        <p class="results-count">{{ totalResultados }} propiedades encontradas</p>
+        <p class="results-count">
+          @if (!isLoading) { {{ totalResultados }} propiedades encontradas }
+        </p>
       </div>
 
       <div class="header-controls">
@@ -69,8 +71,9 @@
         <!-- Grid de Propiedades -->
         <div *ngIf="!isLoading && !showMapView" class="properties-grid">
           <app-property-card
-            *ngFor="let propiedad of propiedades"
+            *ngFor="let propiedad of propiedades; let i = index"
             [propiedad]="propiedad"
+            [index]="i"
             (favoriteToggle)="onFavoriteToggle($event)"
             (share)="onShare($event)">
           </app-property-card>

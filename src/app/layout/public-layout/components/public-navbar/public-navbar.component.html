@@ -6,9 +6,13 @@
           
           <!-- Logo y nombre de empresa -->
           <a class="navbar-brand d-flex align-items-center" href="/">
-            <img [src]="'./assets/images/logos/logotipo-horizontal.png'" 
-                 [alt]="config.companyName" 
-                 class="navbar-logo me-2">
+            <picture>
+              <source srcset="./assets/images/logos/logotipo-horizontal.webp" type="image/webp">
+              <img src="./assets/images/logos/logotipo-horizontal.png"
+                   [alt]="config.companyName"
+                   class="navbar-logo me-2"
+                   width="135" height="50">
+            </picture>
           </a>
 
           <!-- Toggle button para móvil -->
@@ -35,8 +39,10 @@
                 <i class="fas fa-times"></i>
               </button>
               <div class="menu-logo">
-                <img [src]="'./assets/images/logos/logotipo.png'" 
-                     [alt]="config.companyName">
+                <img [src]="'./assets/images/logos/logotipo.png'"
+                     [alt]="config.companyName"
+                     width="107" height="120"
+                     loading="lazy">
                 <span>{{ config.companyName }}</span>
               </div>
             </div>

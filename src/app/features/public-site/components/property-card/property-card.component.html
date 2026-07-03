@@ -2,7 +2,11 @@
   <!-- Image Container -->
   <a [routerLink]="['/property', propiedad.id]" class="image-link">
     <div class="card-image">
-      <img [src]="propiedad.imagenes[0].url" [alt]="propiedad.titulo" loading="lazy" />
+      <img [src]="getImageUrl(propiedad.imagenes[0].url)"
+           [alt]="propiedad.titulo"
+           width="380" height="285"
+           [loading]="index === 0 ? 'eager' : 'lazy'"
+           [attr.fetchpriority]="index === 0 ? 'high' : null" />
       
       <!-- Status Badge -->
       <span class="status-badge" [ngClass]="getEstadoClass()">
@@ -93,7 +97,7 @@
       @if (propiedad.agente) {
       <div class="card-agent">
         <a [routerLink]="['/team', propiedad.agente.id]" class="agent-info agent-link">
-          <img [src]="propiedad.agente.fotoUrl" [alt]="propiedad.agente.nombre" class="agent-photo" />
+          <img [src]="getAgentImageUrl(propiedad.agente.fotoUrl)" [alt]="propiedad.agente.nombre" class="agent-photo" width="44" height="44" loading="lazy" />
           <div class="agent-details">
             <div class="agent-name">{{ propiedad.agente.nombre }}</div>
             <div class="agent-role">Asesor Inmobiliario</div>

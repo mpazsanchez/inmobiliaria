@@ -52,8 +52,9 @@
             <a [routerLink]="['/property', propiedad.id]" class="property-image-link">
               <div class="property-image">
                 <img
-                  [src]="propiedad.imagenes[0].url || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&h=600&fit=crop'"
+                  [src]="getImageUrl(propiedad.imagenes[0].url) || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=672&h=504&fit=crop'"
                   [alt]="propiedad.titulo"
+                  width="336" height="252"
                   loading="lazy"
                 />
                 <div class="property-badge">{{ propiedad.operacion === 'venta' ? 'En Venta' : 'En Alquiler' }}</div>
